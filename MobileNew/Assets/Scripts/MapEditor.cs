@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -9,15 +10,15 @@ public class MapEditor : EditorWindow
     //input
     string filePath = "Assets/Graphics/Maps/Map1";
     Texture2D rawMap;
+    Material outlineMaterial;
+    Material highlightMaterial;
     //
 
 
     //output
     bool[,,] mapArray;// [x,y,a] a = 0 is Checked , a = 1 is Painted
-
-
-
     Texture2D map;
+    Transform mapParent;
 
     int maxX;
     int maxY;
@@ -34,30 +35,94 @@ public class MapEditor : EditorWindow
         GetWindow<MapEditor>("Map Editor");
     }
 
+   
+
     private void OnGUI()
     {
         Object obj =  EditorGUILayout.ObjectField(rawMap, typeof(Texture2D),false);
+
+        Object obj2 =  EditorGUILayout.ObjectField(outlineMaterial, typeof(Material),false);
+
+        Object obj3 =  EditorGUILayout.ObjectField(highlightMaterial, typeof(Material),false);
+
         GUILayout.Box(rawMap);
         EditorGUILayout.Space(10);
         filePath = EditorGUILayout.TextField("File Path", filePath);
 
+
+        highlightMaterial = obj3 as Material;
+        outlineMaterial = obj2 as Material; 
         rawMap = obj as Texture2D;
         EditorGUILayout.Space(30);
-        if (GUILayout.Button("Cutting Map")) CuttingMap();   
-        if (GUILayout.Button("Remove Map")) RemoveMap();   
+        if (GUILayout.Button("Cutting Map")) CuttingMap();
+        EditorGUILayout.Space(10);
+
+        if (mapParent != null)
+        {
+            SetUpProvinces();  
+        }
+
+
     }
-    private void RemoveMap()
+
+    int provinceNumber = 0;
+    private void SetUpProvinces()
     {
-        
+        EditorGUILayout.LabelField(mapParent.GetChild(provinceNumber).name);
+
+        if (GUILayout.Button("Next"))
+        {
+            SpriteRenderer spriteRenderer = mapParent.GetChild(provinceNumber).GetComponent<SpriteRenderer>();
+            spriteRenderer.material = outlineMaterial;
+            spriteRenderer.sortingOrder = 0;
+
+            if (provinceNumber < mapParent.childCount - 1) provinceNumber++;
+            else provinceNumber = 0;
+            SetUpProvinces();
+
+            spriteRenderer = mapParent.GetChild(provinceNumber).GetComponent<SpriteRenderer>();
+            spriteRenderer.material = highlightMaterial;
+            spriteRenderer.sortingOrder = 1;
+        }
+
+        if (GUILayout.Button("Back"))
+        {
+            SpriteRenderer spriteRenderer = mapParent.GetChild(provinceNumber).GetComponent<SpriteRenderer>();
+            spriteRenderer.material = outlineMaterial;
+            spriteRenderer.sortingOrder = 0;
+
+            if (provinceNumber > 0) provinceNumber--;
+            else provinceNumber = mapParent.childCount -1;
+            SetUpProvinces();
+
+            spriteRenderer = mapParent.GetChild(provinceNumber).GetComponent<SpriteRenderer>();
+            spriteRenderer.material = highlightMaterial;
+            spriteRenderer.sortingOrder = 1;
+        }
+
+        if (GUILayout.Button("Set Neighbors"))
+        {
+            mapParent.GetChild(provinceNumber).AddComponent<Province>().SetUp(Selection.objects);
+        }
     }
+
     private void CuttingMap()
     {
+        Camera.main.GetComponent<CameraController>().Limit = new Vector3(rawMap.width/100, rawMap.height/100);
+
+        provinceNumber = 0;
+
+        mapParent = new GameObject("Game Map",typeof(LineRenderer)).transform;
+
+        SetUpOutline();
         ClearMapSize();
         number = 0;
         mapArray = new bool [rawMap.width,rawMap.height,2];
 
         if(rawMap != null)
         {
+
+
             map = new Texture2D(100, 100);
 
             Vector2Int startPosition = Vector2Int.zero;
@@ -80,19 +145,41 @@ public class MapEditor : EditorWindow
             return;
         }
     }
+
+    private void SetUpOutline()
+    {
+        float width = rawMap.width / 100f;
+        float height = rawMap.height / 100f;
+
+        Debug.Log(width);
+        Vector3[] positionsArray = {
+            new Vector3(0    , 0     ,0),
+            new Vector3(0    , height,0),
+            new Vector3(width, height,0),
+            new Vector3(width, 0     ,0) };
+        LineRenderer line = mapParent.GetComponent<LineRenderer>();
+        line.positionCount = positionsArray.Length;
+        line.SetPositions(positionsArray);
+        line.loop = true;
+        line.material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default"));
+        line.startWidth = 0.15f;
+        line.startColor = Color.black;
+        line.endColor = Color.black;
+        line.sortingOrder = -1;
+    }
     private void CutProvince(int x,int y)
     {
         ClearMapSize();
         CheckPixel(x, y);
         int width = maxX - minX + 1;
         int height = maxY - minY + 1 ;
-        map = new Texture2D(width, height);
+        map = new Texture2D(width + 10, height + 10);
         
        
 
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < height + 10; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < width + 10; j++)
             {
                 map.SetPixel(j, i, new Color(0, 0, 0, 0));
             }
@@ -107,13 +194,16 @@ public class MapEditor : EditorWindow
         AssetDatabase.CreateAsset(map, filePath + "/Textures/" + rawMap.name + number.ToString() +".asset");
         AssetDatabase.Refresh();
 
-        GameObject gameObject = new GameObject(map.name,typeof(SpriteRenderer));
+        GameObject gameObject = new GameObject("Province " +number.ToString(), typeof(SpriteRenderer));
 
-        gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(map ,new Rect(0, 0, width, height),new Vector2(0.5f,0.5f));
+        gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(map ,new Rect(0, 0, width + 10, height + 10),new Vector2(0.5f,0.5f));
         gameObject.transform.position = new Vector3((maxX + minX) / 2 * 0.01f, (maxY + minY) / 2 * 0.01f, 0);
         gameObject.tag = "Province";
 
         gameObject.AddComponent<BoxCollider2D>();
+        gameObject.GetComponent<SpriteRenderer>().material = outlineMaterial;
+
+        gameObject.transform.parent = mapParent;
 
 
         number++;
@@ -161,7 +251,7 @@ public class MapEditor : EditorWindow
                 mapArray[x, y, 1] = true;
 
                 
-                map.SetPixel(x - minX, y - minY, color);
+                map.SetPixel(x - minX + 5, y - minY + 5, color);
                 CheckNeighbors(x, y, true);
             }
         }
