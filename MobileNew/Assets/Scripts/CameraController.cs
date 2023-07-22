@@ -19,9 +19,13 @@ public class CameraController : MonoBehaviour
             startPosition =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         
-        if(Input.GetMouseButton(0))
+        if(Input.touchCount > 0)
         {
-            Debug.Log("jest ");
+            Debug.Log("goog");
+        }
+
+        if(Input.GetMouseButton(0))
+        {;
             endPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 position = transform.position + startPosition - endPosition;
             transform.position = new Vector3(Mathf.Clamp(position.x,0,Limit.x),Mathf.Clamp(position.y,0,Limit.y), -10);

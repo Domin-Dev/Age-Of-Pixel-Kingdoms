@@ -1,4 +1,4 @@
-using System.Net.Sockets;
+
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -162,7 +162,7 @@ public class MapEditor : EditorWindow
         line.SetPositions(positionsArray);
         line.loop = true;
         line.material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default"));
-        line.startWidth = 0.15f;
+        line.startWidth = 0.08f;
         line.startColor = Color.black;
         line.endColor = Color.black;
         line.sortingOrder = -1;
