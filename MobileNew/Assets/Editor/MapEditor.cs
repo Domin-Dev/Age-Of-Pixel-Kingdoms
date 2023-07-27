@@ -138,7 +138,21 @@ public class MapEditor : EditorWindow
                 }
             }
 
-    
+            ProvinceStats[] provinces = new ProvinceStats[mapParent.transform.childCount];
+
+            for (int i = 0; i < mapParent.transform.childCount; i++)
+            {
+                provinces[i] = new ProvinceStats(Random.Range(100,200),Random.Range(90,120),0.1f,0.1f,ProvinceStats.Building.None);
+            }
+
+
+            MapStats mapStats = new MapStats(mapParent.transform.childCount, provinces);
+            AssetDatabase.CreateAsset(mapStats, filePath + "/Textures/" + rawMap.name  + ".asset");
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+
+
+
         }
         else
         {
@@ -194,7 +208,7 @@ public class MapEditor : EditorWindow
         AssetDatabase.CreateAsset(map, filePath + "/Textures/" + rawMap.name + number.ToString() +".asset");
         AssetDatabase.Refresh();
 
-        GameObject gameObject = new GameObject("Province " +number.ToString(), typeof(SpriteRenderer));
+        GameObject gameObject = new GameObject(number.ToString(), typeof(SpriteRenderer));
 
         gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(map ,new Rect(0, 0, width + 10, height + 10),new Vector2(0.5f,0.5f));
         gameObject.transform.position = new Vector3((maxX + minX) / 2 * 0.01f, (maxY + minY) / 2 * 0.01f, 0);

@@ -1,0 +1,176 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd16aedd88f03df42b7942c0f42c128a, type: 3}
+  m_Name: World
+  m_EditorClassIdentifier: 
+  numberOfProvinces: 32
+  provinces:
+  - population: 135
+    warriorsLimit: 98
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 143
+    warriorsLimit: 106
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 141
+    warriorsLimit: 100
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 188
+    warriorsLimit: 92
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 137
+    warriorsLimit: 106
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 169
+    warriorsLimit: 98
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 181
+    warriorsLimit: 95
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 107
+    warriorsLimit: 107
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 116
+    warriorsLimit: 101
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 114
+    warriorsLimit: 113
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 172
+    warriorsLimit: 98
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 150
+    warriorsLimit: 94
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 119
+    warriorsLimit: 97
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 114
+    warriorsLimit: 115
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 128
+    warriorsLimit: 101
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 171
+    warriorsLimit: 110
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 153
+    warriorsLimit: 99
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 134
+    warriorsLimit: 111
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 190
+    warriorsLimit: 110
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 184
+    warriorsLimit: 95
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 198
+    warriorsLimit: 114
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 156
+    warriorsLimit: 112
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 199
+    warriorsLimit: 106
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 119
+    warriorsLimit: 109
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 173
+    warriorsLimit: 91
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 152
+    warriorsLimit: 113
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 170
+    warriorsLimit: 101
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 106
+    warriorsLimit: 102
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 191
+    warriorsLimit: 117
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 147
+    warriorsLimit: 112
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 100
+    warriorsLimit: 94
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+  - population: 197
+    warriorsLimit: 101
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0

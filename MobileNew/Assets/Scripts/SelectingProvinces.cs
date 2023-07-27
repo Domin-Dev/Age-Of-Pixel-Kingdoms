@@ -1,12 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using UnityEngine.U2D;
+
+
+
 
 public class SelectingProvinces : MonoBehaviour
 {
+    private Transform selectedObject;
+    [SerializeField] Material material;
+
     void Update()
     {
         if(Input.GetMouseButtonDown(0))
@@ -35,8 +37,26 @@ public class SelectingProvinces : MonoBehaviour
                     if (pixel.a == 0) continue;
                     else
                     {
-                        spriteRenderer.color =
-                            pixel;
+                        if (selectedObject != null)
+                        {
+                            selectedObject = item.collider.gameObject.transform;
+                        }
+                        else
+                        {
+
+                            selectedObject = item.collider.gameObject.transform;
+                        }
+
+                        Color color = selectedObject.GetComponent<SpriteRenderer>().color;
+                            
+
+                        selectedObject.GetComponent<SpriteRenderer>().color = Color.white;
+                        selectedObject.GetComponent<SpriteRenderer>().material = GameAssets.Instance.highlight;
+                        selectedObject.GetComponent<SpriteRenderer>().material.SetColor("_Color_2", color);
+
+
+
+                        UIManager.Instance.OpenProvinceStats(int.Parse(item.collider.name));
                         break;
                     }
                 }

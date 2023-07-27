@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class Province : MonoBehaviour
 {
-   public Transform[] neighbors;
-
-    
+    public Transform[] neighbors;
     public void SetUp(Object[] neighbors)
     {
         this.neighbors = new Transform[neighbors.Length];
@@ -16,5 +14,4 @@ public class Province : MonoBehaviour
             this.neighbors[i] = neighbors[i].GetComponent<Transform>();
         }
     }
-   
 }
