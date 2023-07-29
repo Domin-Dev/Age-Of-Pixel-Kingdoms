@@ -12,6 +12,15 @@ public class ProvinceStats
 
     public Building building;
 
+    public string[] neighbors;
+    public void SetUp(Object[] neighbors)
+    {
+       this.neighbors = new string[neighbors.Length];
+       for (int i = 0;i < neighbors.Length;i++)
+       {
+            this.neighbors[i] = neighbors[i].name;
+       }
+    }
     public ProvinceStats(int population, int warriorsLimit, float scienceDevelopment, float incomeInCoins, Building building)
     {
         this.population = population;

@@ -19,6 +19,7 @@ public class MapEditor : EditorWindow
     bool[,,] mapArray;// [x,y,a] a = 0 is Checked , a = 1 is Painted
     Texture2D map;
     Transform mapParent;
+    MapStats mapStats;
 
     int maxX;
     int maxY;
@@ -102,7 +103,7 @@ public class MapEditor : EditorWindow
 
         if (GUILayout.Button("Set Neighbors"))
         {
-            mapParent.GetChild(provinceNumber).AddComponent<Province>().SetUp(Selection.objects);
+            mapStats.provinces[provinceNumber].SetUp(Selection.objects);
         }
     }
 
@@ -146,7 +147,7 @@ public class MapEditor : EditorWindow
             }
 
 
-            MapStats mapStats = new MapStats(mapParent.transform.childCount, provinces);
+            mapStats = new MapStats(mapParent.transform.childCount, provinces);
             AssetDatabase.CreateAsset(mapStats, filePath + "/Textures/" + rawMap.name  + ".asset");
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();

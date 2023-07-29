@@ -1,5 +1,7 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -7,7 +9,17 @@ using UnityEngine;
 public class SelectingProvinces : MonoBehaviour
 {
     private Transform selectedObject;
+    private Color selectedColor;
+
+
     [SerializeField] Material material;
+
+    private void Start()
+    {
+        GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
+        GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
+        GameAssets.Instance.buildUniversity.GetComponent<Button>().onClick.AddListener(() =>Build(2));;
+    }
 
     void Update()
     {
@@ -39,20 +51,22 @@ public class SelectingProvinces : MonoBehaviour
                     {
                         if (selectedObject != null)
                         {
+                            SpriteRenderer spriteRenderer1 = selectedObject.GetComponent<SpriteRenderer>();
+                            spriteRenderer1.color = selectedColor;
+                            spriteRenderer1.material = GameAssets.Instance.outline;
+                            spriteRenderer1.sortingOrder = 0;
                             selectedObject = item.collider.gameObject.transform;
+
                         }
                         else
                         {
-
                             selectedObject = item.collider.gameObject.transform;
-                        }
-
-                        Color color = selectedObject.GetComponent<SpriteRenderer>().color;
-                            
-
-                        selectedObject.GetComponent<SpriteRenderer>().color = Color.white;
-                        selectedObject.GetComponent<SpriteRenderer>().material = GameAssets.Instance.highlight;
-                        selectedObject.GetComponent<SpriteRenderer>().material.SetColor("_Color_2", color);
+                        }        
+                        selectedColor = spriteRenderer.color;
+                        spriteRenderer.color = Color.white;
+                        spriteRenderer.material = GameAssets.Instance.highlight;
+                        spriteRenderer.sortingOrder = 10;
+                        spriteRenderer.material.SetColor("_Color_2", selectedColor);
 
 
 
@@ -63,5 +77,27 @@ public class SelectingProvinces : MonoBehaviour
             }
             
         }
+    }
+
+    public void Build(int index)
+    {
+        Sprite sprite = GameAssets.Instance.spriteWorkshop;
+        switch (index)
+        {
+            case 0:
+                sprite = GameAssets.Instance.spriteWorkshop;
+                break;
+            case 1:
+                sprite = GameAssets.Instance.spriteFort;
+                break;
+            case 2:
+                sprite = GameAssets.Instance.spriteUniversity;
+                break;
+        }
+
+        Transform transform = new GameObject(selectedObject.name, typeof(SpriteRenderer)).transform;
+        transform.position = selectedObject.position;
+        transform.GetComponent<SpriteRenderer>().sprite = sprite;
+        transform.GetComponent<SpriteRenderer>().sortingOrder = 15;
     }
 }

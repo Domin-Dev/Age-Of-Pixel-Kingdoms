@@ -9,8 +9,19 @@ public class GameAssets : MonoBehaviour
     public Material outline;
     public Material highlight;
 
+    public Transform buildWorkshop;
+    public Transform buildFort;
+    public Transform buildUniversity;
 
-    
+    [Space(20f,order =0)]
+
+    public Sprite spriteWorkshop;
+    public Sprite spriteFort;
+    public Sprite spriteUniversity;
+
+
+
+
     private void Awake()
     {
         if(Instance == null)

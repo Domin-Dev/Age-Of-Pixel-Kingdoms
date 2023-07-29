@@ -7,7 +7,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 
 {
-   [HideInInspector] public Vector3 Limit;
+    public Vector3 Limit;
 
     Vector3 startPosition;
     Vector3 endPosition;
