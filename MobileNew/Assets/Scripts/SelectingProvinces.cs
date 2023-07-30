@@ -15,7 +15,7 @@ public class SelectingProvinces : MonoBehaviour
     [SerializeField] Material material;
 
     private void Start()
-    {
+    {      
         GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
         GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
         GameAssets.Instance.buildUniversity.GetComponent<Button>().onClick.AddListener(() =>Build(2));;
