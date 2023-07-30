@@ -8,10 +8,12 @@ using UnityEngine;
 public class MapEditor : EditorWindow
 {
     //input
-    string filePath = "Assets/Graphics/Maps/Map1";
+    string filePath = "Assets/Maps/Map1";
     Texture2D rawMap;
     Material outlineMaterial;
     Material highlightMaterial;
+
+    Color defaultColor = Color.grey;
     //
 
 
@@ -40,11 +42,17 @@ public class MapEditor : EditorWindow
 
     private void OnGUI()
     {
+        outlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Graphics/Shader/Outline.mat");
+        highlightMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Graphics/Shader/Highlight.mat");
+
         Object obj =  EditorGUILayout.ObjectField(rawMap, typeof(Texture2D),false);
 
         Object obj2 =  EditorGUILayout.ObjectField(outlineMaterial, typeof(Material),false);
 
         Object obj3 =  EditorGUILayout.ObjectField(highlightMaterial, typeof(Material),false);
+
+        defaultColor = EditorGUILayout.ColorField(defaultColor);
+
 
         GUILayout.Box(rawMap);
         EditorGUILayout.Space(10);
@@ -148,7 +156,7 @@ public class MapEditor : EditorWindow
 
 
             mapStats = new MapStats(mapParent.transform.childCount, provinces);
-            AssetDatabase.CreateAsset(mapStats, filePath + "/Textures/" + rawMap.name  + ".asset");
+            AssetDatabase.CreateAsset(mapStats, filePath +"/" + rawMap.name  + ".asset");
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
 
@@ -206,17 +214,22 @@ public class MapEditor : EditorWindow
         map.Apply();
         map.filterMode = FilterMode.Point;        
 
-        AssetDatabase.CreateAsset(map, filePath + "/Textures/" + rawMap.name + number.ToString() +".asset");
+        AssetDatabase.CreateAsset(map, filePath + "/"  + rawMap.name + number.ToString() +".asset");
         AssetDatabase.Refresh();
 
         GameObject gameObject = new GameObject(number.ToString(), typeof(SpriteRenderer));
+        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-        gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(map ,new Rect(0, 0, width + 10, height + 10),new Vector2(0.5f,0.5f));
+
+        spriteRenderer.sprite = Sprite.Create(map ,new Rect(0, 0, width + 10, height + 10),new Vector2(0.5f,0.5f));
         gameObject.transform.position = new Vector3((maxX + minX) / 2 * 0.01f, (maxY + minY) / 2 * 0.01f, 0);
         gameObject.tag = "Province";
 
         gameObject.AddComponent<BoxCollider2D>();
-        gameObject.GetComponent<SpriteRenderer>().material = outlineMaterial;
+
+        spriteRenderer.material = outlineMaterial;
+        spriteRenderer.color = defaultColor;
+        spriteRenderer.sortingOrder = -10;
 
         gameObject.transform.parent = mapParent;
 

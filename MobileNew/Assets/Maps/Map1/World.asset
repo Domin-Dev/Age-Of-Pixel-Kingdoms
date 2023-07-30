@@ -1,0 +1,208 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd16aedd88f03df42b7942c0f42c128a, type: 3}
+  m_Name: World
+  m_EditorClassIdentifier: 
+  numberOfProvinces: 32
+  provinces:
+  - population: 128
+    warriorsLimit: 112
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 180
+    warriorsLimit: 113
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 170
+    warriorsLimit: 117
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 148
+    warriorsLimit: 117
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 141
+    warriorsLimit: 98
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 149
+    warriorsLimit: 111
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 197
+    warriorsLimit: 90
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 132
+    warriorsLimit: 91
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 158
+    warriorsLimit: 108
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 187
+    warriorsLimit: 119
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 197
+    warriorsLimit: 117
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 130
+    warriorsLimit: 118
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 147
+    warriorsLimit: 103
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 122
+    warriorsLimit: 117
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 162
+    warriorsLimit: 92
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 119
+    warriorsLimit: 108
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 131
+    warriorsLimit: 90
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 172
+    warriorsLimit: 101
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 167
+    warriorsLimit: 95
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 129
+    warriorsLimit: 92
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 192
+    warriorsLimit: 92
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 106
+    warriorsLimit: 91
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 185
+    warriorsLimit: 94
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 180
+    warriorsLimit: 111
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 173
+    warriorsLimit: 90
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 149
+    warriorsLimit: 96
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 111
+    warriorsLimit: 114
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 128
+    warriorsLimit: 98
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 176
+    warriorsLimit: 105
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 177
+    warriorsLimit: 95
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 182
+    warriorsLimit: 102
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []
+  - population: 111
+    warriorsLimit: 105
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    building: 0
+    neighbors: []

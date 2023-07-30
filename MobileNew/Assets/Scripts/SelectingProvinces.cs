@@ -54,7 +54,7 @@ public class SelectingProvinces : MonoBehaviour
                             SpriteRenderer spriteRenderer1 = selectedObject.GetComponent<SpriteRenderer>();
                             spriteRenderer1.color = selectedColor;
                             spriteRenderer1.material = GameAssets.Instance.outline;
-                            spriteRenderer1.sortingOrder = 0;
+                            spriteRenderer1.sortingOrder = -10;
                             selectedObject = item.collider.gameObject.transform;
 
                         }
@@ -65,7 +65,7 @@ public class SelectingProvinces : MonoBehaviour
                         selectedColor = spriteRenderer.color;
                         spriteRenderer.color = Color.white;
                         spriteRenderer.material = GameAssets.Instance.highlight;
-                        spriteRenderer.sortingOrder = 10;
+                        spriteRenderer.sortingOrder = -1;
                         spriteRenderer.material.SetColor("_Color_2", selectedColor);
 
 
@@ -98,6 +98,6 @@ public class SelectingProvinces : MonoBehaviour
         Transform transform = new GameObject(selectedObject.name, typeof(SpriteRenderer)).transform;
         transform.position = selectedObject.position;
         transform.GetComponent<SpriteRenderer>().sprite = sprite;
-        transform.GetComponent<SpriteRenderer>().sortingOrder = 15;
+        transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
     }
 }
