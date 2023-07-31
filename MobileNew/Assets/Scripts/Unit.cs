@@ -15,10 +15,13 @@ public class Unit : MonoBehaviour
     [SerializeField] public float maxLifePoints;
     [SerializeField] public float damage;
     [SerializeField] public float range;
+    [SerializeField] public float rateOfFire;
 
     //////////////////////////
 
     private float lifePoints;
+    private Transform lifeBar;
+    private SpriteRenderer spriteRenderer;
 
     //////////////////////////
 
@@ -32,11 +35,35 @@ public class Unit : MonoBehaviour
 
     //////////////////////////
 
+    //Attack//
+    float attackTimer;
+    float timeToAttack;
+    bool isReadyToAttack;
+
+
+
+    //Hit effect//
+    const float timerHitEffect = 0.1f;
+    float timeToChange;
+    bool IsActive;
+    bool lerpIsActive;
+
+
 
     private void Start()
     {
+        IsActive = false;
+        lerpIsActive = false;
+
+        isReadyToAttack = true;
+        attackTimer = 60 / rateOfFire;
+
+
         animator = GetComponent<Animator>();
         lifePoints = maxLifePoints;
+        lifeBar = transform.GetChild(0).GetChild(0).transform;
+        transform.GetChild(0).gameObject.SetActive(false);
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void SetUp(int pathIndex,bool unitIsFriendly, float targetPositionX, Action clearList, Func<Unit, Unit> checkPath)
@@ -59,10 +86,47 @@ public class Unit : MonoBehaviour
     }
     private void Update()
     {
+        if(lerpIsActive)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.7f, 1.1f, 1), Time.deltaTime * 13);
+            if (transform.localScale.x <= 0.75f)
+            {
+                IsActive = true;
+                lerpIsActive = false;
+                Debug.Log("Xd");
+            }
+        }
+
+        if(IsActive)
+        {
+            timeToChange = timeToChange + Time.deltaTime;
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1f, 1, 1), Time.deltaTime * 7);
+            if (timeToChange >= timerHitEffect)
+            {
+                
+                IsActive =false;
+                timeToChange = 0;
+                spriteRenderer.material = new Material(Shader.Find("Sprites/Default"));
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
+
+        if(!isReadyToAttack)
+        {
+            timeToAttack = timeToAttack + Time.deltaTime;
+            if(timeToAttack >= attackTimer)
+            {
+                isReadyToAttack = true;
+                timeToAttack = 0;
+            }
+        }
+
+
+
         Unit unit = checkPath(this);
         if (unit == null)
         {
-
+            animator.SetBool("Idle", false);
             if (Math.Abs(targetPositionX - transform.position.x) > 0.1f)
             {
                 transform.position = transform.position + new Vector3(0.1f, 0, 0) * speed * multiplier * Time.deltaTime;
@@ -75,22 +139,35 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            Attack(unit);
-
-
+            animator.SetBool("Idle", true);
+            if (unit.unitIsFriendly != unitIsFriendly)
+            {
+                Attack(unit);
+            }        
         }
     }
 
     private void Attack(Unit unit)
-    { 
-        animator.SetTrigger("Attack");
-        unit.Hit(damage);
-
+    {
+        if (isReadyToAttack)
+        {
+            isReadyToAttack = false;
+            animator.SetTrigger("Attack");
+            unit.Hit(damage);
+        }
     }
 
     private void Hit(float damage)
     {
+
+        lerpIsActive = true;
+        spriteRenderer.material = new Material(Shader.Find("Shader Graphs/Unit"));
+
+         
+
+        transform.GetChild(0).gameObject.SetActive(true);
         lifePoints = math.clamp(lifePoints - damage, 0, maxLifePoints);
+        lifeBar.localScale = new Vector3(lifePoints/maxLifePoints, 1, 1);
         if(lifePoints <= 0)
         {
             Destroy(gameObject);

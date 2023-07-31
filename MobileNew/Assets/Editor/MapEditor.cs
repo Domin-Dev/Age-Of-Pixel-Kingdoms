@@ -42,8 +42,8 @@ public class MapEditor : EditorWindow
 
     private void OnGUI()
     {
-        outlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Graphics/Shader/Outline.mat");
-        highlightMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Graphics/Shader/Highlight.mat");
+        outlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Graphics/Shaders/Outline.mat");
+        highlightMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Graphics/Shaders/Highlight.mat");
 
         Object obj =  EditorGUILayout.ObjectField(rawMap, typeof(Texture2D),false);
 

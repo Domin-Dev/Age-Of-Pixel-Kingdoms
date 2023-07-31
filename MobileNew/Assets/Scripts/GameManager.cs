@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            Stats = AssetDatabase.LoadAssetAtPath<MapStats>("Assets/Maps/Map1/World.asset");
+            Stats = Resources.Load<MapStats>("Assets/Maps/Map1/World.asset");
 
         }
         else
