@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 9032953267834520880}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5267816253799118706
 SpriteRenderer:
@@ -120,10 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7aff18235a1874eb39e2f567dd3862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.25
+  speed: 18
   maxLifePoints: 100
-  Damage: 10
-  Range: 1
+  damage: 20
+  range: 1
 --- !u!1 &6450402203818471973
 GameObject:
   m_ObjectHideFlags: 0

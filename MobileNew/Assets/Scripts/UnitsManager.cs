@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,9 +26,10 @@ public class UnitsManager : MonoBehaviour
                 if(raycastHit.collider.CompareTag("Path"))
                 {
 
-                    List<Unit> units = GetPath(int.Parse(raycastHit.collider.name));
-                    Unit unit = Instantiate(this.unit, raycastHit.collider.transform.GetChild(0).transform.position + new Vector3(0f,0.4f,0f),Quaternion.identity).GetComponent<Unit>();
-                    unit.SetUp(true,raycastHit.collider.transform.GetChild(1).position + new Vector3(1.5f,0,0),() => { units.Remove(unit); });
+                    int path = int.Parse(raycastHit.collider.name);
+                    List<Unit> units = GetPath(path);
+                    Unit unit = Instantiate(this.unit, raycastHit.collider.transform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
+                    unit.SetUp(path,true, raycastHit.collider.transform.GetChild(1).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
                     units.Add(unit);
                 }
             }
@@ -45,10 +47,10 @@ public class UnitsManager : MonoBehaviour
             {
                 if (raycastHit.collider.CompareTag("Path"))
                 {
-
-                    List<Unit> units = GetPath(int.Parse(raycastHit.collider.name));
+                    int path = int.Parse(raycastHit.collider.name);
+                    List <Unit> units = GetPath(path);
                     Unit unit = Instantiate(this.unit, raycastHit.collider.transform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-                    unit.SetUp(false, raycastHit.collider.transform.GetChild(0).position + new Vector3(1.5f, 0, 0), () => { units.Remove(unit); });
+                    unit.SetUp(path,false, raycastHit.collider.transform.GetChild(0).position.x, () => { units.Remove(unit); },(unit) => { return CheckPath(unit);});
                     units.Add(unit);
                 }
             }
@@ -56,8 +58,37 @@ public class UnitsManager : MonoBehaviour
     }
 
 
-    
-    
+
+
+     
+    private Unit CheckPath(Unit selectedUnit)
+    {
+        List<Unit> units = GetPath(selectedUnit.pathIndex);
+
+        foreach (Unit unit in units) 
+        {
+            if (unit != selectedUnit)
+            {
+                float selectedUnitPosX = selectedUnit.transform.position.x;
+                float unitPosX = unit.transform.position.x;
+
+
+                float distance = Math.Abs(selectedUnitPosX - unitPosX);
+
+                if(unit.unitIsFriendly != selectedUnit.unitIsFriendly)
+                {
+                    if(distance <= selectedUnit.range) return unit;
+                }            
+                else
+                { 
+                   if(distance < 1.1f && selectedUnitPosX * selectedUnit.multiplier < unitPosX * unit.multiplier ) return unit;
+                }
+                
+            }
+        }
+        return null;
+    }
+
 
     private List<Unit> GetPath(int index)
     {
@@ -70,4 +101,5 @@ public class UnitsManager : MonoBehaviour
         }
         return path1;
     }
+
 }
