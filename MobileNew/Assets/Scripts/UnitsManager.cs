@@ -7,7 +7,7 @@ public class UnitsManager : MonoBehaviour
 {
     [SerializeField]public GameObject unit;
 
-    [SerializeField]  List<Unit> path1 = new List<Unit>();
+    [SerializeField] List<Unit> path1 = new List<Unit>();
     [SerializeField] List<Unit> path2 = new List<Unit>();
     [SerializeField] List<Unit> path3 = new List<Unit>();
     [SerializeField] List<Unit> path4 = new List<Unit>();
@@ -26,11 +26,7 @@ public class UnitsManager : MonoBehaviour
                 if(raycastHit.collider.CompareTag("Path"))
                 {
 
-                    int path = int.Parse(raycastHit.collider.name);
-                    List<Unit> units = GetPath(path);
-                    Unit unit = Instantiate(this.unit, raycastHit.collider.transform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-                    unit.SetUp(path,true, raycastHit.collider.transform.GetChild(1).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
-                    units.Add(unit);
+                    CreateUnit(unit, raycastHit.collider.transform);
                 }
             }
 
@@ -47,20 +43,36 @@ public class UnitsManager : MonoBehaviour
             {
                 if (raycastHit.collider.CompareTag("Path"))
                 {
-                    int path = int.Parse(raycastHit.collider.name);
-                    List <Unit> units = GetPath(path);
-                    Unit unit = Instantiate(this.unit, raycastHit.collider.transform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-                    unit.SetUp(path,false, raycastHit.collider.transform.GetChild(0).position.x, () => { units.Remove(unit); },(unit) => { return CheckPath(unit);});
-                    units.Add(unit);
+                    EnemyCreateUnit(unit, raycastHit.collider.transform);
                 }
             }
         }
     }
 
+    private void CreateUnit(GameObject gameObject,Transform pathTransform)
+    {
+        int path = int.Parse(pathTransform.name);
+        List<Unit> units = GetPath(path);
+
+        Unit unit = Instantiate(gameObject, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
+        unit.SetUp(path,true, pathTransform.GetChild(1).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
+        units.Add(unit);
+    }
+
+    private void EnemyCreateUnit(GameObject gameObject, Transform pathTransform)
+    {
+        int path = int.Parse(pathTransform.name);
+        List<Unit> units = GetPath(path);
+
+        Unit unit = Instantiate(gameObject, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
+        unit.SetUp(path, false, pathTransform.GetChild(0).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
+        units.Add(unit);
+    }
 
 
 
-     
+
+
     private Unit CheckPath(Unit selectedUnit)
     {
         List<Unit> units = GetPath(selectedUnit.pathIndex);
