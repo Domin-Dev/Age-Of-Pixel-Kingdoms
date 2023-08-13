@@ -156,7 +156,7 @@ public class MapEditor : EditorWindow
 
 
             mapStats = new MapStats(mapParent.transform.childCount, provinces);
-            AssetDatabase.CreateAsset(mapStats, filePath +"/" + rawMap.name  + ".asset");
+            AssetDatabase.CreateAsset(mapStats, "Assets/Resources/" + rawMap.name  + ".asset");
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
 

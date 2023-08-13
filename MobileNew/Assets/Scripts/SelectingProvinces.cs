@@ -70,7 +70,8 @@ public class SelectingProvinces : MonoBehaviour
 
 
 
-                        UIManager.Instance.OpenProvinceStats(int.Parse(item.collider.name));
+                        UIManager.Instance.
+                            OpenProvinceStats(int.Parse(item.collider.name));
                         break;
                     }
                 }
@@ -96,8 +97,20 @@ public class SelectingProvinces : MonoBehaviour
         }
 
         Transform transform = new GameObject(selectedObject.name, typeof(SpriteRenderer)).transform;
-        transform.position = selectedObject.position;
+        transform.position = selectedObject.position + new Vector3(0, 0.1f, 0);
         transform.GetComponent<SpriteRenderer>().sprite = sprite;
         transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+    }
+
+    public void Recruit(int index)
+    {
+
+        ProvinceStats provinceStats = GameManager.Instance.stats.provinces[int.Parse(selectedObject.name)];
+
+        if(provinceStats.units == 0)
+        {
+            Instantiate(GameAssets.Instance.unitCounter,selectedObject.transform.position - new Vector3(0,0.05f,0),Quaternion.identity, selectedObject);
+        }
+
     }
 }

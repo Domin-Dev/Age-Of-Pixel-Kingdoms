@@ -7,15 +7,20 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public MapStats Stats;
+    public MapStats stats;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            Stats = Resources.Load<MapStats>("Assets/Maps/Map1/World.asset");
+            stats = Resources.Load<MapStats>("Maps/World");
 
+
+
+
+
+         //   Debug.Log(stats.numberOfProvinces);
         }
         else
         {
@@ -23,8 +28,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
- 
 
-   
+
+
+
 
 }

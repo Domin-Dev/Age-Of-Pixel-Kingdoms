@@ -10,6 +10,9 @@ public class ProvinceStats
     public float scienceDevelopment;
     public float incomeInCoins;
 
+    public int units;
+
+
     public Building building;
 
     public string[] neighbors;

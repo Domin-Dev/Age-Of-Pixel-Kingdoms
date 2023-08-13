@@ -21,6 +21,9 @@ public class GameAssets : MonoBehaviour
     public Sprite spriteFort;
     public Sprite spriteUniversity;
 
+    [Space(20f, order = 0)]
+
+    public GameObject unitCounter;
 
 
 

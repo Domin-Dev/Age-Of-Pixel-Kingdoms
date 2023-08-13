@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     {
         provinceStatsWindow.gameObject.SetActive(true);
 
-        ProvinceStats provinceStats = GameManager.Instance.Stats.provinces[index];
+        ProvinceStats provinceStats = GameManager.Instance.stats.provinces[index];
 
         provinceStatsWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + index.ToString();
         provinceStatsWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();

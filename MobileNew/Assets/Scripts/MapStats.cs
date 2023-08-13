@@ -1,5 +1,3 @@
-
-
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="New MapStats" , menuName = "Map/MapStats")]
@@ -11,7 +9,7 @@ public class MapStats : ScriptableObject
         this.provinces = provinces;
     }
 
-    [SerializeField] public int numberOfProvinces;
-    [SerializeField] public ProvinceStats[] provinces;
+    public int numberOfProvinces;
+    public ProvinceStats[] provinces;
 
 }
