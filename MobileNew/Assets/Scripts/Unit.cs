@@ -11,11 +11,12 @@ public class Unit : MonoBehaviour
 {
     //////////////////////////
 
-    [SerializeField] public float speed;
-    [SerializeField] public float maxLifePoints;
-    [SerializeField] public float damage;
-    [SerializeField] public float range;
-    [SerializeField] public float rateOfFire;
+     float speed;
+     float maxLifePoints;
+     float damage;
+     float range;
+     float rateOfFire;
+
 
     //////////////////////////
 
@@ -66,8 +67,14 @@ public class Unit : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void SetUp(int pathIndex,bool unitIsFriendly, float targetPositionX, Action clearList, Func<Unit, Unit> checkPath)
+    public void SetUp(UnitStats unitStats,int pathIndex,bool unitIsFriendly, float targetPositionX, Action clearList, Func<Unit, Unit> checkPath)
     {
+        this.speed = unitStats.speed;
+        this.maxLifePoints = unitStats.lifePoints;
+        this.damage = unitStats.damage;
+        this.range = unitStats.range;
+        this.rateOfFire = unitStats.rateOfFire;
+        
         this.targetPositionX = targetPositionX;
         this.clearList = clearList;
         this.checkPath = checkPath;
@@ -82,13 +89,13 @@ public class Unit : MonoBehaviour
         {
             multiplier = 1;
         }
-        
     }
+
     private void Update()
     {
         if(lerpIsActive)
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.7f, 1.1f, 1), Time.deltaTime * 13);
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.4f, 1.1f, 1), Time.deltaTime * 70);
             if (transform.localScale.x <= 0.75f)
             {
                 IsActive = true;
@@ -146,7 +153,6 @@ public class Unit : MonoBehaviour
             }        
         }
     }
-
     private void Attack(Unit unit)
     {
         if (isReadyToAttack)
@@ -156,12 +162,10 @@ public class Unit : MonoBehaviour
             unit.Hit(damage);
         }
     }
-
     private void Hit(float damage)
     {
-
         lerpIsActive = true;
-        spriteRenderer.material = new Material(Shader.Find("Shader Graphs/Unit"));
+        //spriteRenderer.material = new Material(Shader.Find("Shader Graphs/Unit"));
 
          
 
