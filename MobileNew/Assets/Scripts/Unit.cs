@@ -11,11 +11,11 @@ public class Unit : MonoBehaviour
 {
     //////////////////////////
 
-     float speed;
-     float maxLifePoints;
-     float damage;
-     float range;
-     float rateOfFire;
+    public float speed { get; private set; }
+    public float maxLifePoints { get; private set; }
+    public float damage { get; private set; }
+    public float range { get; private set; }
+    public float rateOfFire { get; private set; }   
 
 
     //////////////////////////

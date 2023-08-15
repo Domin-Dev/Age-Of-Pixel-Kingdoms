@@ -156,25 +156,21 @@ public class MapEditor : EditorWindow
 
 
             mapStats = new MapStats(mapParent.transform.childCount, provinces);
-            AssetDatabase.CreateAsset(mapStats, "Assets/Resources/" + rawMap.name  + ".asset");
+            AssetDatabase.CreateAsset(mapStats, "Assets/Resources/Maps/" + rawMap.name  + ".asset");
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
-
-
-
+            Debug.Log("The map is ready!");
         }
         else
         {
             return;
         }
     }
-
     private void SetUpOutline()
     {
         float width = rawMap.width / 100f;
         float height = rawMap.height / 100f;
 
-        Debug.Log(width);
         Vector3[] positionsArray = {
             new Vector3(0    , 0     ,0),
             new Vector3(0    , height,0),
@@ -235,10 +231,7 @@ public class MapEditor : EditorWindow
 
 
         number++;
-    }
-
-
-    
+    } 
     private void CheckNeighbors(int x,int y,bool paint)
     {
         if (paint)

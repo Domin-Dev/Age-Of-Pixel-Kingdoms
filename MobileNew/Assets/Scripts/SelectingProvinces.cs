@@ -1,11 +1,11 @@
-
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
-
-
+using TMPro;
+using System;
 
 public class SelectingProvinces : MonoBehaviour
 {
@@ -16,9 +16,9 @@ public class SelectingProvinces : MonoBehaviour
 
     private void Start()
     {      
-        GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
-        GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
-        GameAssets.Instance.buildUniversity.GetComponent<Button>().onClick.AddListener(() =>Build(2));;
+   //     GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
+   //     GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
+   //     GameAssets.Instance.buildUniversity.GetComponent<Button>().onClick.AddListener(() =>Build(2));;
     }
     public void SelectingProvince()
     {
@@ -75,35 +75,58 @@ public class SelectingProvinces : MonoBehaviour
 
     public void Build(int index)
     {
-        Sprite sprite = GameAssets.Instance.spriteWorkshop;
-        switch (index)
+        if (selectedObject != null)
         {
-            case 0:
-                sprite = GameAssets.Instance.spriteWorkshop;
-                break;
-            case 1:
-                sprite = GameAssets.Instance.spriteFort;
-                break;
-            case 2:
-                sprite = GameAssets.Instance.spriteUniversity;
-                break;
-        }
+            Sprite sprite = GameAssets.Instance.spriteWorkshop;
+            switch (index)
+            {
+                case 0:
+                    sprite = GameAssets.Instance.spriteWorkshop;
+                    break;
+                case 1:
+                    sprite = GameAssets.Instance.spriteFort;
+                    break;
+                case 2:
+                    sprite = GameAssets.Instance.spriteUniversity;
+                    break;
+            }
 
-        Transform transform = new GameObject(selectedObject.name, typeof(SpriteRenderer)).transform;
-        transform.position = selectedObject.position + new Vector3(0, 0.1f, 0);
-        transform.GetComponent<SpriteRenderer>().sprite = sprite;
-        transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            Transform transform = new GameObject(selectedObject.name, typeof(SpriteRenderer)).transform;
+            transform.position = selectedObject.position + new Vector3(0, 0.1f, 0);
+            transform.GetComponent<SpriteRenderer>().sprite = sprite;
+            transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+        }
     }
 
     public void Recruit(int index)
     {
+        if (selectedObject != null)
+        { 
+            ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedObject.name)];
+            provinceStats.unitsCounter++;
 
-        ProvinceStats provinceStats = GameManager.Instance.stats.provinces[int.Parse(selectedObject.name)];
+            if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
 
-        if(provinceStats.units == 0)
-        {
-            Instantiate(GameAssets.Instance.unitCounter,selectedObject.transform.position - new Vector3(0,0.05f,0),Quaternion.identity, selectedObject);
+
+            if (provinceStats.units.ContainsKey(index))
+            {
+                provinceStats.units[index]++;
+            }
+            else
+            {
+                provinceStats.units.Add(index, 1);
+            }
+
+            Debug.Log(provinceStats.unitsCounter);
+
+            if(provinceStats.unitsCounter > 0 && selectedObject.childCount == 0)
+            {
+                Instantiate(GameAssets.Instance.unitCounter, selectedObject.transform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, selectedObject);
+            }
+
+            selectedObject.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
+
+            UIManager.Instance.LoadProvinceUnitCounters(int.Parse(selectedObject.name));
         }
-
     }
 }

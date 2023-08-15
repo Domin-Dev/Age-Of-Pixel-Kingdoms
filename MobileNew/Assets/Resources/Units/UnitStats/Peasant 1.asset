@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 558b5a8b3d62ddf4dba274ef14caccc1, type: 3}
-  m_Name: Peasant
+  m_Name: Peasant 1
   m_EditorClassIdentifier: 
   unit: {fileID: 4476419575737143508, guid: 896a749d5fd8c034fa756608061098fb, type: 3}
-  sprite: {fileID: 581629459, guid: cc7222f82f6b7114998b681eadf3f488, type: 3}
+  sprite: {fileID: 895813475, guid: 440e54f4b3e81a74ba71d7879252d2bf, type: 3}
   speed: 20
   lifePoints: 100
   damage: 20

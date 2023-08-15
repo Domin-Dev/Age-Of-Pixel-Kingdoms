@@ -25,6 +25,17 @@ public class GameAssets : MonoBehaviour
 
     public GameObject unitCounter;
 
+    [Space(20f, order = 0)]
+
+    public List<UnitStats> unitStats;
+    public GameObject unitSlotUI;
+    public Transform contentUI;
+
+    [Space(20f, order = 0)]
+
+    public GameObject unitCounterSlotUI;
+    public Transform contentUnitsCounterUI;
+
 
 
     private void Awake()
@@ -37,6 +48,11 @@ public class GameAssets : MonoBehaviour
         {
             Destroy(this);
         }
+    }
+
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
     }
 
 

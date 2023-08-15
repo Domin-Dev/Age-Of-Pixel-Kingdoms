@@ -2,14 +2,23 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Save : MonoBehaviour
+public class SafeArea : MonoBehaviour
 {
-    [SerializeField] Vector2 vector2;
-    private void Update()
+    private void Awake()
     {
-       vector2 = this.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.safeArea.width, Screen.safeArea.height);
-        Debug.Log(vector2); 
-        Debug.Log(Screen.currentResolution); 
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        Rect rect = Screen.safeArea;
+        Vector2 anchorMin = rect.position;
+        Vector2 anchorMax = rect.position + rect.size;
+
+        anchorMin.x /= Screen.width;
+        anchorMin.y /= Screen.height;
+    
+        anchorMax.y /= Screen.height;
+        anchorMax.x /= Screen.width;
+            
+        rectTransform.anchorMin = anchorMin;
+        rectTransform.anchorMax = anchorMax; 
     }
 
 }
