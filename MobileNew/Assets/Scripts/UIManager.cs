@@ -7,7 +7,6 @@ using static UnityEditor.Progress;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    
     private void Awake()
     {
         if (Instance == null)
@@ -20,6 +19,9 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField] private Transform provinceStatsWindow;
+    [SerializeField] private Transform recruitmentWindow;
+    [SerializeField] private Transform selectionNumberUnitsWindow;
+
     private SelectingProvinces selectingProvinces;
     private GameAssets gameAssets;
 
@@ -29,9 +31,6 @@ public class UIManager : MonoBehaviour
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
         LoadUnits();
     }
-
-
-
     private void LoadUnits()
     {
         int index = 0;
@@ -51,11 +50,10 @@ public class UIManager : MonoBehaviour
 
             transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price;
             int id = index;
-            transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Recruit(id); });
+            transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.SelectUnitToRecruit(id); });
             index++;
         }
     }
-
     public void LoadProvinceUnitCounters(int index)
     {
         ProvinceStats provinceStats = GameManager.Instance.provinces[index];
@@ -103,6 +101,13 @@ public class UIManager : MonoBehaviour
         }
 
     }
+
+    public Transform GetSelectionNumberUnitsWindowWindow()
+    {
+        return selectionNumberUnitsWindow
+    }
+
+
     public void OpenProvinceStats(int index)
     {
         provinceStatsWindow.gameObject.SetActive(true);
@@ -117,15 +122,10 @@ public class UIManager : MonoBehaviour
     {
         provinceStatsWindow.gameObject.SetActive(false);
     }
-    public void BuildBuilding(int index)
+
+    public void OpenNumberSelection()
     {
-        switch (index)
-        {
-            case 0: 
-                break;
-
-        }
+        numberSelectionWindow.gameObject.SetActive(true);
     }
-
 
 }

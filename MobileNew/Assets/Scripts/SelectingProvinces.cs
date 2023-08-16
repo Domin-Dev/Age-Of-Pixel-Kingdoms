@@ -12,10 +12,11 @@ public class SelectingProvinces : MonoBehaviour
     private Transform selectedObject;
     private Color selectedColor;
 
-
-
+    private int SelectedIndex = -1;
+    private int unitsNumber = 0;
     private void Start()
-    {      
+    {
+        UIManager.Instance.GetSelectionNumberUnitsWindowWindow().GetChild(1).GetComponent<Slider>().onValueChanged.AddListener(() => { SetUnitsNumber()});
    //     GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
    //     GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
    //     GameAssets.Instance.buildUniversity.GetComponent<Button>().onClick.AddListener(() =>Build(2));;
@@ -72,7 +73,6 @@ public class SelectingProvinces : MonoBehaviour
 
       
     }
-
     public void Build(int index)
     {
         if (selectedObject != null)
@@ -98,10 +98,33 @@ public class SelectingProvinces : MonoBehaviour
         }
     }
 
-    public void Recruit(int index)
+
+    public void SetUnitsNumber(int unit)
+    {
+        unitsNumber = unit;
+    }
+    public void SelectUnitToRecruit(int index)
     {
         if (selectedObject != null)
-        { 
+        {
+            if(SelectedIndex >= 0) GameAssets.Instance.contentUI.GetChild(SelectedIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+            SelectedIndex = index;
+            GameAssets.Instance.contentUI.GetChild(SelectedIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+
+            unitsNumber = 0;
+            ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedObject.name)];
+            SelectedIndex = index;
+            UIManager.Instance.OpenNumberSelection();
+        }
+    }
+    public void Recruit(float index)
+
+    {
+        if (selectedObject != null)
+        {
+
+
+
             ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedObject.name)];
             provinceStats.unitsCounter++;
 
@@ -129,4 +152,6 @@ public class SelectingProvinces : MonoBehaviour
             UIManager.Instance.LoadProvinceUnitCounters(int.Parse(selectedObject.name));
         }
     }
+
+
 }

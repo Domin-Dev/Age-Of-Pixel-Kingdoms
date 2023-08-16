@@ -31,6 +31,9 @@ public class GameAssets : MonoBehaviour
     public GameObject unitSlotUI;
     public Transform contentUI;
 
+    public Sprite brownTexture;
+    public Sprite blueTexture;
+
     [Space(20f, order = 0)]
 
     public GameObject unitCounterSlotUI;
