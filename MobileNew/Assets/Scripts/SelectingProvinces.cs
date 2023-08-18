@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using static UnityEngine.UI.CanvasScaler;
 
 public class SelectingProvinces : MonoBehaviour
 {
@@ -13,13 +14,42 @@ public class SelectingProvinces : MonoBehaviour
     private Color selectedColor;
 
     private int SelectedIndex = -1;
+
+
     private int unitsNumber = 0;
+    private int maxUnitsNumber = 100;
+
+    
+    private Slider slider;
+    private TextMeshProUGUI textMeshPro;
+    private Transform buttons;
+    private TextMeshProUGUI price;
+
+
     private void Start()
     {
-        UIManager.Instance.GetSelectionNumberUnitsWindowWindow().GetChild(1).GetComponent<Slider>().onValueChanged.AddListener(() => { SetUnitsNumber()});
-   //     GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
-   //     GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
-   //     GameAssets.Instance.buildUniversity.GetComponent<Button>().onClick.AddListener(() =>Build(2));;
+        Transform selectionNumberUnits = UIManager.Instance.GetSelectionNumberUnitsWindowWindow();
+        buttons = selectionNumberUnits.GetChild(0);
+        textMeshPro = selectionNumberUnits.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        slider = selectionNumberUnits.GetChild(1).GetComponent<Slider>();
+        price = selectionNumberUnits.GetChild(3).GetComponent<TextMeshProUGUI>();
+
+        slider.maxValue = maxUnitsNumber;
+        slider.onValueChanged.AddListener((float value) => { SetUnitsNumber((int)(value)); });
+
+        buttons.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-20); });
+        buttons.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-5); });
+        buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-1); });
+
+        buttons.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(1); });
+        buttons.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(5); });
+        buttons.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(20); });
+
+        
+
+        //     GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
+        //     GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
+        //     GameAssets.Instance.buildUniversity.GetComponent<Button>().onClick.AddListener(() =>Build(2));;
     }
     public void SelectingProvince()
     {
@@ -65,7 +95,7 @@ public class SelectingProvinces : MonoBehaviour
                     spriteRenderer.sortingOrder = -1;
                     spriteRenderer.material.SetColor("_Color_2", selectedColor);
 
-                    UIManager.Instance.OpenProvinceStats(int.Parse(item.collider.name));
+                    UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(item.collider.name));
                     break;
                 }
             }
@@ -101,8 +131,23 @@ public class SelectingProvinces : MonoBehaviour
 
     public void SetUnitsNumber(int unit)
     {
-        unitsNumber = unit;
+        unitsNumber = Math.Clamp(unit, 0, maxUnitsNumber); 
+        UpdateRecruitUI();
     }
+    public void AddToUnitsNumber(int number)
+    {
+        unitsNumber = Math.Clamp(unitsNumber + number, 0, maxUnitsNumber);
+        UpdateRecruitUI();
+    }
+    private void UpdateRecruitUI()
+    {
+        textMeshPro.text = unitsNumber.ToString() + "/" + maxUnitsNumber.ToString();
+        slider.value = unitsNumber;
+        price.text = "Price:  <color=#FF0000>"+ unitsNumber * 10 +" <sprite index=4> </color>";
+    }
+
+
+
     public void SelectUnitToRecruit(int index)
     {
         if (selectedObject != null)
@@ -114,7 +159,7 @@ public class SelectingProvinces : MonoBehaviour
             unitsNumber = 0;
             ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedObject.name)];
             SelectedIndex = index;
-            UIManager.Instance.OpenNumberSelection();
+            UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
         }
     }
     public void Recruit(float index)
@@ -131,14 +176,14 @@ public class SelectingProvinces : MonoBehaviour
             if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
 
 
-            if (provinceStats.units.ContainsKey(index))
-            {
-                provinceStats.units[index]++;
-            }
-            else
-            {
-                provinceStats.units.Add(index, 1);
-            }
+      //      if (provinceStats.units.ContainsKey(index))
+       //     {
+      //          provinceStats.units[index]++;
+       //     }
+       //     else
+       ///     {
+       //         provinceStats.units.Add(index, 1);
+        //    }
 
             Debug.Log(provinceStats.unitsCounter);
 

@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static UnityEditor.Progress;
+using System;
+using UnityEditor.Experimental.GraphView;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,8 +21,11 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField] private Transform provinceStatsWindow;
+
+
     [SerializeField] private Transform recruitmentWindow;
     [SerializeField] private Transform selectionNumberUnitsWindow;
+
 
     private SelectingProvinces selectingProvinces;
     private GameAssets gameAssets;
@@ -31,6 +36,8 @@ public class UIManager : MonoBehaviour
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
         LoadUnits();
     }
+
+
     private void LoadUnits()
     {
         int index = 0;
@@ -102,30 +109,66 @@ public class UIManager : MonoBehaviour
 
     }
 
+
+    public void OpenUIWindow(string name, int provinceIndex)
+    {
+        Transform transform = GetWindow(name);
+        if (name == "ProvinceStats")
+        {
+            OpenUIWindow("UnitsRecruitment",0);
+            provinceStatsWindow.gameObject.SetActive(true);
+            ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
+            transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString();
+            transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
+            LoadProvinceUnitCounters(provinceIndex);
+        }
+        else if (transform != null)
+        {
+            transform.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Wrong window name!");
+
+        }
+    }
+    public void CloseUIWindow(string name)
+    {
+        Transform transform = GetWindow(name);
+        if (transform != null)
+        {
+            transform.gameObject.SetActive(false);
+        }else
+        {
+            Debug.Log("Wrong window name!");
+        }
+    }
+
+    private Transform GetWindow(string name)
+    {
+        switch (name)
+        {
+            case "ProvinceStats": return provinceStatsWindow;
+            case "UnitsRecruitment": return recruitmentWindow;
+            case "SelectionNumberUnits": return selectionNumberUnitsWindow;
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
     public Transform GetSelectionNumberUnitsWindowWindow()
     {
-        return selectionNumberUnitsWindow
+        return selectionNumberUnitsWindow;
     }
-
-
-    public void OpenProvinceStats(int index)
-    {
-        provinceStatsWindow.gameObject.SetActive(true);
-
-        ProvinceStats provinceStats = GameManager.Instance.provinces[index];
-
-        provinceStatsWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + index.ToString();
-        provinceStatsWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
-        LoadProvinceUnitCounters(index);
-    }
-    public void CloseProvinceStats()
-    {
-        provinceStatsWindow.gameObject.SetActive(false);
-    }
-
     public void OpenNumberSelection()
     {
-        numberSelectionWindow.gameObject.SetActive(true);
+        selectionNumberUnitsWindow.gameObject.SetActive(true);
     }
 
 }
