@@ -1,22 +1,23 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Unit Stats", menuName = "Units")]
+[CreateAssetMenu(fileName = "New Unit Stats", menuName = "Unit Stats")]
 public class UnitStats : ScriptableObject
 {
-    [SerializeField] public GameObject unit;
+    [field: SerializeField] public GameObject unit;
 
 
-    [Space(20f,order = 0)]
-    [SerializeField] public Sprite sprite;
+    [field: Space(20f,order = 0)]
+    [field:SerializeField] public Sprite sprite { get; private set; }
 
-    [Space(20f, order = 0)]
-    [SerializeField] public float speed;
-    [SerializeField] public float lifePoints;
-    [SerializeField] public float damage;
-    [SerializeField] public float range;
-    [SerializeField] public float rateOfFire;
-    [SerializeField] public float turnCost;
 
-    [Space(20f, order = 0)]
-    [SerializeField] public float price;
+    [field: Space(20f, order = 0)]
+    [field: SerializeField] public float speed { get; private set; }
+    [field: SerializeField] public float lifePoints { get; private set; }
+    [field: SerializeField] public float damage { get; private set; }
+    [field: SerializeField] public float range { get; private set; }
+    [field: SerializeField] public float rateOfFire { get; private set; }
+    [field: SerializeField] public int turnCost { get; private set; }
+
+    [field: Space(20f, order = 0)]
+    [field: SerializeField] public int price { get; private set; }
 }

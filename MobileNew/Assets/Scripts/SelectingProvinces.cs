@@ -10,10 +10,10 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class SelectingProvinces : MonoBehaviour
 {
-    private Transform selectedObject;
+    private Transform selectedProvince;
     private Color selectedColor;
 
-    private int SelectedIndex = -1;
+    private int selectedUnitIndex = -1;
 
 
     private int unitsNumber = 0;
@@ -24,6 +24,7 @@ public class SelectingProvinces : MonoBehaviour
     private TextMeshProUGUI textMeshPro;
     private Transform buttons;
     private TextMeshProUGUI price;
+    private Button buttonRecruit;
 
 
     private void Start()
@@ -33,6 +34,8 @@ public class SelectingProvinces : MonoBehaviour
         textMeshPro = selectionNumberUnits.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         slider = selectionNumberUnits.GetChild(1).GetComponent<Slider>();
         price = selectionNumberUnits.GetChild(3).GetComponent<TextMeshProUGUI>();
+        buttonRecruit = selectionNumberUnits.GetChild(4).GetComponent<Button>();
+        buttonRecruit.onClick.AddListener(() => { Recruit(); });
 
         slider.maxValue = maxUnitsNumber;
         slider.onValueChanged.AddListener((float value) => { SetUnitsNumber((int)(value)); });
@@ -44,8 +47,9 @@ public class SelectingProvinces : MonoBehaviour
         buttons.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(1); });
         buttons.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(5); });
         buttons.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(20); });
-
         
+        UpdateRecruitUI();
+
 
         //     GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
         //     GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
@@ -77,17 +81,14 @@ public class SelectingProvinces : MonoBehaviour
                 if (pixel.a == 0) continue;
                 else
                 {
-                    if (selectedObject != null)
+                    if (selectedProvince != null)
                     {
-                        SpriteRenderer spriteRenderer1 = selectedObject.GetComponent<SpriteRenderer>();
-                        spriteRenderer1.color = selectedColor;
-                        spriteRenderer1.material = GameAssets.Instance.outline;
-                        spriteRenderer1.sortingOrder = -10;
-                        selectedObject = item.collider.gameObject.transform;
+                        ClearSelectedProvince();
+                        selectedProvince = item.collider.gameObject.transform;
                     }
                     else
                     {
-                        selectedObject = item.collider.gameObject.transform;
+                        selectedProvince = item.collider.gameObject.transform;
                     }
                     selectedColor = spriteRenderer.color;
                     spriteRenderer.color = Color.white;
@@ -103,9 +104,20 @@ public class SelectingProvinces : MonoBehaviour
 
       
     }
+    public void ClearSelectedProvince()
+    {
+        if (selectedProvince != null)
+        {
+            SpriteRenderer spriteRenderer1 = selectedProvince.GetComponent<SpriteRenderer>();
+            spriteRenderer1.color = selectedColor;
+            spriteRenderer1.material = GameAssets.Instance.outline;
+            spriteRenderer1.sortingOrder = -10;
+            selectedProvince = null;
+        }
+    }
     public void Build(int index)
     {
-        if (selectedObject != null)
+        if (selectedProvince != null)
         {
             Sprite sprite = GameAssets.Instance.spriteWorkshop;
             switch (index)
@@ -121,12 +133,16 @@ public class SelectingProvinces : MonoBehaviour
                     break;
             }
 
-            Transform transform = new GameObject(selectedObject.name, typeof(SpriteRenderer)).transform;
-            transform.position = selectedObject.position + new Vector3(0, 0.1f, 0);
+            Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
+            transform.position = selectedProvince.position + new Vector3(0, 0.1f, 0);
             transform.GetComponent<SpriteRenderer>().sprite = sprite;
             transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
         }
     }
+
+
+
+
 
 
     public void SetUnitsNumber(int unit)
@@ -143,58 +159,62 @@ public class SelectingProvinces : MonoBehaviour
     {
         textMeshPro.text = unitsNumber.ToString() + "/" + maxUnitsNumber.ToString();
         slider.value = unitsNumber;
-        price.text = "Price:  <color=#FF0000>"+ unitsNumber * 10 +" <sprite index=4> </color>";
+        price.text = "Price:  <color=#FF0000>"+ unitsNumber * 10 +" <sprite index=21> </color>";
     }
 
 
-
+    public void ResetUnits()
+    {
+        if (selectedUnitIndex >= 0) GameAssets.Instance.contentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+        selectedUnitIndex = -1;
+    }
     public void SelectUnitToRecruit(int index)
     {
-        if (selectedObject != null)
+        if (selectedProvince != null)
         {
-            if(SelectedIndex >= 0) GameAssets.Instance.contentUI.GetChild(SelectedIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
-            SelectedIndex = index;
-            GameAssets.Instance.contentUI.GetChild(SelectedIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+            if(selectedUnitIndex >= 0) GameAssets.Instance.contentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+            selectedUnitIndex = index;
+            GameAssets.Instance.contentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
 
             unitsNumber = 0;
-            ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedObject.name)];
-            SelectedIndex = index;
+            UpdateRecruitUI();
+            ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedProvince.name)];
+            selectedUnitIndex = index;
             UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
         }
     }
-    public void Recruit(float index)
-
+    public void Recruit()
     {
-        if (selectedObject != null)
+        if (selectedProvince != null && unitsNumber > 0)
         {
-
-
-
-            ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedObject.name)];
-            provinceStats.unitsCounter++;
+            ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedProvince.name)];
+            provinceStats.unitsCounter += unitsNumber;
 
             if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
 
 
-      //      if (provinceStats.units.ContainsKey(index))
-       //     {
-      //          provinceStats.units[index]++;
-       //     }
-       //     else
-       ///     {
-       //         provinceStats.units.Add(index, 1);
-        //    }
-
-            Debug.Log(provinceStats.unitsCounter);
-
-            if(provinceStats.unitsCounter > 0 && selectedObject.childCount == 0)
+            if (provinceStats.units.ContainsKey(selectedUnitIndex))
             {
-                Instantiate(GameAssets.Instance.unitCounter, selectedObject.transform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, selectedObject);
+                provinceStats.units[selectedUnitIndex] += unitsNumber;
+            }
+            else
+            {
+                provinceStats.units.Add(selectedUnitIndex, unitsNumber);
             }
 
-            selectedObject.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
 
-            UIManager.Instance.LoadProvinceUnitCounters(int.Parse(selectedObject.name));
+
+            if (selectedProvince.childCount == 0)
+            {
+                Instantiate(GameAssets.Instance.unitCounter, selectedProvince.transform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, selectedProvince);
+            }
+            selectedProvince.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
+           
+
+            UIManager.Instance.LoadProvinceUnitCounters(int.Parse(selectedProvince.name));
+            GameAssets.Instance.contentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+
+            UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
         }
     }
 

@@ -2,9 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static UnityEditor.Progress;
 using System;
-using UnityEditor.Experimental.GraphView;
+
 
 public class UIManager : MonoBehaviour
 {
@@ -26,6 +25,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform recruitmentWindow;
     [SerializeField] private Transform selectionNumberUnitsWindow;
 
+    [SerializeField] private Transform topBar;  
+    [SerializeField] private Transform bottomBar;  
 
     private SelectingProvinces selectingProvinces;
     private GameAssets gameAssets;
@@ -35,9 +36,12 @@ public class UIManager : MonoBehaviour
         gameAssets = GameAssets.Instance;
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
         LoadUnits();
+        provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); });
+        recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); });
+        selectionNumberUnitsWindow.GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("SelectionNumberUnits"); });
+
+
     }
-
-
     private void LoadUnits()
     {
         int index = 0;
@@ -48,14 +52,14 @@ public class UIManager : MonoBehaviour
             transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.sprite;
            
             Transform transformStats = transform.GetChild(0).GetChild(2);
-            transformStats.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = item.lifePoints.ToString();
-            transformStats.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = item.damage.ToString();
-            transformStats.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = item.speed.ToString();
-            transformStats.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = item.range.ToString();
-            transformStats.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = item.rateOfFire.ToString();
-            transformStats.GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>().text = item.turnCost.ToString();
+            transformStats.GetChild(0).GetComponent<TextMeshProUGUI>().text = "<sprite index=20>" + item.lifePoints.ToString();
+            transformStats.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<sprite index=18>" + item.damage.ToString();
+            transformStats.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<sprite index=17>" + item.speed.ToString();
+            transformStats.GetChild(3).GetComponent<TextMeshProUGUI>().text = "<sprite index=19>" + item.range.ToString();
+            transformStats.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<sprite index=22>" + item.rateOfFire.ToString();
+            transformStats.GetChild(5).GetComponent<TextMeshProUGUI>().text = "<sprite index=23>" + item.turnCost.ToString();
 
-            transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price;
+            transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + "<sprite index=21>";
             int id = index;
             transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.SelectUnitToRecruit(id); });
             index++;
@@ -135,6 +139,19 @@ public class UIManager : MonoBehaviour
     public void CloseUIWindow(string name)
     {
         Transform transform = GetWindow(name);
+        if(name == "ProvinceStats")
+        {
+            selectingProvinces.ClearSelectedProvince();
+            CloseUIWindow("UnitsRecruitment");
+            CloseUIWindow("SelectionNumberUnits");
+        }
+        else if(name == "UnitsRecruitment")
+        {
+            CloseUIWindow("SelectionNumberUnits");
+            selectingProvinces.ResetUnits();
+        }
+
+
         if (transform != null)
         {
             transform.gameObject.SetActive(false);
@@ -143,7 +160,6 @@ public class UIManager : MonoBehaviour
             Debug.Log("Wrong window name!");
         }
     }
-
     private Transform GetWindow(string name)
     {
         switch (name)
@@ -154,11 +170,6 @@ public class UIManager : MonoBehaviour
         }
         return null;
     }
-
-
-
-
-
 
 
 

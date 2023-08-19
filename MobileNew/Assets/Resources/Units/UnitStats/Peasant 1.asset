@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Peasant 1
   m_EditorClassIdentifier: 
   unit: {fileID: 4476419575737143508, guid: 896a749d5fd8c034fa756608061098fb, type: 3}
-  sprite: {fileID: 895813475, guid: 440e54f4b3e81a74ba71d7879252d2bf, type: 3}
-  speed: 20
-  lifePoints: 100
-  damage: 20
-  range: 1
-  rateOfFire: 12
-  turnCost: 2
-  price: 200
+  <sprite>k__BackingField: {fileID: 1123926491, guid: 796edc30a77d3eb4a970edc5eda69545, type: 3}
+  <speed>k__BackingField: 0
+  <lifePoints>k__BackingField: 0
+  <damage>k__BackingField: 0
+  <range>k__BackingField: 0
+  <rateOfFire>k__BackingField: 0
+  <turnCost>k__BackingField: 0
+  <price>k__BackingField: 0
