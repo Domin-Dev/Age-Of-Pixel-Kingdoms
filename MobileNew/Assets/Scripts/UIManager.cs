@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Transform recruitmentWindow;
     [SerializeField] private Transform selectionNumberUnitsWindow;
+    [SerializeField] private Transform buildingsWindow;
+
 
     [SerializeField] private Transform topBar;  
     [SerializeField] private Transform bottomBar;  
@@ -36,10 +38,13 @@ public class UIManager : MonoBehaviour
         gameAssets = GameAssets.Instance;
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
         LoadUnits();
+        LoadBuildings();
         provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); });
         recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); });
         selectionNumberUnitsWindow.GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("SelectionNumberUnits"); });
 
+        bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
+        bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
 
     }
     private void LoadUnits()
@@ -47,7 +52,7 @@ public class UIManager : MonoBehaviour
         int index = 0;
         foreach (UnitStats item in gameAssets.unitStats)
         {
-            Transform transform = Instantiate(gameAssets.unitSlotUI, gameAssets.contentUI).transform;
+            Transform transform = Instantiate(gameAssets.unitSlotUI, gameAssets.unitContentUI).transform;
             transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = item.name; 
             transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.sprite;
            
@@ -65,10 +70,27 @@ public class UIManager : MonoBehaviour
             index++;
         }
     }
+
+    private void LoadBuildings()
+    {
+        int index = 0;
+        foreach (BuildingStats item in gameAssets.buildingsStats)
+        { 
+            Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
+            transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
+            transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
+            transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + "<sprite index=21>";
+            transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
+
+            int id = index;
+            transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
+            index++;
+        }
+    }
     public void LoadProvinceUnitCounters(int index)
     {
         ProvinceStats provinceStats = GameManager.Instance.provinces[index];
-        Transform ParentCounters = gameAssets.contentUnitsCounterUI.transform;
+        Transform ParentCounters = gameAssets.unitCounterContentUI.transform;
 
         if (provinceStats.units != null)
         {
@@ -76,7 +98,7 @@ public class UIManager : MonoBehaviour
             
             int counterIndex = 0;
 
-            for (int j = 0; j < gameAssets.unitStats.Count; j++)
+            for (int j = 0; j < gameAssets.unitStats.Length; j++)
             {
                 if (provinceStats.units.ContainsKey(j) && provinceStats.units[j] > 0)
                 {
@@ -119,14 +141,20 @@ public class UIManager : MonoBehaviour
         Transform transform = GetWindow(name);
         if (name == "ProvinceStats")
         {
-            OpenUIWindow("UnitsRecruitment",0);
-            provinceStatsWindow.gameObject.SetActive(true);
             ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
             transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString();
             transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
             LoadProvinceUnitCounters(provinceIndex);
         }
-        else if (transform != null)
+        else if(name == "Buildings" || name == "UnitsRecruitment")
+        {
+            CloseUIWindow("UnitsRecruitment");
+            CloseUIWindow("Buildings");
+
+        }
+
+
+        if (transform != null)
         {
             transform.gameObject.SetActive(true);
         }
@@ -149,10 +177,14 @@ public class UIManager : MonoBehaviour
         {
             CloseUIWindow("SelectionNumberUnits");
             selectingProvinces.ResetUnits();
+        } 
+        else if(name == "SelectionNumberUnits")
+        {
+            selectingProvinces.ResetUnits();
         }
 
 
-        if (transform != null)
+            if (transform != null)
         {
             transform.gameObject.SetActive(false);
         }else
@@ -167,6 +199,7 @@ public class UIManager : MonoBehaviour
             case "ProvinceStats": return provinceStatsWindow;
             case "UnitsRecruitment": return recruitmentWindow;
             case "SelectionNumberUnits": return selectionNumberUnitsWindow;
+            case "Buildings": return buildingsWindow;
         }
         return null;
     }

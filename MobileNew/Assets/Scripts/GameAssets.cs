@@ -11,35 +11,30 @@ public class GameAssets : MonoBehaviour
     public Material outline;
     public Material highlight;
 
-    public Transform buildWorkshop;
-    public Transform buildFort;
-    public Transform buildUniversity;
-
-    [Space(20f,order =0)]
-
-    public Sprite spriteWorkshop;
-    public Sprite spriteFort;
-    public Sprite spriteUniversity;
-
     [Space(20f, order = 0)]
 
     public GameObject unitCounter;
 
     [Space(20f, order = 0)]
 
-    public List<UnitStats> unitStats;
-    public GameObject unitSlotUI;
-    public Transform contentUI;
-
     public Sprite brownTexture;
     public Sprite blueTexture;
 
     [Space(20f, order = 0)]
 
+    public Transform unitCounterContentUI;
+    public Transform unitContentUI;
+    public Transform buildingsContentUI;
+
+
+    [Space(20f, order = 0)]
+
+    public GameObject unitSlotUI;
+    public GameObject buildingSlotUI;
     public GameObject unitCounterSlotUI;
-    public Transform contentUnitsCounterUI;
 
-
+    public BuildingStats[] buildingsStats { private set; get; }
+    public UnitStats[] unitStats { private set; get; }  
 
     private void Awake()
     {
@@ -51,11 +46,15 @@ public class GameAssets : MonoBehaviour
         {
             Destroy(this);
         }
+
+        buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
+        unitStats = Resources.LoadAll<UnitStats>("Units");
+
     }
 
     private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
+    { 
+        DontDestroyOnLoad(gameObject);        
     }
 
 

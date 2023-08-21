@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class ProvinceStats
 {
+
+
     public int population;
     public int warriorsLimit;
     public float scienceDevelopment;
@@ -12,20 +14,20 @@ public class ProvinceStats
 
     public int unitsCounter;
 
-    public Building building;
+    public int buildingIndex = -1;
 
     public Dictionary<int, int> units;
 
     public string[] neighbors;
     public void SetUp(Object[] neighbors)
-    {
+    {      
        this.neighbors = new string[neighbors.Length];
        for (int i = 0;i < neighbors.Length;i++)
        {
             this.neighbors[i] = neighbors[i].name;
        }
     }
-    public ProvinceStats(int population, int warriorsLimit, float scienceDevelopment, float incomeInCoins, Building building)
+    public ProvinceStats(int population, int warriorsLimit, float scienceDevelopment, float incomeInCoins)
     {
         units = new Dictionary<int, int>();
         this.unitsCounter = 0;
@@ -33,15 +35,9 @@ public class ProvinceStats
         this.warriorsLimit = warriorsLimit;
         this.scienceDevelopment = scienceDevelopment;
         this.incomeInCoins = incomeInCoins;
-        this.building = building;
+        buildingIndex = -1;
     }
 
-    public enum Building
-    {
-        None,
-        fortification,
-        university,
-        workshop,
-    }
+
 
 }

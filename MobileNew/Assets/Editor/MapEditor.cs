@@ -151,7 +151,7 @@ public class MapEditor : EditorWindow
 
             for (int i = 0; i < mapParent.transform.childCount; i++)
             {
-                provinces[i] = new ProvinceStats(Random.Range(100,200),Random.Range(90,120),0.1f,0.1f,ProvinceStats.Building.None);
+                provinces[i] = new ProvinceStats(Random.Range(100,200),Random.Range(90,120),0.1f,0.1f);
             }
 
 

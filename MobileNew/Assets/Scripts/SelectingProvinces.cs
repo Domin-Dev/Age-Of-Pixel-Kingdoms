@@ -117,27 +117,13 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void Build(int index)
     {
-        if (selectedProvince != null)
-        {
-            Sprite sprite = GameAssets.Instance.spriteWorkshop;
-            switch (index)
-            {
-                case 0:
-                    sprite = GameAssets.Instance.spriteWorkshop;
-                    break;
-                case 1:
-                    sprite = GameAssets.Instance.spriteFort;
-                    break;
-                case 2:
-                    sprite = GameAssets.Instance.spriteUniversity;
-                    break;
-            }
-
-            Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
-            transform.position = selectedProvince.position + new Vector3(0, 0.1f, 0);
-            transform.GetComponent<SpriteRenderer>().sprite = sprite;
-            transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
-        }
+       BuildingStats buildingStats = GameAssets.Instance.buildingsStats[index];
+ 
+        Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
+        transform.position = selectedProvince.position + new Vector3(0, 0.08f, 0);
+        transform.GetComponent<SpriteRenderer>().sprite = buildingStats.icon;
+        transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+      Debug.Log( GameManager.Instance.provinces[int.Parse(selectedProvince.name)].buildingIndex);
     }
 
 
@@ -165,16 +151,16 @@ public class SelectingProvinces : MonoBehaviour
 
     public void ResetUnits()
     {
-        if (selectedUnitIndex >= 0) GameAssets.Instance.contentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+        if (selectedUnitIndex >= 0) GameAssets.Instance.unitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
         selectedUnitIndex = -1;
     }
     public void SelectUnitToRecruit(int index)
     {
         if (selectedProvince != null)
         {
-            if(selectedUnitIndex >= 0) GameAssets.Instance.contentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+            if(selectedUnitIndex >= 0) GameAssets.Instance.unitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
             selectedUnitIndex = index;
-            GameAssets.Instance.contentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+            GameAssets.Instance.unitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
 
             unitsNumber = 0;
             UpdateRecruitUI();
@@ -212,7 +198,7 @@ public class SelectingProvinces : MonoBehaviour
            
 
             UIManager.Instance.LoadProvinceUnitCounters(int.Parse(selectedProvince.name));
-            GameAssets.Instance.contentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+            GameAssets.Instance.unitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
 
             UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
         }
