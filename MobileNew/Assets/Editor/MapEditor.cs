@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -19,6 +20,10 @@ public class MapEditor : EditorWindow
 
     //output
     bool[,,] mapArray;// [x,y,a] a = 0 is Checked , a = 1 is Painted
+    List<List<Vector2Int>> provincesList;
+    List<Vector2Int> border;
+
+
     Texture2D map;
     Transform mapParent;
     MapStats mapStats;
@@ -70,8 +75,6 @@ public class MapEditor : EditorWindow
         {
             SetUpProvinces();  
         }
-
-
     }
 
     int provinceNumber = 0;
@@ -127,14 +130,16 @@ public class MapEditor : EditorWindow
         ClearMapSize();
         number = 0;
         mapArray = new bool [rawMap.width,rawMap.height,2];
+        provincesList = new List<List<Vector2Int>> ();
+        
+
 
         if(rawMap != null)
         {
-
-
             map = new Texture2D(100, 100);
 
             Vector2Int startPosition = Vector2Int.zero;
+
 
             for (int y =0;  y < rawMap.height;  y++)
             {
@@ -153,6 +158,34 @@ public class MapEditor : EditorWindow
             {
                 provinces[i] = new ProvinceStats(Random.Range(100,200),Random.Range(90,120),0.1f,0.1f);
             }
+
+
+            for (int y = 0; y < rawMap.height; y++)
+            {
+                for (int x = 0; x < rawMap.width; x++)
+                {
+                    if (rawMap.GetPixel(x, y).a == 1 && !mapArray[x, y, 0])
+                    {
+                        SetNeighboringProvinces(x, y);
+                    }
+                }
+            }
+
+            for (int i = 0; i < provincesList.Count; i++)
+            {
+                for (int j = 0; j < provincesList.Count; j++)
+                {
+                    if(i != j)
+                    {
+                        if(CheckBorders(provincesList[i], provincesList[j]))
+                        {
+                            provinces[i].AddNeighbor(j);
+                        }
+                    }
+                }         
+            }
+
+            
 
 
             mapStats = new MapStats(mapParent.transform.childCount, provinces);
@@ -188,13 +221,17 @@ public class MapEditor : EditorWindow
     }
     private void CutProvince(int x,int y)
     {
+        border = new List<Vector2Int>();
         ClearMapSize();
         CheckPixel(x, y);
         int width = maxX - minX + 1;
-        int height = maxY - minY + 1 ;
+        int height = maxY - minY + 1;
+
+        provincesList.Add(border);
+
+
         map = new Texture2D(width + 10, height + 10);
-        
-       
+
 
         for (int i = 0; i < height + 10; i++)
         {
@@ -203,7 +240,6 @@ public class MapEditor : EditorWindow
                 map.SetPixel(j, i, new Color(0, 0, 0, 0));
             }
         }
-
 
         PaintPixel(x, y);
 
@@ -229,6 +265,7 @@ public class MapEditor : EditorWindow
 
         gameObject.transform.parent = mapParent;
 
+        
 
         number++;
     } 
@@ -243,13 +280,18 @@ public class MapEditor : EditorWindow
         }
         else
         {
-            CheckPixel(x + 1, y);
-            CheckPixel(x - 1, y);
-            CheckPixel(x, y + 1);
-            CheckPixel(x, y - 1);
+            bool bool1 = CheckPixel(x + 1, y);
+            bool bool2 = CheckPixel(x - 1, y);
+            bool bool3 = CheckPixel(x, y + 1);
+            bool bool4 = CheckPixel(x, y - 1);
+
+            if(bool1 || bool2 || bool3 || bool4)
+            {
+                AddToBorderList(x, y);
+            }
         }
     }
-    private void CheckPixel(int x,int y)
+    private bool CheckPixel(int x,int y)
     {
         if (x >= 0 && y >= 0 && x < rawMap.width && y < rawMap.height && !mapArray[x,y,0])
         {
@@ -259,8 +301,14 @@ public class MapEditor : EditorWindow
                 mapArray[x, y, 0] = true;
                 CheckSizeMap(x,y);
                 CheckNeighbors(x, y, false);
+                return false;
             }
-        } 
+            else
+            {
+                return true;
+            }
+        }
+        return false;
     }
     private void PaintPixel(int x, int y)
     {
@@ -291,4 +339,46 @@ public class MapEditor : EditorWindow
         minY = 99999;
         maxY = 0;
     }
+
+    private void SetNeighboringProvinces(int x,int y)
+    {
+
+    }
+
+    private void AddToBorderList(int x,int y)
+    {
+        Vector2Int vector = new Vector2Int(x,y);
+        foreach (Vector2Int item in border)
+        {
+            if(vector == item)
+            {
+                return;
+            }
+        }
+        border.Add(vector);
+    }
+
+    private bool CheckBorders(List<Vector2Int> borderList, List<Vector2Int> neighbor)
+    {
+        float distance = 99999;
+
+        for (int i = 0; i < borderList.Count; i++)
+        {
+            for (int j = 0; j < neighbor.Count; j++)
+            {
+                float currentDistance = Vector2.Distance(borderList[i], neighbor[j]);
+                if (currentDistance <= 4)
+                {
+                    return true;
+                } 
+                else if (currentDistance < distance)
+                {               
+                    distance = currentDistance;
+                }
+            }
+        }
+        if(distance <= 4) return true;
+        else return false;      
+    }
+    
 }

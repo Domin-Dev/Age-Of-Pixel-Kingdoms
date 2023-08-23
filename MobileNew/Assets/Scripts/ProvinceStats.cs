@@ -18,14 +18,19 @@ public class ProvinceStats
 
     public Dictionary<int, int> units;
 
-    public string[] neighbors;
+    public List<int> neighbors = new List<int>();
     public void SetUp(Object[] neighbors)
     {      
-       this.neighbors = new string[neighbors.Length];
-       for (int i = 0;i < neighbors.Length;i++)
-       {
-            this.neighbors[i] = neighbors[i].name;
-       }
+      // this.neighbors = new string[neighbors.Length];
+      // for (int i = 0;i < neighbors.Length;i++)
+      // {
+   //         this.neighbors[i] = neighbors[i].name;
+   //    }
+    }
+
+    public void AddNeighbor(int index)
+    {
+        neighbors.Add(index);
     }
     public ProvinceStats(int population, int warriorsLimit, float scienceDevelopment, float incomeInCoins)
     {

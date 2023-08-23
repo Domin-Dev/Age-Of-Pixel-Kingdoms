@@ -6,8 +6,8 @@ public class GameAssets : MonoBehaviour
 {
     public static GameAssets Instance { get; private set; }
 
+    public Transform map;
 
-    
     public Material outline;
     public Material highlight;
 

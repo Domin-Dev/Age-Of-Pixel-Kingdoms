@@ -96,6 +96,15 @@ public class SelectingProvinces : MonoBehaviour
                     spriteRenderer.sortingOrder = -1;
                     spriteRenderer.material.SetColor("_Color_2", selectedColor);
 
+                    List<int> list = GameManager.Instance.provinces[int.Parse(selectedProvince.name)].neighbors;
+
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        GameAssets.Instance.map.GetChild(i).GetComponent<SpriteRenderer>().color = Color.red;
+                    }
+
+
+
                     UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(item.collider.name));
                     break;
                 }

@@ -38,7 +38,9 @@ public class UIManager : MonoBehaviour
     {
         gameAssets = GameAssets.Instance;
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
-        LoadUnits();
+        LoadUnits(gameAssets.recruitUnitContentUI,false);
+        LoadUnits(gameAssets.moveUnitContentUI,true);
+
         LoadBuildings();
         provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); });
         recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); });
@@ -50,12 +52,12 @@ public class UIManager : MonoBehaviour
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
         bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Units", 0); });
     }
-    private void LoadUnits()
+    private void LoadUnits(Transform ContentUI, bool isMove)
     {
         int index = 0;
         foreach (UnitStats item in gameAssets.unitStats)
         {
-            Transform transform = Instantiate(gameAssets.unitSlotUI, gameAssets.recruitUnitContentUI).transform;
+            Transform transform = Instantiate(gameAssets.unitSlotUI, ContentUI).transform;
             transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = item.name; 
             transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.sprite;
            
@@ -67,9 +69,16 @@ public class UIManager : MonoBehaviour
             transformStats.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<sprite index=22>" + item.rateOfFire.ToString();
             transformStats.GetChild(5).GetComponent<TextMeshProUGUI>().text = "<sprite index=23>" + item.turnCost.ToString();
 
-            transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + "<sprite index=21>";
             int id = index;
-            transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.SelectUnitToRecruit(id); });
+            if (!isMove)
+            {
+                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + "<sprite index=21>";
+                transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.SelectUnitToRecruit(id); });
+            }else
+            {
+                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Move";
+    //            transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.SelectUnitToRecruit(id); });
+            }
             index++;
         }
     }
@@ -172,8 +181,6 @@ public class UIManager : MonoBehaviour
         }
 
     }
-
-
     public void OpenUIWindow(string name, int provinceIndex)
     {
         Transform transform = GetWindow(name);
