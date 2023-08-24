@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Province
   - Path
+  - GameMap
   layers:
   - Default
   - TransparentFX

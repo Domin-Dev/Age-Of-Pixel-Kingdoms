@@ -83,6 +83,7 @@ public class SelectingProvinces : MonoBehaviour
                 {
                     if (selectedProvince != null)
                     {
+                        ResetNeighbors();
                         ClearSelectedProvince();
                         selectedProvince = item.collider.gameObject.transform;
                     }
@@ -96,12 +97,7 @@ public class SelectingProvinces : MonoBehaviour
                     spriteRenderer.sortingOrder = -1;
                     spriteRenderer.material.SetColor("_Color_2", selectedColor);
 
-                    List<int> list = GameManager.Instance.provinces[int.Parse(selectedProvince.name)].neighbors;
-
-                    for (int i = 0; i < list.Count; i++)
-                    {
-                        GameAssets.Instance.map.GetChild(i).GetComponent<SpriteRenderer>().color = Color.red;
-                    }
+                    HighlightNeighbors();
 
 
 
@@ -141,7 +137,35 @@ public class SelectingProvinces : MonoBehaviour
         }
     }
 
+    public void HighlightNeighbors()
+    {
+        if (selectedProvince != null)
+        { 
+            List<int> list = GameManager.Instance.provinces[int.Parse(selectedProvince.name)].neighbors;
 
+            for (int i = 0; i < list.Count; i++)
+            {
+               SpriteRenderer spriteRenderer =  GameAssets.Instance.map.GetChild(list[i]).GetComponent<SpriteRenderer>();
+
+                selectedColor = spriteRenderer.color;
+                spriteRenderer.color = Color.white;
+                spriteRenderer.material = GameAssets.Instance.highlight;
+                spriteRenderer.material.SetColor("_Color_2", selectedColor);
+            }
+        }
+    }
+    public void ResetNeighbors()
+    {
+        if (selectedProvince != null)
+        {
+            List<int> list = GameManager.Instance.provinces[int.Parse(selectedProvince.name)].neighbors;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                GameAssets.Instance.map.GetChild(list[i]).GetComponent<SpriteRenderer>().color = Color.gray;
+            }
+        }
+    }
 
 
 

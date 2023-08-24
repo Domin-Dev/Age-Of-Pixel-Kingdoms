@@ -50,6 +50,7 @@ public class GameAssets : MonoBehaviour
 
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");
+        map = GameObject.FindGameObjectWithTag("GameMap").transform;
 
     }
 

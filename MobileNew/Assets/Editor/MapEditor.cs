@@ -125,6 +125,7 @@ public class MapEditor : EditorWindow
         provinceNumber = 0;
 
         mapParent = new GameObject("Game Map",typeof(LineRenderer)).transform;
+        mapParent.tag = "GameMap";
 
         SetUpOutline();
         ClearMapSize();
@@ -153,12 +154,10 @@ public class MapEditor : EditorWindow
             }
 
             ProvinceStats[] provinces = new ProvinceStats[mapParent.transform.childCount];
-
             for (int i = 0; i < mapParent.transform.childCount; i++)
             {
                 provinces[i] = new ProvinceStats(Random.Range(100,200),Random.Range(90,120),0.1f,0.1f);
             }
-
 
             for (int y = 0; y < rawMap.height; y++)
             {
