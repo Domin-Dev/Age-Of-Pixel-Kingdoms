@@ -45,8 +45,8 @@ public class CameraController : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && !MouseIsOverUI())
         {
             startPosition =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
-           if(selectingProvinces != null) selectingProvinces.SelectingProvince();
-        }       
+            if(selectingProvinces != null) selectingProvinces.SelectingProvince();
+        }        
 
         if(Input.GetMouseButton(0) && !MouseIsOverUI())
         { 

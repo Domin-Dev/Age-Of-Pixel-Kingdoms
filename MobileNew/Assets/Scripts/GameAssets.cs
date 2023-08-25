@@ -9,7 +9,6 @@ public class GameAssets : MonoBehaviour
     public Transform map;
 
     public Material outline;
-    public Material highlight;
 
     [Space(20f, order = 0)]
 

@@ -27,6 +27,8 @@ public class MapEditor : EditorWindow
     Texture2D map;
     Transform mapParent;
     MapStats mapStats;
+    bool isSea;
+
 
     int maxX;
     int maxY;
@@ -118,6 +120,7 @@ public class MapEditor : EditorWindow
         }
     }
 
+    
     private void CuttingMap()
     {
         Camera.main.GetComponent<CameraController>().Limit = new Vector3(rawMap.width/100, rawMap.height/100);
@@ -159,16 +162,6 @@ public class MapEditor : EditorWindow
                 provinces[i] = new ProvinceStats(Random.Range(100,200),Random.Range(90,120),0.1f,0.1f);
             }
 
-            for (int y = 0; y < rawMap.height; y++)
-            {
-                for (int x = 0; x < rawMap.width; x++)
-                {
-                    if (rawMap.GetPixel(x, y).a == 1 && !mapArray[x, y, 0])
-                    {
-                        SetNeighboringProvinces(x, y);
-                    }
-                }
-            }
 
             for (int i = 0; i < provincesList.Count; i++)
             {
@@ -220,16 +213,19 @@ public class MapEditor : EditorWindow
     }
     private void CutProvince(int x,int y)
     {
+        isSea = false;
         border = new List<Vector2Int>();
         ClearMapSize();
         CheckPixel(x, y);
         int width = maxX - minX + 1;
         int height = maxY - minY + 1;
 
-        provincesList.Add(border);
+       if(isSea) provincesList.Add(new List<Vector2Int>());
+       else provincesList.Add(border);
 
 
-        map = new Texture2D(width + 10, height + 10);
+
+            map = new Texture2D(width + 10, height + 10);
 
 
         for (int i = 0; i < height + 10; i++)
@@ -259,7 +255,6 @@ public class MapEditor : EditorWindow
         gameObject.AddComponent<BoxCollider2D>();
 
         spriteRenderer.material = outlineMaterial;
-        spriteRenderer.color = defaultColor;
         spriteRenderer.sortingOrder = -10;
 
         gameObject.transform.parent = mapParent;
@@ -295,8 +290,15 @@ public class MapEditor : EditorWindow
         if (x >= 0 && y >= 0 && x < rawMap.width && y < rawMap.height && !mapArray[x,y,0])
         {
             Color color = rawMap.GetPixel(x, y);
+
             if (color.a == 1)
             {
+                if(!isSea &&color.b == defaultColor.b)
+                {
+                    isSea = true;
+                    Debug.Log("water!");
+                }
+
                 mapArray[x, y, 0] = true;
                 CheckSizeMap(x,y);
                 CheckNeighbors(x, y, false);
@@ -339,10 +341,7 @@ public class MapEditor : EditorWindow
         maxY = 0;
     }
 
-    private void SetNeighboringProvinces(int x,int y)
-    {
 
-    }
 
     private void AddToBorderList(int x,int y)
     {

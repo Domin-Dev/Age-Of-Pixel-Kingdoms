@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
 
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
-        bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Units", 0); });
+        bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.HighlightNeighbors(); });
     }
     private void LoadUnits(Transform ContentUI, bool isMove)
     {
@@ -193,9 +193,11 @@ public class UIManager : MonoBehaviour
         }
         else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units")
         {
+            selectingProvinces.ResetNeighbors();
             CloseUIWindow("UnitsRecruitment");
             CloseUIWindow("Buildings");
             CloseUIWindow("Units");
+
         }
 
 
@@ -214,6 +216,7 @@ public class UIManager : MonoBehaviour
         Transform transform = GetWindow(name);
         if(name == "ProvinceStats")
         {
+            selectingProvinces.ResetNeighbors();
             selectingProvinces.ClearSelectedProvince();
             CloseUIWindow("UnitsRecruitment");
             CloseUIWindow("SelectionNumberUnits");

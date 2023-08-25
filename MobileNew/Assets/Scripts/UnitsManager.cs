@@ -101,7 +101,6 @@ public class UnitsManager : MonoBehaviour
         return null;
     }
 
-
     private List<Unit> GetPath(int index)
     {
         switch (index)

@@ -91,14 +91,9 @@ public class SelectingProvinces : MonoBehaviour
                     {
                         selectedProvince = item.collider.gameObject.transform;
                     }
-                    selectedColor = spriteRenderer.color;
-                    spriteRenderer.color = Color.white;
-                    spriteRenderer.material = GameAssets.Instance.highlight;
+
                     spriteRenderer.sortingOrder = -1;
-                    spriteRenderer.material.SetColor("_Color_2", selectedColor);
-
-                    HighlightNeighbors();
-
+                    ChangeProvinceBorderColor(spriteRenderer, Color.white);
 
 
                     UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(item.collider.name));
@@ -113,10 +108,9 @@ public class SelectingProvinces : MonoBehaviour
     {
         if (selectedProvince != null)
         {
-            SpriteRenderer spriteRenderer1 = selectedProvince.GetComponent<SpriteRenderer>();
-            spriteRenderer1.color = selectedColor;
-            spriteRenderer1.material = GameAssets.Instance.outline;
-            spriteRenderer1.sortingOrder = -10;
+            SpriteRenderer spriteRenderer = selectedProvince.GetComponent<SpriteRenderer>();
+            ChangeProvinceBorderColor(spriteRenderer, Color.black);
+            spriteRenderer.sortingOrder = -10;
             selectedProvince = null;
         }
     }
@@ -137,6 +131,7 @@ public class SelectingProvinces : MonoBehaviour
         }
     }
 
+
     public void HighlightNeighbors()
     {
         if (selectedProvince != null)
@@ -146,11 +141,8 @@ public class SelectingProvinces : MonoBehaviour
             for (int i = 0; i < list.Count; i++)
             {
                SpriteRenderer spriteRenderer =  GameAssets.Instance.map.GetChild(list[i]).GetComponent<SpriteRenderer>();
-
-                selectedColor = spriteRenderer.color;
-                spriteRenderer.color = Color.white;
-                spriteRenderer.material = GameAssets.Instance.highlight;
-                spriteRenderer.material.SetColor("_Color_2", selectedColor);
+               spriteRenderer.sortingOrder = -2;
+               ChangeProvinceBorderColor(spriteRenderer, Color.yellow);
             }
         }
     }
@@ -162,14 +154,48 @@ public class SelectingProvinces : MonoBehaviour
 
             for (int i = 0; i < list.Count; i++)
             {
-                GameAssets.Instance.map.GetChild(list[i]).GetComponent<SpriteRenderer>().color = Color.gray;
+                SpriteRenderer spriteRenderer = GameAssets.Instance.map.GetChild(list[i]).GetComponent<SpriteRenderer>();
+                ChangeProvinceBorderColor(spriteRenderer, Color.black);
+                spriteRenderer.sortingOrder = -10;      
             }
         }
     }
 
 
+    private void ChangeProvinceColor(SpriteRenderer spriteRenderer,Color provinceColor)
+    {
+        MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+        if (spriteRenderer.HasPropertyBlock())
+        {
+            spriteRenderer.GetPropertyBlock(materialPropertyBlock);
+            materialPropertyBlock.SetColor("Color2", provinceColor);
+        }
+        else
+        {         
+            materialPropertyBlock.SetColor("Color1", Color.black);
+            materialPropertyBlock.SetFloat("Float", -0.05f);
+            materialPropertyBlock.SetColor("Color2", provinceColor);
+            materialPropertyBlock.SetTexture("_MainTex", spriteRenderer.sprite.texture);
+        }
+        spriteRenderer.SetPropertyBlock(materialPropertyBlock);
+    }
 
-
+    private void ChangeProvinceBorderColor(SpriteRenderer spriteRenderer, Color borderColor)
+    {
+        MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+        if (spriteRenderer.HasPropertyBlock())
+        {
+            spriteRenderer.GetPropertyBlock(materialPropertyBlock);
+            materialPropertyBlock.SetColor("Color1", borderColor);
+        }
+        else
+        {
+            materialPropertyBlock.SetColor("Color1", borderColor);
+            materialPropertyBlock.SetFloat("Float", -0.05f);
+            materialPropertyBlock.SetTexture("_MainTex", spriteRenderer.sprite.texture);
+        }
+        spriteRenderer.SetPropertyBlock(materialPropertyBlock);
+    }
     public void SetUnitsNumber(int unit)
     {
         unitsNumber = Math.Clamp(unit, 0, maxUnitsNumber); 
@@ -242,6 +268,4 @@ public class SelectingProvinces : MonoBehaviour
             UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
         }
     }
-
-
 }
