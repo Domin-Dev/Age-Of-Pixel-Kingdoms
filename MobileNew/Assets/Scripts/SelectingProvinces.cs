@@ -11,6 +11,10 @@ using static UnityEngine.UI.CanvasScaler;
 public class SelectingProvinces : MonoBehaviour
 {
     private Transform selectedProvince;
+    private Transform selectedNeighbor;
+
+
+
     private Color selectedColor;
 
     private int selectedUnitIndex = -1;
@@ -81,17 +85,23 @@ public class SelectingProvinces : MonoBehaviour
                 if (pixel.a == 0) continue;
                 else
                 {
+
                     if (selectedProvince != null)
                     {
-                        ResetNeighbors();
-                        ClearSelectedProvince();
-                        selectedProvince = item.collider.gameObject.transform;
-                    }
-                    else
-                    {
-                        selectedProvince = item.collider.gameObject.transform;
+                        if (selectedProvince.name == item.collider.gameObject.name)
+                        {
+                            HighlightNeighbors();
+                        }
+                        else
+                        {
+                            ResetNeighbors();
+                            ClearSelectedProvince();
+                        }
                     }
 
+
+
+                    selectedProvince = item.collider.gameObject.transform;
                     spriteRenderer.sortingOrder = -1;
                     ChangeProvinceBorderColor(spriteRenderer, Color.white);
 
