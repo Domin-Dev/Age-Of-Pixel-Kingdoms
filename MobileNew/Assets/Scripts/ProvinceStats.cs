@@ -11,6 +11,8 @@ public class ProvinceStats
     public int warriorsLimit;
     public float scienceDevelopment;
     public float incomeInCoins;
+    public bool isSea;
+
 
     public int unitsCounter;
 
@@ -32,7 +34,7 @@ public class ProvinceStats
     {
         neighbors.Add(index);
     }
-    public ProvinceStats(int population, int warriorsLimit, float scienceDevelopment, float incomeInCoins)
+    public ProvinceStats(int population, int warriorsLimit, float scienceDevelopment, float incomeInCoins, bool isSea)
     {
         units = new Dictionary<int, int>();
         this.unitsCounter = 0;
@@ -41,6 +43,7 @@ public class ProvinceStats
         this.scienceDevelopment = scienceDevelopment;
         this.incomeInCoins = incomeInCoins;
         buildingIndex = -1;
+        this.isSea = isSea;
     }
 
 

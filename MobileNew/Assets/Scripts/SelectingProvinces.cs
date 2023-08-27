@@ -10,9 +10,9 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class SelectingProvinces : MonoBehaviour
 {
-    private Transform selectedProvince;
+    public Transform selectedProvince { private set; get; }
     private Transform selectedNeighbor;
-
+    private bool moveMode = false;
 
 
     private Color selectedColor;
@@ -53,11 +53,6 @@ public class SelectingProvinces : MonoBehaviour
         buttons.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(20); });
         
         UpdateRecruitUI();
-
-
-        //     GameAssets.Instance.buildWorkshop.GetComponent<Button>().onClick.AddListener(() =>Build(0));;
-        //     GameAssets.Instance.buildFort.GetComponent<Button>().onClick.AddListener(() =>Build(1));;
-        //     GameAssets.Instance.buildUniversity.GetComponent<Button>().onClick.AddListener(() =>Build(2));;
     }
     public void SelectingProvince()
     {
@@ -85,12 +80,21 @@ public class SelectingProvinces : MonoBehaviour
                 if (pixel.a == 0) continue;
                 else
                 {
+                    
 
                     if (selectedProvince != null)
                     {
                         if (selectedProvince.name == item.collider.gameObject.name)
                         {
-                            HighlightNeighbors();
+                            if(moveMode)
+                            {
+                                ResetNeighbors();
+                            }
+                            else
+                            {
+                                HighlightNeighbors();
+                            }
+                            
                         }
                         else
                         {
@@ -104,7 +108,7 @@ public class SelectingProvinces : MonoBehaviour
                     selectedProvince = item.collider.gameObject.transform;
                     spriteRenderer.sortingOrder = -1;
                     ChangeProvinceBorderColor(spriteRenderer, Color.white);
-
+                    Debug.Log(GameManager.Instance.provinces[int.Parse(selectedProvince.name)].isSea);
 
                     UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(item.collider.name));
                     break;
@@ -120,7 +124,8 @@ public class SelectingProvinces : MonoBehaviour
         {
             SpriteRenderer spriteRenderer = selectedProvince.GetComponent<SpriteRenderer>();
             ChangeProvinceBorderColor(spriteRenderer, Color.black);
-            spriteRenderer.sortingOrder = -10;
+            if (GameManager.Instance.provinces[int.Parse(selectedProvince.name)].isSea) spriteRenderer.sortingOrder = -11;
+            else spriteRenderer.sortingOrder = -10;
             selectedProvince = null;
         }
     }
@@ -154,6 +159,7 @@ public class SelectingProvinces : MonoBehaviour
                spriteRenderer.sortingOrder = -2;
                ChangeProvinceBorderColor(spriteRenderer, Color.yellow);
             }
+            moveMode = true;
         }
     }
     public void ResetNeighbors()
@@ -168,6 +174,7 @@ public class SelectingProvinces : MonoBehaviour
                 ChangeProvinceBorderColor(spriteRenderer, Color.black);
                 spriteRenderer.sortingOrder = -10;      
             }
+            moveMode = false;
         }
     }
 

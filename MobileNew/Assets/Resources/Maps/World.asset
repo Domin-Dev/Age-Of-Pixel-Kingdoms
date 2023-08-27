@@ -14,227 +14,259 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfProvinces: 32
   provinces:
-  - population: 199
-    warriorsLimit: 95
+  - population: 184
+    warriorsLimit: 99
     scienceDevelopment: 0.1
     incomeInCoins: 0.1
+    isSea: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 01000000080000000a000000
-  - population: 112
-    warriorsLimit: 117
+  - population: 133
+    warriorsLimit: 118
     scienceDevelopment: 0.1
     incomeInCoins: 0.1
+    isSea: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0000000002000000090000000a000000
-  - population: 111
-    warriorsLimit: 90
+  - population: 183
+    warriorsLimit: 95
     scienceDevelopment: 0.1
     incomeInCoins: 0.1
+    isSea: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 010000000300000009000000
-  - population: 188
-    warriorsLimit: 117
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 020000000400000009000000
-  - population: 178
-    warriorsLimit: 98
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0300000005000000
-  - population: 118
-    warriorsLimit: 90
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0400000006000000
-  - population: 113
-    warriorsLimit: 116
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 050000000c0000000d000000
-  - population: 126
-    warriorsLimit: 101
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 
-  - population: 132
-    warriorsLimit: 97
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 000000000a0000000f00000014000000
-  - population: 175
-    warriorsLimit: 108
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0100000002000000030000000a0000000b0000000e000000
-  - population: 181
+  - population: 141
     warriorsLimit: 96
     scienceDevelopment: 0.1
     incomeInCoins: 0.1
+    isSea: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 000000000100000008000000090000000e0000000f00000010000000
-  - population: 138
-    warriorsLimit: 107
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 090000000e00000012000000
-  - population: 180
-    warriorsLimit: 114
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 060000000d000000110000001300000015000000
-  - population: 100
-    warriorsLimit: 113
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 060000000c0000001300000016000000
-  - population: 141
-    warriorsLimit: 110
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 090000000a0000000b0000001000000012000000
-  - population: 195
-    warriorsLimit: 114
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 080000000a0000001000000014000000
-  - population: 122
-    warriorsLimit: 104
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0a0000000e0000000f00000014000000
-  - population: 102
-    warriorsLimit: 90
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0c00000012000000150000001800000019000000
-  - population: 124
-    warriorsLimit: 118
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0b0000000e0000001100000019000000
-  - population: 136
-    warriorsLimit: 101
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0c0000000d00000015000000160000001b000000
-  - population: 173
-    warriorsLimit: 107
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 080000000f000000100000001a000000
-  - population: 108
-    warriorsLimit: 106
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0c0000001100000013000000180000001b0000001c000000
-  - population: 198
-    warriorsLimit: 117
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 0d000000130000001b0000001e000000
-  - population: 102
+    neighbors: 020000000400000009000000
+  - population: 113
     warriorsLimit: 102
     scienceDevelopment: 0.1
     incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0300000005000000
+  - population: 197
+    warriorsLimit: 101
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0400000006000000
+  - population: 170
+    warriorsLimit: 93
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 050000000c0000000d000000
+  - population: 177
+    warriorsLimit: 91
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 1
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 
-  - population: 175
-    warriorsLimit: 117
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 1100000015000000190000001c0000001d000000
-  - population: 123
-    warriorsLimit: 118
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 1100000012000000180000001d000000
-  - population: 136
-    warriorsLimit: 94
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 14000000
-  - population: 122
-    warriorsLimit: 110
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 1300000015000000160000001c0000001e0000001f000000
-  - population: 150
-    warriorsLimit: 113
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 15000000180000001b0000001d0000001f000000
-  - population: 191
-    warriorsLimit: 118
-    scienceDevelopment: 0.1
-    incomeInCoins: 0.1
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 18000000190000001c0000001f000000
-  - population: 140
+  - population: 138
     warriorsLimit: 97
     scienceDevelopment: 0.1
     incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 000000000a0000000f00000014000000
+  - population: 120
+    warriorsLimit: 114
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0100000002000000030000000a0000000b0000000e000000
+  - population: 161
+    warriorsLimit: 93
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 000000000100000008000000090000000e0000000f00000010000000
+  - population: 147
+    warriorsLimit: 119
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 090000000e00000012000000
+  - population: 156
+    warriorsLimit: 93
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 060000000d000000110000001300000015000000
+  - population: 104
+    warriorsLimit: 92
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 060000000c0000001300000016000000
+  - population: 106
+    warriorsLimit: 94
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 090000000a0000000b0000001000000012000000
+  - population: 111
+    warriorsLimit: 111
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 080000000a0000001000000014000000
+  - population: 103
+    warriorsLimit: 100
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0a0000000e0000000f00000014000000
+  - population: 187
+    warriorsLimit: 116
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0c00000012000000150000001800000019000000
+  - population: 122
+    warriorsLimit: 118
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0b0000000e0000001100000019000000
+  - population: 164
+    warriorsLimit: 104
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0c0000000d00000015000000160000001b000000
+  - population: 161
+    warriorsLimit: 110
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 080000000f000000100000001a000000
+  - population: 132
+    warriorsLimit: 96
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0c0000001100000013000000180000001b0000001c000000
+  - population: 123
+    warriorsLimit: 103
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 0d000000130000001b0000001e000000
+  - population: 198
+    warriorsLimit: 102
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 1
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - population: 161
+    warriorsLimit: 100
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 1100000015000000190000001c0000001d000000
+  - population: 199
+    warriorsLimit: 107
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 1100000012000000180000001d000000
+  - population: 124
+    warriorsLimit: 104
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 14000000
+  - population: 147
+    warriorsLimit: 91
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 1300000015000000160000001c0000001e0000001f000000
+  - population: 106
+    warriorsLimit: 107
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 15000000180000001b0000001d0000001f000000
+  - population: 123
+    warriorsLimit: 114
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 18000000190000001c0000001f000000
+  - population: 169
+    warriorsLimit: 112
+    scienceDevelopment: 0.1
+    incomeInCoins: 0.1
+    isSea: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 160000001b0000001f000000
-  - population: 135
-    warriorsLimit: 98
+  - population: 148
+    warriorsLimit: 107
     scienceDevelopment: 0.1
     incomeInCoins: 0.1
+    isSea: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 1b0000001c0000001d0000001e000000

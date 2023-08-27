@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         LoadUnits(gameAssets.recruitUnitContentUI,false);
         LoadUnits(gameAssets.moveUnitContentUI,true);
 
-        LoadBuildings();
+        LoadBuildings(-1);
         provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); });
         recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); });
         selectionNumberUnitsWindow.GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("SelectionNumberUnits"); });
@@ -82,20 +82,56 @@ public class UIManager : MonoBehaviour
             index++;
         }
     }
-    private void LoadBuildings()
+    private void LoadBuildings(int provinceIndex)
     {
-        int index = 0;
-        foreach (BuildingStats item in gameAssets.buildingsStats)
-        { 
-            Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
-            transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
-            transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
-            transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + "<sprite index=21>";
-            transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
+        if (provinceIndex == -1)
+        {
+            int index = 0;
+            foreach (BuildingStats item in gameAssets.buildingsStats)
+            {
+                Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
+                transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
+                transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
+                transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + "<sprite index=21>";
+                transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
 
-            int id = index;
-            transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
-            index++;
+                int id = index;
+                transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
+                index++;
+            }
+        }
+        else
+        {
+            Debug.Log("XD");
+            int buildingIndex = GameManager.Instance.provinces[provinceIndex].buildingIndex;
+
+            Transform transform = gameAssets.buildingsContentUI;
+
+            if (buildingIndex == -1)
+            {
+                Debug.Log("XDTTTT");
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).gameObject.SetActive(true);
+                }    
+            }
+            else
+            {
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    Debug.Log("I");
+                    if (buildingIndex == i)
+                    {
+                        transform.GetChild(i).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        transform.GetChild(i).gameObject.SetActive(false);
+
+                    }
+                }
+            }
+
         }
     }
 
@@ -198,6 +234,11 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("Buildings");
             CloseUIWindow("Units");
 
+        }
+
+        if(name == "Buildings")
+        {
+            LoadBuildings(int.Parse(selectingProvinces.selectedProvince.name));
         }
 
 

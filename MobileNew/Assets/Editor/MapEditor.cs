@@ -15,6 +15,7 @@ public class MapEditor : EditorWindow
     Material highlightMaterial;
 
     Color defaultColor = Color.grey;
+    Color seaColor = new Color32(77, 101, 180, 255);
     //
 
 
@@ -159,7 +160,13 @@ public class MapEditor : EditorWindow
             ProvinceStats[] provinces = new ProvinceStats[mapParent.transform.childCount];
             for (int i = 0; i < mapParent.transform.childCount; i++)
             {
-                provinces[i] = new ProvinceStats(Random.Range(100,200),Random.Range(90,120),0.1f,0.1f);
+                if (provincesList[i].Count == 0)
+                {
+                    provinces[i] = new ProvinceStats(Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,true);
+                }else
+                {
+                    provinces[i] = new ProvinceStats(Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,false);
+                }
             }
 
 
@@ -255,7 +262,8 @@ public class MapEditor : EditorWindow
         gameObject.AddComponent<BoxCollider2D>();
 
         spriteRenderer.material = outlineMaterial;
-        spriteRenderer.sortingOrder = -10;
+         if(isSea) spriteRenderer.sortingOrder = -11;
+         else spriteRenderer.sortingOrder = -10;
 
         gameObject.transform.parent = mapParent;
 
