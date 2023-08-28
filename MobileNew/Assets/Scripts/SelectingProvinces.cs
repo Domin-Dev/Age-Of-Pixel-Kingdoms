@@ -98,6 +98,12 @@ public class SelectingProvinces : MonoBehaviour
                         }
                         else
                         {
+                            if (moveMode)
+                            {
+                                Debug.Log(item.collider.gameObject.name + " " + selectedProvince.name);
+                            }
+
+
                             ResetNeighbors();
                             ClearSelectedProvince();
                         }
@@ -108,8 +114,6 @@ public class SelectingProvinces : MonoBehaviour
                     selectedProvince = item.collider.gameObject.transform;
                     spriteRenderer.sortingOrder = -1;
                     ChangeProvinceBorderColor(spriteRenderer, Color.white);
-                    Debug.Log(GameManager.Instance.provinces[int.Parse(selectedProvince.name)].isSea);
-
                     UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(item.collider.name));
                     break;
                 }
