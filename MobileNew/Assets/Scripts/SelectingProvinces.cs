@@ -98,14 +98,17 @@ public class SelectingProvinces : MonoBehaviour
                         }
                         else
                         {
-                            if (moveMode)
+                            if(moveMode && IsNeighbor(int.Parse(item.collider.gameObject.name)))
                             {
-                                Debug.Log(item.collider.gameObject.name + " " + selectedProvince.name);
+                                UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name));
                             }
+                            else
+                            {
 
-
-                            ResetNeighbors();
-                            ClearSelectedProvince();
+                                UIManager.Instance.CloseUIWindow("ProvinceStats");
+                                ResetNeighbors();
+                             //   ClearSelectedProvince();
+                            }
                         }
                     }
 
@@ -131,6 +134,7 @@ public class SelectingProvinces : MonoBehaviour
             if (GameManager.Instance.provinces[int.Parse(selectedProvince.name)].isSea) spriteRenderer.sortingOrder = -11;
             else spriteRenderer.sortingOrder = -10;
             selectedProvince = null;
+
         }
     }
     public void Build(int index)
@@ -182,6 +186,24 @@ public class SelectingProvinces : MonoBehaviour
         }
     }
 
+    public bool IsNeighbor(int index)
+    {
+        if (selectedProvince != null)
+        {
+            List<int> list = GameManager.Instance.provinces[int.Parse(selectedProvince.name)].neighbors;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == index)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
 
     private void ChangeProvinceColor(SpriteRenderer spriteRenderer,Color provinceColor)
     {
@@ -200,7 +222,6 @@ public class SelectingProvinces : MonoBehaviour
         }
         spriteRenderer.SetPropertyBlock(materialPropertyBlock);
     }
-
     private void ChangeProvinceBorderColor(SpriteRenderer spriteRenderer, Color borderColor)
     {
         MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
@@ -282,10 +303,8 @@ public class SelectingProvinces : MonoBehaviour
             }
             selectedProvince.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
            
-
-            UIManager.Instance.LoadProvinceUnitCounters(int.Parse(selectedProvince.name));
+            UIManager.Instance.LoadProvinceUnitCounters(int.Parse(selectedProvince.name), GameAssets.Instance.unitCounterContentUI.transform,false);
             GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
-
             UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
         }
     }

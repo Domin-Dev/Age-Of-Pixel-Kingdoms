@@ -100,7 +100,6 @@ public class Unit : MonoBehaviour
             {
                 IsActive = true;
                 lerpIsActive = false;
-                Debug.Log("Xd");
             }
         }
 
