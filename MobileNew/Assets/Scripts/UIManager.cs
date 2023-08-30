@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
         gameAssets = GameAssets.Instance;
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
         LoadUnits(gameAssets.recruitUnitContentUI,false);
-        LoadUnits(gameAssets.moveUnitContentUI,true);
+      // LoadUnits(gameAssets.moveUnitContentUI1,true);
 
         LoadBuildings(-1);
         provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); });
@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
             }else
             {
                 transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Move";
-    //            transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.SelectUnitToRecruit(id); });
+
             }
             index++;
         }
@@ -140,7 +140,7 @@ public class UIManager : MonoBehaviour
     {
         int counterIndex = 0;
         ProvinceStats provinceStats = GameManager.Instance.provinces[index];
-        Transform parentCounters = GameAssets.Instance.moveUnitContentUI;
+        Transform parentCounters = GameAssets.Instance.moveUnitContentUI1;
 
         for (int j = 0; j < gameAssets.unitStats.Length; j++)
         {
@@ -260,9 +260,11 @@ public class UIManager : MonoBehaviour
         LoadProvinceUnitCounters(provinceIndex1, unitsWindow.GetChild(1).GetChild(0).GetChild(1).GetChild(0).transform,true);
         unitsWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex1.ToString();
        
+
         LoadProvinceUnitCounters(provinceIndex2, unitsWindow.GetChild(1).GetChild(1).GetChild(1).GetChild(0).transform,true);
         unitsWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
     }
+
     public void CloseUIWindow(string name)
     {
         Transform transform = GetWindow(name);

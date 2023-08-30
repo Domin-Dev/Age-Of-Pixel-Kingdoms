@@ -24,7 +24,11 @@ public class GameAssets : MonoBehaviour
     public Transform unitCounterContentUI;
     public Transform recruitUnitContentUI;
     public Transform buildingsContentUI;
-    public Transform moveUnitContentUI;
+
+    [Space(20f, order = 0)]
+
+    public Transform moveUnitContentUI1;
+    public Transform moveUnitContentUI2;
 
 
     [Space(20f, order = 0)]

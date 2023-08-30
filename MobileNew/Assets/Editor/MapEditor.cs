@@ -117,7 +117,7 @@ public class MapEditor : EditorWindow
 
         if (GUILayout.Button("Set Neighbors"))
         {
-            mapStats.provinces[provinceNumber].SetUp(Selection.objects);
+          //  mapStats.provinces[provinceNumber].SetUp(Selection.objects);
         }
     }
 
