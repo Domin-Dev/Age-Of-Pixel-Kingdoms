@@ -18,6 +18,7 @@ public class SelectingProvinces : MonoBehaviour
     private Color selectedColor;
 
     private int selectedUnitIndex = -1;
+    private int selectedProvinceNumber = 0;
 
 
     private int unitsNumber = 0;
@@ -72,7 +73,7 @@ public class SelectingProvinces : MonoBehaviour
             buttonRecruit.onClick.RemoveAllListeners();
             buttonRecruit.onClick.AddListener(() => { Recruit(); });
             nameWindow.text = "recruitment";
-            buttonText.text = "Move";
+            buttonText.text = "Recruit";
         }
     }
     public void SelectingProvince()
@@ -280,21 +281,34 @@ public class SelectingProvinces : MonoBehaviour
         selectedUnitIndex = -1;
     }
 
-
-    public void SelectUnitToMove(int index)
+    private Transform GetUIContent(int provinceNumber)
+    {
+        switch (provinceNumber)
+        {
+            case 1: return GameAssets.Instance.moveUnitContentUI1;
+            case 2: return GameAssets.Instance.moveUnitContentUI2;
+        }
+        return null;
+    }
+    public void SelectUnitToMove(int index, int provinceNumber)
     {
         if (selectedProvince != null)
         {
-            if (selectedUnitIndex >= 0) GameAssets.Instance..GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+
+            Debug.Log(provinceNumber);
+            if (selectedUnitIndex >= 0) GetUIContent(provinceNumber).GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+          
             selectedUnitIndex = index;
-            GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+            selectedProvinceNumber = provinceNumber;
+
+            GetUIContent(provinceNumber).GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
 
             unitsNumber = 0;
             UpdateRecruitUI();
             ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedProvince.name)];
             selectedUnitIndex = index;
 
-            SetSelectionNumberUnits(false);
+            SetSelectionNumberUnits(true);
             UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
         }
     }
