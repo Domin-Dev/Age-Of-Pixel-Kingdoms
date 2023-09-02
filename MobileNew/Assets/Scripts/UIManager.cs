@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
             index++;
         }
     }
-    private void LoadBuildings(int provinceIndex)
+    public void LoadBuildings(int provinceIndex)
     {
         if (provinceIndex == -1)
         {
@@ -226,6 +226,12 @@ public class UIManager : MonoBehaviour
         }
 
     }
+    
+    private bool IsSea(Transform transform)
+    {
+       if(transform != null) return GameManager.Instance.provinces[int.Parse(transform.name)].isSea;
+       else return false;
+    }
     public void OpenUIWindow(string name, int provinceIndex)
     {
         Transform transform = GetWindow(name);
@@ -246,13 +252,14 @@ public class UIManager : MonoBehaviour
 
         if(name == "Buildings")
         {
+            if(IsSea(selectingProvinces.selectedProvince)) return;
             LoadBuildings(int.Parse(selectingProvinces.selectedProvince.name));
         }
 
 
 
         if (transform != null)
-        {
+        { 
             transform.gameObject.SetActive(true);
         }
         else
@@ -282,6 +289,7 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("UnitsRecruitment");
             CloseUIWindow("SelectionNumberUnits");
             CloseUIWindow("Units");
+            CloseUIWindow("Buildings");
         }
         else if(name == "UnitsRecruitment")
         {
@@ -323,6 +331,11 @@ public class UIManager : MonoBehaviour
     {
         return selectionNumberUnitsWindow;
     }
+    public Transform GetUnitsWindow()
+    {
+        return unitsWindow;
+    }
+
     public void OpenNumberSelection()
     {
         selectionNumberUnitsWindow.gameObject.SetActive(true);

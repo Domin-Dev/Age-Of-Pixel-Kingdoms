@@ -164,10 +164,7 @@ public class Unit : MonoBehaviour
     private void Hit(float damage)
     {
         lerpIsActive = true;
-        //spriteRenderer.material = new Material(Shader.Find("Shader Graphs/Unit"));
-
-         
-
+        //spriteRenderer.material = new Material(Shader.Find("Shader Graphs/Unit"));      
         transform.GetChild(0).gameObject.SetActive(true);
         lifePoints = math.clamp(lifePoints - damage, 0, maxLifePoints);
         lifeBar.localScale = new Vector3(lifePoints/maxLifePoints, 1, 1);

@@ -30,7 +30,6 @@ public class GameAssets : MonoBehaviour
     public Transform moveUnitContentUI1;
     public Transform moveUnitContentUI2;
 
-
     [Space(20f, order = 0)]
 
     public GameObject unitSlotUI;
@@ -39,7 +38,6 @@ public class GameAssets : MonoBehaviour
 
     public BuildingStats[] buildingsStats { private set; get; }
     public UnitStats[] unitStats { private set; get; }  
-
     private void Awake()
     {
         if(Instance == null)
@@ -50,17 +48,12 @@ public class GameAssets : MonoBehaviour
         {
             Destroy(this);
         }
-
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
-
     }
-
     private void Start()
     { 
         DontDestroyOnLoad(gameObject);        
     }
-
-
 }
