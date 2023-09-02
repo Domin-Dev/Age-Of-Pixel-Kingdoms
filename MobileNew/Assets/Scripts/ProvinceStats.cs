@@ -5,8 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class ProvinceStats
 {
-
-
     public int population;
     public int warriorsLimit;
     public float scienceDevelopment;
@@ -36,7 +34,4 @@ public class ProvinceStats
         buildingIndex = -1;
         this.isSea = isSea;
     }
-
-
-
 }

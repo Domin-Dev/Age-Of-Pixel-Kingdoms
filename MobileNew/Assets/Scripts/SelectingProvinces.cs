@@ -7,11 +7,12 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using static UnityEngine.UI.CanvasScaler;
+using static UnityEditor.Progress;
 
 public class SelectingProvinces : MonoBehaviour
 {
-    public Transform selectedProvince { private set; get; }
-    private Transform selectedNeighbor;
+    public Transform selectedProvince;
+    public Transform selectedNeighbor;
     private bool moveMode = false;
 
 
@@ -45,9 +46,6 @@ public class SelectingProvinces : MonoBehaviour
         buttonRecruit = selectionNumberUnits.GetChild(4).GetComponent<Button>();
         buttonText = buttonRecruit.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-
-
-
         buttonRecruit.onClick.AddListener(() => { Recruit(); });
         slider.maxValue = maxUnitsNumber;
         slider.onValueChanged.AddListener((float value) => { SetUnitsNumber((int)(value)); });
@@ -58,13 +56,15 @@ public class SelectingProvinces : MonoBehaviour
         buttons.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(1); });
         buttons.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(5); });
         buttons.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(20); });
-       UpdateRecruitUI();
+        UpdateRecruitUI();
     }
 
     private void SetSelectionNumberUnits(bool isMove)
     {
         if(isMove)
         {
+            buttonRecruit.onClick.RemoveAllListeners();
+            buttonRecruit.onClick.AddListener(() => { Move(); });
             nameWindow.text = "movement of units";
             buttonText.text = "Move";
         }
@@ -122,19 +122,24 @@ public class SelectingProvinces : MonoBehaviour
                         {
                             if(moveMode && IsNeighbor(int.Parse(item.collider.gameObject.name)))
                             {
-                                UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name));
+                                selectedNeighbor = item.collider.gameObject.transform;
+                                UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name),false);
                             }
                             else
                             {
                                 UIManager.Instance.CloseUIWindow("ProvinceStats");
                                 ResetNeighbors();
+                                selectedProvince = item.collider.gameObject.transform;
                             }
                         }
+                    }else
+                    {
+                        selectedProvince = item.collider.gameObject.transform;
                     }
 
 
 
-                    selectedProvince = item.collider.gameObject.transform;
+                    
                     spriteRenderer.sortingOrder = -1;
                     ChangeProvinceBorderColor(spriteRenderer, Color.white);
                     UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(item.collider.name));
@@ -154,7 +159,6 @@ public class SelectingProvinces : MonoBehaviour
             if (GameManager.Instance.provinces[int.Parse(selectedProvince.name)].isSea) spriteRenderer.sortingOrder = -11;
             else spriteRenderer.sortingOrder = -10;
             selectedProvince = null;
-
         }
     }
     public void Build(int index)
@@ -277,8 +281,20 @@ public class SelectingProvinces : MonoBehaviour
 
     public void ResetUnits()
     {
-        if (selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
-        selectedUnitIndex = -1;
+        if (selectedUnitIndex >= 0)
+        {
+            if (selectedProvinceNumber == 0)
+            {
+                GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+                selectedUnitIndex = -1;
+            }
+            else
+            {
+                GetCounter(selectedUnitIndex, selectedProvinceNumber).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+                selectedUnitIndex = -1;
+                selectedProvinceNumber = 0;
+            }
+        }
     }
 
     private Transform GetUIContent(int provinceNumber)
@@ -290,19 +306,56 @@ public class SelectingProvinces : MonoBehaviour
         }
         return null;
     }
+
+    private Transform GetCounter(int unitIndex, int provinceNumber)
+    {
+        Transform transform = GetUIContent(provinceNumber);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
+            if(unitIndex.ToString() == child.name)
+            {
+                return child;
+            }          
+        }
+        return null;
+    }
+
+    private ProvinceStats GetProvinceStats(int provinceNumber) 
+    {
+        if (provinceNumber > 0)
+        {
+            Transform transform;
+            if (provinceNumber == 1) transform = selectedProvince;
+            else transform = selectedNeighbor;
+
+            return GameManager.Instance.provinces[int.Parse(transform.name)];
+        }
+        else
+            return null;
+    }
     public void SelectUnitToMove(int index, int provinceNumber)
     {
         if (selectedProvince != null)
         {
 
             Debug.Log(provinceNumber);
-            if (selectedUnitIndex >= 0) GetUIContent(provinceNumber).GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
-          
+            if (selectedUnitIndex >= 0 && selectedProvinceNumber >= 0)
+            {
+                Transform selected = GetCounter(selectedUnitIndex, selectedProvinceNumber);
+                if (selected != null) selected.GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+            }
+
             selectedUnitIndex = index;
             selectedProvinceNumber = provinceNumber;
 
-            GetUIContent(provinceNumber).GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+            Transform transform = GetCounter(selectedUnitIndex, selectedProvinceNumber);
+            if(transform != null)  transform.GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
 
+
+            if (GetProvinceStats(provinceNumber).units.ContainsKey(index))
+                maxUnitsNumber = GetProvinceStats(provinceNumber).units[index];
+            slider.maxValue = maxUnitsNumber;
             unitsNumber = 0;
             UpdateRecruitUI();
             ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(selectedProvince.name)];
@@ -310,6 +363,7 @@ public class SelectingProvinces : MonoBehaviour
 
             SetSelectionNumberUnits(true);
             UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
+
         }
     }
     public void SelectUnitToRecruit(int index)
@@ -338,7 +392,6 @@ public class SelectingProvinces : MonoBehaviour
 
             if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
 
-
             if (provinceStats.units.ContainsKey(selectedUnitIndex))
             {
                 provinceStats.units[selectedUnitIndex] += unitsNumber;
@@ -347,7 +400,6 @@ public class SelectingProvinces : MonoBehaviour
             {
                 provinceStats.units.Add(selectedUnitIndex, unitsNumber);
             }
-
 
 
             if (selectedProvince.childCount == 0)
@@ -360,5 +412,63 @@ public class SelectingProvinces : MonoBehaviour
             GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
             UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
         }
+    }
+
+    public void Move()
+    {
+        if(selectedNeighbor != null && selectedProvince != null && unitsNumber > 0)
+        {
+            ProvinceStats provinceStats1 = GameManager.Instance.provinces[int.Parse(selectedProvince.name)];
+            ProvinceStats provinceStats2 = GameManager.Instance.provinces[int.Parse(selectedNeighbor.name)];
+
+            if(selectedProvinceNumber == 1)
+            {
+                MoveTo(provinceStats1, provinceStats2);
+            }
+            else if(selectedProvinceNumber == 2)
+            {
+                MoveTo(provinceStats2, provinceStats1);
+            }
+
+            UpdateUnitNumber(selectedProvince);
+            UpdateUnitNumber(selectedNeighbor);
+            UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
+            UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name),true);
+        }
+    }
+
+    private void MoveTo(ProvinceStats from, ProvinceStats to) 
+    {
+        from.unitsCounter -= unitsNumber;
+        from.units[selectedUnitIndex] -= unitsNumber;
+        to.unitsCounter += unitsNumber;
+
+        if (to.units != null)
+        {
+            if (to.units.ContainsKey(selectedUnitIndex))
+                to.units[selectedUnitIndex] += unitsNumber;
+            else
+                to.units.Add(selectedUnitIndex, unitsNumber);
+        }
+        else
+        {
+            to.units = new Dictionary<int, int>();
+            to.units.Add(selectedUnitIndex, unitsNumber);
+        }
+    } 
+
+    private void UpdateUnitNumber(Transform province)
+    {
+        int number = GameManager.Instance.provinces[int.Parse(province.name)].unitsCounter;
+
+        if (province.childCount == 0)
+        {
+            Instantiate(GameAssets.Instance.unitCounter, province.transform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, province);
+        }else if(number == 0) 
+        {
+            Destroy(province.GetChild(0).gameObject);
+            return;
+        }
+        province.GetChild(0).GetComponentInChildren<TextMeshPro>().text = number.ToString();
     }
 }
