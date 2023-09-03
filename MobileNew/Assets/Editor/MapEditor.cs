@@ -59,7 +59,7 @@ public class MapEditor : EditorWindow
 
         Object obj3 =  EditorGUILayout.ObjectField(highlightMaterial, typeof(Material),false);
 
-        defaultColor = EditorGUILayout.ColorField(defaultColor);
+        defaultColor = new Color32(77, 101, 180,255);
 
 
         GUILayout.Box(rawMap);
@@ -117,7 +117,7 @@ public class MapEditor : EditorWindow
 
         if (GUILayout.Button("Set Neighbors"))
         {
-          //  mapStats.provinces[provinceNumber].SetUp(Selection.objects);
+
         }
     }
 

@@ -41,6 +41,8 @@ public class UIManager : MonoBehaviour
       // LoadUnits(gameAssets.moveUnitContentUI1,true);
 
         LoadBuildings(-1);
+
+
         provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); });
         recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); });
         selectionNumberUnitsWindow.GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("SelectionNumberUnits"); });
@@ -48,9 +50,19 @@ public class UIManager : MonoBehaviour
         unitsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Units"); });
 
 
+
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
         bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.HighlightNeighbors(); });
+        ManagerUI(false);
+    }
+
+    public void ManagerUI(bool open)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            bottomBar.GetChild(i).gameObject.SetActive(open);
+        }
     }
     private void LoadUnits(Transform ContentUI, bool isMove, int provinceNumber)
     {
@@ -85,15 +97,18 @@ public class UIManager : MonoBehaviour
             int index = 0;
             foreach (BuildingStats item in gameAssets.buildingsStats)
             {
-                Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
-                transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
-                transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
-                transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + "<sprite index=21>";
-                transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
+                if (item.canBuild)
+                {
+                    Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
+                    transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
+                    transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
+                    transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + "<sprite index=21>";
+                    transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
 
-                int id = index;
-                transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
-                index++;
+                    int id = index;
+                    transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
+                    index++;
+                }
             }
         }
         else
@@ -256,8 +271,6 @@ public class UIManager : MonoBehaviour
             LoadBuildings(int.Parse(selectingProvinces.selectedProvince.name));
         }
 
-
-
         if (transform != null)
         { 
             transform.gameObject.SetActive(true);
@@ -265,7 +278,6 @@ public class UIManager : MonoBehaviour
         else
         {
             Debug.Log("Wrong window name!");
-
         }
     }
 

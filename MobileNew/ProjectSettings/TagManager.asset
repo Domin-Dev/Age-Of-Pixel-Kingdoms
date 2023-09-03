@@ -7,6 +7,7 @@ TagManager:
   - Province
   - Path
   - GameMap
+  - Buildings
   layers:
   - Default
   - TransparentFX
