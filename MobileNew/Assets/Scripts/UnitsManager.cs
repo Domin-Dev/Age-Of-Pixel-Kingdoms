@@ -55,7 +55,7 @@ public class UnitsManager : MonoBehaviour
         List<Unit> units = GetPath(path);
 
         Unit unit = Instantiate(gameObject, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-     //   unit.SetUp(path,true, pathTransform.GetChild(1).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
+       // unit.SetUp(path,true, pathTransform.GetChild(1).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
         units.Add(unit);
     }
 
@@ -65,7 +65,7 @@ public class UnitsManager : MonoBehaviour
         List<Unit> units = GetPath(path);
 
         Unit unit = Instantiate(gameObject, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-       // unit.SetUp(path, false, pathTransform.GetChild(0).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
+      //  unit.SetUp(path, false, pathTransform.GetChild(0).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
         units.Add(unit);
     }
 

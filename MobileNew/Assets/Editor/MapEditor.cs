@@ -1,10 +1,7 @@
 
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-
-
 
 public class MapEditor : EditorWindow
 {
@@ -13,6 +10,8 @@ public class MapEditor : EditorWindow
     Texture2D rawMap;
     Material outlineMaterial;
     Material highlightMaterial;
+    SelectingProvinces selectingProvinces;
+    Transform buildingsParent;
 
     Color defaultColor = Color.grey;
     Color seaColor = new Color32(77, 101, 180, 255);
@@ -57,17 +56,13 @@ public class MapEditor : EditorWindow
 
         Object obj2 =  EditorGUILayout.ObjectField(outlineMaterial, typeof(Material),false);
 
-        Object obj3 =  EditorGUILayout.ObjectField(highlightMaterial, typeof(Material),false);
-
         defaultColor = new Color32(77, 101, 180,255);
-
 
         GUILayout.Box(rawMap);
         EditorGUILayout.Space(10);
         filePath = EditorGUILayout.TextField("File Path", filePath);
 
 
-        highlightMaterial = obj3 as Material;
         outlineMaterial = obj2 as Material; 
         rawMap = obj as Texture2D;
         EditorGUILayout.Space(30);
@@ -84,40 +79,47 @@ public class MapEditor : EditorWindow
     private void SetUpProvinces()
     {
         EditorGUILayout.LabelField(mapParent.GetChild(provinceNumber).name);
+        selectingProvinces = FindAnyObjectByType<SelectingProvinces>();
+        buildingsParent = GameObject.FindGameObjectWithTag("Buildings").transform;
 
         if (GUILayout.Button("Next"))
         {
             SpriteRenderer spriteRenderer = mapParent.GetChild(provinceNumber).GetComponent<SpriteRenderer>();
-            spriteRenderer.material = outlineMaterial;
-            spriteRenderer.sortingOrder = 0;
+            selectingProvinces.ChangeProvinceBorderColor(spriteRenderer,Color.black);
+            spriteRenderer.sortingOrder = -10;
 
             if (provinceNumber < mapParent.childCount - 1) provinceNumber++;
             else provinceNumber = 0;
             SetUpProvinces();
 
             spriteRenderer = mapParent.GetChild(provinceNumber).GetComponent<SpriteRenderer>();
-            spriteRenderer.material = highlightMaterial;
-            spriteRenderer.sortingOrder = 1;
+            selectingProvinces.ChangeProvinceBorderColor(spriteRenderer, Color.yellow);
+            spriteRenderer.sortingOrder = -1;
         }
 
         if (GUILayout.Button("Back"))
         {
             SpriteRenderer spriteRenderer = mapParent.GetChild(provinceNumber).GetComponent<SpriteRenderer>();
-            spriteRenderer.material = outlineMaterial;
-            spriteRenderer.sortingOrder = 0;
+            selectingProvinces.ChangeProvinceBorderColor(spriteRenderer, Color.black);
+            spriteRenderer.sortingOrder = -10;
 
             if (provinceNumber > 0) provinceNumber--;
             else provinceNumber = mapParent.childCount -1;
             SetUpProvinces();
 
             spriteRenderer = mapParent.GetChild(provinceNumber).GetComponent<SpriteRenderer>();
-            spriteRenderer.material = highlightMaterial;
-            spriteRenderer.sortingOrder = 1;
+            selectingProvinces.ChangeProvinceBorderColor(spriteRenderer, Color.yellow);
+            spriteRenderer.sortingOrder = -1;
         }
 
-        if (GUILayout.Button("Set Neighbors"))
+        if (GUILayout.Button("Set Mine"))
         {
-
+            Build(2, provinceNumber);
+        }
+        EditorGUILayout.Space(20);
+        if (GUILayout.Button("Set Owner"))
+        {
+            SetOwner(0, provinceNumber);
         }
     }
 
@@ -162,10 +164,10 @@ public class MapEditor : EditorWindow
             {
                 if (provincesList[i].Count == 0)
                 {
-                    provinces[i] = new ProvinceStats(Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,true);
+                    provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,true);
                 }else
                 {
-                    provinces[i] = new ProvinceStats(Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,false);
+                    provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,false);
                 }
             }
 
@@ -387,4 +389,31 @@ public class MapEditor : EditorWindow
         else return false;      
     }
     
+
+
+    private void Build(int buildingIndex,int provinceIndex)
+    {
+      ProvinceStats[] provinces = Resources.Load<MapStats>("Maps/World").provinces;
+      ProvinceStats provinceStats = provinces[provinceIndex];
+
+      BuildingStats[]  buildingsArray = Resources.LoadAll<BuildingStats>("Buildings");
+      BuildingStats buildingStats = buildingsArray[buildingIndex];
+
+       if (provinceStats.buildingIndex == -1)
+       {
+            Transform province = mapParent.GetChild(provinceNumber).transform;
+            Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
+            transform.position = province.position + new Vector3(0, 0.08f, 0);
+            transform.parent = buildingsParent;
+            transform.GetComponent<SpriteRenderer>().sprite = buildingStats.icon;
+            transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            provinceStats.buildingIndex = buildingIndex;
+       }
+    }
+
+    private void SetOwner(int playerIndex,int provinceIndex)
+    {
+       Resources.Load<MapStats>("Maps/World").provinces[provinceIndex].SetNewOwner(playerIndex);
+       selectingProvinces.ChangeProvinceColor(mapParent.GetChild(provinceIndex).GetComponent<SpriteRenderer>(), Color.green);
+    }
 }

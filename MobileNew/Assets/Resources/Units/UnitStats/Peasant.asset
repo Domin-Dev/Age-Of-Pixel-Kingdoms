@@ -19,5 +19,5 @@ MonoBehaviour:
   <damage>k__BackingField: 8.58
   <range>k__BackingField: 787
   <rateOfFire>k__BackingField: 7
-  <turnCost>k__BackingField: 788
-  <price>k__BackingField: 0
+  <turnCost>k__BackingField: 0
+  <price>k__BackingField: 20

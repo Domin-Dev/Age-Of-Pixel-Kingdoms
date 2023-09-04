@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
     private SelectingProvinces selectingProvinces;
     private GameAssets gameAssets;
 
+    private TextMeshProUGUI CoinCounter;
+
+
     private void Start()
     {
         gameAssets = GameAssets.Instance;
@@ -55,7 +58,11 @@ public class UIManager : MonoBehaviour
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
         bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.HighlightNeighbors(); });
         ManagerUI(false);
+
+        CoinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        UpdateCounters();
     }
+
 
     public void ManagerUI(bool open)
     {
@@ -129,7 +136,6 @@ public class UIManager : MonoBehaviour
             {
                 for (int i = 0; i < transform.childCount; i++)
                 {
-                    Debug.Log("I");
                     if (buildingIndex == i)
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
@@ -254,7 +260,20 @@ public class UIManager : MonoBehaviour
         {
             ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
             transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString();
+            TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+            if (provinceStats.provinceOwnerIndex != -1)
+            {
+                textMeshProUGUI.text = "Player " + provinceStats.provinceOwnerIndex.ToString();
+                textMeshProUGUI.color = Color.red;
+            }
+            else
+            {
+                textMeshProUGUI.text = "No owner";
+                textMeshProUGUI.color = Color.grey;
+            }
+
             transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
+
             LoadProvinceUnitCounters(provinceIndex,gameAssets.unitCounterContentUI.transform,false);
         }
         else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units")
@@ -347,10 +366,16 @@ public class UIManager : MonoBehaviour
     {
         return unitsWindow;
     }
-
     public void OpenNumberSelection()
     {
         selectionNumberUnitsWindow.gameObject.SetActive(true);
+    }
+
+
+
+    public void UpdateCounters()
+    {
+        CoinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
     }
 
 }
