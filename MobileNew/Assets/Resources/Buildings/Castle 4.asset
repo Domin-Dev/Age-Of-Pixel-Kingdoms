@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Castle 4
   m_EditorClassIdentifier: 
   <description>k__BackingField: 
-  <price>k__BackingField: 0
+  <price>k__BackingField: 50
   <icon>k__BackingField: {fileID: 21300000, guid: 3c41af64d79bc9d44a7a8b77ff2c7ad1, type: 3}
   <turnCost>k__BackingField: 0
   <canBuild>k__BackingField: 0

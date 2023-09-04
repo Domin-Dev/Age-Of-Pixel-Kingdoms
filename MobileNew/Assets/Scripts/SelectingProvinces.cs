@@ -180,12 +180,13 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void Build(int index)
     {
-        if (selectedProvince != null)
+        BuildingStats buildingStats = GameAssets.Instance.buildingsStats[index];
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.CanAfford(buildingStats.price))
         {
-            BuildingStats buildingStats = GameAssets.Instance.buildingsStats[index];
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             if (provinceStats.buildingIndex == -1)
             {
+                GameManager.Instance.humanPlayer.Subtract(buildingStats.price);
                 Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
                 transform.position = selectedProvince.position + new Vector3(0, 0.08f, 0);
                 transform.parent = buildingsParent;
@@ -195,6 +196,11 @@ public class SelectingProvinces : MonoBehaviour
             }
             UIManager.Instance.LoadBuildings(int.Parse(selectedProvince.name));
         }
+        else
+        {
+            Alert.Instance.OpenAlert("not enough coins!");
+        }
+
     }
 
     public void HighlightNeighbors()
@@ -379,7 +385,7 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void SelectUnitToRecruit(int index)
     {
-        if (selectedProvince != null)
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.CanAfford(GameAssets.Instance.unitStats[index].price))
         {
             if(selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
             selectedUnitIndex = index;
@@ -395,6 +401,9 @@ public class SelectingProvinces : MonoBehaviour
 
             SetSelectionNumberUnits(false);
             UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
+        }else
+        {
+            Alert.Instance.OpenAlert("not enough coins!");
         }
     }
     public void Recruit()
@@ -403,6 +412,7 @@ public class SelectingProvinces : MonoBehaviour
         {
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             provinceStats.unitsCounter += unitsNumber;
+            GameManager.Instance.humanPlayer.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
 
             if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
 

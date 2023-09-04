@@ -11,4 +11,17 @@ public class PlayerStats
     {
          this.coins = coins;
     }
+    public void Subtract(int value)
+    {
+        coins = Mathf.Clamp(coins - value, 0, int.MaxValue);
+        UIManager.Instance.UpdateCounters();
+    }
+
+    public bool CanAfford(int value)
+    {
+        if (coins >= value)
+            return true;
+        else 
+            return false;
+    }
 }
