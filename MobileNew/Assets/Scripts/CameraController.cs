@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 60;
         selectingProvinces = GetComponent<SelectingProvinces>();
 
         if (target != null)
@@ -38,8 +39,11 @@ public class CameraController : MonoBehaviour
                 Camera.main.orthographicSize = target.bounds.size.y / 2 * differenceInSize;
             }
         }
+        lastValue = 0f;
     }
 
+
+    float lastValue;
     private void Update()
     {
         if(Input.GetMouseButtonDown(0) && !MouseIsOverUI())
@@ -48,17 +52,41 @@ public class CameraController : MonoBehaviour
             if(selectingProvinces != null) selectingProvinces.SelectingProvince();
         }        
 
-        if(Input.GetMouseButton(0) && !MouseIsOverUI())
+        if(Input.GetMouseButton(0) && !MouseIsOverUI() && Input.touchCount <= 1)
         { 
             endPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 position = transform.position + startPosition - endPosition;
             transform.position = new Vector3(Mathf.Clamp(position.x,0,Limit.x),Mathf.Clamp(position.y,0,Limit.y), -10);
         }
+
+
+        if(Input.touchCount >= 2) 
+        {
+            float Value = Vector2.Distance(Input.GetTouch(0).position, Input.GetTouch(1).position);
+            if (lastValue == 0)
+            {
+                lastValue = Value;
+            }
+            else
+            {
+                Debug.Log(Value + "  " + lastValue);
+                Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize + (lastValue - Value) * 0.004f, 0.5f, 3);
+                lastValue = Value;
+            }
+        }
+        else if(lastValue != 0)
+        {
+            lastValue = 0;
+        }
     }
 
     private bool MouseIsOverUI()
     {
-        return EventSystem.current.IsPointerOverGameObject();
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;   
     }
 
 }

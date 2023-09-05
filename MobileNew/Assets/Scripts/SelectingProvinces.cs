@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using static UnityEngine.UI.CanvasScaler;
-using static UnityEditor.Progress;
 
 public class SelectingProvinces : MonoBehaviour
 {
@@ -137,16 +134,22 @@ public class SelectingProvinces : MonoBehaviour
                                 selectedNeighbor = item.collider.gameObject.transform;
                                 UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name),false);
                             }
-                            else
+                            else if(!GetProvinceStats(item.collider.transform).isSea)
                             {
                                 UIManager.Instance.CloseUIWindow("ProvinceStats");
                                 ResetNeighbors();
                                 selectedProvince = item.collider.gameObject.transform;
+                            }else
+                            {
+                                return;
                             }
                         }
-                    }else
+                    }else if (!GetProvinceStats(item.collider.transform).isSea)
                     {
                         selectedProvince = item.collider.gameObject.transform;
+                    }else
+                    {
+                        return;
                     }
 
 

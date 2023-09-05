@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -59,6 +60,17 @@ public class ProvinceStats
         unitsCounter = provinceStats.unitsCounter;
         buildingIndex = provinceStats.buildingIndex;
         units = provinceStats.units;
+        if (provinceStats.units != null)
+        {
+            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+            {
+                if (provinceStats.units.ContainsKey(i))
+                {
+                    units.Add(i, provinceStats.units[i]);
+                }
+            }
+        }
+
         neighbors = provinceStats.neighbors;
         index = provinceStats.index;
     }

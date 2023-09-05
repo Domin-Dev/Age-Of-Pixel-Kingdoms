@@ -165,9 +165,14 @@ public class MapEditor : EditorWindow
                 if (provincesList[i].Count == 0)
                 {
                     provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,true);
-                }else
+                }
+                else
                 {
                     provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,false);
+                    int number = Random.Range(2, 10);
+                    provinces[i].units = new Dictionary<int, int>();
+                    provinces[i].units.Add(0, number);
+                    provinces[i].unitsCounter = number;
                 }
             }
 

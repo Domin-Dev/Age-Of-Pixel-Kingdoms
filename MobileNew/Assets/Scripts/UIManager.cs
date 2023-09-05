@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -41,10 +40,9 @@ public class UIManager : MonoBehaviour
         gameAssets = GameAssets.Instance;
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
         LoadUnits(gameAssets.recruitUnitContentUI,false,0);
-      // LoadUnits(gameAssets.moveUnitContentUI1,true);
+        // LoadUnits(gameAssets.moveUnitContentUI1,true);
 
         LoadBuildings(-1);
-
 
         provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); });
         recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); });
@@ -126,11 +124,12 @@ public class UIManager : MonoBehaviour
 
             if (buildingIndex == -1)
             {
-
                 for (int i = 0; i < transform.childCount; i++)
                 {
+                    BuildingStats buildingStats = gameAssets.buildingsStats[i];
                     transform.GetChild(i).gameObject.SetActive(true);
-                }    
+                    transform.GetChild(i).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + buildingStats.price + "<sprite index=21>";
+                }
             }
             else
             {
@@ -139,6 +138,8 @@ public class UIManager : MonoBehaviour
                     if (buildingIndex == i)
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
+                        transform.GetChild(i).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "destroy";
+
                     }
                     else
                     {

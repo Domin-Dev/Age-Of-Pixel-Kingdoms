@@ -1,6 +1,5 @@
 
 using TMPro;
-using Unity.Properties;
 using UnityEngine;
 
 public class Alert : MonoBehaviour
