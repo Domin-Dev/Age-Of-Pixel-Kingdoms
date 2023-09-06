@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -18,16 +19,13 @@ public class UIManager : MonoBehaviour
             Destroy(this);
         }
     }
-
     [SerializeField] private Transform provinceStatsWindow;
-
 
     [SerializeField] private Transform recruitmentWindow;
     [SerializeField] private Transform selectionNumberUnitsWindow;
     [SerializeField] private Transform buildingsWindow;
     [SerializeField] private Transform unitsWindow;
     [SerializeField] private Transform battleWindow;
-
 
     [SerializeField] private Transform topBar;  
     [SerializeField] private Transform bottomBar;  
@@ -37,7 +35,6 @@ public class UIManager : MonoBehaviour
     private Transform map;
 
     private TextMeshProUGUI CoinCounter;
-
 
     private void Start()
     {
@@ -55,7 +52,8 @@ public class UIManager : MonoBehaviour
         unitsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Units"); });
         battleWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Battle"); });
 
-
+        battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>().onClick.AddListener(() => { SceneManager.LoadScene(1); });
+        battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>().onClick.AddListener(() => { Debug.Log("manual"); });
 
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
@@ -320,9 +318,6 @@ public class UIManager : MonoBehaviour
     public void LoadUnitsAttack(int provinceIndex1, int provinceIndex2)
     {
         OpenUIWindow("Battle", 0);
-
-        battleWindow.GetChild(2).GetChild()
-
         battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex1.ToString();
         LoadProvinceUnitCounters(provinceIndex1, gameAssets.AttackUnitContentUI1, false);
 

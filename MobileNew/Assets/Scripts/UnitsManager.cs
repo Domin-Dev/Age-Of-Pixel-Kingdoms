@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class UnitsManager : MonoBehaviour
 {
-    [SerializeField]public GameObject unit;
-
     [SerializeField] List<Unit> path1 = new List<Unit>();
     [SerializeField] List<Unit> path2 = new List<Unit>();
     [SerializeField] List<Unit> path3 = new List<Unit>();
     [SerializeField] List<Unit> path4 = new List<Unit>();
 
+    UnitStats[] unitStats;
 
-
+    private void Start()
+    {
+        unitStats = GameAssets.Instance.unitStats;
+    }
 
     private void Update()
     {
@@ -21,12 +23,13 @@ public class UnitsManager : MonoBehaviour
         {
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+
             foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(worldMousePosition, Vector3.zero))
             {
                 if(raycastHit.collider.CompareTag("Path"))
                 {
-
-                    CreateUnit(unit, raycastHit.collider.transform);
+                  if(CanSpawn(raycastHit.collider.transform))
+                     CreateUnit(0, raycastHit.collider.transform);
                 }
             }
 
@@ -43,29 +46,43 @@ public class UnitsManager : MonoBehaviour
             {
                 if (raycastHit.collider.CompareTag("Path"))
                 {
-                    EnemyCreateUnit(unit, raycastHit.collider.transform);
+                   EnemyCreateUnit(0, raycastHit.collider.transform);
                 }
             }
         }
     }
 
-    private void CreateUnit(GameObject gameObject,Transform pathTransform)
+    private bool CanSpawn(Transform pathTransform)
+    {
+        int index = int.Parse(pathTransform.name);
+        List<Unit> path = GetPath(index);
+        foreach (Unit unit in path)
+        {
+            if (Vector2.Distance(unit.transform.position, pathTransform.GetChild(0).position) < 0.8f)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void CreateUnit(int unitindex,Transform pathTransform)
     {
         int path = int.Parse(pathTransform.name);
         List<Unit> units = GetPath(path);
 
-        Unit unit = Instantiate(gameObject, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-       // unit.SetUp(path,true, pathTransform.GetChild(1).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
+        Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
+        unit.SetUp(unitStats[unitindex],path,true, pathTransform.GetChild(1).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
         units.Add(unit);
     }
 
-    private void EnemyCreateUnit(GameObject gameObject, Transform pathTransform)
+    private void EnemyCreateUnit(int unitindex, Transform pathTransform)
     {
         int path = int.Parse(pathTransform.name);
         List<Unit> units = GetPath(path);
 
-        Unit unit = Instantiate(gameObject, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-      //  unit.SetUp(path, false, pathTransform.GetChild(0).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
+        Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
+        unit.SetUp(unitStats[unitindex],path, false, pathTransform.GetChild(0).position.x, () => { units.Remove(unit); }, (unit) => { return CheckPath(unit); });
         units.Add(unit);
     }
 

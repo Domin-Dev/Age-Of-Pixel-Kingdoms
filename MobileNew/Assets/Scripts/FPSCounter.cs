@@ -9,6 +9,7 @@ public class FPSCounter : MonoBehaviour
     private void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
+        DontDestroyOnLoad(gameObject);
     }
     private void Update()
     {

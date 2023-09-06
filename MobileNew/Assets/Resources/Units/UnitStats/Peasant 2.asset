@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 4476419575737143508, guid: 896a749d5fd8c034fa756608061098fb, type: 3}
   <sprite>k__BackingField: {fileID: -771108912, guid: 0b436c3adb1986743af4f2e420c97940, type: 3}
-  <speed>k__BackingField: 0
-  <lifePoints>k__BackingField: 0
-  <damage>k__BackingField: 0
-  <range>k__BackingField: 0
-  <rateOfFire>k__BackingField: 0
+  <speed>k__BackingField: 40
+  <lifePoints>k__BackingField: 230
+  <damage>k__BackingField: 43
+  <range>k__BackingField: 1
+  <rateOfFire>k__BackingField: 30
   <turnCost>k__BackingField: 0
   <price>k__BackingField: 120

@@ -44,7 +44,7 @@ public class Unit : MonoBehaviour
 
 
     //Hit effect//
-    const float timerHitEffect = 0.1f;
+    const float timerHitEffect = 0.2f;
     float timeToChange;
     bool IsActive;
     bool lerpIsActive;
@@ -106,10 +106,9 @@ public class Unit : MonoBehaviour
         if(IsActive)
         {
             timeToChange = timeToChange + Time.deltaTime;
-            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1f, 1, 1), Time.deltaTime * 7);
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1f, 1, 1), Time.deltaTime * 10);
             if (timeToChange >= timerHitEffect)
             {
-                
                 IsActive =false;
                 timeToChange = 0;
                 spriteRenderer.material = new Material(Shader.Find("Sprites/Default"));
@@ -167,11 +166,15 @@ public class Unit : MonoBehaviour
         //spriteRenderer.material = new Material(Shader.Find("Shader Graphs/Unit"));      
         transform.GetChild(0).gameObject.SetActive(true);
         lifePoints = math.clamp(lifePoints - damage, 0, maxLifePoints);
-        lifeBar.localScale = new Vector3(lifePoints/maxLifePoints, 1, 1);
-        if(lifePoints <= 0)
+        if (lifePoints <= 0)
         {
             Destroy(gameObject);
             clearList();
-        }        
+        }
+        else
+        {
+            lifeBar.localScale = new Vector3(lifePoints / maxLifePoints, 1, 1);
+        }
+
     }
 }

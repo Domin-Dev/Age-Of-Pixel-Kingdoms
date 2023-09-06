@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     private void LoadPlayers()
     {
         playerList.Add(new Player("xd",true,Color.cyan) );

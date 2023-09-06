@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameAssets : MonoBehaviour
 {
@@ -16,6 +19,7 @@ public class GameAssets : MonoBehaviour
 
     [Space(20f, order = 0)]
 
+    
     public Sprite brownTexture;
     public Sprite blueTexture;
 
@@ -41,24 +45,29 @@ public class GameAssets : MonoBehaviour
     public GameObject buildingSlotUI;
     public GameObject unitCounterSlotUI;
 
+
+    [Space(40f, order = 0)]
+
+    public GameObject BattleConter;
+    public Transform BattleUnits;
+
     public BuildingStats[] buildingsStats { private set; get; }
     public UnitStats[] unitStats { private set; get; }  
     private void Awake()
     {
-        if(Instance == null)
+        if(Instance == null && SceneManager.GetActiveScene().buildIndex == 0)
         {
+            map = GameObject.FindGameObjectWithTag("GameMap").transform;
             Instance = this;
         }
-        else
+        else if(Instance != null)           
         {
             Destroy(this);
         }
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
-        unitStats = Resources.LoadAll<UnitStats>("Units");
-        map = GameObject.FindGameObjectWithTag("GameMap").transform;
+        unitStats = Resources.LoadAll<UnitStats>("Units");    
     }
     private void Start()
-    { 
-        DontDestroyOnLoad(gameObject);        
+    {      
     }
 }
