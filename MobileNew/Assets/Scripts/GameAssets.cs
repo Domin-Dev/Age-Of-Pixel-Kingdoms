@@ -31,6 +31,11 @@ public class GameAssets : MonoBehaviour
     public Transform moveUnitContentUI2;
 
     [Space(20f, order = 0)]
+    
+    public Transform AttackUnitContentUI1;
+    public Transform AttackUnitContentUI2;
+
+    [Space(20f, order = 0)]
 
     public GameObject unitSlotUI;
     public GameObject buildingSlotUI;

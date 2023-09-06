@@ -11,7 +11,9 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-        }else
+            map = GameObject.FindWithTag("GameMap").transform;
+        }
+        else
         {
             Destroy(this);
         }
@@ -24,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform selectionNumberUnitsWindow;
     [SerializeField] private Transform buildingsWindow;
     [SerializeField] private Transform unitsWindow;
+    [SerializeField] private Transform battleWindow;
 
 
     [SerializeField] private Transform topBar;  
@@ -31,6 +34,7 @@ public class UIManager : MonoBehaviour
 
     private SelectingProvinces selectingProvinces;
     private GameAssets gameAssets;
+    private Transform map;
 
     private TextMeshProUGUI CoinCounter;
 
@@ -49,6 +53,7 @@ public class UIManager : MonoBehaviour
         selectionNumberUnitsWindow.GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("SelectionNumberUnits"); });
         buildingsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Buildings"); });
         unitsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Units"); });
+        battleWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Battle"); });
 
 
 
@@ -60,7 +65,6 @@ public class UIManager : MonoBehaviour
         CoinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         UpdateCounters();
     }
-
 
     public void ManagerUI(bool open)
     {
@@ -277,12 +281,13 @@ public class UIManager : MonoBehaviour
 
             LoadProvinceUnitCounters(provinceIndex,gameAssets.unitCounterContentUI.transform,false);
         }
-        else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units")
+        else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units" || name == "Battle")
         {
             selectingProvinces.ResetNeighbors();
             CloseUIWindow("UnitsRecruitment");
             CloseUIWindow("Buildings");
             CloseUIWindow("Units");
+            CloseUIWindow("Battle");
         }
 
         if(name == "Buildings")
@@ -311,6 +316,21 @@ public class UIManager : MonoBehaviour
         LoadProvinceUnitCounters(provinceIndex2, gameAssets.moveUnitContentUI2,true);
         unitsWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
     }
+
+    public void LoadUnitsAttack(int provinceIndex1, int provinceIndex2)
+    {
+        OpenUIWindow("Battle", 0);
+
+        battleWindow.GetChild(2).GetChild()
+
+        battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex1.ToString();
+        LoadProvinceUnitCounters(provinceIndex1, gameAssets.AttackUnitContentUI1, false);
+
+
+        battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
+        LoadProvinceUnitCounters(provinceIndex2, gameAssets.AttackUnitContentUI2, false);
+    }
+
     public void CloseUIWindow(string name)
     {
         Transform transform = GetWindow(name);
@@ -356,6 +376,7 @@ public class UIManager : MonoBehaviour
             case "SelectionNumberUnits": return selectionNumberUnitsWindow;
             case "Buildings": return buildingsWindow;
             case "Units": return unitsWindow;
+            case "Battle": return battleWindow;            
         }
         return null;
     }

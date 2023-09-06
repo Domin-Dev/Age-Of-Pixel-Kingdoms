@@ -126,7 +126,7 @@ public class MapEditor : EditorWindow
     
     private void CuttingMap()
     {
-        Camera.main.GetComponent<CameraController>().Limit = new Vector3(rawMap.width/100, rawMap.height/100);
+        Camera.main.GetComponent<CameraController>().Limit = new Vector3(rawMap.width/100 + 1f, rawMap.height/100 + 1f);
 
         provinceNumber = 0;
 
@@ -169,10 +169,6 @@ public class MapEditor : EditorWindow
                 else
                 {
                     provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,false);
-                    int number = Random.Range(2, 10);
-                    provinces[i].units = new Dictionary<int, int>();
-                    provinces[i].units.Add(0, number);
-                    provinces[i].unitsCounter = number;
                 }
             }
 
@@ -193,6 +189,7 @@ public class MapEditor : EditorWindow
 
             
 
+            
 
             mapStats = new MapStats(mapParent.transform.childCount, provinces);
             AssetDatabase.CreateAsset(mapStats, "Assets/Resources/Maps/" + rawMap.name  + ".asset");

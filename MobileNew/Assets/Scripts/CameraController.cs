@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
         { 
             endPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 position = transform.position + startPosition - endPosition;
-            transform.position = new Vector3(Mathf.Clamp(position.x,0,Limit.x),Mathf.Clamp(position.y,0,Limit.y), -10);
+            transform.position = new Vector3(Mathf.Clamp(position.x,-0.5f,Limit.x),Mathf.Clamp(position.y,-0.5f,Limit.y), -10);
         }
 
 

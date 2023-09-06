@@ -22,9 +22,9 @@ public class ProvinceStats
 
     public int buildingIndex = -1;
 
-    public Dictionary<int, int> units;
+    [SerializeField]public Dictionary<int, int> units;
 
-    public List<int> neighbors = new List<int>();
+    [SerializeField]public List<int> neighbors = new List<int>();
     public void AddNeighbor(int index)
     {
         neighbors.Add(index);
@@ -34,8 +34,9 @@ public class ProvinceStats
         this.index = index;
         Debug.Log(index);
         this.provinceOwnerIndex = -1;
-        units = new Dictionary<int, int>();
         this.unitsCounter = 0;
+        this.units = new Dictionary<int, int>();
+        this.units.Add(1, 20);
         this.population = population;
         this.warriorsLimit = warriorsLimit;
         this.scienceDevelopment = scienceDevelopment;
@@ -59,20 +60,32 @@ public class ProvinceStats
         provinceOwnerIndex = provinceStats.provinceOwnerIndex;
         unitsCounter = provinceStats.unitsCounter;
         buildingIndex = provinceStats.buildingIndex;
-        units = provinceStats.units;
-        if (provinceStats.units != null)
-        {
-            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
-            {
-                if (provinceStats.units.ContainsKey(i))
-                {
-                    units.Add(i, provinceStats.units[i]);
-                }
-            }
-        }
-
         neighbors = provinceStats.neighbors;
         index = provinceStats.index;
+
+        if(!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)
+        {
+            this.units = new Dictionary<int, int>();
+            if (Random.Range(0, 4) != 0)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    int number = Random.Range(0, 5);
+                    int unitIndex = Random.Range(0, GameAssets.Instance.unitStats.Length);
+                    if (units.ContainsKey(unitIndex))
+                    {
+                        units[unitIndex] = units[unitIndex] + number;
+                    }
+                    else
+                    {
+                        units.Add(unitIndex, number);
+                    }
+
+                    unitsCounter = unitsCounter + number;
+                }
+                GameManager.Instance.UpdateUnitCounter(this.index);
+            }
+        }
     }
     public void SetNewOwner(int index)
     {

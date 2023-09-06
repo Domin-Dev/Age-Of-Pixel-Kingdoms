@@ -132,7 +132,16 @@ public class SelectingProvinces : MonoBehaviour
                             if(moveMode && IsNeighbor(int.Parse(item.collider.gameObject.name)))
                             {
                                 selectedNeighbor = item.collider.gameObject.transform;
-                                UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name),false);
+                                ProvinceStats province = GetProvinceStats(selectedNeighbor.transform);
+                                if (province.unitsCounter == 0 || province.provinceOwnerIndex == 0)
+                                {
+                                    UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name), false);
+                                }
+                                else
+                                {
+                                    UIManager.Instance.LoadUnitsAttack(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name));
+                                }
+
                             }
                             else if(!GetProvinceStats(item.collider.transform).isSea)
                             {
@@ -488,7 +497,7 @@ public class SelectingProvinces : MonoBehaviour
         }
         UIManager.Instance.OpenUIWindow("ProvinceStats", to.index);
     } 
-    private void UpdateUnitNumber(Transform province)
+    public void UpdateUnitNumber(Transform province)
     {
         int number = GameManager.Instance.provinces[int.Parse(province.name)].unitsCounter;
         if (province.childCount == 0 && number > 0)

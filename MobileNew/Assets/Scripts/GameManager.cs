@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public List<Player> playerList;
 
     public PlayerStats humanPlayer;
-
-
+    public Transform map;
+    public SelectingProvinces selectingProvinces;
 
 
     private void Awake()
@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            Transform map = GameObject.FindGameObjectWithTag("GameMap").transform;
-            SelectingProvinces selectingProvinces = FindObjectOfType<SelectingProvinces>();
+            map = GameObject.FindGameObjectWithTag("GameMap").transform;
+            selectingProvinces = FindObjectOfType<SelectingProvinces>();
 
             ProvinceStats[] array = Resources.Load<MapStats>("Maps/World").provinces;
             provinces = new ProvinceStats[array.Length];
@@ -49,4 +49,10 @@ public class GameManager : MonoBehaviour
         playerList.Add(new Player("xd",true,Color.cyan) );
         playerList.Add(new Player("xd",true,Color.cyan) );
     }
+
+    public void UpdateUnitCounter(int index)
+    {
+        selectingProvinces.UpdateUnitNumber(map.GetChild(index).transform);
+    }
 }
+
