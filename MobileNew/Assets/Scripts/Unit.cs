@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour
 {
     //////////////////////////
 
+    private int unitIndex;   
     public float speed { get; private set; }
     public float maxLifePoints { get; private set; }
     public float damage { get; private set; }
@@ -30,7 +31,7 @@ public class Unit : MonoBehaviour
     public int multiplier { get; private set; }
     public bool unitIsFriendly { get; private set; }
     public int pathIndex { get; private set; }
-    private Action clearList;
+    private Action<bool> clearList;
     private Func<Unit, Unit> checkPath;
     private Animator animator;
 
@@ -67,14 +68,17 @@ public class Unit : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void SetUp(UnitStats unitStats,int pathIndex,bool unitIsFriendly, float targetPositionX, Action clearList, Func<Unit, Unit> checkPath)
+    public void SetUp(int index,int pathIndex,bool unitIsFriendly, float targetPositionX, Action<bool> clearList, Func<Unit, Unit> checkPath)
     {
+        UnitStats unitStats = GameAssets.Instance.unitStats[index];
+        this.unitIndex = index;
         this.speed = unitStats.speed;
         this.maxLifePoints = unitStats.lifePoints;
         this.damage = unitStats.damage;
         this.range = unitStats.range;
         this.rateOfFire = unitStats.rateOfFire;
         
+
         this.targetPositionX = targetPositionX;
         this.clearList = clearList;
         this.checkPath = checkPath;
@@ -132,14 +136,14 @@ public class Unit : MonoBehaviour
         if (unit == null)
         {
             animator.SetBool("Idle", false);
-            if (Math.Abs(targetPositionX - transform.position.x) > 0.1f)
+            if (Math.Abs(targetPositionX - transform.position.x) > 0.5f)
             {
                 transform.position = transform.position + new Vector3(0.1f, 0, 0) * speed * multiplier * Time.deltaTime;
             }
             else
             {
                 Destroy(gameObject);
-                clearList();
+                clearList(false);
             }
         }
         else
@@ -169,12 +173,17 @@ public class Unit : MonoBehaviour
         if (lifePoints <= 0)
         {
             Destroy(gameObject);
-            clearList();
+            clearList(true);
         }
         else
         {
             lifeBar.localScale = new Vector3(lifePoints / maxLifePoints, 1, 1);
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("lol");
     }
 }

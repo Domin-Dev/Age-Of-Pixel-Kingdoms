@@ -1,6 +1,9 @@
 
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +16,10 @@ public class GameManager : MonoBehaviour
     public PlayerStats humanPlayer;
     public Transform map;
     public SelectingProvinces selectingProvinces;
+
+    private int yourProvinceIndex;
+    private int enemyProvinceIndex;
+
 
 
     private void Awake()
@@ -44,7 +51,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {
+    { 
         DontDestroyOnLoad(this.gameObject);
     }
     private void LoadPlayers()
@@ -57,6 +64,19 @@ public class GameManager : MonoBehaviour
     public void UpdateUnitCounter(int index)
     {
         selectingProvinces.UpdateUnitNumber(map.GetChild(index).transform);
+    }
+
+    public void Battle(int yourProvinceIndex,int  enemyProvinceIndex)
+    {
+        this.yourProvinceIndex = yourProvinceIndex;
+        this.enemyProvinceIndex = enemyProvinceIndex;
+        SceneManager.LoadScene(1);   
+    }
+
+    public void GetUnits(out Dictionary<int,int> yourUnits,out Dictionary<int,int> enemyUnits)
+    {
+        yourUnits = provinces[yourProvinceIndex].units;
+        enemyUnits = provinces[enemyProvinceIndex].units;
     }
 }
 

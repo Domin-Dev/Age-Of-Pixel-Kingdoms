@@ -55,19 +55,21 @@ public class GameAssets : MonoBehaviour
     public UnitStats[] unitStats { private set; get; }  
     private void Awake()
     {
-        if(Instance == null && SceneManager.GetActiveScene().buildIndex == 0)
+        if(Instance == null)
         {
-            map = GameObject.FindGameObjectWithTag("GameMap").transform;
             Instance = this;
         }
-        else if(Instance != null)           
+        else 
         {
             Destroy(this);
         }
+        
+        if(SceneManager.GetActiveScene().buildIndex == 0)
+        map = GameObject.FindGameObjectWithTag("GameMap").transform;
+
+
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");    
     }
-    private void Start()
-    {      
-    }
+
 }

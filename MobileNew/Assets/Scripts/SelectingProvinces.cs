@@ -111,8 +111,6 @@ public class SelectingProvinces : MonoBehaviour
                 if (pixel.a == 0) continue;
                 else
                 {
-                    
-
                     if (selectedProvince != null)
                     {
                         if (selectedProvince.name == item.collider.gameObject.name && GetProvinceStats(selectedProvince).provinceOwnerIndex == 0)
@@ -125,7 +123,6 @@ public class SelectingProvinces : MonoBehaviour
                             {
                                 HighlightNeighbors();
                             }
-                            
                         }
                         else
                         {
@@ -167,7 +164,6 @@ public class SelectingProvinces : MonoBehaviour
                     {
                         UIManager.Instance.ManagerUI(true);
                     }
-
                     spriteRenderer.sortingOrder = -1;
                     ChangeProvinceBorderColor(spriteRenderer, Color.white);
                     UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(item.collider.name));

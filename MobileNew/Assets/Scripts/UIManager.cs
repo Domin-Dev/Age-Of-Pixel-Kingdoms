@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -51,9 +50,6 @@ public class UIManager : MonoBehaviour
         buildingsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Buildings"); });
         unitsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Units"); });
         battleWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Battle"); });
-
-        battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>().onClick.AddListener(() => { SceneManager.LoadScene(1); });
-        battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>().onClick.AddListener(() => { Debug.Log("manual"); });
 
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
@@ -315,15 +311,20 @@ public class UIManager : MonoBehaviour
         unitsWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
     }
 
-    public void LoadUnitsAttack(int provinceIndex1, int provinceIndex2)
+    public void LoadUnitsAttack(int yourProvinceIndex, int enemyProvinceIndex)
     {
         OpenUIWindow("Battle", 0);
-        battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex1.ToString();
-        LoadProvinceUnitCounters(provinceIndex1, gameAssets.AttackUnitContentUI1, false);
+        battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + yourProvinceIndex.ToString();
+        LoadProvinceUnitCounters(yourProvinceIndex, gameAssets.AttackUnitContentUI1, false);
 
+        Button button = battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>();
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => { GameManager.Instance.Battle(yourProvinceIndex,enemyProvinceIndex); });
 
-        battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
-        LoadProvinceUnitCounters(provinceIndex2, gameAssets.AttackUnitContentUI2, false);
+        button =  battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>(); 
+
+        battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + enemyProvinceIndex.ToString();
+        LoadProvinceUnitCounters(enemyProvinceIndex, gameAssets.AttackUnitContentUI2, false);
     }
 
     public void CloseUIWindow(string name)
