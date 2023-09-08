@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558b5a8b3d62ddf4dba274ef14caccc1, type: 3}
   m_Name: Peasant 1
   m_EditorClassIdentifier: 
-  unit: {fileID: 4476419575737143508, guid: 896a749d5fd8c034fa756608061098fb, type: 3}
+  unit: {fileID: 7742407762973993446, guid: d808e99630d60114c9b69f80cc6ce3d5, type: 3}
   <sprite>k__BackingField: {fileID: 1123926491, guid: 796edc30a77d3eb4a970edc5eda69545, type: 3}
   <speed>k__BackingField: 40
   <lifePoints>k__BackingField: 230
   <damage>k__BackingField: 43
-  <range>k__BackingField: 1
+  <range>k__BackingField: 3
+  <bullet>k__BackingField: {fileID: 21300000, guid: 809e925a139fd114c957d630b50a9267, type: 3}
   <rateOfFire>k__BackingField: 30
   <turnCost>k__BackingField: 0
   <price>k__BackingField: 50

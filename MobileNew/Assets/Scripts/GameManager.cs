@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
                 }
             }
             numberOfProvinces =  Resources.Load<MapStats>("Maps/World").numberOfProvinces;
-            humanPlayer = new PlayerStats(1000);
+            humanPlayer = new PlayerStats(100000);
         }
         else
         {

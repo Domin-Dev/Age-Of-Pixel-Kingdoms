@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 
@@ -19,6 +21,9 @@ public class UnitsManager : MonoBehaviour
 
     Dictionary<int, int> yourUnits;
     Dictionary<int, int> enemyUnits;
+
+    private int yourUnitCount;
+    private int enemyUnitCount;
 
     int SelectedUnitIndex = -1;
 
@@ -44,12 +49,24 @@ public class UnitsManager : MonoBehaviour
             {
                 if (yourUnits.ContainsKey(i) && yourUnits[i] > 0)
                 {
+                    yourUnitCount += yourUnits[i];
                     Transform transform = Instantiate(GameAssets.Instance.BattleConter, GameAssets.Instance.BattleUnits.transform).transform;
                     transform.name = i.ToString();
                     transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.unitStats[i].sprite;
                     transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = yourUnits[i].ToString();
                     int index = i;
                     transform.GetComponent<Button>().onClick.AddListener(() => { Instance.SetUnitIndex(index); });
+                }
+            }
+        }
+
+        if(enemyUnits != null)
+        {
+            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+            {
+                if (enemyUnits.ContainsKey(i) && enemyUnits[i] > 0)
+                {
+                    enemyUnitCount += enemyUnits[i];
                 }
             }
         }
@@ -65,7 +82,7 @@ public class UnitsManager : MonoBehaviour
             {
                 if(raycastHit.collider.CompareTag("Path"))
                 {
-                  if(CanSpawn(raycastHit.collider.transform))
+                  if(CanSpawn(raycastHit.collider.transform) && yourUnits[SelectedUnitIndex]> 0)
                      CreateUnit(SelectedUnitIndex, raycastHit.collider.transform);
                 }
             }
@@ -128,10 +145,6 @@ public class UnitsManager : MonoBehaviour
                 break;
             }
         }
-        if (yourUnits[index] == 0)
-        {
-            ClearSelectedUnit();
-        }
     }
 
     private bool CanSpawn(Transform pathTransform)
@@ -150,14 +163,15 @@ public class UnitsManager : MonoBehaviour
     private void CreateUnit(int unitindex,Transform pathTransform)
     {
         yourUnits[unitindex]--;
+        yourUnitCount--;
         UpdateUnitsUI(unitindex);
-
+        Debug.Log(yourUnitCount);
 
         int path = int.Parse(pathTransform.name);
         List<Unit> units = GetPath(path);
 
         Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-        unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { if (!isDead) UnitCame(unitindex); units.Remove(unit); }, (unit) => { return CheckPath(unit);});
+        unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { if (!isDead) UnitCame(false,unitindex); units.Remove(unit); }, (unit) => { return CheckPath(unit);});
         units.Add(unit);
     }
     private void EnemyCreateUnit(int unitindex, Transform pathTransform)
@@ -166,35 +180,47 @@ public class UnitsManager : MonoBehaviour
         List<Unit> units = GetPath(path);
 
         Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-        unit.SetUp(unitindex,path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { if (!isDead) UnitCame(unitindex); units.Remove(unit); }, (unit) => { return CheckPath(unit);});
+        unit.SetUp(unitindex,path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { if (!isDead) UnitCame(true,unitindex); units.Remove(unit); }, (unit) => { return CheckPath(unit);});
         units.Add(unit);
     }
 
     private Unit CheckPath(Unit selectedUnit)
     {
         List<Unit> units = GetPath(selectedUnit.pathIndex);
-
-        foreach (Unit unit in units) 
+        Unit friendlyUnit = null;
+        again:
         {
-            if (unit != selectedUnit)
+            foreach (Unit unit in units)
             {
-                float selectedUnitPosX = selectedUnit.transform.position.x;
-                float unitPosX = unit.transform.position.x;
 
-
-                float distance = Mathf.Abs(selectedUnitPosX - unitPosX);
-
-                if(unit.unitIsFriendly != selectedUnit.unitIsFriendly)
+                if (unit != selectedUnit)
                 {
-                    if(distance <= selectedUnit.range) return unit;
-                }            
-                else
-                { 
-                   if(distance < 1.1f && selectedUnitPosX * selectedUnit.multiplier < unitPosX * unit.multiplier ) return unit;
+                    float selectedUnitPosX = selectedUnit.transform.position.x;
+                    float unitPosX = unit.transform.position.x;
+
+
+                    float distance = Mathf.Abs(selectedUnitPosX - unitPosX);
+
+
+                    if (unit.unitIsFriendly != selectedUnit.unitIsFriendly)
+                    {
+                        if (distance <= 1f && distance <= selectedUnit.range) return unit;
+                        else if(friendlyUnit != null && distance <= selectedUnit.range) return unit;
+                    }
+                    else if(friendlyUnit == null) 
+                    {
+                        if (distance <= 1f && selectedUnitPosX * selectedUnit.multiplier < unitPosX * unit.multiplier)
+                        {
+                            friendlyUnit = unit;
+                            goto again;
+                        }
+                    }
                 }
-                
+
             }
         }
+
+        if (friendlyUnit != null) return friendlyUnit;
         return null;
     }
     private List<Unit> GetPath(int index)
@@ -209,9 +235,19 @@ public class UnitsManager : MonoBehaviour
         return path1;
     }
 
-    public void UnitCame(int index)
+    public void UnitCame(bool isAI,int index)
     {
-        yourUnits[index]++;
-        UpdateUnitsUI(index);
+        if (!isAI)
+        {
+            yourUnitCount++;
+            yourUnits[index]++;
+            UpdateUnitsUI(index);
+        }else
+        {
+            enemyUnitCount++;
+            enemyUnits[index]++;
+        }
     }
+
+
 }

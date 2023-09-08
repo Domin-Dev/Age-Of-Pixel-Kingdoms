@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using static UnityEngine.UI.CanvasScaler;
 
 public class Unit : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class Unit : MonoBehaviour
     public float range { get; private set; }
     public float rateOfFire { get; private set; }   
 
-
+    public Sprite bullet { get; private set; }
     //////////////////////////
 
     private float lifePoints;
@@ -42,8 +43,6 @@ public class Unit : MonoBehaviour
     float timeToAttack;
     bool isReadyToAttack;
 
-
-
     //Hit effect//
     const float timerHitEffect = 0.2f;
     float timeToChange;
@@ -51,6 +50,7 @@ public class Unit : MonoBehaviour
     bool lerpIsActive;
 
 
+    Unit target;
 
     private void Start()
     {
@@ -77,6 +77,7 @@ public class Unit : MonoBehaviour
         this.damage = unitStats.damage;
         this.range = unitStats.range;
         this.rateOfFire = unitStats.rateOfFire;
+        this.bullet = unitStats.bullet;
         
 
         this.targetPositionX = targetPositionX;
@@ -151,18 +152,28 @@ public class Unit : MonoBehaviour
             animator.SetBool("Idle", true);
             if (unit.unitIsFriendly != unitIsFriendly)
             {
-                Attack(unit);
+                target = unit;
+                Attack();
             }        
         }
     }
-    private void Attack(Unit unit)
+    private void Attack()
     {
         if (isReadyToAttack)
         {
             isReadyToAttack = false;
             animator.SetTrigger("Attack");
-            unit.Hit(damage);
         }
+    }
+    public void EndOfAnimation()
+    {
+        target.Hit(damage);
+        target = null;
+    }
+
+    public void Shot()
+    {
+       if(target !=null) Bullet.NewBullet(transform.GetChild(1).position, target.transform, bullet, () => { EndOfAnimation(); });
     }
     private void Hit(float damage)
     {
@@ -182,8 +193,4 @@ public class Unit : MonoBehaviour
 
     }
 
-    private void OnDestroy()
-    {
-        Debug.Log("lol");
-    }
 }

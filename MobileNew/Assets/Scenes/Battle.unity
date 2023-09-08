@@ -1234,7 +1234,6 @@ MonoBehaviour:
   path2: []
   path3: []
   path4: []
-  Instance: {fileID: 0}
 --- !u!1 &614576450
 GameObject:
   m_ObjectHideFlags: 0

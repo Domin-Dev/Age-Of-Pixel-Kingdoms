@@ -15,6 +15,7 @@ public class UnitStats : ScriptableObject
     [field: SerializeField] public float lifePoints { get; private set; }
     [field: SerializeField] public float damage { get; private set; }
     [field: SerializeField] public float range { get; private set; }
+    [field: SerializeField] public Sprite bullet { get; private set; }
     [field: SerializeField] public float rateOfFire { get; private set; }
     [field: SerializeField] public int turnCost { get; private set; }
 

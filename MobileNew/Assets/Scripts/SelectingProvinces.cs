@@ -47,7 +47,8 @@ public class SelectingProvinces : MonoBehaviour
         buttonRecruit = selectionNumberUnits.GetChild(4).GetComponent<Button>();
         buttonText = buttonRecruit.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        buttonRecruit.onClick.AddListener(() => { Recruit(); });
+        buttonRecruit.onClick.RemoveAllListeners();
+        buttonRecruit.onClick.AddListener(() => {  Sounds.instance.PlaySound(0); Recruit(); });
         slider.maxValue = maxUnitsNumber;
         slider.onValueChanged.AddListener((float value) => { SetUnitsNumber((int)(value)); });
         buttons.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-20); });
@@ -80,7 +81,7 @@ public class SelectingProvinces : MonoBehaviour
         else
         {
             buttonRecruit.onClick.RemoveAllListeners();
-            buttonRecruit.onClick.AddListener(() => { Recruit(); });
+            buttonRecruit.onClick.AddListener(() => { Sounds.instance.PlaySound(0); Recruit(); });
             nameWindow.text = "recruitment";
             buttonText.text = "Recruit";
         }
@@ -418,6 +419,7 @@ public class SelectingProvinces : MonoBehaviour
     {
         if (selectedProvince != null && unitsNumber > 0)
         {
+
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             provinceStats.unitsCounter += unitsNumber;
             GameManager.Instance.humanPlayer.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
