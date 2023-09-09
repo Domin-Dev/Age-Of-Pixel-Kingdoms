@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class GameAssets : MonoBehaviour
 {
@@ -50,6 +50,7 @@ public class GameAssets : MonoBehaviour
 
     public GameObject BattleConter;
     public Transform BattleUnits;
+    public Slider battleBar;
 
     public BuildingStats[] buildingsStats { private set; get; }
     public UnitStats[] unitStats { private set; get; }  

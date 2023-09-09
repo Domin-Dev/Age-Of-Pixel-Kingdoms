@@ -8,6 +8,7 @@ TagManager:
   - Path
   - GameMap
   - Buildings
+  - Paths
   layers:
   - Default
   - TransparentFX

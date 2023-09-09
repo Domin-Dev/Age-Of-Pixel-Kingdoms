@@ -28,7 +28,6 @@ public class Sounds : MonoBehaviour
 
     public void PlaySound(int index)
     {
-        Debug.Log('x');
         audioSource.PlayOneShot(soundsList[index]);
     }
 }

@@ -21,4 +21,15 @@ public class UnitStats : ScriptableObject
 
     [field: Space(20f, order = 0)]
     [field: SerializeField] public int price { get; private set; }
+    [field: SerializeField] public UnitType unitType { get; private set; }
+
+    public enum UnitType
+    {
+        NormalUnit,
+        HeavyUnit,
+        FastUnit,
+        RangeUnit,
+    }
+
+
 }

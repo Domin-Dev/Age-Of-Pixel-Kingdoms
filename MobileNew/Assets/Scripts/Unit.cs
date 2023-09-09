@@ -10,24 +10,20 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class Unit : MonoBehaviour
 {
-    //////////////////////////
 
+    UnitStats.UnitType unitType;
     private int unitIndex;   
     public float speed { get; private set; }
     public float maxLifePoints { get; private set; }
     public float damage { get; private set; }
     public float range { get; private set; }
     public float rateOfFire { get; private set; }   
-
     public Sprite bullet { get; private set; }
     //////////////////////////
-
     private float lifePoints;
     private Transform lifeBar;
     private SpriteRenderer spriteRenderer;
-
     //////////////////////////
-
     private float targetPositionX;
     public int multiplier { get; private set; }
     public bool unitIsFriendly { get; private set; }
@@ -35,23 +31,18 @@ public class Unit : MonoBehaviour
     private Action<bool> clearList;
     private Func<Unit, Unit> checkPath;
     private Animator animator;
-
     //////////////////////////
-
     //Attack//
     float attackTimer;
     float timeToAttack;
     bool isReadyToAttack;
-
     //Hit effect//
     const float timerHitEffect = 0.2f;
     float timeToChange;
     bool IsActive;
     bool lerpIsActive;
 
-
     Unit target;
-
     private void Start()
     {
         IsActive = false;
@@ -67,10 +58,10 @@ public class Unit : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
     public void SetUp(int index,int pathIndex,bool unitIsFriendly, float targetPositionX, Action<bool> clearList, Func<Unit, Unit> checkPath)
     {
         UnitStats unitStats = GameAssets.Instance.unitStats[index];
+        this.unitType = unitStats.unitType;
         this.unitIndex = index;
         this.speed = unitStats.speed;
         this.maxLifePoints = unitStats.lifePoints;
@@ -95,7 +86,8 @@ public class Unit : MonoBehaviour
             multiplier = 1;
         }
     }
-
+    
+    public float positionX;
     private void Update()
     {
         if(lerpIsActive)
@@ -133,13 +125,14 @@ public class Unit : MonoBehaviour
 
 
 
+        positionX = transform.position.x + 0.1f * speed * multiplier * Time.deltaTime;
         Unit unit = checkPath(this);
         if (unit == null)
         {
             animator.SetBool("Idle", false);
             if (Math.Abs(targetPositionX - transform.position.x) > 0.5f)
             {
-                transform.position = transform.position + new Vector3(0.1f, 0, 0) * speed * multiplier * Time.deltaTime;
+                transform.position = new Vector3(positionX, transform.position.y, 0f);
             }
             else
             {
@@ -170,16 +163,16 @@ public class Unit : MonoBehaviour
         target.Hit(damage);
         target = null;
     }
-
     public void Shot()
     {
        if(target !=null) Bullet.NewBullet(transform.GetChild(1).position, target.transform, bullet, () => { EndOfAnimation(); });
     }
     private void Hit(float damage)
     {
+        
         lerpIsActive = true;
         //spriteRenderer.material = new Material(Shader.Find("Shader Graphs/Unit"));      
-        transform.GetChild(0).gameObject.SetActive(true);
+        if(transform.GetChild(0).gameObject != null) transform.GetChild(0).gameObject.SetActive(true);
         lifePoints = math.clamp(lifePoints - damage, 0, maxLifePoints);
         if (lifePoints <= 0)
         {

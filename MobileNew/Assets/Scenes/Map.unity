@@ -6871,6 +6871,7 @@ MonoBehaviour:
   unitCounterSlotUI: {fileID: 2450357849218985400, guid: 36df2936bc12b484d8f537609bccbda4, type: 3}
   BattleConter: {fileID: 1969157848490918555, guid: 7743eb13fdbebc348a5e83449a46e554, type: 3}
   BattleUnits: {fileID: 0}
+  battleBar: {fileID: 0}
 --- !u!4 &493484546
 Transform:
   m_ObjectHideFlags: 0
