@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
 {
 
     UnitStats.UnitType unitType;
-    private int unitIndex;   
+    public int unitIndex;   
     public float speed { get; private set; }
     public float maxLifePoints { get; private set; }
     public float damage { get; private set; }

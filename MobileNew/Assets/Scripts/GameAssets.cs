@@ -49,8 +49,13 @@ public class GameAssets : MonoBehaviour
     [Space(40f, order = 0)]
 
     public GameObject BattleConter;
-    public Transform BattleUnits;
-    public Slider battleBar;
+    public Transform BattleUnits
+        ;
+    public Transform battleYourBar;
+    public Transform battleEnemyBar;
+
+    public Transform battleInfo;
+
 
     public BuildingStats[] buildingsStats { private set; get; }
     public UnitStats[] unitStats { private set; get; }  

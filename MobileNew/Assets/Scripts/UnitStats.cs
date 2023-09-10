@@ -26,7 +26,6 @@ public class UnitStats : ScriptableObject
     public enum UnitType
     {
         NormalUnit,
-        HeavyUnit,
         FastUnit,
         RangeUnit,
     }

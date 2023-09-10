@@ -4198,7 +4198,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1785781256}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: CloseProvinceStats
         m_Mode: 1
@@ -6871,7 +6871,9 @@ MonoBehaviour:
   unitCounterSlotUI: {fileID: 2450357849218985400, guid: 36df2936bc12b484d8f537609bccbda4, type: 3}
   BattleConter: {fileID: 1969157848490918555, guid: 7743eb13fdbebc348a5e83449a46e554, type: 3}
   BattleUnits: {fileID: 0}
-  battleBar: {fileID: 0}
+  battleYourBar: {fileID: 0}
+  battleEnemyBar: {fileID: 0}
+  battleInfo: {fileID: 0}
 --- !u!4 &493484546
 Transform:
   m_ObjectHideFlags: 0
@@ -8457,7 +8459,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1785781256}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: CloseProvinceStats
         m_Mode: 1
@@ -17498,6 +17500,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298100018}
   m_CullTransparentMesh: 1
+--- !u!1 &1299787818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299787820}
+  - component: {fileID: 1299787819}
+  m_Layer: 0
+  m_Name: UI Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1299787819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299787818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5184c35fee8be5947ae49461e4685059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  provinceStatsWindow: {fileID: 1540456163}
+  recruitmentWindow: {fileID: 866371250}
+  selectionNumberUnitsWindow: {fileID: 54464687}
+  buildingsWindow: {fileID: 1553035855}
+  unitsWindow: {fileID: 1669316758}
+  battleWindow: {fileID: 198025574}
+  topBar: {fileID: 631473858}
+  bottomBar: {fileID: 59214979}
+--- !u!4 &1299787820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299787818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.000005575961, y: -2.442119, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1333591866
 GameObject:
   m_ObjectHideFlags: 0
@@ -22032,7 +22086,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1785781255}
   - component: {fileID: 1785781254}
-  - component: {fileID: 1785781256}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -22072,26 +22125,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1785781256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785781253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5184c35fee8be5947ae49461e4685059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  provinceStatsWindow: {fileID: 1540456163}
-  recruitmentWindow: {fileID: 866371250}
-  selectionNumberUnitsWindow: {fileID: 54464687}
-  buildingsWindow: {fileID: 1553035855}
-  unitsWindow: {fileID: 1669316758}
-  battleWindow: {fileID: 198025574}
-  topBar: {fileID: 631473858}
-  bottomBar: {fileID: 59214979}
 --- !u!1 &1790913463
 GameObject:
   m_ObjectHideFlags: 0
@@ -25814,6 +25847,7 @@ SceneRoots:
   - {fileID: 951888892}
   - {fileID: 1558608132}
   - {fileID: 1785781255}
+  - {fileID: 1299787820}
   - {fileID: 493484546}
   - {fileID: 1446522611}
   - {fileID: 437193421}

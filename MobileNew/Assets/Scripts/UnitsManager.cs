@@ -1,13 +1,14 @@
 
 using System.Collections.Generic;
-using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
+using System.Data.Common;
 
 public class UnitsManager : MonoBehaviour
 {
+    bool isEnd = false;
     public List<Unit> path1 { get; private set; } = new List<Unit>();
     public List<Unit> path2 { get; private set; } = new List<Unit>();
     public List<Unit> path3 { get; private set; } = new List<Unit>();
@@ -21,8 +22,8 @@ public class UnitsManager : MonoBehaviour
     public int yourUnitCount { get; private set; }
     public int enemyUnitCount { get; private set; }
 
-    public int yourPoints { get; private set; }
-    public int enemyPoints { get; private set; }
+    public int yourHP { get; private set; }
+    public int enemyHP { get; private set; }
 
 
     int SelectedUnitIndex = -1;
@@ -30,6 +31,9 @@ public class UnitsManager : MonoBehaviour
     private Transform paths;
 
     public static UnitsManager Instance { private set; get; }
+
+    private int startYourUnits;
+    private int startEnemyUnits;
 
     private void Start()
     {
@@ -41,12 +45,14 @@ public class UnitsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        yourHP = 10;
+        enemyHP = 10;
+        UpdateBattleBars();
+        isEnd = false;
 
         unitStats = GameAssets.Instance.unitStats;
         GameManager.Instance.GetUnits(out yourUnits,out enemyUnits);
         paths = GameObject.FindWithTag("Paths").transform;
-
-        GameAssets.Instance.battleBar.value = 0.5f;
 
         if (yourUnits != null)
         {
@@ -74,35 +80,41 @@ public class UnitsManager : MonoBehaviour
                 }
             }
         }
+        startEnemyUnits = enemyUnitCount;
+        startYourUnits = yourUnitCount;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0) && SelectedUnitIndex != -1)
+        if (!isEnd)
         {
-            Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(worldMousePosition, Vector3.zero))
+            if (Input.GetMouseButtonDown(0) && SelectedUnitIndex != -1)
             {
-                if(raycastHit.collider.CompareTag("Path"))
+                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(worldMousePosition, Vector3.zero))
                 {
-                  if(CanSpawn(raycastHit.collider.transform,false) && yourUnits[SelectedUnitIndex]> 0)
-                     CreateUnit(SelectedUnitIndex, raycastHit.collider.transform);
+                    if (raycastHit.collider.CompareTag("Path"))
+                    {
+                        if (CanSpawn(raycastHit.collider.transform, false) && yourUnits[SelectedUnitIndex] > 0)
+                            CreateUnit(SelectedUnitIndex, raycastHit.collider.transform);
+                    }
                 }
             }
-        }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-
-            Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(worldMousePosition, Vector3.zero))
+            if (Input.GetMouseButtonDown(1))
             {
-                if (raycastHit.collider.CompareTag("Path"))
+
+                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(worldMousePosition, Vector3.zero))
                 {
-                    if (CanSpawn(raycastHit.collider.transform, true))
-                        EnemyCreateUnit(0, raycastHit.collider.transform);
+                    if (raycastHit.collider.CompareTag("Path"))
+                    {
+                //        if (CanSpawn(raycastHit.collider.transform, true))
+                //            EnemyCreateUnit(0, raycastHit.collider.transform);
+                    }
                 }
             }
         }
@@ -175,11 +187,12 @@ public class UnitsManager : MonoBehaviour
         List<Unit> units = GetPath(path);
 
         Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-        unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { if (!isDead) UnitCame(false,unitindex); units.Remove(unit); }, (unit) => { return CheckPath(unit);});
+        unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false,unitindex);}, (unit) => { return CheckPath(unit);});
         units.Add(unit);
     }
-    private void EnemyCreateUnit(int unitindex, Transform pathTransform)
+    public bool EnemyCreateUnit(int unitindex, int pathIndex)
     {
+        Transform pathTransform = paths.GetChild(pathIndex - 1);
         if (CanSpawn(pathTransform, true) && enemyUnits[unitindex] > 0)
         {
             enemyUnits[unitindex]--;
@@ -189,9 +202,11 @@ public class UnitsManager : MonoBehaviour
             List<Unit> units = GetPath(path);
 
             Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-            unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { if (!isDead) UnitCame(true, unitindex); units.Remove(unit); }, (unit) => { return CheckPath(unit); });
+            unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(true, unitindex);  }, (unit) => { return CheckPath(unit); });
             units.Add(unit);
+            return true;
         }
+        return false;
     }
 
     private Unit CheckPath(Unit selectedUnit)
@@ -251,22 +266,74 @@ public class UnitsManager : MonoBehaviour
             yourUnitCount++;
             yourUnits[index]++;
             UpdateUnitsUI(index);
-            yourPoints++;
+            enemyHP--;
         }else
         {
-            enemyPoints++;
+            yourHP--;
             enemyUnitCount++;
-          //  enemyUnits[index]++;
+            enemyUnits[index]++;
         }
-        UpdateBattleBar();
+        UpdateBattleBars();
     }
-    private void UpdateBattleBar()
+    private void UpdateBattleBars()
     {
+        GameAssets.Instance.battleEnemyBar.GetComponentInChildren<Slider>().value = (float)(enemyHP / 10f);
+        GameAssets.Instance.battleEnemyBar.GetComponentInChildren<TextMeshProUGUI>().text = enemyHP.ToString() + "/10";
 
-       float value = 0.5f;
-       if(yourPoints + enemyPoints > 0)  value = (float)yourPoints / (float)(yourPoints + enemyPoints);
-       GameAssets.Instance.battleBar.value = value;
-        Debug.Log(yourPoints + " " + enemyPoints + "  " + (float)value);
+        GameAssets.Instance.battleYourBar.GetComponentInChildren<Slider>().value = (float)(yourHP / 10f);
+        GameAssets.Instance.battleYourBar.GetComponentInChildren<TextMeshProUGUI>().text = yourHP.ToString() + "/10";
+
+        if (yourHP <= 0 || enemyHP <= 0)
+        {
+            Time.timeScale = 0f;
+            isEnd = true;
+            CountUnits();
+
+            Transform infoWindow = GameAssets.Instance.battleInfo;
+            infoWindow.gameObject.SetActive(true);
+            GameManager.Instance.SetUnitsConters(yourUnitCount, enemyUnitCount);
+
+            if (yourHP <=0)
+            {
+                infoWindow.GetChild(0).GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = "You lost";
+                GameManager.Instance.SetBattleResult(false);
+            }
+            else
+            {
+                infoWindow.GetChild(0).GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = "you Won";
+                GameManager.Instance.SetBattleResult(true);
+            }
+
+            infoWindow.GetChild(0).GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = yourUnitCount.ToString() + " <sprite index=0>\n" +
+                (startYourUnits-yourUnitCount).ToString() + " <sprite index=20>";
+            infoWindow.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnitCount.ToString() + " <sprite index=0>\n" +
+                (startEnemyUnits-enemyUnitCount).ToString() + " <sprite index=20>";    
+            infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(0);});   
+        }
+
     }
+
+    private void CountUnits()
+    {
+        for (int i = 1; i < 5; i++)
+        {
+            List<Unit> units = GetPath(i);
+            foreach (Unit unit in units)
+            {
+                if(unit.unitIsFriendly)
+                {
+                    yourUnitCount++;
+                    yourUnits[unit.unitIndex]++;
+                }
+                else
+                {
+                    enemyUnitCount++;
+                    enemyUnits[unit.unitIndex]++;
+
+                }
+            }
+        }
+    }
+
 
 }
