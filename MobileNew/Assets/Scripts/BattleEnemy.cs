@@ -10,7 +10,7 @@ public class BattleEnemy : MonoBehaviour
     {
         unitsManager = GetComponent<UnitsManager>();
         units = unitsManager.enemyUnits;
-        CheckUnits();
+   //     CheckUnits();
     }
 
     private const float timer = 2f;
