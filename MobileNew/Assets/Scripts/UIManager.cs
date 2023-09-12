@@ -319,7 +319,7 @@ public class UIManager : MonoBehaviour
 
         Button button = battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => { GameManager.Instance.Battle(yourProvinceIndex,enemyProvinceIndex); });
+        button.onClick.AddListener(() => { GameManager.Instance.Battle(yourProvinceIndex,enemyProvinceIndex,true); });
 
         button =  battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>(); 
 

@@ -21,8 +21,14 @@ public class UnitsManager : MonoBehaviour
     public int yourUnitCount { get; private set; }
     public int enemyUnitCount { get; private set; }
 
-    public int yourHP { get; private set; }
-    public int enemyHP { get; private set; }
+    private int yourHP;
+    private int maxYourHP;
+
+
+    private int enemyHP;
+    private int maxEnemyHP;
+
+
 
     int SelectedUnitIndex = -1;
 
@@ -43,8 +49,10 @@ public class UnitsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        yourHP = 10;
-        enemyHP = 10;
+        GameManager.Instance.GetProvinceHP(out maxYourHP, out maxEnemyHP);
+        yourHP = maxYourHP;
+        enemyHP = maxEnemyHP;
+
         UpdateBattleBars();
         isEnd = false;
 
@@ -275,11 +283,11 @@ public class UnitsManager : MonoBehaviour
     }
     private void UpdateBattleBars()
     {
-        GameAssets.Instance.battleEnemyBar.GetComponentInChildren<Slider>().value = (float)(enemyHP / 10f);
-        GameAssets.Instance.battleEnemyBar.GetComponentInChildren<TextMeshProUGUI>().text = enemyHP.ToString() + "/10";
+        GameAssets.Instance.battleEnemyBar.GetComponentInChildren<Slider>().value = (float)((float)enemyHP / (float)maxEnemyHP);
+        GameAssets.Instance.battleEnemyBar.GetComponentInChildren<TextMeshProUGUI>().text = enemyHP.ToString() + "/" + maxEnemyHP.ToString();
 
-        GameAssets.Instance.battleYourBar.GetComponentInChildren<Slider>().value = (float)(yourHP / 10f);
-        GameAssets.Instance.battleYourBar.GetComponentInChildren<TextMeshProUGUI>().text = yourHP.ToString() + "/10";
+        GameAssets.Instance.battleYourBar.GetComponentInChildren<Slider>().value = (float)((float)yourHP /(float)maxYourHP);
+        GameAssets.Instance.battleYourBar.GetComponentInChildren<TextMeshProUGUI>().text = yourHP.ToString() + "/" + maxYourHP.ToString();
         if (yourHP <= 0 || enemyHP <= 0)
         {
             BattleEnd(yourHP <= 0);

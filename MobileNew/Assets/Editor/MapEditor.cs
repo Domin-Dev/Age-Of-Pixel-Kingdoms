@@ -169,7 +169,6 @@ public class MapEditor : EditorWindow
                 else
                 {
                     provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,false);
-                    Debug.Log(provinces[i].lifePoints.value);
                 }
             }
 
@@ -397,22 +396,8 @@ public class MapEditor : EditorWindow
     private void Build(int buildingIndex,int provinceIndex)
     {
       ProvinceStats[] provinces = Resources.Load<MapStats>("Maps/World").provinces;
-      ProvinceStats provinceStats = provinces[provinceIndex];
-
-      BuildingStats[]  buildingsArray = Resources.LoadAll<BuildingStats>("Buildings");
-      BuildingStats buildingStats = buildingsArray[buildingIndex];
-
-       if (provinceStats.buildingIndex == -1)
-       {
-            BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
-            Transform province = mapParent.GetChild(provinceNumber).transform;
-            Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
-            transform.position = province.position + new Vector3(0, 0.08f, 0);
-            transform.parent = buildingsParent;
-            transform.GetComponent<SpriteRenderer>().sprite = buildingStats.icon;
-            transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            provinceStats.buildingIndex = buildingIndex;
-       }
+      provinces[provinceIndex].buildingIndex = buildingIndex;
+      Debug.Log(provinces[provinceIndex].lifePoints);
     }
 
     private void SetOwner(int playerIndex,int provinceIndex)

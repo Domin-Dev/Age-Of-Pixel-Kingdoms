@@ -49,11 +49,10 @@ public class ProvinceStats
     }  
     public ProvinceStats()
     {
-
+        lifePoints = new Statistic(10);
     }
     public void CopyData(ProvinceStats provinceStats)
     {
-        lifePoints = provinceStats.lifePoints;
         population = provinceStats.population;
         warriorsLimit = provinceStats.warriorsLimit;
         scienceDevelopment = provinceStats.scienceDevelopment;
@@ -72,7 +71,7 @@ public class ProvinceStats
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    int number = Random.Range(0, 30);
+                    int number = Random.Range(0, 3);
                     int unitIndex = Random.Range(0, GameAssets.Instance.unitStats.Length);
                     if (units.ContainsKey(unitIndex))
                     {

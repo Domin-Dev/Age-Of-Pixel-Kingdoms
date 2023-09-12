@@ -1,7 +1,3 @@
-using System;
-using UnityEngine;
-using UnityEngine.VFX;
-
 
 public class Bonus
 {
@@ -13,8 +9,7 @@ public class Bonus
         Income,
         Disposable,
     }
-
-    public Bonus(string name,float value, bonusType bonusType)
+    public Bonus(string name, float value, bonusType bonusType)
     {
         this.type = bonusType;
         this.bonusValue = value;

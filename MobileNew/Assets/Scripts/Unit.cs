@@ -43,6 +43,8 @@ public class Unit : MonoBehaviour
     bool lerpIsActive;
 
     Unit target;
+
+
     private void Start()
     {
         IsActive = false;
@@ -90,6 +92,7 @@ public class Unit : MonoBehaviour
     public float positionX;
     private void Update()
     {
+        
         if(lerpIsActive)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.4f, 1.1f, 1), Time.deltaTime * 70);
@@ -160,7 +163,7 @@ public class Unit : MonoBehaviour
     }
     public void EndOfAnimation()
     {
-        if(target.isActiveAndEnabled) target.Hit(damage);
+        if(target != null) target.Hit(damage);
         target = null;
     }
     public void Shot()
@@ -186,4 +189,8 @@ public class Unit : MonoBehaviour
         }
     }
 
+    private void TargetIsNull()
+    {
+        target = null;
+    }
 }

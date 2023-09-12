@@ -16,10 +16,13 @@ public class GameManager : MonoBehaviour
 
     public PlayerStats humanPlayer;
     public Transform map;
+    public Transform buildings;
     public SelectingProvinces selectingProvinces;
 
     private int yourProvinceIndex;
     private int enemyProvinceIndex;
+    private bool youAttack;
+
 
 
 
@@ -29,6 +32,9 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             map = GameObject.FindGameObjectWithTag("GameMap").transform;
+            buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
+            
+
             selectingProvinces = FindObjectOfType<SelectingProvinces>();
 
             ProvinceStats[] array = Resources.Load<MapStats>("Maps/World").provinces;
@@ -37,9 +43,22 @@ public class GameManager : MonoBehaviour
             {
                 provinces[i] = new ProvinceStats();
                 provinces[i].CopyData(array[i]);
-                if (provinces[i].provinceOwnerIndex != -1)
+                ProvinceStats provinceStats = provinces[i];
+
+                if (provinceStats.provinceOwnerIndex != -1)
                 {
                     selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
+                }
+
+                if (provinceStats.buildingIndex != -1)
+                {
+                    BonusManager.SetBonus(provinceStats, provinceStats.buildingIndex);
+                    Transform province = map.GetChild(provinceStats.index).transform;
+                    Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
+                    transform.position = province.position + new Vector3(0, 0.08f, 0);
+                    transform.parent = buildings;
+                    transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex].icon;
+                    transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
                 }
             }
             numberOfProvinces =  Resources.Load<MapStats>("Maps/World").numberOfProvinces;
@@ -67,8 +86,9 @@ public class GameManager : MonoBehaviour
     {
         selectingProvinces.UpdateUnitNumber(map.GetChild(index).transform);
     }
-    public void Battle(int yourProvinceIndex,int  enemyProvinceIndex)
+    public void Battle(int yourProvinceIndex,int  enemyProvinceIndex,bool youAttack)
     {
+        this.youAttack = youAttack;
         this.yourProvinceIndex = yourProvinceIndex;
         this.enemyProvinceIndex = enemyProvinceIndex;
         SceneManager.LoadScene(1);   
@@ -78,6 +98,21 @@ public class GameManager : MonoBehaviour
         yourUnits = provinces[yourProvinceIndex].units;
         enemyUnits = provinces[enemyProvinceIndex].units;
     }
+    public void GetProvinceHP(out int yourProvinceHP, out int enemyProvinceHP)
+    {
+        if(youAttack)
+        {
+            yourProvinceHP = 10;
+            enemyProvinceHP = (int)provinces[enemyProvinceIndex].lifePoints.value;
+        }
+        else
+        {
+            yourProvinceHP = (int)provinces[yourProvinceIndex].lifePoints.value;
+            enemyProvinceHP = 10;
+        }
+
+    }
+
     public void SetUnitsConters(int your,int enemy)
     {
         provinces[yourProvinceIndex].unitsCounter = your;
@@ -111,12 +146,25 @@ public class GameManager : MonoBehaviour
     public void UpdateMap()
     {
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
+        buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
         selectingProvinces = FindObjectOfType<SelectingProvinces>();
+
         for (int i = 0; i < provinces.Length; i++)
         {
-            if (provinces[i].provinceOwnerIndex != -1)
+            ProvinceStats provinceStats = provinces[i];
+            if(provinceStats.provinceOwnerIndex != -1)
             {
                 selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
+            }
+
+            if (provinceStats.buildingIndex != -1)
+            {
+                Transform province = map.GetChild(provinceStats.index).transform;
+                Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
+                transform.position = province.position + new Vector3(0, 0.08f, 0);
+                transform.parent = buildings;
+                transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex].icon;
+                transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
             }
             UpdateUnitCounter(i);
         }

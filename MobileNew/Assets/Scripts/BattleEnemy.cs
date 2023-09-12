@@ -48,7 +48,6 @@ public class BattleEnemy : MonoBehaviour
         {
             if(units.ContainsKey(i) && units[i] > 0)
             {
-
                 int value = units[i];
                 int index = (int)GameAssets.Instance.unitStats[i].unitType;
                 typesArray[index] += value;
@@ -116,10 +115,14 @@ public class BattleEnemy : MonoBehaviour
                     your++;
                 }
             }
-            if(your > enemy)
+            if(your > enemy && unitsManager.enemyUnitCount > 6)
+            {
+                SendDefenders(i);
+            }else if(your > enemy && enemy == 0)
             {
                 SendDefenders(i);
             }
+
         }
     }
     public void SendUnit(int unitIndex,int pathIndex)

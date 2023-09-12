@@ -4,7 +4,7 @@ using UnityEngine;
 
 public struct Statistic 
 {
-    public  float value {private set; get; }
+    public float value {private set; get; }
     public float turnIncome {private set; get; }
 
     public List<Bonus> bonuses;
@@ -28,7 +28,7 @@ public struct Statistic
         this.value = value;
         this.turnIncome = 0;
     }
-    public void Subtract(int value)
+    public void Subtract(float value)
     {
         this.value = Mathf.Clamp(this.value - value, 0, float.MaxValue);
     }
