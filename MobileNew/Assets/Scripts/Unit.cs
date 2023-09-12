@@ -160,7 +160,7 @@ public class Unit : MonoBehaviour
     }
     public void EndOfAnimation()
     {
-        target.Hit(damage);
+        if(target.isActiveAndEnabled) target.Hit(damage);
         target = null;
     }
     public void Shot()
@@ -169,21 +169,21 @@ public class Unit : MonoBehaviour
     }
     private void Hit(float damage)
     {
-        
-        lerpIsActive = true;
-        //spriteRenderer.material = new Material(Shader.Find("Shader Graphs/Unit"));      
-        if(transform.GetChild(0).gameObject != null) transform.GetChild(0).gameObject.SetActive(true);
-        lifePoints = math.clamp(lifePoints - damage, 0, maxLifePoints);
-        if (lifePoints <= 0)
+        if (gameObject != null)
         {
-            Destroy(gameObject);
-            clearList(true);
+            lerpIsActive = true;
+            if (transform.GetChild(0).gameObject != null) transform.GetChild(0).gameObject.SetActive(true);
+            lifePoints = math.clamp(lifePoints - damage, 0, maxLifePoints);
+            if (lifePoints <= 0)
+            {
+                Destroy(gameObject);
+                clearList(true);
+            }
+            else
+            {
+                lifeBar.localScale = new Vector3(lifePoints / maxLifePoints, 1, 1);
+            }
         }
-        else
-        {
-            lifeBar.localScale = new Vector3(lifePoints / maxLifePoints, 1, 1);
-        }
-
     }
 
 }

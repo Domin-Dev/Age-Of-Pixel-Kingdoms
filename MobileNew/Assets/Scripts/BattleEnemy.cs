@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,14 +9,14 @@ public class BattleEnemy : MonoBehaviour
     {
         unitsManager = GetComponent<UnitsManager>();
         units = unitsManager.enemyUnits;
-   //     CheckUnits();
+        CheckUnits();
     }
 
-    private const float timer = 2f;
+    private const float timer = 1f;
     private float currentTime = 0;
 
     private Dictionary<int, int> units;
-    private int[] typesArray = new int[3];
+    public int[] typesArray = new int[3];
 
     //  NormalUnit = 0
     //  FastUnit = 1
@@ -25,7 +24,6 @@ public class BattleEnemy : MonoBehaviour
 
     Queue<int> pathIndex = new Queue<int>();
     Queue<int> unitIndex = new Queue<int>();
-
 
     private void Update()
     {
@@ -37,11 +35,12 @@ public class BattleEnemy : MonoBehaviour
                 if(currentTime >= timer) 
                 {
                     currentTime = 0;
-
+                    SendUnit(Random.Range(0, 5), Random.Range(1, 4));
                 }
             }
         }
     }
+
 
     private void CheckUnits()
     {
@@ -49,44 +48,89 @@ public class BattleEnemy : MonoBehaviour
         {
             if(units.ContainsKey(i) && units[i] > 0)
             {
-                typesArray[(int)GameAssets.Instance.unitStats[i].unitType] += units[i];
+
+                int value = units[i];
+                int index = (int)GameAssets.Instance.unitStats[i].unitType;
+                typesArray[index] += value;
             }
         }
     }
-    private int GetUnitByTyp(int typeIndex)
+    private void SendUnitByTyp(int[] typeArray,int pathIndex)
     {
-        if(typesArray[typeIndex] > 0)
+        for (int index = 0; index < typeArray.Length; index++)
         {
-            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+            if (typesArray[typeArray[index]] > 0)
             {
-                if (unitsManager.enemyUnits.ContainsKey(i) && unitsManager.enemyUnits[i] > 0 && (int)GameAssets.Instance.unitStats[i].unitType == typeIndex)
+                for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                 {
-                    return i;
+                    if (unitsManager.enemyUnits.ContainsKey(i) && unitsManager.enemyUnits[i] > 0 && (int)GameAssets.Instance.unitStats[i].unitType == typeArray[index])
+                    {
+                        SendUnit(i, pathIndex);
+                        return;
+                    }
                 }
             }
         }
-
-        if (typeIndex == 0 && typesArray[1] > 0) return GetUnitByTyp(1);
-        else if (typeIndex == 1 && typesArray[0] > 0) return GetUnitByTyp(0);
-        else if (typeIndex == 2) return GetUnitByTyp(0);
-        
-
-
-
-
-        return -1;
     }
-
-
-
     public void SendDefenders(int pathIndex)
     {
-        GetUnitByTyp(0);
+        int[] array1 = { 0, 1, 2 };
+        SendUnitByTyp(array1,pathIndex);
+        if(CountUnits(pathIndex) > 2)
+        {
+            int[] array2 = { 0, 1, 2 };
+            SendUnitByTyp(array2, pathIndex);
+        }
+    } 
+    private int CountUnits(int index)
+    {
+        List<Unit> units = unitsManager.GetPath(index);
+        int number = 0;
+        foreach (Unit unit in units)
+        {
+            if(!unit.unitIsFriendly)
+            {
+                number++;
+            }
+        }
+        return number;
     }
 
+
+
+    public void CheckPaths()
+    {
+        for (int i = 1; i < 5; i++)
+        {
+            List<Unit> units = unitsManager.GetPath(i);
+            int enemy = 0;
+            int your = 0;
+            foreach (Unit unit in units)
+            {
+                if (!unit.unitIsFriendly)
+                {
+                    enemy++;
+                }
+                else
+                {
+                    your++;
+                }
+            }
+            if(your > enemy)
+            {
+                SendDefenders(i);
+            }
+        }
+    }
     public void SendUnit(int unitIndex,int pathIndex)
     {
-        unitsManager.EnemyCreateUnit(unitIndex, pathIndex);
+        if (units.ContainsKey(unitIndex))
+        {
+            if(unitsManager.EnemyCreateUnit(unitIndex, pathIndex))
+            {
+                typesArray[(int)GameAssets.Instance.unitStats[unitIndex].unitType]--;
+            }
+        }
     }
 
 }

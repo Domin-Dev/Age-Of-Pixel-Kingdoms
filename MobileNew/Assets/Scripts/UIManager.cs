@@ -262,12 +262,12 @@ public class UIManager : MonoBehaviour
             TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
             if (provinceStats.provinceOwnerIndex != -1)
             {
-                textMeshProUGUI.text = "Player " + provinceStats.provinceOwnerIndex.ToString();
+                textMeshProUGUI.text = "Player " + provinceStats.provinceOwnerIndex.ToString() + "  <color=red>"+provinceStats.lifePoints.ToString()+"</color> <sprite index=16>";
                 textMeshProUGUI.color = Color.red;
             }
             else
             {
-                textMeshProUGUI.text = "No owner";
+                textMeshProUGUI.text = "No owner" + "  <color=red> "+ provinceStats.lifePoints.ToString()+"</color> <sprite index=16>";
                 textMeshProUGUI.color = Color.grey;
             }
 

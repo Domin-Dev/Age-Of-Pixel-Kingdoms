@@ -18,23 +18,21 @@ public class UnitsManager : MonoBehaviour
 
     public Dictionary<int, int> yourUnits;
     public Dictionary<int, int> enemyUnits;
-
     public int yourUnitCount { get; private set; }
     public int enemyUnitCount { get; private set; }
 
     public int yourHP { get; private set; }
     public int enemyHP { get; private set; }
 
-
     int SelectedUnitIndex = -1;
 
     private Transform paths;
-
     public static UnitsManager Instance { private set; get; }
 
     private int startYourUnits;
     private int startEnemyUnits;
 
+    private BattleEnemy battleEnemy;
     private void Start()
     {
         if (Instance == null)
@@ -82,8 +80,8 @@ public class UnitsManager : MonoBehaviour
         }
         startEnemyUnits = enemyUnitCount;
         startYourUnits = yourUnitCount;
+        battleEnemy = GetComponent<BattleEnemy>();
     }
-
     private void Update()
     {
         if (!isEnd)
@@ -159,7 +157,6 @@ public class UnitsManager : MonoBehaviour
             }
         }
     }
-
     private bool CanSpawn(Transform pathTransform, bool isEnemy)
     {
         int childIndex;
@@ -185,9 +182,10 @@ public class UnitsManager : MonoBehaviour
 
         int path = int.Parse(pathTransform.name);
         List<Unit> units = GetPath(path);
+        battleEnemy.SendDefenders(path);
 
         Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-        unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false,unitindex);}, (unit) => { return CheckPath(unit);});
+        unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false,unitindex); CheckUnits(); }, (unit) => { return CheckPath(unit);});
         units.Add(unit);
     }
     public bool EnemyCreateUnit(int unitindex, int pathIndex)
@@ -202,13 +200,12 @@ public class UnitsManager : MonoBehaviour
             List<Unit> units = GetPath(path);
 
             Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-            unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(true, unitindex);  }, (unit) => { return CheckPath(unit); });
+            unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit);if (!isDead) UnitCame(true, unitindex); CheckUnits(); battleEnemy.CheckPaths(); }, (unit) => { return CheckPath(unit); });
             units.Add(unit);
             return true;
         }
         return false;
     }
-
     private Unit CheckPath(Unit selectedUnit)
     {
         List<Unit> units = GetPath(selectedUnit.pathIndex);
@@ -248,7 +245,7 @@ public class UnitsManager : MonoBehaviour
         if (friendlyUnit != null) return friendlyUnit;
         return null;
     }
-    private List<Unit> GetPath(int index)
+    public List<Unit> GetPath(int index)
     {
         switch (index)
         {
@@ -272,6 +269,7 @@ public class UnitsManager : MonoBehaviour
             yourHP--;
             enemyUnitCount++;
             enemyUnits[index]++;
+            battleEnemy.typesArray[(int)GameAssets.Instance.unitStats[index].unitType]++;
         }
         UpdateBattleBars();
     }
@@ -282,37 +280,38 @@ public class UnitsManager : MonoBehaviour
 
         GameAssets.Instance.battleYourBar.GetComponentInChildren<Slider>().value = (float)(yourHP / 10f);
         GameAssets.Instance.battleYourBar.GetComponentInChildren<TextMeshProUGUI>().text = yourHP.ToString() + "/10";
-
         if (yourHP <= 0 || enemyHP <= 0)
         {
-            Time.timeScale = 0f;
-            isEnd = true;
-            CountUnits();
+            BattleEnd(yourHP <= 0);
+        }
+    }
+    private void BattleEnd(bool winnerIsEnemy)
+    {
+        Time.timeScale = 0f;
+        isEnd = true;
+        CountUnits();
 
-            Transform infoWindow = GameAssets.Instance.battleInfo;
-            infoWindow.gameObject.SetActive(true);
-            GameManager.Instance.SetUnitsConters(yourUnitCount, enemyUnitCount);
+        Transform infoWindow = GameAssets.Instance.battleInfo;
+        infoWindow.gameObject.SetActive(true);
+        GameManager.Instance.SetUnitsConters(yourUnitCount, enemyUnitCount);
 
-            if (yourHP <=0)
-            {
-                infoWindow.GetChild(0).GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = "You lost";
-                GameManager.Instance.SetBattleResult(false);
-            }
-            else
-            {
-                infoWindow.GetChild(0).GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = "you Won";
-                GameManager.Instance.SetBattleResult(true);
-            }
-
-            infoWindow.GetChild(0).GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = yourUnitCount.ToString() + " <sprite index=0>\n" +
-                (startYourUnits-yourUnitCount).ToString() + " <sprite index=20>";
-            infoWindow.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnitCount.ToString() + " <sprite index=0>\n" +
-                (startEnemyUnits-enemyUnitCount).ToString() + " <sprite index=20>";    
-            infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(0);});   
+        if (winnerIsEnemy)
+        {
+            infoWindow.GetChild(0).GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = "You lost";
+            GameManager.Instance.SetBattleResult(false);
+        }
+        else
+        {
+            infoWindow.GetChild(0).GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = "you Won";
+            GameManager.Instance.SetBattleResult(true);
         }
 
+        infoWindow.GetChild(0).GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = yourUnitCount.ToString() + " <sprite index=0>\n" +
+            (startYourUnits - yourUnitCount).ToString() + " <sprite index=20>";
+        infoWindow.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnitCount.ToString() + " <sprite index=0>\n" +
+            (startEnemyUnits - enemyUnitCount).ToString() + " <sprite index=20>";
+        infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(0); });
     }
-
     private void CountUnits()
     {
         for (int i = 1; i < 5; i++)
@@ -329,11 +328,45 @@ public class UnitsManager : MonoBehaviour
                 {
                     enemyUnitCount++;
                     enemyUnits[unit.unitIndex]++;
-
                 }
             }
         }
     }
+    private void CheckUnits()
+    {
+        int your = yourUnitCount;
+        int enemy = enemyUnitCount;
+        if (your <= 0 || enemy <= 0)
+        {
+            for (int i = 1; i < 5; i++)
+            {
+                List<Unit> units = GetPath(i);
+                foreach (Unit unit in units)
+                {
+                    if (unit.unitIsFriendly)
+                    {
+                        your++;
+                    }
+                    else
+                    {
+                        enemy++;
+                    }
+                }
+            }
+            
+            if(enemy > 0 &&  your <= 0)
+            {
+                BattleEnd(true);
+            }
+            else if(your > 0 && enemy <= 0)
+            {
+                BattleEnd(false);
 
-
+            }else if(enemy == 0 && your == 0)
+            {
+                BattleEnd(enemyHP >= yourHP);
+            }
+            
+        }   
+    }
 }

@@ -12,16 +12,13 @@ public class SelectingProvinces : MonoBehaviour
     public Transform selectedNeighbor;
     private bool moveMode = false;
 
-
     private Color selectedColor;
 
     private int selectedUnitIndex = -1;
     private int selectedProvinceNumber = 0;
 
-
     private int unitsNumber = 0;
     private int maxUnitsNumber = 100;
-
 
     private TextMeshProUGUI nameWindow;
     private Slider slider;
@@ -33,7 +30,6 @@ public class SelectingProvinces : MonoBehaviour
 
     private Transform buildingsParent;
     private Transform map;
-
 
     private void Start()
     {
@@ -193,6 +189,8 @@ public class SelectingProvinces : MonoBehaviour
         if (selectedProvince != null && GameManager.Instance.humanPlayer.CanAfford(buildingStats.price))
         {
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
+            BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
+
             if (provinceStats.buildingIndex == -1)
             {
                 GameManager.Instance.humanPlayer.Subtract(buildingStats.price);
@@ -292,8 +290,6 @@ public class SelectingProvinces : MonoBehaviour
         }
         spriteRenderer.SetPropertyBlock(materialPropertyBlock);
     }
-
-
     public void SetUnitsNumber(int unit)
     {
         unitsNumber = Math.Clamp(unit, 0, maxUnitsNumber); 
@@ -604,8 +600,6 @@ public class SelectingProvinces : MonoBehaviour
             selectedUnitIndex = -1;
         }
     }
-
-
     private ProvinceStats GetProvinceStats(Transform province)
     { 
         return GameManager.Instance.provinces[int.Parse(province.name)];

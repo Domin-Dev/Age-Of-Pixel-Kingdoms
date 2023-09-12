@@ -8,8 +8,6 @@ public class MapStats : ScriptableObject
         this.numberOfProvinces = numberOfProvinces;
         this.provinces = provinces;
     }
-
     public int numberOfProvinces;
     public ProvinceStats[] provinces;
-
 }

@@ -7,6 +7,8 @@ using UnityEngine;
 public class ProvinceStats
 {
 
+    public Statistic lifePoints;
+
     public int index;
     public int population { private set; get; }
     public int warriorsLimit { private set; get; }
@@ -31,8 +33,9 @@ public class ProvinceStats
     }
     public ProvinceStats(int index,int population, int warriorsLimit, float scienceDevelopment, float incomeInCoins, bool isSea)
     {
+        this.lifePoints = new Statistic(10);
+        Debug.Log(lifePoints.value);
         this.index = index;
-        Debug.Log(index);
         this.provinceOwnerIndex = -1;
         this.unitsCounter = 0;
         this.units = new Dictionary<int, int>();
@@ -43,15 +46,14 @@ public class ProvinceStats
         this.incomeInCoins = incomeInCoins;
         buildingIndex = -1;
         this.isSea = isSea;
-    }
-    
+    }  
     public ProvinceStats()
     {
 
     }
-
     public void CopyData(ProvinceStats provinceStats)
     {
+        lifePoints = provinceStats.lifePoints;
         population = provinceStats.population;
         warriorsLimit = provinceStats.warriorsLimit;
         scienceDevelopment = provinceStats.scienceDevelopment;
@@ -70,7 +72,7 @@ public class ProvinceStats
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    int number = Random.Range(0, 5);
+                    int number = Random.Range(0, 30);
                     int unitIndex = Random.Range(0, GameAssets.Instance.unitStats.Length);
                     if (units.ContainsKey(unitIndex))
                     {

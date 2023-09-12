@@ -114,7 +114,7 @@ public class MapEditor : EditorWindow
 
         if (GUILayout.Button("Set Mine"))
         {
-            Build(2, provinceNumber);
+            Build(0, provinceNumber);
         }
         EditorGUILayout.Space(20);
         if (GUILayout.Button("Set Owner"))
@@ -169,6 +169,7 @@ public class MapEditor : EditorWindow
                 else
                 {
                     provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,false);
+                    Debug.Log(provinces[i].lifePoints.value);
                 }
             }
 
@@ -403,6 +404,7 @@ public class MapEditor : EditorWindow
 
        if (provinceStats.buildingIndex == -1)
        {
+            BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
             Transform province = mapParent.GetChild(provinceNumber).transform;
             Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
             transform.position = province.position + new Vector3(0, 0.08f, 0);
