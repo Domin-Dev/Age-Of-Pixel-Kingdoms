@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public struct Statistic 
 {
@@ -28,6 +28,14 @@ public struct Statistic
         this.value = value;
         this.turnIncome = 0;
     }
+    public Statistic(int value)
+    {
+        bonuses = new List<Bonus>();
+        this.value = value;
+        this.turnIncome = 0;
+    }
+
+
     public void Subtract(float value)
     {
         this.value = Mathf.Clamp(this.value - value, 0, float.MaxValue);

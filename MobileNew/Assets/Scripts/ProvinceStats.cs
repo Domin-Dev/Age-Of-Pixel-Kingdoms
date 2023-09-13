@@ -8,9 +8,10 @@ public class ProvinceStats
 {
 
     public Statistic lifePoints;
+    public Statistic population;
+
 
     public int index;
-    public int population { private set; get; }
     public int warriorsLimit { private set; get; }
     public float scienceDevelopment { private set; get; }
     public float incomeInCoins { private set; get; }
@@ -31,16 +32,13 @@ public class ProvinceStats
     {
         neighbors.Add(index);
     }
-    public ProvinceStats(int index,int population, int warriorsLimit, float scienceDevelopment, float incomeInCoins, bool isSea)
+    public ProvinceStats(int index, int warriorsLimit, float scienceDevelopment, float incomeInCoins, bool isSea)
     {
         this.lifePoints = new Statistic(10);
-        Debug.Log(lifePoints.value);
         this.index = index;
         this.provinceOwnerIndex = -1;
         this.unitsCounter = 0;
         this.units = new Dictionary<int, int>();
-        this.units.Add(1, 20);
-        this.population = population;
         this.warriorsLimit = warriorsLimit;
         this.scienceDevelopment = scienceDevelopment;
         this.incomeInCoins = incomeInCoins;
@@ -49,11 +47,14 @@ public class ProvinceStats
     }  
     public ProvinceStats()
     {
-        lifePoints = new Statistic(10);
+
     }
     public void CopyData(ProvinceStats provinceStats)
     {
-        population = provinceStats.population;
+        population = new Statistic(Random.Range(100, 120), 0);
+        lifePoints = new Statistic(10);
+
+
         warriorsLimit = provinceStats.warriorsLimit;
         scienceDevelopment = provinceStats.scienceDevelopment;
         incomeInCoins = provinceStats.incomeInCoins;

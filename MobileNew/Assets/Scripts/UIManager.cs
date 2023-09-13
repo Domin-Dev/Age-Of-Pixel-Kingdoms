@@ -257,23 +257,7 @@ public class UIManager : MonoBehaviour
         Transform transform = GetWindow(name);
         if (name == "ProvinceStats")
         {
-            ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
-            transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString();
-            TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
-            if (provinceStats.provinceOwnerIndex != -1)
-            {
-                textMeshProUGUI.text = "Player " + provinceStats.provinceOwnerIndex.ToString() + "  <color=red>"+provinceStats.lifePoints.ToString()+"</color> <sprite index=16>";
-                textMeshProUGUI.color = Color.red;
-            }
-            else
-            {
-                textMeshProUGUI.text = "No owner" + "  <color=red> "+ provinceStats.lifePoints.ToString()+"</color> <sprite index=16>";
-                textMeshProUGUI.color = Color.grey;
-            }
-
-            transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
-
-            LoadProvinceUnitCounters(provinceIndex,gameAssets.unitCounterContentUI.transform,false);
+            LoadProvinceStats(transform,provinceIndex);
         }
         else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units" || name == "Battle")
         {
@@ -300,6 +284,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void LoadProvinceStats(Transform transform, int provinceIndex)
+    {
+
+        ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
+        transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString();
+        TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+        if (provinceStats.provinceOwnerIndex != -1)
+        {
+            textMeshProUGUI.text = "Player " + provinceStats.provinceOwnerIndex.ToString() + "  <color=red>" + provinceStats.lifePoints.ToString() + "</color> <sprite index=16>";
+            textMeshProUGUI.color = Color.red;
+        }
+        else
+        {
+            textMeshProUGUI.text = "No owner" + "  <color=red> " + provinceStats.lifePoints.ToString() + "</color> <sprite index=16>";
+            textMeshProUGUI.color = Color.grey;
+        }
+
+        transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
+
+        LoadProvinceUnitCounters(provinceIndex, gameAssets.unitCounterContentUI.transform, false);
+    }
     public void LoadUnitsMove(int provinceIndex1,int  provinceIndex2,bool isUpdate)
     {   
         if(!isUpdate)OpenUIWindow("Units", 0);
@@ -310,7 +315,6 @@ public class UIManager : MonoBehaviour
         LoadProvinceUnitCounters(provinceIndex2, gameAssets.moveUnitContentUI2,true);
         unitsWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
     }
-
     public void LoadUnitsAttack(int yourProvinceIndex, int enemyProvinceIndex)
     {
         OpenUIWindow("Battle", 0);
@@ -326,7 +330,6 @@ public class UIManager : MonoBehaviour
         battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + enemyProvinceIndex.ToString();
         LoadProvinceUnitCounters(enemyProvinceIndex, gameAssets.AttackUnitContentUI2, false);
     }
-
     public void CloseUIWindow(string name)
     {
         Transform transform = GetWindow(name);

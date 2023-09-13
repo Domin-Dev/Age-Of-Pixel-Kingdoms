@@ -118,7 +118,7 @@ public class BattleEnemy : MonoBehaviour
             if(your > enemy && unitsManager.enemyUnitCount > 6)
             {
                 SendDefenders(i);
-            }else if(your > enemy && enemy == 0)
+            }else if(your > enemy && (enemy == 0 || your > enemy + 2))
             {
                 SendDefenders(i);
             }

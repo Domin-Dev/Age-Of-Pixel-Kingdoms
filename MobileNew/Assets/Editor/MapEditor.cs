@@ -164,11 +164,11 @@ public class MapEditor : EditorWindow
             {
                 if (provincesList[i].Count == 0)
                 {
-                    provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,true);
+                    provinces[i] = new ProvinceStats(i, 10, 0.1f, 0.1f,true);
                 }
                 else
                 {
-                    provinces[i] = new ProvinceStats(i,Random.Range(100, 200), Random.Range(90, 120), 0.1f, 0.1f,false);
+                    provinces[i] = new ProvinceStats(i, 10, 0.1f, 0.1f,false);
                 }
             }
 
@@ -367,7 +367,6 @@ public class MapEditor : EditorWindow
         }
         border.Add(vector);
     }
-
     private bool CheckBorders(List<Vector2Int> borderList, List<Vector2Int> neighbor)
     {
         float distance = 99999;
@@ -390,16 +389,12 @@ public class MapEditor : EditorWindow
         if(distance <= 4) return true;
         else return false;      
     }
-    
-
-
     private void Build(int buildingIndex,int provinceIndex)
     {
       ProvinceStats[] provinces = Resources.Load<MapStats>("Maps/World").provinces;
       provinces[provinceIndex].buildingIndex = buildingIndex;
       Debug.Log(provinces[provinceIndex].lifePoints);
     }
-
     private void SetOwner(int playerIndex,int provinceIndex)
     {
        Resources.Load<MapStats>("Maps/World").provinces[provinceIndex].SetNewOwner(playerIndex);

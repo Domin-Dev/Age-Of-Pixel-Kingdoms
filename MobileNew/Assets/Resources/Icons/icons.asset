@@ -168,10 +168,10 @@ MonoBehaviour:
     m_HashCode: -1392229618
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 21
-    m_Scale: 1.4
-    m_Name: New Piskel (35)_21
-    m_HashCode: -1392229617
+    m_GlyphIndex: 22
+    m_Scale: 1
+    m_Name: New Piskel (35)_22
+    m_HashCode: -1392229620
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 22
@@ -180,10 +180,16 @@ MonoBehaviour:
     m_HashCode: -1392229620
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 23
+    m_GlyphIndex: 22
     m_Scale: 1
-    m_Name: New Piskel (35)_23
-    m_HashCode: -1392229619
+    m_Name: New Piskel (35)_22
+    m_HashCode: -1392229620
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 22
+    m_Scale: 1
+    m_Name: New Piskel (35)_22
+    m_HashCode: -1392229620
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -529,8 +535,8 @@ MonoBehaviour:
       m_HorizontalBearingY: 24.73
       m_HorizontalAdvance: 19.07
     m_GlyphRect:
-      m_X: 32
-      m_Y: 0
+      m_X: 96
+      m_Y: 160
       m_Width: 32
       m_Height: 32
     m_Scale: 1.5
@@ -545,8 +551,8 @@ MonoBehaviour:
       m_HorizontalBearingY: 24.73
       m_HorizontalAdvance: 19.07
     m_GlyphRect:
-      m_X: 64
-      m_Y: 0
+      m_X: 96
+      m_Y: 160
       m_Width: 32
       m_Height: 32
     m_Scale: 1.5

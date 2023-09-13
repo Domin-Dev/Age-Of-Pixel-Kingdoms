@@ -190,11 +190,12 @@ public class UnitsManager : MonoBehaviour
 
         int path = int.Parse(pathTransform.name);
         List<Unit> units = GetPath(path);
-        battleEnemy.SendDefenders(path);
 
         Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
         unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false,unitindex); CheckUnits(); }, (unit) => { return CheckPath(unit);});
         units.Add(unit);
+
+        battleEnemy.CheckPaths();
     }
     public bool EnemyCreateUnit(int unitindex, int pathIndex)
     {
@@ -290,7 +291,7 @@ public class UnitsManager : MonoBehaviour
         GameAssets.Instance.battleYourBar.GetComponentInChildren<TextMeshProUGUI>().text = yourHP.ToString() + "/" + maxYourHP.ToString();
         if (yourHP <= 0 || enemyHP <= 0)
         {
-            BattleEnd(yourHP <= 0);
+           BattleEnd(yourHP <= 0);
         }
     }
     private void BattleEnd(bool winnerIsEnemy)
@@ -372,7 +373,8 @@ public class UnitsManager : MonoBehaviour
 
             }else if(enemy == 0 && your == 0)
             {
-                BattleEnd(enemyHP >= yourHP);
+                if (enemyHP != yourHP) BattleEnd(enemyHP >= yourHP);
+                else BattleEnd(GameManager.Instance.youAttack);
             }
             
         }   

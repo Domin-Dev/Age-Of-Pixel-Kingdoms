@@ -63,7 +63,6 @@ public class SelectingProvinces : MonoBehaviour
 
 
          map = GameObject.FindGameObjectWithTag("GameMap").transform;
- //       ChangeProvinceColor(map.GetChild(4).GetComponent<SpriteRenderer>(), Color.blue);
     }
     private void SetSelectionNumberUnits(bool isMove)
     {
@@ -202,6 +201,7 @@ public class SelectingProvinces : MonoBehaviour
                 provinceStats.buildingIndex = index;
             }
             UIManager.Instance.LoadBuildings(int.Parse(selectedProvince.name));
+            UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(selectedProvince.name));
         }
         else
         {
@@ -304,7 +304,7 @@ public class SelectingProvinces : MonoBehaviour
     {
         numberText.text = unitsNumber.ToString() + "/" + maxUnitsNumber.ToString();
         slider.value = unitsNumber;
-        price.text = "Price:  <color=#FF0000>"+ unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price +" <sprite index=20> </color>";
+        price.text = "Price:  <color=#FF0000>"+ unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price +" <sprite index=21>  "+ unitsNumber + " <sprite index=1></color>";
     }
     public void ResetUnits()
     {
@@ -392,21 +392,39 @@ public class SelectingProvinces : MonoBehaviour
     {
         if (selectedProvince != null && GameManager.Instance.humanPlayer.CanAfford(GameAssets.Instance.unitStats[index].price))
         {
-            if(selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
-            selectedUnitIndex = index;
-            GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+            int population = (int)GetProvinceStats(selectedProvince).population.value;
+            if(population > 0)
+            {
+                if (selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+                selectedUnitIndex = index;
+                GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
 
-            maxUnitsNumber = GameManager.Instance.humanPlayer.coins / GameAssets.Instance.unitStats[index].price;
-            slider.maxValue = maxUnitsNumber;
 
-            unitsNumber = 0;
-            UpdateRecruitUI();
-            ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
-            selectedUnitIndex = index;
+                int maxToRecruit =  GameManager.Instance.humanPlayer.coins / GameAssets.Instance.unitStats[index].price;
+                if (maxToRecruit >= population)
+                    maxUnitsNumber = population;
+                else
+                    maxUnitsNumber = maxToRecruit;
 
-            SetSelectionNumberUnits(false);
-            UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
-        }else
+
+
+
+                slider.maxValue = maxUnitsNumber;
+
+                unitsNumber = 0;
+                UpdateRecruitUI();
+                ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
+                selectedUnitIndex = index;
+
+                SetSelectionNumberUnits(false);
+                UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
+            }
+            else
+            {
+                Alert.Instance.OpenAlert("No population in the province!");
+            }
+        }
+        else
         {
             Alert.Instance.OpenAlert("not enough coins!");
         }
@@ -418,6 +436,8 @@ public class SelectingProvinces : MonoBehaviour
 
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             provinceStats.unitsCounter += unitsNumber;
+            provinceStats.population.Subtract(unitsNumber);
+
             GameManager.Instance.humanPlayer.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
 
             if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
@@ -437,8 +457,8 @@ public class SelectingProvinces : MonoBehaviour
                 Instantiate(GameAssets.Instance.unitCounter, selectedProvince.transform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, selectedProvince);
             }
             selectedProvince.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
-           
-            UIManager.Instance.LoadProvinceUnitCounters(int.Parse(selectedProvince.name), GameAssets.Instance.unitCounterContentUI.transform,false);
+
+            UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(selectedProvince.name));
             GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
             UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
         }

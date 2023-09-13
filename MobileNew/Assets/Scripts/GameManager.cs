@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private int yourProvinceIndex;
     private int enemyProvinceIndex;
-    private bool youAttack;
+    public bool youAttack { private set; get; }
 
 
 
