@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+
 
 public struct Statistic 
 {
     public float value;
+    public float limit;
+
+
     public float turnIncome {private set; get; }
 
     public List<Bonus> bonuses;
@@ -16,6 +18,8 @@ public struct Statistic
 
     public override string ToString()
     {
+        if (limit < float.MaxValue) return ((int)value).ToString() + "/" + ((int)limit).ToString();
+
         if (turnIncome == 0) return ((int)value).ToString();
         else
         {
@@ -25,6 +29,7 @@ public struct Statistic
     }
     public Statistic(Func<float,float> endturn,float value, float turnIncome,Action counter)
     {
+        this.limit = float.MaxValue;
         this.updateCounter = counter;
         this.EndTurn = endturn;      
         bonuses = new List<Bonus>();
@@ -33,6 +38,7 @@ public struct Statistic
     }
     public Statistic(float value)
     {
+        this.limit = float.MaxValue;
         this.EndTurn = null;
         this.updateCounter = null;
 
@@ -40,17 +46,9 @@ public struct Statistic
         this.value = value;
         this.turnIncome = 0;
     }
-    public Statistic(int value)
+    public Statistic(int value, Action counter,float limit)
     {
-        this.updateCounter = null;
-        this.EndTurn = null;
-
-        bonuses = new List<Bonus>();
-        this.value = value;
-        this.turnIncome = 0;
-    }
-    public Statistic(int value, Action counter)
-    {
+        this.limit = limit;
         this.updateCounter = counter;
         this.EndTurn = null;
 
@@ -72,12 +70,21 @@ public struct Statistic
     }   
     public void Subtract(int value2)
     {
-        value = Mathf.Clamp((int)value - value2, 0, float.MaxValue);
+        value = Mathf.Clamp((int)value - value2, 0, limit);
         if (updateCounter != null)
         {
             updateCounter();
         }
     }
+    public void Add(int value2)
+    {
+        value = Mathf.Clamp((int)value + value2, 0, limit);
+        if (updateCounter != null)
+        {
+            updateCounter();
+        }
+    }
+
     public bool CanAfford(int value)
     {
         if (this.value >= value)
@@ -85,6 +92,18 @@ public struct Statistic
         else
             return false;
     }
+    public bool CheckLimit(int value)
+    {
+        if (this.value + value <= limit)
+            return true;
+        else
+            return false;
+    }
+    public int ToLimit()
+    {
+        return(int)(limit - value);
+    }
+
     public void AddBonus(Bonus bonus)
     {
         if(bonus.type == Bonus.bonusType.Disposable)

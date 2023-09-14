@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
 
     public void SetUnitsConters(int your, int enemy)
     {
+        GameManager.Instance.humanPlayer.warriors.Subtract(provinces[yourProvinceIndex].unitsCounter - your);
         provinces[yourProvinceIndex].unitsCounter = your;
         provinces[enemyProvinceIndex].unitsCounter = enemy;
     }
@@ -147,6 +148,7 @@ public class GameManager : MonoBehaviour
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
         buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
         selectingProvinces = FindObjectOfType<SelectingProvinces>();
+        humanPlayer.warriors.limit = 50;
 
         for (int i = 0; i < provinces.Length; i++)
         {
@@ -154,6 +156,7 @@ public class GameManager : MonoBehaviour
             if (provinceStats.provinceOwnerIndex != -1)
             {
                 selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
+                humanPlayer.warriors.limit += provinceStats.warriors.value;
             }
 
             if (provinceStats.buildingIndex != -1)
@@ -185,8 +188,6 @@ public class GameManager : MonoBehaviour
             float value = provinces[i].population.NextTurn();
             if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
         }
-
-
 
         string stats = startCoins + " <sprite index=21/>   ";
         if (coinsIncome >= 0) stats += "<color=green>+"+ coinsIncome +"</color>";

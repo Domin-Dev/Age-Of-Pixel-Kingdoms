@@ -9,10 +9,10 @@ public class ProvinceStats
 
     public Statistic lifePoints;
     public Statistic population;
+    public Statistic warriors;
 
 
     public int index;
-    public int warriorsLimit { private set; get; }
     public float scienceDevelopment { private set; get; }
     public float incomeInCoins { private set; get; }
     public bool isSea;
@@ -32,13 +32,12 @@ public class ProvinceStats
     {
         neighbors.Add(index);
     }
-    public ProvinceStats(int index, int warriorsLimit, float scienceDevelopment, float incomeInCoins, bool isSea)
+    public ProvinceStats(int index, float scienceDevelopment, float incomeInCoins, bool isSea)
     {
         this.index = index;
         this.provinceOwnerIndex = -1;
         this.unitsCounter = 0;
         this.units = new Dictionary<int, int>();
-        this.warriorsLimit = warriorsLimit;
         this.scienceDevelopment = scienceDevelopment;
         this.incomeInCoins = incomeInCoins;
         buildingIndex = -1;
@@ -52,9 +51,9 @@ public class ProvinceStats
     {
         population = new Statistic((float turnIncome) => { return turnIncome; },Random.Range(100, 120), 0.5f,null);
         lifePoints = new Statistic(10);
+        warriors = new Statistic(5);
 
 
-        warriorsLimit = provinceStats.warriorsLimit;
         scienceDevelopment = provinceStats.scienceDevelopment;
         incomeInCoins = provinceStats.incomeInCoins;
         isSea =provinceStats.isSea;
@@ -90,6 +89,7 @@ public class ProvinceStats
     }
     public void SetNewOwner(int index)
     {
+        if (index == 0) GameManager.Instance.humanPlayer.warriors.limit += warriors.value;
         provinceOwnerIndex = index;
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Unity.Mathematics;
 
 public class SelectingProvinces : MonoBehaviour
 {
@@ -308,7 +309,7 @@ public class SelectingProvinces : MonoBehaviour
         numberText.text = unitsNumber.ToString() + "/" + maxUnitsNumber.ToString();
         slider.value = unitsNumber;
        if(barState == 1)  price.text = "Price:  <color=#FF0000>"+ unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price +" <sprite index=21>  "+ unitsNumber + " <sprite index=1></color>";
-        else if(barState == 0) price.text = "free";
+        else if(barState == 0) price.text = "";
     }
     public void ResetUnits()
     {
@@ -400,31 +401,36 @@ public class SelectingProvinces : MonoBehaviour
             int population = (int)GetProvinceStats(selectedProvince).population.value;
             if(population > 0)
             {
-                if (selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
-                selectedUnitIndex = index;
-                GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+                if(GameManager.Instance.humanPlayer.warriors.CheckLimit(1))
+                {
+                    if (selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+                    selectedUnitIndex = index;
+                    GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
 
 
-                barState = 1;
+                    barState = 1;
 
-                int maxToRecruit =  (int)GameManager.Instance.humanPlayer.coins.value / GameAssets.Instance.unitStats[index].price;
-                if (maxToRecruit >= population)
-                    maxUnitsNumber = population;
+                    int maxToRecruit = (int)GameManager.Instance.humanPlayer.coins.value / GameAssets.Instance.unitStats[index].price;
+                    int value = math.min(maxToRecruit, population);
+                    value = math.min(value, GameManager.Instance.humanPlayer.warriors.ToLimit());
+
+
+
+                    maxUnitsNumber = value;
+                    slider.maxValue = maxUnitsNumber;
+
+                    unitsNumber = 0;
+                    UpdateRecruitUI();
+                    ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
+                    selectedUnitIndex = index;
+
+                    SetSelectionNumberUnits(false);
+                    UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
+                }
                 else
-                    maxUnitsNumber = maxToRecruit;
-
-
-
-
-                slider.maxValue = maxUnitsNumber;
-
-                unitsNumber = 0;
-                UpdateRecruitUI();
-                ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
-                selectedUnitIndex = index;
-
-                SetSelectionNumberUnits(false);
-                UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
+                {
+                    Alert.Instance.OpenAlert("number of warriors has reached the limit!");
+                }
             }
             else
             {
@@ -446,6 +452,7 @@ public class SelectingProvinces : MonoBehaviour
             provinceStats.population.Subtract(unitsNumber);
 
             GameManager.Instance.humanPlayer.coins.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
+            GameManager.Instance.humanPlayer.warriors.Add(unitsNumber);
 
 
             if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();

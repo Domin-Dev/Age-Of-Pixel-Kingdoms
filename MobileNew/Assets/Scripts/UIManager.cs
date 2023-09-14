@@ -39,7 +39,8 @@ public class UIManager : MonoBehaviour
     private GameAssets gameAssets;
     private Transform map;
 
-    private TextMeshProUGUI CoinCounter;
+    private TextMeshProUGUI coinCounter;
+    private TextMeshProUGUI warriorsCounter;
 
     private void Start()
     {
@@ -69,7 +70,9 @@ public class UIManager : MonoBehaviour
         nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); });
         
 
-        CoinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        coinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        warriorsCounter = topBar.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+
         UpdateCounters();
     }
     public void ManagerUI(bool open)
@@ -314,6 +317,8 @@ public class UIManager : MonoBehaviour
         }
 
         transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
+        transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.warriors.ToString();
+
 
         LoadProvinceUnitCounters(provinceIndex, gameAssets.unitCounterContentUI.transform, false);
     }
@@ -410,10 +415,10 @@ public class UIManager : MonoBehaviour
         details.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Turn:" + GameManager.Instance.turn.ToString();        
         details.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
     }
-
     public void UpdateCounters()
-    {
-        CoinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
+    { 
+        coinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
+        warriorsCounter.text = GameManager.Instance.humanPlayer.warriors.ToString();
     }
 
 }
