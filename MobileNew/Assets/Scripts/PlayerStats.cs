@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class PlayerStats
 {
-    public int coins {private set; get; }
+    public Statistic coins;
     public int income { private set; get; }
 
     public PlayerStats(int coins) 
     {
-         this.coins = coins;
-    }
-    public void Subtract(int value)
-    {
-        coins = Mathf.Clamp(coins - value, 0, int.MaxValue);
-        UIManager.Instance.UpdateCounters();
+         this.coins = new Statistic((float income) => { return GetPopulation();},(float)coins,0f, () => { UIManager.Instance.UpdateCounters(); });
     }
 
-    public bool CanAfford(int value)
+    public float GetPopulation()
     {
-        if (coins >= value)
-            return true;
-        else 
-            return false;
+        int population = 0;
+        for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
+        {
+            if (GameManager.Instance.provinces[i].provinceOwnerIndex == 0)
+            {
+                population += (int)GameManager.Instance.provinces[i].population.value;
+            }
+        }
+        Debug.Log(population);
+        return population;
     }
+
 }

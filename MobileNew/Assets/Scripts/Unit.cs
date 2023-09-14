@@ -92,7 +92,6 @@ public class Unit : MonoBehaviour
     public float positionX;
     private void Update()
     {
-        
         if(lerpIsActive)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.4f, 1.1f, 1), Time.deltaTime * 70);
@@ -125,8 +124,6 @@ public class Unit : MonoBehaviour
                 timeToAttack = 0;
             }
         }
-
-
 
         positionX = transform.position.x + 0.1f * speed * multiplier * Time.deltaTime;
         Unit unit = checkPath(this);
@@ -163,7 +160,7 @@ public class Unit : MonoBehaviour
     }
     public void EndOfAnimation()
     {
-        if(target != null) target.Hit(damage);
+        if(target != null  && target.gameObject != null) target.Hit(damage);
         target = null;
     }
     public void Shot()

@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public List<Player> playerList;
 
     public PlayerStats humanPlayer;
+
+
     public Transform map;
     public Transform buildings;
     public SelectingProvinces selectingProvinces;
@@ -23,7 +25,7 @@ public class GameManager : MonoBehaviour
     private int enemyProvinceIndex;
     public bool youAttack { private set; get; }
 
-
+    public int turn { private set; get; } = 0;
 
 
     private void Awake()
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             map = GameObject.FindGameObjectWithTag("GameMap").transform;
             buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
-            
+
 
             selectingProvinces = FindObjectOfType<SelectingProvinces>();
 
@@ -61,8 +63,8 @@ public class GameManager : MonoBehaviour
                     transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
                 }
             }
-            numberOfProvinces =  Resources.Load<MapStats>("Maps/World").numberOfProvinces;
-            humanPlayer = new PlayerStats(100000);
+            numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
+            humanPlayer = new PlayerStats(10000);
         }
         else
         {
@@ -70,37 +72,37 @@ public class GameManager : MonoBehaviour
         }
     }
     private void Start()
-    { 
+    {
         DontDestroyOnLoad(this);
         Time.timeScale = 1.0f;
     }
 
-    
+
     private void LoadPlayers()
     {
-        playerList.Add(new Player("xd",true,Color.cyan) );
-        playerList.Add(new Player("xd",true,Color.cyan) );
-        playerList.Add(new Player("xd",true,Color.cyan) );
+        playerList.Add(new Player("xd", true, Color.cyan));
+        playerList.Add(new Player("xd", true, Color.cyan));
+        playerList.Add(new Player("xd", true, Color.cyan));
     }
     public void UpdateUnitCounter(int index)
     {
         selectingProvinces.UpdateUnitNumber(map.GetChild(index).transform);
     }
-    public void Battle(int yourProvinceIndex,int  enemyProvinceIndex,bool youAttack)
+    public void Battle(int yourProvinceIndex, int enemyProvinceIndex, bool youAttack)
     {
         this.youAttack = youAttack;
         this.yourProvinceIndex = yourProvinceIndex;
         this.enemyProvinceIndex = enemyProvinceIndex;
-        SceneManager.LoadScene(1);   
+        SceneManager.LoadScene(1);
     }
-    public void GetUnits(out Dictionary<int,int> yourUnits,out Dictionary<int,int> enemyUnits)
+    public void GetUnits(out Dictionary<int, int> yourUnits, out Dictionary<int, int> enemyUnits)
     {
         yourUnits = provinces[yourProvinceIndex].units;
         enemyUnits = provinces[enemyProvinceIndex].units;
     }
     public void GetProvinceHP(out int yourProvinceHP, out int enemyProvinceHP)
     {
-        if(youAttack)
+        if (youAttack)
         {
             yourProvinceHP = 10;
             enemyProvinceHP = (int)provinces[enemyProvinceIndex].lifePoints.value;
@@ -113,7 +115,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SetUnitsConters(int your,int enemy)
+    public void SetUnitsConters(int your, int enemy)
     {
         provinces[yourProvinceIndex].unitsCounter = your;
         provinces[enemyProvinceIndex].unitsCounter = enemy;
@@ -133,12 +135,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
-
     private void OnLevelWasLoaded(int level)
     {
-        if(level == 0)
+        if (level == 0)
         {
             UpdateMap();
         }
@@ -152,7 +151,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < provinces.Length; i++)
         {
             ProvinceStats provinceStats = provinces[i];
-            if(provinceStats.provinceOwnerIndex != -1)
+            if (provinceStats.provinceOwnerIndex != -1)
             {
                 selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
             }
@@ -168,6 +167,39 @@ public class GameManager : MonoBehaviour
             }
             UpdateUnitCounter(i);
         }
+    }
+
+    public void NextTurn(TextMeshProUGUI text)
+    {
+        turn++;
+
+        float startCoins = humanPlayer.coins.value;
+        float coinsIncome = humanPlayer.coins.NextTurn();
+
+        float startPopulation = humanPlayer.GetPopulation();
+        float populationIncome = 0;
+        for (int i = 0; i < provinces.Length; i++)
+        {
+            text.text = "Turn:" + turn;
+            UIManager.Instance.CloseUIWindow("ProvinceStats");
+            float value = provinces[i].population.NextTurn();
+            if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
+        }
+
+
+
+        string stats = startCoins + " <sprite index=21/>   ";
+        if (coinsIncome >= 0) stats += "<color=green>+"+ coinsIncome +"</color>";
+        else stats += "<color=red>" + coinsIncome + "</color>";
+
+        stats += "\n";
+
+        stats +=  startPopulation + " <sprite index=1/>   ";
+        if (populationIncome >= 0) stats += "<color=green>+" + populationIncome + "</color>";
+        else stats += "<color=red>" + populationIncome + "</color>";
+
+
+        UIManager.Instance.OpenTurnDetails(stats);
     }
 }
 

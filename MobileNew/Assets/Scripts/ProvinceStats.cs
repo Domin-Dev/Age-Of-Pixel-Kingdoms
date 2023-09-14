@@ -34,7 +34,6 @@ public class ProvinceStats
     }
     public ProvinceStats(int index, int warriorsLimit, float scienceDevelopment, float incomeInCoins, bool isSea)
     {
-        this.lifePoints = new Statistic(10);
         this.index = index;
         this.provinceOwnerIndex = -1;
         this.unitsCounter = 0;
@@ -51,7 +50,7 @@ public class ProvinceStats
     }
     public void CopyData(ProvinceStats provinceStats)
     {
-        population = new Statistic(Random.Range(100, 120), 0);
+        population = new Statistic((float turnIncome) => { return turnIncome; },Random.Range(100, 120), 0.5f,null);
         lifePoints = new Statistic(10);
 
 
@@ -94,4 +93,8 @@ public class ProvinceStats
         provinceOwnerIndex = index;
     }
 
+    public void NextTurn()
+    {
+        population.NextTurn();
+    }
 }

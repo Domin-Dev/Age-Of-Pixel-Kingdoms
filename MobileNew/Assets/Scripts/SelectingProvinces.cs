@@ -31,8 +31,11 @@ public class SelectingProvinces : MonoBehaviour
     private Transform buildingsParent;
     private Transform map;
 
+    private int barState = -1;
+
     private void Start()
     {
+        barState = -1;
         buildingsParent = GameObject.FindGameObjectWithTag("Buildings").transform;
         Transform selectionNumberUnits = UIManager.Instance.GetSelectionNumberUnitsWindowWindow();
         nameWindow = selectionNumberUnits.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -185,14 +188,14 @@ public class SelectingProvinces : MonoBehaviour
     public void Build(int index)
     {
         BuildingStats buildingStats = GameAssets.Instance.buildingsStats[index];
-        if (selectedProvince != null && GameManager.Instance.humanPlayer.CanAfford(buildingStats.price))
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.coins.CanAfford(buildingStats.price))
         {
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
 
             if (provinceStats.buildingIndex == -1)
             {
-                GameManager.Instance.humanPlayer.Subtract(buildingStats.price);
+                GameManager.Instance.humanPlayer.coins.Subtract(buildingStats.price);
                 Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
                 transform.position = selectedProvince.position + new Vector3(0, 0.08f, 0);
                 transform.parent = buildingsParent;
@@ -304,7 +307,8 @@ public class SelectingProvinces : MonoBehaviour
     {
         numberText.text = unitsNumber.ToString() + "/" + maxUnitsNumber.ToString();
         slider.value = unitsNumber;
-        price.text = "Price:  <color=#FF0000>"+ unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price +" <sprite index=21>  "+ unitsNumber + " <sprite index=1></color>";
+       if(barState == 1)  price.text = "Price:  <color=#FF0000>"+ unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price +" <sprite index=21>  "+ unitsNumber + " <sprite index=1></color>";
+        else if(barState == 0) price.text = "free";
     }
     public void ResetUnits()
     {
@@ -368,6 +372,7 @@ public class SelectingProvinces : MonoBehaviour
                 if (selected != null) selected.GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
             }
 
+            barState = 0;
             selectedUnitIndex = index;
             selectedProvinceNumber = provinceNumber;
 
@@ -390,7 +395,7 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void SelectUnitToRecruit(int index)
     {
-        if (selectedProvince != null && GameManager.Instance.humanPlayer.CanAfford(GameAssets.Instance.unitStats[index].price))
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.coins.CanAfford(GameAssets.Instance.unitStats[index].price))
         {
             int population = (int)GetProvinceStats(selectedProvince).population.value;
             if(population > 0)
@@ -400,7 +405,9 @@ public class SelectingProvinces : MonoBehaviour
                 GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
 
 
-                int maxToRecruit =  GameManager.Instance.humanPlayer.coins / GameAssets.Instance.unitStats[index].price;
+                barState = 1;
+
+                int maxToRecruit =  (int)GameManager.Instance.humanPlayer.coins.value / GameAssets.Instance.unitStats[index].price;
                 if (maxToRecruit >= population)
                     maxUnitsNumber = population;
                 else
@@ -438,7 +445,8 @@ public class SelectingProvinces : MonoBehaviour
             provinceStats.unitsCounter += unitsNumber;
             provinceStats.population.Subtract(unitsNumber);
 
-            GameManager.Instance.humanPlayer.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
+            GameManager.Instance.humanPlayer.coins.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
+
 
             if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
 

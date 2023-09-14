@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
@@ -25,6 +26,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform buildingsWindow;
     [SerializeField] private Transform unitsWindow;
     [SerializeField] private Transform battleWindow;
+
+    [SerializeField] private Transform nextTurn;
+    [SerializeField] private TextMeshProUGUI turnConter;
+    [SerializeField] private Transform details;
+
 
     [SerializeField] private Transform topBar;  
     [SerializeField] private Transform bottomBar;  
@@ -54,12 +60,18 @@ public class UIManager : MonoBehaviour
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
         bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.HighlightNeighbors(); });
+
+        details.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Details");});
+
         ManagerUI(false);
+
+        turnConter.text = "Turn:0";
+        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); });
+        
 
         CoinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         UpdateCounters();
     }
-
     public void ManagerUI(bool open)
     {
         for (int i = 0; i < 3; i++)
@@ -266,6 +278,7 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("Buildings");
             CloseUIWindow("Units");
             CloseUIWindow("Battle");
+            CloseUIWindow("Details");
         }
 
         if(name == "Buildings")
@@ -283,7 +296,6 @@ public class UIManager : MonoBehaviour
             Debug.Log("Wrong window name!");
         }
     }
-
     private void LoadProvinceStats(Transform transform, int provinceIndex)
     {
 
@@ -375,7 +387,8 @@ public class UIManager : MonoBehaviour
             case "SelectionNumberUnits": return selectionNumberUnitsWindow;
             case "Buildings": return buildingsWindow;
             case "Units": return unitsWindow;
-            case "Battle": return battleWindow;            
+            case "Battle": return battleWindow;
+            case "Details": return details;
         }
         return null;
     }
@@ -391,8 +404,12 @@ public class UIManager : MonoBehaviour
     {
         selectionNumberUnitsWindow.gameObject.SetActive(true);
     }
-
-
+    public void OpenTurnDetails(string text)
+    {
+        details.gameObject.SetActive(true);
+        details.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Turn:" + GameManager.Instance.turn.ToString();        
+        details.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
+    }
 
     public void UpdateCounters()
     {
