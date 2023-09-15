@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public struct Statistic 
@@ -85,6 +86,14 @@ public struct Statistic
         }
     }
 
+    public void Set(float value)
+    {
+        this.value = Mathf.Clamp(value, 0, limit);
+        if (updateCounter != null)
+        {
+            updateCounter();
+        }
+    }
     public bool CanAfford(int value)
     {
         if (this.value >= value)

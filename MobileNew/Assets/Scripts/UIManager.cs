@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 
 public class UIManager : MonoBehaviour
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
 
     private TextMeshProUGUI coinCounter;
     private TextMeshProUGUI warriorsCounter;
+    private TextMeshProUGUI developmentPointsCounter;
 
     private void Start()
     {
@@ -68,10 +70,10 @@ public class UIManager : MonoBehaviour
 
         turnConter.text = "Turn:0";
         nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); });
-        
 
         coinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         warriorsCounter = topBar.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        developmentPointsCounter = topBar.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         UpdateCounters();
     }
@@ -316,8 +318,11 @@ public class UIManager : MonoBehaviour
             textMeshProUGUI.color = Color.grey;
         }
 
-        transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
+        transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString() + "<sprite index=2/>";
         transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.warriors.ToString();
+        transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.developmentPoints.value.ToString();
+        transform.GetChild(1).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = ((int)provinceStats.population.value * 0.01f).ToString();
+        transform.GetChild(1).GetChild(0).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.movementPoints.value.ToString();
 
 
         LoadProvinceUnitCounters(provinceIndex, gameAssets.unitCounterContentUI.transform, false);
@@ -419,6 +424,7 @@ public class UIManager : MonoBehaviour
     { 
         coinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
         warriorsCounter.text = GameManager.Instance.humanPlayer.warriors.ToString();
+        developmentPointsCounter.text = GameManager.Instance.humanPlayer.developmentPoints.value.ToString();
     }
 
 }

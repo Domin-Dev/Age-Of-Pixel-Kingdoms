@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             map = GameObject.FindGameObjectWithTag("GameMap").transform;
             buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
+            humanPlayer = new PlayerStats(10000);
 
 
             selectingProvinces = FindObjectOfType<SelectingProvinces>();
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
                 if (provinceStats.provinceOwnerIndex != -1)
                 {
                     selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
+                    humanPlayer.warriors.limit += provinces[i].warriors.value;
                 }
 
                 if (provinceStats.buildingIndex != -1)
@@ -64,7 +66,6 @@ public class GameManager : MonoBehaviour
                 }
             }
             numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
-            humanPlayer = new PlayerStats(10000);
         }
         else
         {
@@ -176,16 +177,21 @@ public class GameManager : MonoBehaviour
     {
         turn++;
 
-        float startCoins = humanPlayer.coins.value;
+        float startDevelopmentPoints = humanPlayer.developmentPoints.value;
+        float developmentPointsIncome = humanPlayer.developmentPoints.NextTurn();
+
+        float startCoins = (int)humanPlayer.coins.value;
         float coinsIncome = humanPlayer.coins.NextTurn();
 
         float startPopulation = humanPlayer.GetPopulation();
         float populationIncome = 0;
+
         for (int i = 0; i < provinces.Length; i++)
         {
             text.text = "Turn:" + turn;
             UIManager.Instance.CloseUIWindow("ProvinceStats");
             float value = provinces[i].population.NextTurn();
+            provinces[i].developmentPoints.NextTurn(); 
             if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
         }
 
@@ -198,6 +204,13 @@ public class GameManager : MonoBehaviour
         stats +=  startPopulation + " <sprite index=1/>   ";
         if (populationIncome >= 0) stats += "<color=green>+" + populationIncome + "</color>";
         else stats += "<color=red>" + populationIncome + "</color>";
+
+        stats += "\n";
+
+        stats += startDevelopmentPoints + " <sprite index=22/>   ";
+        if (developmentPointsIncome >= 0) stats += "<color=green>+" + developmentPointsIncome + "</color>";
+        else stats += "<color=red>" + developmentPointsIncome + "</color>";
+
 
 
         UIManager.Instance.OpenTurnDetails(stats);

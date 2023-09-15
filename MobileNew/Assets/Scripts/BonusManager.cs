@@ -6,7 +6,11 @@ public static class BonusManager
     {
         switch (indexBonus)
         {
-            case 0:provinceStats.lifePoints.AddBonus(new Bonus("Castle",10,Bonus.bonusType.Disposable)); break;
+            case 0:
+                provinceStats.lifePoints.AddBonus(new Bonus("Castle",10,Bonus.bonusType.Disposable));
+                provinceStats.warriors.AddBonus(new Bonus("Castle",5,Bonus.bonusType.Disposable));
+                GameManager.Instance.humanPlayer.UpdateWarriors();
+                break;
         }
     }
 }

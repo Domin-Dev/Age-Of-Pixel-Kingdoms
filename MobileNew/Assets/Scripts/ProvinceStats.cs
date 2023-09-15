@@ -10,6 +10,9 @@ public class ProvinceStats
     public Statistic lifePoints;
     public Statistic population;
     public Statistic warriors;
+    public Statistic developmentPoints;
+    public Statistic movementPoints;
+
 
 
     public int index;
@@ -52,6 +55,8 @@ public class ProvinceStats
         population = new Statistic((float turnIncome) => { return turnIncome; },Random.Range(100, 120), 0.5f,null);
         lifePoints = new Statistic(10);
         warriors = new Statistic(5);
+        developmentPoints = new Statistic((float turnIncome) => { developmentPoints.Set((int)population.value * 0.01f); return 0;}, population.value * 0.01f, 0f,null);
+        movementPoints = new Statistic(5);
 
 
         scienceDevelopment = provinceStats.scienceDevelopment;
@@ -89,7 +94,11 @@ public class ProvinceStats
     }
     public void SetNewOwner(int index)
     {
-        if (index == 0) GameManager.Instance.humanPlayer.warriors.limit += warriors.value;
+        if (index == 0)
+        {
+            GameManager.Instance.humanPlayer.warriors.limit += warriors.value;
+            UIManager.Instance.UpdateCounters();
+        }
         provinceOwnerIndex = index;
     }
 
