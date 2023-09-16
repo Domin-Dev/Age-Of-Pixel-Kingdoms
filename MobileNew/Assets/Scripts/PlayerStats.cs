@@ -8,7 +8,9 @@ public class PlayerStats
     public Statistic coins;
     public Statistic warriors;
     public Statistic developmentPoints;
+
     public Statistic movementPoints;
+
 
     public int income { private set; get; }
 

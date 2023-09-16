@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform details;
 
 
+
     [SerializeField] private Transform topBar;  
     [SerializeField] private Transform bottomBar;  
 
@@ -43,6 +44,8 @@ public class UIManager : MonoBehaviour
     private TextMeshProUGUI coinCounter;
     private TextMeshProUGUI warriorsCounter;
     private TextMeshProUGUI developmentPointsCounter;
+    private TextMeshProUGUI movementPointsCounter;
+
 
     private void Start()
     {
@@ -425,6 +428,8 @@ public class UIManager : MonoBehaviour
         coinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
         warriorsCounter.text = GameManager.Instance.humanPlayer.warriors.ToString();
         developmentPointsCounter.text = GameManager.Instance.humanPlayer.developmentPoints.value.ToString();
+        developmentPointsCounter.text = GameManager.Instance.humanPlayer.movementPoints.value.ToString();
+
     }
 
 }
