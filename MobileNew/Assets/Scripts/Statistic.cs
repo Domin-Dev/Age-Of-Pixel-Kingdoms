@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -64,6 +65,7 @@ public struct Statistic
         {
             float income = EndTurn(turnIncome);
             value += income;
+            math.round(value);
             if (updateCounter != null) updateCounter();
             return income;
         }

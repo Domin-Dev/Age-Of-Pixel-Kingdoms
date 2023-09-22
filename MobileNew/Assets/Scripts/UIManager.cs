@@ -33,7 +33,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform details;
 
 
-
     [SerializeField] private Transform topBar;  
     [SerializeField] private Transform bottomBar;  
 
@@ -75,8 +74,9 @@ public class UIManager : MonoBehaviour
         nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); });
 
         coinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        warriorsCounter = topBar.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        developmentPointsCounter = topBar.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        warriorsCounter = topBar.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        developmentPointsCounter = topBar.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        movementPointsCounter = topBar.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         UpdateCounters();
     }
@@ -107,7 +107,8 @@ public class UIManager : MonoBehaviour
             int id = index;
             if (!isMove)
             {
-                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + "<sprite index=21>";
+                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice +" <sprite index=23> 1 <sprite index=1>";
+
                 transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.SelectUnitToRecruit(id); });
             }
             index++;
@@ -322,10 +323,10 @@ public class UIManager : MonoBehaviour
         }
 
         transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString() + "<sprite index=2/>";
-        transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.warriors.ToString();
-        transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.developmentPoints.value.ToString();
-        transform.GetChild(1).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = ((int)provinceStats.population.value * 0.01f).ToString();
-        transform.GetChild(1).GetChild(0).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.movementPoints.value.ToString();
+        transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + provinceStats.developmentPoints.value.ToString() + "<sprite index=2/>";
+        transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + ((int)provinceStats.population.value * 0.1f).ToString() + "<sprite index=2/>";
+        transform.GetChild(1).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.movementPoints.value.ToString();
+        transform.GetChild(1).GetChild(0).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.warriors.ToString();
 
 
         LoadProvinceUnitCounters(provinceIndex, gameAssets.unitCounterContentUI.transform, false);
@@ -428,8 +429,7 @@ public class UIManager : MonoBehaviour
         coinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
         warriorsCounter.text = GameManager.Instance.humanPlayer.warriors.ToString();
         developmentPointsCounter.text = GameManager.Instance.humanPlayer.developmentPoints.value.ToString();
-        developmentPointsCounter.text = GameManager.Instance.humanPlayer.movementPoints.value.ToString();
-
+        movementPointsCounter.text = GameManager.Instance.humanPlayer.movementPoints.ToString();
     }
 
 }

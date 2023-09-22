@@ -56,7 +56,7 @@ public class ProvinceStats
         lifePoints = new Statistic(10);
         warriors = new Statistic(5);
         developmentPoints = new Statistic((float turnIncome) => { developmentPoints.Set((int)population.value * 0.01f); return 0;}, population.value * 0.01f, 0f,null);
-        movementPoints = new Statistic(5);
+        movementPoints = new Statistic(2);
 
 
         scienceDevelopment = provinceStats.scienceDevelopment;
@@ -97,6 +97,8 @@ public class ProvinceStats
         if (index == 0)
         {
             GameManager.Instance.humanPlayer.warriors.limit += warriors.value;
+            GameManager.Instance.humanPlayer.movementPoints.limit += movementPoints.value;
+            
             UIManager.Instance.UpdateCounters();
         }
         provinceOwnerIndex = index;

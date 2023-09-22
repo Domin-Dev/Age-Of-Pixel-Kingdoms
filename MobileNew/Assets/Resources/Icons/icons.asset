@@ -180,13 +180,13 @@ MonoBehaviour:
     m_HashCode: -1392229620
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 22
+    m_GlyphIndex: 24
     m_Scale: 1
     m_Name: New Piskel (35)_22
     m_HashCode: -1392229620
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 22
+    m_GlyphIndex: 7
     m_Scale: 1
     m_Name: New Piskel (35)_22
     m_HashCode: -1392229620
@@ -568,6 +568,22 @@ MonoBehaviour:
       m_HorizontalAdvance: 19.07
     m_GlyphRect:
       m_X: 128
+      m_Y: 160
+      m_Width: 32
+      m_Height: 32
+    m_Scale: 1.5
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -1236270703, guid: c299273750f8e5540ac36879d42eb352, type: 3}
+  - m_Index: 24
+    m_Metrics:
+      m_Width: 32
+      m_Height: 32
+      m_HorizontalBearingX: -10.47
+      m_HorizontalBearingY: 24.73
+      m_HorizontalAdvance: 19.07
+    m_GlyphRect:
+      m_X: 64
       m_Y: 160
       m_Width: 32
       m_Height: 32

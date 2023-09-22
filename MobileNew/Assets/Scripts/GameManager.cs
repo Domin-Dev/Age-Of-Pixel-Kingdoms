@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
                 {
                     selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
                     humanPlayer.warriors.limit += provinces[i].warriors.value;
+                    humanPlayer.movementPoints.limit += provinces[i].movementPoints.value;
                 }
 
                 if (provinceStats.buildingIndex != -1)
@@ -66,6 +67,9 @@ public class GameManager : MonoBehaviour
                 }
             }
             numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
+
+            humanPlayer.movementPoints.value = humanPlayer.movementPoints.limit;
+
         }
         else
         {
@@ -150,6 +154,7 @@ public class GameManager : MonoBehaviour
         buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
         selectingProvinces = FindObjectOfType<SelectingProvinces>();
         humanPlayer.warriors.limit = 50;
+        humanPlayer.movementPoints.limit = 30;
 
         for (int i = 0; i < provinces.Length; i++)
         {
@@ -158,6 +163,7 @@ public class GameManager : MonoBehaviour
             {
                 selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
                 humanPlayer.warriors.limit += provinceStats.warriors.value;
+                humanPlayer.movementPoints.limit += provinceStats.movementPoints.value;
             }
 
             if (provinceStats.buildingIndex != -1)
@@ -176,6 +182,8 @@ public class GameManager : MonoBehaviour
     public void NextTurn(TextMeshProUGUI text)
     {
         turn++;
+
+        humanPlayer.movementPoints.Set(humanPlayer.movementPoints.limit);
 
         float startDevelopmentPoints = humanPlayer.developmentPoints.value;
         float developmentPointsIncome = humanPlayer.developmentPoints.NextTurn();

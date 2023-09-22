@@ -20,7 +20,12 @@ public class UnitStats : ScriptableObject
     [field: SerializeField] public int turnCost { get; private set; }
 
     [field: Space(20f, order = 0)]
+
     [field: SerializeField] public int price { get; private set; }
+    [field: SerializeField] public int movementPointsPrice { get; private set; }
+
+
+
     [field: SerializeField] public UnitType unitType { get; private set; }
 
     public enum UnitType

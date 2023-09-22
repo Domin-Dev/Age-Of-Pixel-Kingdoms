@@ -19,7 +19,7 @@ public class PlayerStats
         this.coins = new Statistic((float income) => { return 100 + GetPopulation() * 0.1f;},(float)coins,0f, () => { UIManager.Instance.UpdateCounters(); });
         this.warriors = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); },50);
         this.developmentPoints = new Statistic((float income) => { return  GetPopulation() * 0.01f; },0f, 0f, () => { UIManager.Instance.UpdateCounters(); });
-        this.movementPoints = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); }, 30);
+        this.movementPoints = new Statistic(30, () => { UIManager.Instance.UpdateCounters(); }, 30);
     }
 
     public float GetPopulation()
