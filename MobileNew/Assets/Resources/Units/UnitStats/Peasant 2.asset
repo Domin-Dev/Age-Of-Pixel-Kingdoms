@@ -18,6 +18,9 @@ MonoBehaviour:
   <lifePoints>k__BackingField: 230
   <damage>k__BackingField: 43
   <range>k__BackingField: 1
+  <bullet>k__BackingField: {fileID: 0}
   <rateOfFire>k__BackingField: 30
   <turnCost>k__BackingField: 0
   <price>k__BackingField: 120
+  <movementPointsPrice>k__BackingField: 2
+  <unitType>k__BackingField: 0

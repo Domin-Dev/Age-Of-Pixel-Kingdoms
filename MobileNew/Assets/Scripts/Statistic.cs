@@ -65,7 +65,7 @@ public struct Statistic
         {
             float income = EndTurn(turnIncome);
             value += income;
-            math.round(value);
+            MathF.Round(income,2);
             if (updateCounter != null) updateCounter();
             return income;
         }

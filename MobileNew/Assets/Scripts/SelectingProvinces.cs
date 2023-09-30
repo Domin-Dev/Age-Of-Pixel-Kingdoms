@@ -308,7 +308,7 @@ public class SelectingProvinces : MonoBehaviour
     {
         numberText.text = unitsNumber.ToString() + "/" + maxUnitsNumber.ToString();
         slider.value = unitsNumber;
-        if (barState == 1) price.text = "Price:  <color=#FF0000>" + unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price + " <sprite index=21>  " + unitsNumber + " <sprite index=1>  " + unitsNumber + " <sprite index=23>";
+        if (barState == 1) price.text = "Price:  <color=#FF0000>" + unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price + " <sprite index=21>  " + unitsNumber + " <sprite index=1>  " + unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].movementPointsPrice + " <sprite index=23>";
         else if (barState == 0) price.text = "Price:  <color=#FF0000>" +  unitsNumber + " <sprite index=23>";
     }
     public void ResetUnits()
@@ -396,6 +396,10 @@ public class SelectingProvinces : MonoBehaviour
             UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
 
         }
+        else
+        {
+            Alert.Instance.OpenAlert("no movement points!");
+        }
     }
     public void SelectUnitToRecruit(int index)
     {
@@ -406,7 +410,7 @@ public class SelectingProvinces : MonoBehaviour
             {
                 if (GameManager.Instance.humanPlayer.warriors.CheckLimit(1))
                 {
-                    if (GameManager.Instance.humanPlayer.movementPoints.value > 0)
+                    if (GameManager.Instance.humanPlayer.movementPoints.value >= GameAssets.Instance.unitStats[index].movementPointsPrice)
                     {
                         if (selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
                         selectedUnitIndex = index;
@@ -417,7 +421,7 @@ public class SelectingProvinces : MonoBehaviour
 
                         int maxToRecruit = (int)GameManager.Instance.humanPlayer.coins.value / GameAssets.Instance.unitStats[index].price;
                         int value = math.min(maxToRecruit, population);
-                        value = math.min(value, (int)GameManager.Instance.humanPlayer.movementPoints.value);
+                        value = math.min(value, (int)(GameManager.Instance.humanPlayer.movementPoints.value / GameAssets.Instance.unitStats[index].movementPointsPrice ));
                         value = math.min(value, GameManager.Instance.humanPlayer.warriors.ToLimit());
 
 
@@ -463,7 +467,7 @@ public class SelectingProvinces : MonoBehaviour
             provinceStats.population.Subtract(unitsNumber);
 
             GameManager.Instance.humanPlayer.coins.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
-            GameManager.Instance.humanPlayer.movementPoints.Subtract(unitsNumber);
+            GameManager.Instance.humanPlayer.movementPoints.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].movementPointsPrice);
             GameManager.Instance.humanPlayer.warriors.Add(unitsNumber);
 
 

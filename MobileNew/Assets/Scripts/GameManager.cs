@@ -194,14 +194,18 @@ public class GameManager : MonoBehaviour
         float startPopulation = humanPlayer.GetPopulation();
         float populationIncome = 0;
 
+
+        text.text = "Turn:" + turn;
+        UIManager.Instance.CloseUIWindow("ProvinceStats");
+
         for (int i = 0; i < provinces.Length; i++)
         {
-            text.text = "Turn:" + turn;
-            UIManager.Instance.CloseUIWindow("ProvinceStats");
             float value = provinces[i].population.NextTurn();
             provinces[i].developmentPoints.NextTurn(); 
             if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
         }
+
+
 
         string stats = startCoins + " <sprite index=21/>   ";
         if (coinsIncome >= 0) stats += "<color=green>+"+ coinsIncome +"</color>";

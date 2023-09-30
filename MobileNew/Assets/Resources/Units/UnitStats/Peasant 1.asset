@@ -22,4 +22,5 @@ MonoBehaviour:
   <rateOfFire>k__BackingField: 30
   <turnCost>k__BackingField: 0
   <price>k__BackingField: 50
+  <movementPointsPrice>k__BackingField: 2
   <unitType>k__BackingField: 2
