@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
-
+using System;
+using static UnityEditor.Progress;
 
 public class UIManager : MonoBehaviour
 {
@@ -124,15 +125,17 @@ public class UIManager : MonoBehaviour
                 if (item.canBuild)
                 {
                     Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
+                    transform.name = index.ToString();
                     transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
                     transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
-                    transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + "<sprite index=21>";
+                    transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice + " <sprite index=23>";
                     transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
 
                     int id = index;
                     transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
-                    index++;
                 }
+                index++;
+
             }
         }
         else
@@ -147,18 +150,22 @@ public class UIManager : MonoBehaviour
                 {
                     BuildingStats buildingStats = gameAssets.buildingsStats[i];
                     transform.GetChild(i).gameObject.SetActive(true);
-                    transform.GetChild(i).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + buildingStats.price + "<sprite index=21>";
+                    transform.GetChild(i).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + buildingStats.price + " <sprite index=21>\n" + buildingStats.movementPointsPrice + " <sprite index=23>";
+                    transform.GetChild(i).GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
+                    int id = int.Parse(transform.GetChild(i).name);
+                    transform.GetChild(i).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id);});
                 }
             }
             else
             {
                 for (int i = 0; i < transform.childCount; i++)
                 {
-                    if (buildingIndex == i)
+                    if (buildingIndex == int.Parse(transform.GetChild(i).name))
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
                         transform.GetChild(i).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "destroy";
-
+                        transform.GetChild(i).GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
+                        transform.GetChild(i).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Destroy(); });
                     }
                     else
                     {
@@ -204,7 +211,6 @@ public class UIManager : MonoBehaviour
             counterIndex++;
         }
     }
-
     private int GetNumberProvince(Transform transform)
     {
         if (transform == gameAssets.moveUnitContentUI1) return 1;
@@ -267,7 +273,6 @@ public class UIManager : MonoBehaviour
         }
 
     }
-    
     private bool IsSea(Transform transform)
     {
        if(transform != null) return GameManager.Instance.provinces[int.Parse(transform.name)].isSea;
@@ -323,8 +328,8 @@ public class UIManager : MonoBehaviour
         }
 
         transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString() + "<sprite index=2/>";
-        transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + provinceStats.developmentPoints.value.ToString() + "<sprite index=2/>";
-        transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + ((int)provinceStats.population.value * 0.1f).ToString() + "<sprite index=2/>";
+        transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.developmentPoints.value,2).ToString() + "<sprite index=2/>";
+        transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round((int)provinceStats.population.value * 0.1f,2).ToString() + "<sprite index=2/>";
         transform.GetChild(1).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.movementPoints.value.ToString();
         transform.GetChild(1).GetChild(0).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.warriors.ToString();
 
@@ -336,7 +341,10 @@ public class UIManager : MonoBehaviour
         if(!isUpdate)OpenUIWindow("Units", 0);
         LoadProvinceUnitCounters(provinceIndex1, gameAssets.moveUnitContentUI1,true);
         unitsWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex1.ToString();
-       
+
+
+
+
 
         LoadProvinceUnitCounters(provinceIndex2, gameAssets.moveUnitContentUI2,true);
         unitsWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
@@ -428,7 +436,7 @@ public class UIManager : MonoBehaviour
     { 
         coinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
         warriorsCounter.text = GameManager.Instance.humanPlayer.warriors.ToString();
-        developmentPointsCounter.text = GameManager.Instance.humanPlayer.developmentPoints.value.ToString();
+        developmentPointsCounter.text = Math.Round(GameManager.Instance.humanPlayer.developmentPoints.value,2).ToString();
         movementPointsCounter.text = GameManager.Instance.humanPlayer.movementPoints.ToString();
     }
 

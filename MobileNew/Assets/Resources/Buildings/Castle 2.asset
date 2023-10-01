@@ -18,3 +18,4 @@ MonoBehaviour:
   <turnCost>k__BackingField: 0
   <canBuild>k__BackingField: 1
   <bonusIndex>k__BackingField: 1
+  <movementPointsPrice>k__BackingField: 5

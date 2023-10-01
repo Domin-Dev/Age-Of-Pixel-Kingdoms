@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using static UnityEngine.Rendering.DebugUI;
 
 
@@ -13,7 +14,7 @@ public struct Statistic
 
     public float turnIncome {private set; get; }
 
-    public List<Bonus> bonuses;
+    public Dictionary<int,Bonus> bonuses;
 
     private Func<float,float> EndTurn;
     private Action updateCounter;
@@ -34,7 +35,7 @@ public struct Statistic
         this.limit = float.MaxValue;
         this.updateCounter = counter;
         this.EndTurn = endturn;      
-        bonuses = new List<Bonus>();
+        bonuses = new Dictionary<int,Bonus>();
         this.value = value;
         this.turnIncome = turnIncome;
     }
@@ -44,7 +45,7 @@ public struct Statistic
         this.EndTurn = null;
         this.updateCounter = null;
 
-        bonuses = new List<Bonus>();
+        bonuses = new Dictionary<int,Bonus>();
         this.value = value;
         this.turnIncome = 0;
     }
@@ -54,7 +55,7 @@ public struct Statistic
         this.updateCounter = counter;
         this.EndTurn = null;
 
-        bonuses = new List<Bonus>();
+        bonuses = new Dictionary<int,Bonus>();
         this.value = value;
         this.turnIncome = 0;
     }
@@ -64,6 +65,8 @@ public struct Statistic
         if (EndTurn != null)
         {
             float income = EndTurn(turnIncome);
+
+
             value += income;
             MathF.Round(income,2);
             if (updateCounter != null) updateCounter();
@@ -115,13 +118,35 @@ public struct Statistic
         return(int)(limit - value);
     }
 
-    public void AddBonus(Bonus bonus)
+    public void AddBonus(int index,Bonus bonus)
     {
         if(bonus.type == Bonus.bonusType.Disposable)
         {
             value += bonus.bonusValue;
+        }else
+        {
+            turnIncome += bonus.bonusValue;
         }
-        bonuses.Add(bonus);
+
+
+        bonuses.Add(index,bonus);
     }
+
+    public void RemoveBonus(int index)
+    {
+        Bonus bonus = bonuses[index];
+        if (bonus.type == Bonus.bonusType.Disposable)
+        {
+            value -= bonus.bonusValue;
+        }
+        else
+        {
+            turnIncome -= bonus.bonusValue;
+        }
+
+        bonuses.Remove(index);
+    }
+
+
     
 }

@@ -185,8 +185,8 @@ public class GameManager : MonoBehaviour
 
         humanPlayer.movementPoints.Set(humanPlayer.movementPoints.limit);
 
-        float startDevelopmentPoints = humanPlayer.developmentPoints.value;
-        float developmentPointsIncome = humanPlayer.developmentPoints.NextTurn();
+        float startDevelopmentPoints = (float)Math.Round(humanPlayer.developmentPoints.value, 2);
+        float developmentPointsIncome = (float)Math.Round(humanPlayer.developmentPoints.NextTurn(),2);
 
         float startCoins = (int)humanPlayer.coins.value;
         float coinsIncome = humanPlayer.coins.NextTurn();
@@ -205,8 +205,6 @@ public class GameManager : MonoBehaviour
             if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
         }
 
-
-
         string stats = startCoins + " <sprite index=21/>   ";
         if (coinsIncome >= 0) stats += "<color=green>+"+ coinsIncome +"</color>";
         else stats += "<color=red>" + coinsIncome + "</color>";
@@ -222,8 +220,6 @@ public class GameManager : MonoBehaviour
         stats += startDevelopmentPoints + " <sprite index=22/>   ";
         if (developmentPointsIncome >= 0) stats += "<color=green>+" + developmentPointsIncome + "</color>";
         else stats += "<color=red>" + developmentPointsIncome + "</color>";
-
-
 
         UIManager.Instance.OpenTurnDetails(stats);
     }

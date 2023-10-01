@@ -191,21 +191,30 @@ public class SelectingProvinces : MonoBehaviour
         BuildingStats buildingStats = GameAssets.Instance.buildingsStats[index];
         if (selectedProvince != null && GameManager.Instance.humanPlayer.coins.CanAfford(buildingStats.price))
         {
-            ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
-            BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
-
-            if (provinceStats.buildingIndex == -1)
+            if (GameManager.Instance.humanPlayer.movementPoints.CanAfford(buildingStats.movementPointsPrice))
             {
-                GameManager.Instance.humanPlayer.coins.Subtract(buildingStats.price);
-                Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
-                transform.position = selectedProvince.position + new Vector3(0, 0.08f, 0);
-                transform.parent = buildingsParent;
-                transform.GetComponent<SpriteRenderer>().sprite = buildingStats.icon;
-                transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
-                provinceStats.buildingIndex = index;
+                ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
+                if (provinceStats.buildingIndex == -1)
+                {
+                    BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
+
+                    GameManager.Instance.humanPlayer.movementPoints.Subtract(buildingStats.movementPointsPrice);
+                    GameManager.Instance.humanPlayer.coins.Subtract(buildingStats.price);
+
+                    Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
+                    transform.position = selectedProvince.position + new Vector3(0, 0.08f, 0);
+                    transform.parent = buildingsParent;
+                    transform.GetComponent<SpriteRenderer>().sprite = buildingStats.icon;
+                    transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+                    provinceStats.buildingIndex = index;
+                }
+                UIManager.Instance.LoadBuildings(int.Parse(selectedProvince.name));
+                UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(selectedProvince.name));
             }
-            UIManager.Instance.LoadBuildings(int.Parse(selectedProvince.name));
-            UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(selectedProvince.name));
+            else
+            {
+                Alert.Instance.OpenAlert("no movement points!");
+            }
         }
         else
         {
@@ -213,7 +222,32 @@ public class SelectingProvinces : MonoBehaviour
         }
 
     }
+    public void Destroy()
+    {
+        if (selectedProvince != null)
+        {
+            ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
+            BuildingStats buildingStats = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex];
 
+
+
+            BonusManager.RemoveBonus(provinceStats,buildingStats.bonusIndex);
+            for (int i = 0; i < buildingsParent.childCount; i++)
+            {
+                if(buildingsParent.GetChild(i).name == provinceStats.index.ToString())
+                {
+                    Destroy(buildingsParent.GetChild(i).gameObject);
+                    break;
+                }
+            }
+
+            provinceStats.buildingIndex = -1;
+
+            UIManager.Instance.UpdateCounters();
+            UIManager.Instance.LoadBuildings(int.Parse(selectedProvince.name));
+            UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(selectedProvince.name));
+        }
+    }
     public void HighlightNeighbors()
     {
         if (selectedProvince != null)

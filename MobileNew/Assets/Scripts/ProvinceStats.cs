@@ -16,10 +16,7 @@ public class ProvinceStats
 
 
     public int index;
-    public float scienceDevelopment { private set; get; }
-    public float incomeInCoins { private set; get; }
     public bool isSea;
-
     public int provinceOwnerIndex  = -1;// -1 == null , 0 is Player, >0 is Computer
 
 
@@ -41,8 +38,6 @@ public class ProvinceStats
         this.provinceOwnerIndex = -1;
         this.unitsCounter = 0;
         this.units = new Dictionary<int, int>();
-        this.scienceDevelopment = scienceDevelopment;
-        this.incomeInCoins = incomeInCoins;
         buildingIndex = -1;
         this.isSea = isSea;
     }  
@@ -59,8 +54,6 @@ public class ProvinceStats
         movementPoints = new Statistic(2);
 
 
-        scienceDevelopment = provinceStats.scienceDevelopment;
-        incomeInCoins = provinceStats.incomeInCoins;
         isSea =provinceStats.isSea;
         provinceOwnerIndex = provinceStats.provinceOwnerIndex;
         unitsCounter = provinceStats.unitsCounter;

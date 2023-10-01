@@ -16,7 +16,7 @@ MonoBehaviour:
   provinces:
   - index: 0
     isSea: 0
-    provinceOwnerIndex: -1
+    provinceOwnerIndex: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 01000000080000000a000000
