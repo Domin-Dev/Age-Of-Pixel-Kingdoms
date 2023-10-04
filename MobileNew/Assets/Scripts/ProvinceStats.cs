@@ -47,11 +47,11 @@ public class ProvinceStats
     }
     public void CopyData(ProvinceStats provinceStats)
     {
-        population = new Statistic((float turnIncome) => { return turnIncome; },Random.Range(100, 120), 0.5f,null);
-        lifePoints = new Statistic(10);
-        warriors = new Statistic(5);
-        developmentPoints = new Statistic((float turnIncome) => { developmentPoints.Set((int)population.value * 0.01f); return 0;}, population.value * 0.01f, 0f,null);
-        movementPoints = new Statistic(2);
+        population = new Statistic((float turnIncome) => { return turnIncome; },Random.Range(100, 120), 0.5f,null, "Population");
+        lifePoints = new Statistic(10, "LifePoint");
+        warriors = new Statistic(5, "Warrior");
+        developmentPoints = new Statistic((float turnIncome) => { developmentPoints.Set((int)population.value * 0.01f); return 0;}, population.value * 0.01f, 0f,null, "DevelopmentPoint");
+        movementPoints = new Statistic(2,"MovementPoint");
 
 
         isSea =provinceStats.isSea;

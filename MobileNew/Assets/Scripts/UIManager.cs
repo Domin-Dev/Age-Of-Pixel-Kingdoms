@@ -2,9 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using System;
-using static UnityEditor.Progress;
 
 public class UIManager : MonoBehaviour
 {
@@ -78,6 +76,8 @@ public class UIManager : MonoBehaviour
         warriorsCounter = topBar.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         developmentPointsCounter = topBar.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         movementPointsCounter = topBar.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        topBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.coins); });
 
         UpdateCounters();
     }
@@ -336,17 +336,23 @@ public class UIManager : MonoBehaviour
 
         LoadProvinceUnitCounters(provinceIndex, gameAssets.unitCounterContentUI.transform, false);
     }
-    public void LoadUnitsMove(int provinceIndex1,int  provinceIndex2,bool isUpdate)
-    {   
-        if(!isUpdate)OpenUIWindow("Units", 0);
-        LoadProvinceUnitCounters(provinceIndex1, gameAssets.moveUnitContentUI1,true);
+    public void LoadUnitsMove(int provinceIndex1, int provinceIndex2, bool isUpdate)
+    {
+        if (!isUpdate) OpenUIWindow("Units", 0);
+        LoadProvinceUnitCounters(provinceIndex1, gameAssets.moveUnitContentUI1, true);
+
+        int x = GameManager.Instance.provinces[provinceIndex1].unitsCounter;
+
+        selectingProvinces.moveAll1.GetComponentInChildren<TextMeshProUGUI>().text = x.ToString() + Icons.GetIcon("MovementPoint");
+        selectingProvinces.moveHalf1.GetComponentInChildren<TextMeshProUGUI>().text = (x/2).ToString() + Icons.GetIcon("MovementPoint");
         unitsWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex1.ToString();
 
-
-
-
-
         LoadProvinceUnitCounters(provinceIndex2, gameAssets.moveUnitContentUI2,true);
+
+        x = GameManager.Instance.provinces[provinceIndex2].unitsCounter;
+
+        selectingProvinces.moveAll2.GetComponentInChildren<TextMeshProUGUI>().text = x.ToString() + Icons.GetIcon("MovementPoint");
+        selectingProvinces.moveHalf2.GetComponentInChildren<TextMeshProUGUI>().text = (x / 2).ToString() + Icons.GetIcon("MovementPoint");
         unitsWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
     }
     public void LoadUnitsAttack(int yourProvinceIndex, int enemyProvinceIndex)
@@ -375,6 +381,7 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("SelectionNumberUnits");
             CloseUIWindow("Units");
             CloseUIWindow("Buildings");
+            CloseUIWindow("Details");
         }
         else if(name == "UnitsRecruitment")
         {
@@ -433,11 +440,17 @@ public class UIManager : MonoBehaviour
         details.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
     }
     public void UpdateCounters()
-    { 
+    {
         coinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
         warriorsCounter.text = GameManager.Instance.humanPlayer.warriors.ToString();
-        developmentPointsCounter.text = Math.Round(GameManager.Instance.humanPlayer.developmentPoints.value,2).ToString();
+        developmentPointsCounter.text = GameManager.Instance.humanPlayer.developmentPoints.ToString();
         movementPointsCounter.text = GameManager.Instance.humanPlayer.movementPoints.ToString();
     }
 
+    private void OpenStatsDetails(Statistic statistic)
+    {
+        OpenUIWindow("Details",0);
+        details.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Details";
+        details.GetChild(1).GetComponent<TextMeshProUGUI>().text = statistic.GetDetails();
+    }
 }

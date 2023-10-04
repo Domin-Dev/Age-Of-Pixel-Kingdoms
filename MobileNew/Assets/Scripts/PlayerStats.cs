@@ -14,12 +14,15 @@ public class PlayerStats
 
     public int income { private set; get; }
 
+
     public PlayerStats(int coins) 
     {
-        this.coins = new Statistic((float income) => { return 100 + GetPopulation() * 0.1f;},(float)coins,0f, () => { UIManager.Instance.UpdateCounters(); });
-        this.warriors = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); },50);
-        this.developmentPoints = new Statistic((float income) => { return  GetPopulation() * 0.01f; },0f, 0f, () => { UIManager.Instance.UpdateCounters(); });
-        this.movementPoints = new Statistic(30, () => { UIManager.Instance.UpdateCounters(); }, 30);
+        this.coins = new Statistic((float income) => { return income + GetPopulation() * 0.1f;},(float)coins,0f, () => { UIManager.Instance.UpdateCounters(); },"Coin");
+        this.coins.AddBonus(-100, new Bonus("Base income",100f, Bonus.bonusType.Income));
+
+        this.warriors = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); },50,"Warrior");
+        this.developmentPoints = new Statistic((float income) => { return  GetPopulation() * 0.01f; },0f, 0f, () => { UIManager.Instance.UpdateCounters(); },"DevelopmentPoint");
+        this.movementPoints = new Statistic(30, () => { UIManager.Instance.UpdateCounters(); }, 30, "MovementPoint");
     }
 
     public float GetPopulation()

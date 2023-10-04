@@ -34,6 +34,15 @@ public class SelectingProvinces : MonoBehaviour
 
     private int barState = -1;
 
+    public Button moveAll1;
+    public Button moveHalf1;
+
+    public Button moveAll2;
+    public Button moveHalf2;
+
+
+
+
     private void Start()
     {
         barState = -1;
@@ -59,12 +68,18 @@ public class SelectingProvinces : MonoBehaviour
         buttons.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(5); });
         buttons.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(20); });
 
-        UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { MoveAll(1); });
-        UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(0).GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { MoveHalf(1); });
+        moveAll1 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>();
+        moveHalf1 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(0).GetChild(0).GetChild(2).GetComponent<Button>();
 
-        UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(1).GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { MoveAll(2); }); 
-        UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(1).GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { MoveHalf(2); });
+        moveAll2 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(1).GetChild(0).GetChild(1).GetComponent<Button>();
+        moveHalf2 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(1).GetChild(0).GetChild(2).GetComponent<Button>();
 
+        moveAll1.onClick.AddListener(() => { MoveAll(1); }); 
+        moveHalf1.onClick.AddListener(() => { MoveHalf(1); });
+
+        moveAll2.onClick.AddListener(() => { MoveAll(2); });
+        moveHalf2.onClick.AddListener(() => { MoveHalf(2); });
+        
 
          map = GameObject.FindGameObjectWithTag("GameMap").transform;
     }
@@ -594,6 +609,7 @@ public class SelectingProvinces : MonoBehaviour
     private void MoveAll(int provinceNumber)
     {
         UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
+
         ProvinceStats provinceStatsFrom, provinceStatsTo;
         if (provinceNumber == 1)
         {
@@ -606,22 +622,31 @@ public class SelectingProvinces : MonoBehaviour
             provinceStatsTo = GetProvinceStats(selectedProvince);
         }
         
+
         if (provinceStatsFrom.units != null)
         {
-            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+            if (GameManager.Instance.humanPlayer.movementPoints.CanAfford(provinceStatsFrom.unitsCounter))
             {
-                selectedUnitIndex = i;
-                if(provinceStatsFrom.units.ContainsKey(selectedUnitIndex))
+                GameManager.Instance.humanPlayer.movementPoints.Subtract(provinceStatsFrom.unitsCounter);
+                for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                 {
-                    unitsNumber = provinceStatsFrom.units[selectedUnitIndex];
-                    MoveTo(provinceStatsFrom, provinceStatsTo);
+                    selectedUnitIndex = i;
+                    if (provinceStatsFrom.units.ContainsKey(selectedUnitIndex))
+                    {
+                        unitsNumber = provinceStatsFrom.units[selectedUnitIndex];
+                        MoveTo(provinceStatsFrom, provinceStatsTo);
+                    }
                 }
-            }
 
-            UpdateUnitNumber(selectedProvince);
-            UpdateUnitNumber(selectedNeighbor);
-            UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name), true);
-            selectedUnitIndex = -1;
+                UpdateUnitNumber(selectedProvince);
+                UpdateUnitNumber(selectedNeighbor);
+                UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name), true);
+                selectedUnitIndex = -1;   
+            }
+            else
+            {
+                Alert.Instance.OpenAlert("no movement points!");
+            }
         }
     }
     private void MoveHalf(int provinceNumber)
@@ -645,46 +670,53 @@ public class SelectingProvinces : MonoBehaviour
 
         if (provinceStatsFrom.units != null)
         {
-            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+            if (GameManager.Instance.humanPlayer.movementPoints.CanAfford(provinceStatsFrom.unitsCounter/2))
             {
-                selectedUnitIndex = i;
-                if (provinceStatsFrom.units.ContainsKey(selectedUnitIndex))
+                GameManager.Instance.humanPlayer.movementPoints.Subtract(provinceStatsFrom.unitsCounter / 2);
+                for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                 {
-                    int units  = provinceStatsFrom.units[selectedUnitIndex];
+                    selectedUnitIndex = i;
+                    if (provinceStatsFrom.units.ContainsKey(selectedUnitIndex))
+                    {
+                        int units = provinceStatsFrom.units[selectedUnitIndex];
 
-                    if(units % 2 == 1)
-                    {
-                        b++;
-                    }
+                        if (units % 2 == 1)
+                        {
+                            b++;
+                        }
 
-                    if( b > 0 && (numberFrom + numberTo) / 2 == 0 && units > units / 2 + b)
-                    {
-                        Debug.Log(b);
-                        unitsNumber = units / 2 + (b/2);
-                        b = 0;
+                        if (b > 0 && (numberFrom + numberTo) / 2 == 0 && units > units / 2 + b)
+                        {
+                            Debug.Log(b);
+                            unitsNumber = units / 2 + (b / 2);
+                            b = 0;
+                        }
+                        else if (b > 1)
+                        {
+                            Debug.Log(b);
+                            unitsNumber = units / 2 + (b / 2);
+                            b = 0;
+                        }
+                        else
+                        {
+                            unitsNumber = units / 2;
+                        }
+
+                        numberFrom -= unitsNumber;
+                        numberTo += unitsNumber;
+                        MoveTo(provinceStatsFrom, provinceStatsTo);
                     }
-                    else if( b > 1)
-                    {
-                        Debug.Log(b);
-                        unitsNumber = units / 2 + (b/2);
-                        b = 0;
-                    } 
-                    else
-                    {
-                        unitsNumber = units / 2;
-                    }
-                    
-                    numberFrom -= unitsNumber;
-                    numberTo += unitsNumber;
-                    MoveTo(provinceStatsFrom, provinceStatsTo);
                 }
+
+                UpdateUnitNumber(selectedProvince);
+                UpdateUnitNumber(selectedNeighbor);
+                UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name), true);
+                selectedUnitIndex = -1;
             }
-
-
-            UpdateUnitNumber(selectedProvince);
-            UpdateUnitNumber(selectedNeighbor);
-            UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name), true);
-            selectedUnitIndex = -1;
+            else
+            {
+                Alert.Instance.OpenAlert("no movement points!");
+            }
         }
     }
     private ProvinceStats GetProvinceStats(Transform province)
