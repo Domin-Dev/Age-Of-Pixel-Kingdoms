@@ -47,10 +47,10 @@ public class ProvinceStats
     }
     public void CopyData(ProvinceStats provinceStats)
     {
-        population = new Statistic((float turnIncome) => { return turnIncome; },Random.Range(100, 120), 0.5f,null, "Population");
+        population = new Statistic(Random.Range(100, 120), 0.5f,null, "Population");
         lifePoints = new Statistic(10, "LifePoint");
         warriors = new Statistic(5, "Warrior");
-        developmentPoints = new Statistic((float turnIncome) => { developmentPoints.Set((int)population.value * 0.01f); return 0;}, population.value * 0.01f, 0f,null, "DevelopmentPoint");
+        developmentPoints = new Statistic(0f, 0f,null, "DevelopmentPoint");
         movementPoints = new Statistic(2,"MovementPoint");
 
 

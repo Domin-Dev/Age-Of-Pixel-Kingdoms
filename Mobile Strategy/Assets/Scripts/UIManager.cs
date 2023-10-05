@@ -451,6 +451,10 @@ public class UIManager : MonoBehaviour
     {
         OpenUIWindow("Details",0);
         details.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Details";
+
+        
+
+
         details.GetChild(1).GetComponent<TextMeshProUGUI>().text = statistic.GetDetails();
     }
 }

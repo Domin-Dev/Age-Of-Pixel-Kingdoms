@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.SocialPlatforms;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -15,15 +16,10 @@ public struct Statistic
     public Dictionary<int,Bonus> bonuses;
 
     private string icon;
-
-    private Func<float,float> EndTurn;
     private Action updateCounter;
     public override string ToString()
     {
-        float turnAllIncome;
-        if (EndTurn != null) turnAllIncome = EndTurn(turnIncome);
-        else turnAllIncome = turnIncome;
-
+        float turnAllIncome = CountIncome();
 
         if (limit < float.MaxValue) return ((int)value).ToString() + "/" + ((int)limit).ToString();
 
@@ -35,12 +31,11 @@ public struct Statistic
             else return ((int)value).ToString() + "  <color=red>" + turnAllIncome + "</color>" + Icons.GetIcon("Turn"); ;
         }
     }
-    public Statistic(Func<float,float> endturn,float value, float turnIncome,Action counter,string icon)
+    public Statistic(float value, float turnIncome,Action counter,string icon)
     {
         this.icon = icon;
         this.limit = float.MaxValue;
         this.updateCounter = counter;
-        this.EndTurn = endturn;      
         bonuses = new Dictionary<int,Bonus>();
         this.value = value;
         this.turnIncome = turnIncome;
@@ -49,7 +44,6 @@ public struct Statistic
     {
         this.icon = icon;
         this.limit = float.MaxValue;
-        this.EndTurn = null;
         this.updateCounter = null;
 
         bonuses = new Dictionary<int,Bonus>();
@@ -61,25 +55,32 @@ public struct Statistic
         this.icon = icon;
         this.limit = limit;
         this.updateCounter = counter;
-        this.EndTurn = null;
-
         bonuses = new Dictionary<int,Bonus>();
         this.value = value;
         this.turnIncome = 0;
     }
-   public float NextTurn()
+
+    
+    public float CountIncome()
     {
-        if (EndTurn != null)
-        {
-            float income = EndTurn(turnIncome);
-
-
-            value += income;
-            MathF.Round(income,2);
-            if (updateCounter != null) updateCounter();
-            return income;
+        float income = turnIncome;
+        foreach (Bonus item in bonuses.Values)
+        { 
+            if(item.type == Bonus.bonusType.DependentIncome)
+            {
+                income += item.countBonus();
+            }
         }
-        return 0;
+        return income;
+    }
+    public float NextTurn()
+    {       
+        float income = CountIncome();
+
+        value += income;
+        MathF.Round(income,2);
+        if (updateCounter != null) updateCounter();
+        return income;
     }   
     public void Subtract(int value2)
     {
@@ -159,21 +160,17 @@ public struct Statistic
         string details;
 
         details = Icons.GetIcon(icon) + ToString() +"\n";
-        foreach (var bonus in bonuses)
+        foreach (var bonus in bonuses.Values)
         {
-            if(bonus.Value.type == Bonus.bonusType.Income)
+            if(bonus.type == Bonus.bonusType.Income)
             {
-                details += "\n" + bonus.Value.ToString() + Icons.GetIcon(icon);
+                details += "\n" + bonus.ToString() + Icons.GetIcon(icon);
+            }
+            else if(bonus.type == Bonus.bonusType.DependentIncome)
+            {
+
             }
         }
-
-
-
-
         return details;
     }
-
-
-
-
 }
