@@ -68,7 +68,7 @@ public struct Statistic
         { 
             if(item.type == Bonus.bonusType.DependentIncome)
             {
-                income += item.countBonus();
+                income += item.countBonus(item.multiplier);
             }
         }
         return income;
@@ -131,11 +131,15 @@ public struct Statistic
         if(bonus.type == Bonus.bonusType.Disposable)
         {
             value += bonus.bonusValue;
-        }else
+        }
+        else if(bonus.type == Bonus.bonusType.IncreaseLimit)
+        {
+            limit += bonus.bonusValue;
+        }  
+        else
         {
             turnIncome += bonus.bonusValue;
         }
-
 
         bonuses.Add(index,bonus);
     }
@@ -162,13 +166,23 @@ public struct Statistic
         details = Icons.GetIcon(icon) + ToString() +"\n";
         foreach (var bonus in bonuses.Values)
         {
-            if(bonus.type == Bonus.bonusType.Income)
+            if (limit < float.MaxValue)
             {
-                details += "\n" + bonus.ToString() + Icons.GetIcon(icon);
+                if(bonus.type == Bonus.bonusType.IncreaseLimit)
+                {
+                    details += "\n" + bonus.ToString() + Icons.GetIcon(icon);
+                }
             }
-            else if(bonus.type == Bonus.bonusType.DependentIncome)
+            else
             {
-
+                if (bonus.type == Bonus.bonusType.Income)
+                {
+                    details += "\n" + bonus.ToString() + Icons.GetIcon(icon);
+                }
+                else if (bonus.type == Bonus.bonusType.DependentIncome)
+                {
+                    details += "\n" + bonus.ToString() + Icons.GetIcon(icon);
+                }
             }
         }
         return details;

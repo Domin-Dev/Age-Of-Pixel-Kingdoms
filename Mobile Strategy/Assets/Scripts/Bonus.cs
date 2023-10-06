@@ -5,19 +5,32 @@ public class Bonus
 {
     public override string ToString()
     {
-       if(bonusValue > 0) return  name + "<color=green> +" + bonusValue + "</color>";
-       else return name +"<color=red>" + bonusValue + "</color>";
+        float value = bonusValue;
+        string answer = name +":";
+        if(type == bonusType.DependentIncome)
+        {
+            value = countBonus(multiplier);
+            answer += " " + toString(multiplier);
+        }
+
+        if (value > 0) return answer + "<color=green> +" + value.ToString() + "</color>";
+        else return answer + "<color=red>" + value.ToString() + "</color>";
     }
+
+
+    public float multiplier;
     public float bonusValue { private set; get; }
     public string name {private set; get; }
     public bonusType type { private set; get; }
 
-    public Func<float> countBonus { private set; get; } 
+    public Func<float,float> countBonus { private set; get; } 
+    public Func<float,String> toString { private set; get; }
     public enum bonusType
     {
         Income,
         Disposable,
         DependentIncome,
+        IncreaseLimit,
     }
     public Bonus(string name, float value, bonusType bonusType)
     {
@@ -26,11 +39,13 @@ public class Bonus
         this.name = name;
     }
 
-    public Bonus(string name,Func<float> countBonus)
+    public Bonus(string name,Func<float,float> countBonus, Func<float,string> toString, float multiplier)
     {
         this.bonusValue = 0;
         this.name = name;
         this.type = bonusType.DependentIncome;
         this.countBonus = countBonus;
+        this.toString = toString;
+        this.multiplier = multiplier;
     }
 }

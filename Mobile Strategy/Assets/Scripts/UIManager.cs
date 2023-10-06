@@ -78,6 +78,8 @@ public class UIManager : MonoBehaviour
         movementPointsCounter = topBar.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         topBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.coins); });
+        topBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.developmentPoints); });
+        topBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.warriors); });
 
         UpdateCounters();
     }
@@ -438,6 +440,7 @@ public class UIManager : MonoBehaviour
         details.gameObject.SetActive(true);
         details.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Turn:" + GameManager.Instance.turn.ToString();        
         details.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
+        UpdateCounters();
     }
     public void UpdateCounters()
     {
@@ -451,10 +454,6 @@ public class UIManager : MonoBehaviour
     {
         OpenUIWindow("Details",0);
         details.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Details";
-
-        
-
-
         details.GetChild(1).GetComponent<TextMeshProUGUI>().text = statistic.GetDetails();
     }
 }
