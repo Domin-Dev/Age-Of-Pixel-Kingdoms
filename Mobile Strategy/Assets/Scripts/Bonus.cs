@@ -7,11 +7,15 @@ public class Bonus
     {
         float value = bonusValue;
         string answer = name +":";
-        if(type == bonusType.DependentIncome)
+        if(type == bonusType.DependentIncome || type == bonusType.IncreaseLimit)
         {
-            value = countBonus(multiplier);
-            answer += " " + toString(multiplier);
+            if (countBonus != null)
+            {
+                value = countBonus(multiplier);
+                answer += " " + toString(multiplier);
+            }
         }
+        value = (float)Math.Round(value,2);
 
         if (value > 0) return answer + "<color=green> +" + value.ToString() + "</color>";
         else return answer + "<color=red>" + value.ToString() + "</color>";
@@ -47,5 +51,15 @@ public class Bonus
         this.countBonus = countBonus;
         this.toString = toString;
         this.multiplier = multiplier;
+    }
+
+    public Bonus(string name, Func<float, float> countBonus, Func<float, string> toString)
+    {
+        this.multiplier = 1;
+        this.bonusValue = bonusValue;
+        this.name = name;
+        this.type = bonusType.IncreaseLimit;
+        this.countBonus = countBonus;
+        this.toString = toString;
     }
 }

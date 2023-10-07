@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform buildingsWindow;
     [SerializeField] private Transform unitsWindow;
     [SerializeField] private Transform battleWindow;
+    [SerializeField] private Transform developmentWindow;
 
     [SerializeField] private Transform nextTurn;
     [SerializeField] private TextMeshProUGUI turnConter;
@@ -80,6 +81,7 @@ public class UIManager : MonoBehaviour
         topBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.coins); });
         topBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.developmentPoints); });
         topBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.warriors); });
+        topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.movementPoints); });
 
         UpdateCounters();
     }
@@ -329,9 +331,10 @@ public class UIManager : MonoBehaviour
             textMeshProUGUI.color = Color.grey;
         }
 
-        transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString() + "<sprite index=2/>";
-        transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.developmentPoints.value,2).ToString() + "<sprite index=2/>";
-        transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round((int)provinceStats.population.value * 0.1f,2).ToString() + "<sprite index=2/>";
+        transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
+        transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.developmentPoints.CountIncome(),2).ToString() + "<sprite index=2/>";
+        transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.coins.CountIncome(),2).ToString() + "<sprite index=2/>";
+  //      transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round((int)provinceStats.population.value * 0.1f,2).ToString() + "<sprite index=2/>";
         transform.GetChild(1).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.movementPoints.value.ToString();
         transform.GetChild(1).GetChild(0).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.warriors.ToString();
 

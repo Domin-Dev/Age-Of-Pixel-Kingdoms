@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
             buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
             humanPlayer = new PlayerStats(10000);
 
-
             selectingProvinces = FindObjectOfType<SelectingProvinces>();
 
             ProvinceStats[] array = Resources.Load<MapStats>("Maps/World").provinces;
@@ -47,14 +46,10 @@ public class GameManager : MonoBehaviour
                 provinces[i] = new ProvinceStats();
                 provinces[i].CopyData(array[i]);
                 ProvinceStats provinceStats = provinces[i];
-
                 if (provinceStats.provinceOwnerIndex != -1)
                 {
                     selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
-                    humanPlayer.warriors.limit += provinces[i].warriors.value;
-                    humanPlayer.movementPoints.limit += provinces[i].movementPoints.value;
                 }
-
                 if (provinceStats.buildingIndex != -1)
                 {
                     BonusManager.SetBonus(provinceStats, provinceStats.buildingIndex);
@@ -68,8 +63,9 @@ public class GameManager : MonoBehaviour
             }
             numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
 
+            humanPlayer.movementPoints.UpdateLimit();
+            humanPlayer.warriors.UpdateLimit();
             humanPlayer.movementPoints.value = humanPlayer.movementPoints.limit;
-
         }
         else
         {
@@ -153,8 +149,10 @@ public class GameManager : MonoBehaviour
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
         buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
         selectingProvinces = FindObjectOfType<SelectingProvinces>();
-        humanPlayer.warriors.limit = 50;
         humanPlayer.movementPoints.limit = 30;
+
+        humanPlayer.movementPoints.UpdateLimit();
+        humanPlayer.warriors.UpdateLimit();
 
         for (int i = 0; i < provinces.Length; i++)
         {
@@ -162,8 +160,6 @@ public class GameManager : MonoBehaviour
             if (provinceStats.provinceOwnerIndex != -1)
             {
                 selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), Color.red);
-                humanPlayer.warriors.limit += provinceStats.warriors.value;
-                humanPlayer.movementPoints.limit += provinceStats.movementPoints.value;
             }
 
             if (provinceStats.buildingIndex != -1)

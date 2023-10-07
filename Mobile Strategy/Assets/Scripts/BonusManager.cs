@@ -11,10 +11,13 @@ public static class BonusManager
             case 0:
                 provinceStats.lifePoints.AddBonus(0,new Bonus("Castle",10,Bonus.bonusType.Disposable));
                 provinceStats.warriors.AddBonus(1,new Bonus("Castle",5,Bonus.bonusType.Disposable));
-                GameManager.Instance.humanPlayer.UpdateWarriors();
+                GameManager.Instance.humanPlayer.warriors.UpdateLimit();
                 break;
             case 1:
                 provinceStats.population.AddBonus(2, new Bonus("ko", 10, Bonus.bonusType.Income));
+                break;
+            case 2:
+                provinceStats.developmentPoints.AddBonus(3, new Bonus("ko", 5, Bonus.bonusType.Income));
                 break;
 
         }
@@ -27,10 +30,13 @@ public static class BonusManager
             case 0:
                 provinceStats.lifePoints.RemoveBonus(0);
                 provinceStats.warriors.RemoveBonus(1);
-                GameManager.Instance.humanPlayer.UpdateWarriors();
+                GameManager.Instance.humanPlayer.warriors.UpdateLimit();
                 break;
             case 1:
                 provinceStats.population.RemoveBonus(2);
+                break;
+            case 2:
+                provinceStats.population.RemoveBonus(3);
                 break;
         }
     }

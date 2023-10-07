@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,16 +11,15 @@ public class ProvinceStats
     public Statistic lifePoints;
     public Statistic population;
     public Statistic warriors;
-    public Statistic developmentPoints;
     public Statistic movementPoints;
 
+    public Statistic coins;
+    public Statistic developmentPoints;
 
 
     public int index;
     public bool isSea;
     public int provinceOwnerIndex  = -1;// -1 == null , 0 is Player, >0 is Computer
-
-
 
     public int unitsCounter;
 
@@ -50,11 +50,17 @@ public class ProvinceStats
         population = new Statistic(Random.Range(100, 120), 0.5f,null, "Population");
         lifePoints = new Statistic(10, "LifePoint");
         warriors = new Statistic(5, "Warrior");
-        developmentPoints = new Statistic(0f, 0f,null, "DevelopmentPoint");
         movementPoints = new Statistic(2,"MovementPoint");
 
+        developmentPoints = new Statistic(0, "DevelopmentPoint");
+        developmentPoints.AddBonus(-100, new Bonus("Population", (float multiplier) => { return population.value * multiplier; }, (float multiplier) => { return "";},0.01f));
 
-        isSea =provinceStats.isSea;
+        coins = new Statistic(0, "Coin");
+        coins.AddBonus(-100,new Bonus("Population", (float multiplier) => { return population.value * multiplier; }, (float multiplier) => { return ""; }, 0.1f));
+
+
+
+        isSea = provinceStats.isSea;
         provinceOwnerIndex = provinceStats.provinceOwnerIndex;
         unitsCounter = provinceStats.unitsCounter;
         buildingIndex = provinceStats.buildingIndex;

@@ -17,5 +17,5 @@ MonoBehaviour:
   <icon>k__BackingField: {fileID: 21300000, guid: 2fd5777a62385e24d82fe6216364ad9d, type: 3}
   <turnCost>k__BackingField: 0
   <canBuild>k__BackingField: 1
-  <bonusIndex>k__BackingField: 1
+  <bonusIndex>k__BackingField: 2
   <movementPointsPrice>k__BackingField: 5

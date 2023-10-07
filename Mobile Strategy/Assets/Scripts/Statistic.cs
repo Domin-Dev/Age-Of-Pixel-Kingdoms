@@ -14,6 +14,9 @@ public struct Statistic
     public float turnIncome {private set; get; }
 
     public Dictionary<int,Bonus> bonuses;
+    public string description;
+
+
 
     private string icon;
     private Action updateCounter;
@@ -33,6 +36,7 @@ public struct Statistic
     }
     public Statistic(float value, float turnIncome,Action counter,string icon)
     {
+        this.description = "";
         this.icon = icon;
         this.limit = float.MaxValue;
         this.updateCounter = counter;
@@ -42,16 +46,17 @@ public struct Statistic
     }
     public Statistic(float value, string icon)
     {
+        this.description = "";
         this.icon = icon;
         this.limit = float.MaxValue;
         this.updateCounter = null;
-
         bonuses = new Dictionary<int,Bonus>();
         this.value = value;
         this.turnIncome = 0;
     }
     public Statistic(int value, Action counter,float limit, string icon)
     {
+        this.description = "";
         this.icon = icon;
         this.limit = limit;
         this.updateCounter = counter;
@@ -60,7 +65,11 @@ public struct Statistic
         this.turnIncome = 0;
     }
 
-    
+
+    public void SetDescription(string description)
+    {
+        this.description = description;
+    }
     public float CountIncome()
     {
         float income = turnIncome;
@@ -158,12 +167,13 @@ public struct Statistic
 
         bonuses.Remove(index);
     }
-
     public string GetDetails()
     {
         string details;
 
         details = Icons.GetIcon(icon) + ToString() +"\n";
+        if(description.Length > 1) details += description + "\n";
+
         foreach (var bonus in bonuses.Values)
         {
             if (limit < float.MaxValue)
@@ -186,5 +196,21 @@ public struct Statistic
             }
         }
         return details;
+    }
+
+    public void UpdateLimit()
+    {
+        if(limit < float.MaxValue && bonuses != null)
+        {
+            limit = 0;
+            foreach (Bonus item in bonuses.Values)
+            {
+                if(item.type == Bonus.bonusType.IncreaseLimit)
+                {
+                    if (item.bonusValue > 0) limit += item.bonusValue;
+                    else limit += item.countBonus(0);
+                }
+            }
+        }
     }
 }
