@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform unitsWindow;
     [SerializeField] private Transform battleWindow;
     [SerializeField] private Transform developmentWindow;
+    [SerializeField] private Transform managementWindow;
+
 
     [SerializeField] private Transform nextTurn;
     [SerializeField] private TextMeshProUGUI turnConter;
@@ -61,10 +63,15 @@ public class UIManager : MonoBehaviour
         buildingsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Buildings"); });
         unitsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Units"); });
         battleWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Battle"); });
+        developmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Development"); });
+        managementWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Management"); });
 
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
         bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.HighlightNeighbors(); });
+
+        bottomBar.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Development", 0); });
+        bottomBar.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Management", 0); OpenManagement(); });
 
         details.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Details");});
 
@@ -289,14 +296,17 @@ public class UIManager : MonoBehaviour
         {
             LoadProvinceStats(transform,provinceIndex);
         }
-        else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units" || name == "Battle")
+        else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units" || name == "Battle" || name == "Development" || name == "Management" || name == "Details")
         {
+            if (name == "Development" || name == "Management") CloseUIWindow("ProvinceStats");
             selectingProvinces.ResetNeighbors();
             CloseUIWindow("UnitsRecruitment");
             CloseUIWindow("Buildings");
             CloseUIWindow("Units");
             CloseUIWindow("Battle");
             CloseUIWindow("Details");
+            CloseUIWindow("Management");
+            CloseUIWindow("Development");
         }
 
         if(name == "Buildings")
@@ -334,7 +344,6 @@ public class UIManager : MonoBehaviour
         transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
         transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.developmentPoints.CountIncome(),2).ToString() + "<sprite index=2/>";
         transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.coins.CountIncome(),2).ToString() + "<sprite index=2/>";
-  //      transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round((int)provinceStats.population.value * 0.1f,2).ToString() + "<sprite index=2/>";
         transform.GetChild(1).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.movementPoints.value.ToString();
         transform.GetChild(1).GetChild(0).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.warriors.ToString();
 
@@ -387,6 +396,9 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("Units");
             CloseUIWindow("Buildings");
             CloseUIWindow("Details");
+            CloseUIWindow("Development");
+            CloseUIWindow("Management");
+
         }
         else if(name == "UnitsRecruitment")
         {
@@ -423,6 +435,8 @@ public class UIManager : MonoBehaviour
             case "Units": return unitsWindow;
             case "Battle": return battleWindow;
             case "Details": return details;
+            case "Development": return developmentWindow;
+            case "Management": return managementWindow;
         }
         return null;
     }
@@ -458,5 +472,17 @@ public class UIManager : MonoBehaviour
         OpenUIWindow("Details",0);
         details.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Details";
         details.GetChild(1).GetComponent<TextMeshProUGUI>().text = statistic.GetDetails();
+    }
+
+    private void OpenManagement()
+    {
+        string details = "";
+        details += "Population: " + GameManager.Instance.humanPlayer.GetPopulation() + Icons.GetIcon("Population") + "\n";
+
+        Debug.Log(GameManager.Instance.numberOfProvinces);
+        float value = GameManager.Instance.humanPlayer.GetNumberOfProvinces();
+        details += "Provinces: " + value + " ( "+ Math.Round(value / (float)GameManager.Instance.numberOfProvinces,3) * 100 +"%)" + "\n";
+
+        managementWindow.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = details; 
     }
 }

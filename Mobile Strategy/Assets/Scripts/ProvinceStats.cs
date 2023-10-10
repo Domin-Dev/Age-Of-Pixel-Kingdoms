@@ -53,10 +53,10 @@ public class ProvinceStats
         movementPoints = new Statistic(2,"MovementPoint");
 
         developmentPoints = new Statistic(0, "DevelopmentPoint");
-        developmentPoints.AddBonus(-100, new Bonus("Population", (float multiplier) => { return population.value * multiplier; }, (float multiplier) => { return "";},0.01f));
+        developmentPoints.AddBonus(-100, new Bonus("Population", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return "";},0.01f));
 
         coins = new Statistic(0, "Coin");
-        coins.AddBonus(-100,new Bonus("Population", (float multiplier) => { return population.value * multiplier; }, (float multiplier) => { return ""; }, 0.1f));
+        coins.AddBonus(-100,new Bonus("Population", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return ""; }, 0.1f));
 
 
 

@@ -80,6 +80,7 @@ public struct Statistic
                 income += item.countBonus(item.multiplier);
             }
         }
+        income = (float)Math.Round(income,2);
         return income;
     }
     public float NextTurn()

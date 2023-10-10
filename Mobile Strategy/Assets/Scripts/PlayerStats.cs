@@ -32,6 +32,19 @@ public class PlayerStats
         this.movementPoints.AddBonus(-200, new Bonus("Provinces", (float multiplier) => { return GetMovementPoints(); }, (float multiplier) => { return ""; })) ;
     }
 
+
+    public float GetNumberOfProvinces()
+    {
+        int number = 0;
+        for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
+        {
+            if (GameManager.Instance.provinces[i].provinceOwnerIndex == 0)
+            {
+                number++;
+            }
+        }
+        return number;
+    }
     public float GetPopulation()
     {
         int population = 0;
