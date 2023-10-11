@@ -219,5 +219,36 @@ public class GameManager : MonoBehaviour
 
         UIManager.Instance.OpenTurnDetails(stats);
     }
+
+
+    /// 0,1,2,3,4
+    public void GetValuesByTaxesIndex(int index, out float coinsIncome,out float peopleIncome)
+    {
+        coinsIncome = 0;
+        peopleIncome = 0;
+        switch (index)
+        {
+            case 0:  
+                coinsIncome = -0.05f;
+                peopleIncome = 1f;
+                break; 
+            case 1:  
+                coinsIncome = 0.00f;
+                peopleIncome = 0.75f;
+                break; 
+            case 2:  
+                coinsIncome = 0.05f;
+                peopleIncome = 0.5f;
+                break;
+            case 3:  
+                coinsIncome = 0.1f;
+                peopleIncome = 0;
+                break;           
+            case 4:  
+                coinsIncome = 0.15f;
+                peopleIncome = -0.25f;
+                break; 
+        }
+    }
 }
 

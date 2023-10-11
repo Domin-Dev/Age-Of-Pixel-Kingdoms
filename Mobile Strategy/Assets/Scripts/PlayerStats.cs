@@ -12,8 +12,12 @@ public class PlayerStats
     public Statistic movementPoints;
     public int income { private set; get; }
 
+    public int texesIndex;
+
     public PlayerStats(int coins)
     {
+        this.texesIndex = 2;
+
         this.coins = new Statistic((float)coins, 0f, () => { UIManager.Instance.UpdateCounters(); }, "Coin");
         this.coins.AddBonus(-100, new Bonus("Base income", 100f, Bonus.bonusType.Income));
         this.coins.AddBonus(-200, new Bonus("Population", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.2f));

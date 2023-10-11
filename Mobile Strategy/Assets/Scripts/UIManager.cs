@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -72,6 +73,8 @@ public class UIManager : MonoBehaviour
 
         bottomBar.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Development", 0); });
         bottomBar.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Management", 0); OpenManagement(); });
+        managementWindow.GetChild(2).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.texesIndex = (int)value; UpdateTaxesText(); });
+
 
         details.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Details");});
 
@@ -477,12 +480,35 @@ public class UIManager : MonoBehaviour
     private void OpenManagement()
     {
         string details = "";
+        details += "Turn:" + GameManager.Instance.turn + Icons.GetIcon("Turn")+ "\n";
         details += "Population: " + GameManager.Instance.humanPlayer.GetPopulation() + Icons.GetIcon("Population") + "\n";
 
-        Debug.Log(GameManager.Instance.numberOfProvinces);
         float value = GameManager.Instance.humanPlayer.GetNumberOfProvinces();
-        details += "Provinces: " + value + " ( "+ Math.Round(value / (float)GameManager.Instance.numberOfProvinces,3) * 100 +"%)" + "\n";
+        details += "Provinces: " + value + " ( "+ Math.Round(value / (float)GameManager.Instance.numberOfProvinces,3) * 100 +"% )" + "\n";
+        int index = GameManager.Instance.humanPlayer.texesIndex;
+        managementWindow.GetChild(2).GetComponent<Slider>().value = index;
+        UpdateTaxesText();
 
         managementWindow.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = details; 
     }
+
+    private void UpdateTaxesText()
+    {
+        int index = GameManager.Instance.humanPlayer.texesIndex;
+        GameManager.Instance.GetValuesByTaxesIndex(index, out float coins, out float people);
+        managementWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Taxes:" + GetColorString(coins)+ Icons.GetIcon("Coin") + " " + GetColorString(people) + Icons.GetIcon("Population");
+    }
+
+    private string GetColorString(float value)
+    {
+        if(value >= 0)
+        {
+            return "<color=green>+" + value + "</color>";
+        }
+        else
+        {
+            return "<color=red>" + value + "</color>";
+        }
+    }
+
 }
