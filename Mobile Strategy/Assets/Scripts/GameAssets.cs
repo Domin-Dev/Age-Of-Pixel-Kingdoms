@@ -44,8 +44,9 @@ public class GameAssets : MonoBehaviour
     public GameObject unitSlotUI;
     public GameObject buildingSlotUI;
     public GameObject unitCounterSlotUI;
+    public GameObject researchUI;
 
-
+   
     [Space(40f, order = 0)]
 
     public GameObject BattleConter;
@@ -59,6 +60,9 @@ public class GameAssets : MonoBehaviour
 
     public BuildingStats[] buildingsStats { private set; get; }
     public UnitStats[] unitStats { private set; get; }  
+
+    public Research[,] research { private set; get; }  
+
     private void Awake()
     {
         if(Instance == null)
@@ -73,9 +77,26 @@ public class GameAssets : MonoBehaviour
         if(SceneManager.GetActiveScene().buildIndex == 0)
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
 
+        LoadResearch("Development/EconomicDevelopment", 0);
+        LoadResearch("Development/ManagementDevelopment", 1);
+        LoadResearch("Development/MilitaryDevelopment", 2);
+        LoadResearch("Development/ScientificDevelopment", 3);
 
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");    
+    }
+
+    private void LoadResearch(string path,int index)
+    {
+        Research[] list = Resources.LoadAll<Research>(path);
+        if (research == null) research = new Research[4,list.Length];
+
+        int id = 0;
+        foreach (Research research in list)
+        {
+            this.research[index, id] = research;
+            id++;
+        }
     }
 
 }

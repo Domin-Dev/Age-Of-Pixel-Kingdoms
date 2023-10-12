@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform developmentWindow;
     [SerializeField] private Transform managementWindow;
 
+    private Transform groups;
 
     [SerializeField] private Transform nextTurn;
     [SerializeField] private TextMeshProUGUI turnConter;
@@ -65,7 +66,11 @@ public class UIManager : MonoBehaviour
         unitsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Units"); });
         battleWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Battle"); });
         developmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Development"); });
+        groups = developmentWindow.GetChild(1).GetChild(0).GetChild(0).transform;
+
         managementWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Management"); });
+
+
 
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
@@ -94,6 +99,7 @@ public class UIManager : MonoBehaviour
         topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.movementPoints); });
 
         UpdateCounters();
+        LoadResearch();
     }
     public void ManagerUI(bool open)
     {
@@ -508,6 +514,14 @@ public class UIManager : MonoBehaviour
         else
         {
             return "<color=red>" + value + "</color>";
+        }
+    }
+
+    private void LoadResearch()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Instantiate(gameAssets.researchUI, groups.GetChild(i).transform);
         }
     }
 
