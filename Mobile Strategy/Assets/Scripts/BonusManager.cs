@@ -40,4 +40,12 @@ public static class BonusManager
                 break;
         }
     }
+
+    public static void AddPlayerBonus(PlayerStats playerStats,int bonusIndex)
+    {
+        switch(bonusIndex)
+        { 
+
+        }
+    }
 }

@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
             Instance = this;
             map = GameObject.FindGameObjectWithTag("GameMap").transform;
             buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
-            humanPlayer = new PlayerStats(10000);
 
             selectingProvinces = FindObjectOfType<SelectingProvinces>();
 
@@ -63,6 +62,7 @@ public class GameManager : MonoBehaviour
             }
             numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
 
+            humanPlayer = new PlayerStats(10000);
             humanPlayer.movementPoints.UpdateLimit();
             humanPlayer.warriors.UpdateLimit();
             humanPlayer.movementPoints.value = humanPlayer.movementPoints.limit;

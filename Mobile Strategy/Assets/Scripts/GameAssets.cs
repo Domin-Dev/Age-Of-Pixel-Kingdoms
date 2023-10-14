@@ -90,6 +90,7 @@ public class GameAssets : MonoBehaviour
     {
         Research[] list = Resources.LoadAll<Research>(path);
         if (research == null) research = new Research[4,list.Length];
+        
 
         int id = 0;
         foreach (Research research in list)

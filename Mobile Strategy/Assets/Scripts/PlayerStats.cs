@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,6 +11,10 @@ public class PlayerStats
     public Statistic developmentPoints;
 
     public Statistic movementPoints;
+
+    public bool[] buildingsPermit;
+    public float coinsMultiplier;
+
     public int income { private set; get; }
 
     public int texesIndex;
@@ -34,8 +39,11 @@ public class PlayerStats
         this.movementPoints = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); }, 0, "MovementPoint");
         this.movementPoints.AddBonus(-100,new Bonus("Base Value",30,Bonus.bonusType.IncreaseLimit));
         this.movementPoints.AddBonus(-200, new Bonus("Provinces", (float multiplier) => { return GetMovementPoints(); }, (float multiplier) => { return ""; })) ;
+        this.buildingsPermit = new bool[GameAssets.Instance.buildingsStats.Length];
+        Debug.Log(this.buildingsPermit[2]);
+        coinsMultiplier = 0.6f;
+        ChangeMultipliers(coinsMultiplier);
     }
-
 
     public float GetNumberOfProvinces()
     {
@@ -84,5 +92,10 @@ public class PlayerStats
             }
         }
         return movementPoints;
+    }
+
+    private void ChangeMultipliers(float coinsMultiplier)
+    {
+        coins.bonuses[-200].multiplier = coinsMultiplier;
     }
 }

@@ -15,8 +15,6 @@ public class BuildingStats : ScriptableObject
     [field: SerializeField] public bool canBuild { get; private set; }
     [field: SerializeField] public int bonusIndex { get; private set; }
     [field: SerializeField] public int movementPointsPrice { get; private set; }
-
-
 }
 
 

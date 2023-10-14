@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform battleWindow;
     [SerializeField] private Transform developmentWindow;
     [SerializeField] private Transform managementWindow;
+    [SerializeField] private Transform researchWindow;
 
     private Transform groups;
 
@@ -68,6 +69,7 @@ public class UIManager : MonoBehaviour
         developmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Development"); });
         groups = developmentWindow.GetChild(1).GetChild(0).GetChild(0).transform;
 
+        researchWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Research"); });
         managementWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Management"); });
 
 
@@ -305,7 +307,7 @@ public class UIManager : MonoBehaviour
         {
             LoadProvinceStats(transform,provinceIndex);
         }
-        else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units" || name == "Battle" || name == "Development" || name == "Management" || name == "Details")
+        else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units" || name == "Battle" || name == "Development" || name == "Management" || name == "Details"|| name == "Research")
         {
             if (name == "Development" || name == "Management") CloseUIWindow("ProvinceStats");
             selectingProvinces.ResetNeighbors();
@@ -316,6 +318,7 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("Details");
             CloseUIWindow("Management");
             CloseUIWindow("Development");
+            CloseUIWindow("Research");
         }
 
         if(name == "Buildings")
@@ -407,7 +410,7 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("Details");
             CloseUIWindow("Development");
             CloseUIWindow("Management");
-
+            CloseUIWindow("Research");
         }
         else if(name == "UnitsRecruitment")
         {
@@ -446,6 +449,7 @@ public class UIManager : MonoBehaviour
             case "Details": return details;
             case "Development": return developmentWindow;
             case "Management": return managementWindow;
+            case "Research": return researchWindow;
         }
         return null;
     }
@@ -519,10 +523,32 @@ public class UIManager : MonoBehaviour
 
     private void LoadResearch()
     {
+        int length = gameAssets.research.GetLength(1);
         for (int i = 0; i < 4; i++)
         {
-            Instantiate(gameAssets.researchUI, groups.GetChild(i).transform);
+            for (int j = 0; j < length; j++)
+            {
+                Research research = gameAssets.research[i,j];
+                GameObject obj = Instantiate(gameAssets.researchUI, groups.GetChild(i).transform);
+                int index = i * 100 + j;
+                obj.GetComponent<Button>().onClick.AddListener(() => { OpenResearch(index); });
+                obj.transform.GetChild(0).GetComponent<Image>().sprite = research.image;
+                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name;
+                obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
+                obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = research.description;
+            }
         }
+    }
+
+    private void OpenResearch(int index)
+    {
+        OpenUIWindow("Research",0);
+        Debug.Log(index / 100  + "   "+ index % 100);
+        Research research = gameAssets.research[index/100,index%100];
+        researchWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name;
+        researchWindow.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.description;
+        researchWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research\n" + research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
+
     }
 
 }
