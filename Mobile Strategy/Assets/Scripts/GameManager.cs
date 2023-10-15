@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < provinces.Length; i++)
         {
             float value = provinces[i].population.NextTurn();
-            provinces[i].developmentPoints.NextTurn(); 
+          //  provinces[i].developmentPoints.NextTurn(); 
             if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
         }
 
@@ -247,6 +247,34 @@ public class GameManager : MonoBehaviour
             case 4:  
                 coinsIncome = 0.15f;
                 peopleIncome = -0.25f;
+                break; 
+        }
+    }
+    public void GetValuesByResearchIndex(int index, out float coinsIncome,out float developmentIncome)
+    {
+        coinsIncome = 0;
+        developmentIncome = 0;
+        switch (index)
+        {
+            case 0:  
+                coinsIncome = -0.05f;
+                developmentIncome = 1f;
+                break; 
+            case 1:  
+                coinsIncome = 0.00f;
+                developmentIncome = 0.75f;
+                break; 
+            case 2:  
+                coinsIncome = 0.05f;
+                developmentIncome = 0.5f;
+                break;
+            case 3:  
+                coinsIncome = 0.1f;
+                developmentIncome = 0;
+                break;           
+            case 4:  
+                coinsIncome = 0.15f;
+                developmentIncome = -0.25f;
                 break; 
         }
     }

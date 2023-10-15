@@ -17,8 +17,8 @@ public class Bonus
         }
         value = (float)Math.Round(value,2);
 
-        if (value > 0) return answer + "<color=green> +" + value.ToString() + "</color>";
-        else return answer + "<color=red>" + value.ToString() + "</color>";
+        if (value > 0) return answer + "<color=green>  +" + value.ToString() + "</color>";
+        else return answer + "<color=red>  " + value.ToString() + "</color>";
     }
 
 

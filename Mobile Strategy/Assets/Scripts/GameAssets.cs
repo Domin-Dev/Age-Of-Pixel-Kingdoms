@@ -57,6 +57,7 @@ public class GameAssets : MonoBehaviour
 
     public Transform battleInfo;
 
+    public Sprite noBuilding;
 
     public BuildingStats[] buildingsStats { private set; get; }
     public UnitStats[] unitStats { private set; get; }  
