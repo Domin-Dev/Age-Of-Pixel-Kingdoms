@@ -14,16 +14,15 @@ public class PlayerStats
     public Statistic movementPoints;
 
     public bool[] buildingsPermit;
+    public bool[,] research;
 
     public int income { private set; get; }
 
     public int texesIndex;
     public int researchIndex;
-
     public PlayerStats(int coins)
     {
         this.texesIndex = 2;
-
         this.coins = new Statistic((float)coins, 0f, () => { UIManager.Instance.UpdateCounters(); }, "Coin");
         this.coins.AddBonus(-100, new Bonus("Base income", 100f, Bonus.bonusType.Income));
         this.coins.AddBonus(-200, new Bonus("Population", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.2f));
@@ -41,9 +40,8 @@ public class PlayerStats
         this.movementPoints.AddBonus(-100,new Bonus("Base Value",30,Bonus.bonusType.IncreaseLimit));
         this.movementPoints.AddBonus(-200, new Bonus("Provinces", (float multiplier) => { return GetMovementPoints(); }, (float multiplier) => { return ""; })) ;
         this.buildingsPermit = new bool[GameAssets.Instance.buildingsStats.Length];
-    }
-
-    
+        this.research = new bool[4,GameAssets.Instance.research.GetLength(0)];
+    }   
     public float GetNumberOfProvinces()
     {
         int number = 0;
@@ -99,6 +97,16 @@ public class PlayerStats
     public void ChangeDevelopmentMultiplier(float developmentMultiplier)
     {
         developmentPoints.bonuses[-200].multiplier = developmentMultiplier;
+    }
+    public void ChangePopulationMultiplier(float populationMultiplier)
+    {
+        for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
+        {
+            if (GameManager.Instance.provinces[i].provinceOwnerIndex == 0)
+            {
+                GameManager.Instance.provinces[i].population.bonuses[-100].multiplier = populationMultiplier;
+            }
+        }
     }
     public bool CanBuild(int index)
     {

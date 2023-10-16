@@ -47,7 +47,8 @@ public class ProvinceStats
     }
     public void CopyData(ProvinceStats provinceStats)
     {
-        population = new Statistic(Random.Range(100, 120), 0.5f,null, "Population");
+        population = new Statistic(Random.Range(100, 120), "Population");
+
         lifePoints = new Statistic(10, "LifePoint");
         warriors = new Statistic(5, "Warrior");
         movementPoints = new Statistic(2,"MovementPoint");
@@ -66,7 +67,11 @@ public class ProvinceStats
         neighbors = provinceStats.neighbors;
         index = provinceStats.index;
 
-        if(!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)
+        GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.texesIndex,out float coins, out float people);
+        population.AddBonus(-100, new Bonus("Population", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return ""; },people));
+
+
+        if (!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)
         {
             this.units = new Dictionary<int, int>();
             if (Random.Range(0, 4) != 0)
@@ -94,9 +99,12 @@ public class ProvinceStats
     {
         if (index == 0)
         {
+            Debug.Log("xd");
             GameManager.Instance.humanPlayer.warriors.limit += warriors.value;
             GameManager.Instance.humanPlayer.movementPoints.limit += movementPoints.value;
-            
+            GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.texesIndex, out float coins, out float people);
+            population.bonuses[-100].multiplier = people;
+
             UIManager.Instance.UpdateCounters();
         }
         provinceOwnerIndex = index;

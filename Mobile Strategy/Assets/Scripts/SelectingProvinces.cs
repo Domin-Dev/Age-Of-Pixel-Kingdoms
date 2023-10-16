@@ -364,7 +364,6 @@ public class SelectingProvinces : MonoBehaviour
             if (barState == 1) price.text = "Price:  <color=#FF0000>" + unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price + " <sprite index=21>  " + unitsNumber + " <sprite index=1>  " + unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].movementPointsPrice + " <sprite index=23>";
             else if (barState == 0) price.text = "Price:  <color=#FF0000>" + unitsNumber + " <sprite index=23>";
         }
-
     }
     public void ResetUnits()
     {

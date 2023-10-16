@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
         if (isWin)
         {
             ProvinceStats provinceStats = provinces[enemyProvinceIndex];
-            provinceStats.provinceOwnerIndex = 0;
+            provinceStats.SetNewOwner(0);
             provinceStats.units = new Dictionary<int, int>();
             provinceStats.unitsCounter = 0;
         }

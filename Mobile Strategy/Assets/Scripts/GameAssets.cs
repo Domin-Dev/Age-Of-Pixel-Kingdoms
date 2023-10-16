@@ -22,6 +22,7 @@ public class GameAssets : MonoBehaviour
     
     public Sprite brownTexture;
     public Sprite blueTexture;
+    public Sprite blackTexture;
 
     [Space(20f, order = 0)]
 

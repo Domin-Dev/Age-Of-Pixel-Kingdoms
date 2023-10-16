@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -334,6 +333,12 @@ public class UIManager : MonoBehaviour
             LoadBuildings(int.Parse(selectingProvinces.selectedProvince.name));
         }
 
+        if(name == "Development")
+        {
+            UpdateResearch();
+        }
+
+
         if (transform != null)
         { 
             transform.gameObject.SetActive(true);
@@ -526,20 +531,21 @@ public class UIManager : MonoBehaviour
     {
         int index = GameManager.Instance.humanPlayer.texesIndex;
         GameManager.Instance.GetValuesByTaxesIndex(index, out float coins, out float people);
-        GameManager.Instance.humanPlayer.ChangeCoinsMultiplier(coins);   
-        managementWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Taxes: ( " + GetColorString(coins)+ Icons.GetIcon("Coin") + " " + GetColorString(people) + Icons.GetIcon("Population")+ " ) x " + GameManager.Instance.humanPlayer.GetPopulation() + Icons.GetIcon("Population");
+        GameManager.Instance.humanPlayer.ChangeCoinsMultiplier(coins);
+        GameManager.Instance.humanPlayer.ChangePopulationMultiplier(people);
+        int population = (int)GameManager.Instance.humanPlayer.GetPopulation();
+        managementWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Taxes: ( "+ GetColorString(population * coins) + Icons.GetIcon("Coin") + "  " + GetColorString(people * population) + Icons.GetIcon("Population") + " )" + Icons.GetIcon("Turn");
         UpdateCounters();
     }
     private void UpdateResearchText()
     {
         int index = GameManager.Instance.humanPlayer.researchIndex;
         GameManager.Instance.GetValuesByResearchIndex(index, out float coins,out float development);
-        GameManager.Instance.humanPlayer.ChangeDevelopmentMultiplier(development);   
-        managementWindow.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research funding: ( " + GetColorString(coins)+ Icons.GetIcon("Coin") + " " + GetColorString(development) + Icons.GetIcon("DevelopmentPoint") + " ) x " + GameManager.Instance.humanPlayer.GetPopulation() + Icons.GetIcon("Population");
+        GameManager.Instance.humanPlayer.ChangeDevelopmentMultiplier(development);
+        int population = (int)GameManager.Instance.humanPlayer.GetPopulation();
+        managementWindow.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research funding: ( " + GetColorString(population * coins) + Icons.GetIcon("Coin") + "  " + GetColorString(development * population) + Icons.GetIcon("DevelopmentPoint") +" )" + Icons.GetIcon("Turn");
         UpdateCounters();
     }
-
-
     private string GetColorString(float value)
     {
         if(value >= 0)
@@ -551,7 +557,6 @@ public class UIManager : MonoBehaviour
             return "<color=red>" + value + "</color>";
         }
     }
-
     private void LoadResearch()
     {
         int length = gameAssets.research.GetLength(1);
@@ -564,23 +569,89 @@ public class UIManager : MonoBehaviour
                 int index = i * 100 + j;
                 obj.GetComponent<Button>().onClick.AddListener(() => { OpenResearch(index); });
                 obj.transform.GetChild(0).GetComponent<Image>().sprite = research.image;
-                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name;
+                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name + " " + index.ToString();
                 obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
                 obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = research.description;
             }
         }
+        UpdateResearch();
     }
+    private void UpdateResearch()
+    {
+        bool[,] list = GameManager.Instance.humanPlayer.research;
+        int length = gameAssets.research.GetLength(1);
+        for (int i = 0; i < 4; i++)
+        {
+            bool isFirst = false; 
+            for (int j = 0; j < length; j++)
+            {
 
+                if (list[i,j] == true)
+                {
+                    groups.GetChild(i).GetChild(j + 1).GetComponent<Image>().sprite = gameAssets.blueTexture;
+                }
+                else
+                {
+                    if(isFirst == false)
+                    {
+                        isFirst = true;
+                        groups.GetChild(i).GetChild(j + 1).GetComponent<Image>().sprite = gameAssets.brownTexture;
+                    }
+                    else
+                    {
+                        groups.GetChild(i).GetChild(j + 1).GetComponent<Image>().sprite = gameAssets.blackTexture;
+                    }
+                }
+
+            }
+        }
+    }
     private void OpenResearch(int index)
     {
-        OpenUIWindow("Research",0);
+        if (CanBuyResearch(index))
+        {
+            OpenUIWindow("Research", 0);
+            Research research = gameAssets.research[index / 100, index % 100];
+            researchWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name;
+            researchWindow.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.description;
+            researchWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research\n" + research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
+            researchWindow.GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
+            {
+                BuyResearch(index);
+            });
+        }
+    }
 
-        Research research = gameAssets.research[index/100,index%100];
-        researchWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name;
-        researchWindow.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.description;
-        researchWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research\n" + research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
-        
-        researchWindow.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { BonusManager.AddPlayerBonus(GameManager.Instance.humanPlayer, index);Debug.Log("hihh"+ index); });
+    private bool CanBuyResearch(int index)
+    {
+        if(index % 100 == 0)
+        {
+            return !GameManager.Instance.humanPlayer.research[index / 100, index % 100];
+        }
+        else
+        {
+            return !GameManager.Instance.humanPlayer.research[index / 100, index % 100] && GameManager.Instance.humanPlayer.research[index / 100, index % 100 -1]; ;
+        }
+    }
+
+    private void BuyResearch(int index)
+    {
+        Research research = gameAssets.research[index / 100, index % 100];
+
+        if (GameManager.Instance.humanPlayer.developmentPoints.CanAfford(research.price))
+        {
+            if (CanBuyResearch(index))
+            {
+                GameManager.Instance.humanPlayer.research[index / 100, index % 100] = true;
+                GameManager.Instance.humanPlayer.developmentPoints.Subtract(research.price);
+                BonusManager.AddPlayerBonus(GameManager.Instance.humanPlayer, index);
+                CloseUIWindow("Research");
+            }
+        }
+        else
+        {
+            Alert.Instance.OpenAlert("No Development Points");
+        }
     }
 
 }
