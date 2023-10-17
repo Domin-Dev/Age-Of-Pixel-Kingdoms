@@ -230,23 +230,23 @@ public class GameManager : MonoBehaviour
         {
             case 0:  
                 coinsIncome = -0.05f;
-                peopleIncome = 1f;
+                peopleIncome = 0.02f;
                 break; 
             case 1:  
                 coinsIncome = 0.00f;
-                peopleIncome = 0.75f;
+                peopleIncome = 0.015f;
                 break; 
             case 2:  
                 coinsIncome = 0.05f;
-                peopleIncome = 0.5f;
+                peopleIncome = 0.01f;
                 break;
             case 3:  
                 coinsIncome = 0.1f;
-                peopleIncome = 0;
+                peopleIncome = 0.00f;
                 break;           
             case 4:  
                 coinsIncome = 0.15f;
-                peopleIncome = -0.25f;
+                peopleIncome = -0.01f;
                 break; 
         }
     }
@@ -257,23 +257,23 @@ public class GameManager : MonoBehaviour
         switch (index)
         {
             case 0:  
-                coinsIncome = -0.05f;
-                developmentIncome = 1f;
+                coinsIncome = 0f;
+                developmentIncome = 0f;
                 break; 
             case 1:  
-                coinsIncome = 0.00f;
+                coinsIncome = -0.0005f;
                 developmentIncome = 0.75f;
                 break; 
             case 2:  
-                coinsIncome = 0.05f;
+                coinsIncome = -0.001f;
                 developmentIncome = 0.5f;
                 break;
             case 3:  
-                coinsIncome = 0.1f;
+                coinsIncome = -0.015f;
                 developmentIncome = 0;
                 break;           
             case 4:  
-                coinsIncome = 0.15f;
+                coinsIncome = -0.002f;
                 developmentIncome = -0.25f;
                 break; 
         }

@@ -68,7 +68,9 @@ public class ProvinceStats
         index = provinceStats.index;
 
         GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.texesIndex,out float coins, out float people);
-        population.AddBonus(-100, new Bonus("Population", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return ""; },people));
+        population.AddBonus(-100, new Bonus("Taxes", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return  ((int)population.value).ToString() + Icons.GetIcon("Population") + " x " + multiplier; },people));
+        population.AddBonus(-200, new Bonus("Base income", (float multiplier) => { return 0.1f; }, (float multiplier) => { return ""; }, 0f));
+
 
 
         if (!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -365,6 +366,9 @@ public class UIManager : MonoBehaviour
             textMeshProUGUI.color = Color.grey;
         }
         transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
+        Button button = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => {OpenStatsDetails(provinceStats.population);});
 
         if (provinceStats.buildingIndex == -1)
         {
@@ -615,13 +619,13 @@ public class UIManager : MonoBehaviour
             researchWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name;
             researchWindow.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.description;
             researchWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research\n" + research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
+            researchWindow.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
             researchWindow.GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
             {
                 BuyResearch(index);
             });
         }
     }
-
     private bool CanBuyResearch(int index)
     {
         if(index % 100 == 0)
@@ -633,7 +637,6 @@ public class UIManager : MonoBehaviour
             return !GameManager.Instance.humanPlayer.research[index / 100, index % 100] && GameManager.Instance.humanPlayer.research[index / 100, index % 100 -1]; ;
         }
     }
-
     private void BuyResearch(int index)
     {
         Research research = gameAssets.research[index / 100, index % 100];
