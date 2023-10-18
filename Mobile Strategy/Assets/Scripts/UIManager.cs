@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Unity.VisualScripting;
+using System.Net.NetworkInformation;
 
 public class UIManager : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI turnConter;
     [SerializeField] private Transform details;
 
+    [SerializeField] private TextMeshProUGUI debugText;
 
     [SerializeField] private Transform topBar;  
     [SerializeField] private Transform bottomBar;  
@@ -80,8 +82,8 @@ public class UIManager : MonoBehaviour
 
         bottomBar.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Development", 0); });
         bottomBar.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Management", 0); OpenManagement(); });
-        managementWindow.GetChild(2).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.texesIndex = (int)value; UpdateTaxesText(); });
-        managementWindow.GetChild(3).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.researchIndex = (int)value; UpdateResearchText(); });
+        managementWindow.GetChild(2).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.stats.texesIndex = (int)value; UpdateTaxesText(); });
+        managementWindow.GetChild(3).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.stats.researchIndex = (int)value; UpdateResearchText(); });
 
 
         details.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Details");});
@@ -89,17 +91,17 @@ public class UIManager : MonoBehaviour
         ManagerUI(false);
 
         turnConter.text = "Turn:0";
-        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); });
+        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter,debugText); });
 
         coinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         warriorsCounter = topBar.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         developmentPointsCounter = topBar.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         movementPointsCounter = topBar.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        topBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.coins); });
-        topBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.developmentPoints); });
-        topBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.warriors); });
-        topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.movementPoints); });
+        topBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.coins); });
+        topBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.developmentPoints); });
+        topBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.warriors); });
+        topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.movementPoints); });
 
         UpdateCounters();
         LoadResearch();
@@ -140,7 +142,7 @@ public class UIManager : MonoBehaviour
     }
     public void LoadBuildings(int provinceIndex)
     {
-        PlayerStats player = GameManager.Instance.humanPlayer;
+        PlayerStats player = GameManager.Instance.humanPlayer.stats;
         if (provinceIndex == -1)
         {
             int index = 0;
@@ -276,6 +278,7 @@ public class UIManager : MonoBehaviour
                     if (isMove)
                     {
                         int provinceNumber = GetNumberProvince(parentCounters);
+                        transform.GetComponent<Button>().onClick.RemoveAllListeners();
                         transform.GetComponent<Button>().onClick.AddListener(() =>
                         {
                             selectingProvinces.SelectUnitToMove(unitIndex, provinceNumber);
@@ -358,7 +361,7 @@ public class UIManager : MonoBehaviour
         if (provinceStats.provinceOwnerIndex != -1)
         {
             textMeshProUGUI.text = "Player " + provinceStats.provinceOwnerIndex.ToString() + "  <color=red>" + provinceStats.lifePoints.ToString() + "</color> <sprite index=16>";
-            textMeshProUGUI.color = Color.red;
+            textMeshProUGUI.color = GameManager.Instance.GetPlayerColor(provinceStats.provinceOwnerIndex);
         }
         else
         {
@@ -502,10 +505,10 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateCounters()
     {
-        coinCounter.text = GameManager.Instance.humanPlayer.coins.ToString();
-        warriorsCounter.text = GameManager.Instance.humanPlayer.warriors.ToString();
-        developmentPointsCounter.text = GameManager.Instance.humanPlayer.developmentPoints.ToString();
-        movementPointsCounter.text = GameManager.Instance.humanPlayer.movementPoints.ToString();
+        coinCounter.text = GameManager.Instance.humanPlayer.stats.coins.ToString();
+        warriorsCounter.text = GameManager.Instance.humanPlayer.stats.warriors.ToString();
+        developmentPointsCounter.text = GameManager.Instance.humanPlayer.stats.developmentPoints.ToString();
+        movementPointsCounter.text = GameManager.Instance.humanPlayer.stats.movementPoints.ToString();
     }
 
     private void OpenStatsDetails(Statistic statistic)
@@ -519,11 +522,11 @@ public class UIManager : MonoBehaviour
     {
         string details = "";
         details += "Turn:" + GameManager.Instance.turn + Icons.GetIcon("Turn")+ "\n";
-        details += "Population: " + GameManager.Instance.humanPlayer.GetPopulation() + Icons.GetIcon("Population") + "\n";
+        details += "Population: " + GameManager.Instance.humanPlayer.stats.GetPopulation() + Icons.GetIcon("Population") + "\n";
 
-        float value = GameManager.Instance.humanPlayer.GetNumberOfProvinces();
+        float value = GameManager.Instance.humanPlayer.stats.GetNumberOfProvinces();
         details += "Provinces: " + value + " ( "+ Math.Round(value / (float)GameManager.Instance.numberOfProvinces,3) * 100 +"% )" + "\n";
-        int index = GameManager.Instance.humanPlayer.texesIndex;
+        int index = GameManager.Instance.humanPlayer.stats.texesIndex;
         managementWindow.GetChild(2).GetComponent<Slider>().value = index;
         UpdateTaxesText();
         UpdateResearchText();
@@ -533,20 +536,20 @@ public class UIManager : MonoBehaviour
 
     private void UpdateTaxesText()
     {
-        int index = GameManager.Instance.humanPlayer.texesIndex;
+        int index = GameManager.Instance.humanPlayer.stats.texesIndex;
         GameManager.Instance.GetValuesByTaxesIndex(index, out float coins, out float people);
-        GameManager.Instance.humanPlayer.ChangeCoinsMultiplier(coins);
-        GameManager.Instance.humanPlayer.ChangePopulationMultiplier(people);
-        int population = (int)GameManager.Instance.humanPlayer.GetPopulation();
+        GameManager.Instance.humanPlayer.stats.ChangeCoinsMultiplier(coins);
+        GameManager.Instance.humanPlayer.stats.ChangePopulationMultiplier(people);
+        int population = (int)GameManager.Instance.humanPlayer.stats.GetPopulation();
         managementWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Taxes: ( "+ GetColorString(population * coins) + Icons.GetIcon("Coin") + "  " + GetColorString(people * population) + Icons.GetIcon("Population") + " )" + Icons.GetIcon("Turn");
         UpdateCounters();
     }
     private void UpdateResearchText()
     {
-        int index = GameManager.Instance.humanPlayer.researchIndex;
+        int index = GameManager.Instance.humanPlayer.stats.researchIndex;
         GameManager.Instance.GetValuesByResearchIndex(index, out float coins,out float development);
-        GameManager.Instance.humanPlayer.ChangeDevelopmentMultiplier(development);
-        int population = (int)GameManager.Instance.humanPlayer.GetPopulation();
+        GameManager.Instance.humanPlayer.stats.ChangeDevelopmentMultiplier(development);
+        int population = (int)GameManager.Instance.humanPlayer.stats.GetPopulation();
         managementWindow.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research funding: ( " + GetColorString(population * coins) + Icons.GetIcon("Coin") + "  " + GetColorString(development * population) + Icons.GetIcon("DevelopmentPoint") +" )" + Icons.GetIcon("Turn");
         UpdateCounters();
     }
@@ -560,7 +563,7 @@ public class UIManager : MonoBehaviour
         {
             return "<color=red>" + value + "</color>";
         }
-    }
+    }       
     private void LoadResearch()
     {
         int length = gameAssets.research.GetLength(1);
@@ -582,7 +585,7 @@ public class UIManager : MonoBehaviour
     }
     private void UpdateResearch()
     {
-        bool[,] list = GameManager.Instance.humanPlayer.research;
+        bool[,] list = GameManager.Instance.humanPlayer.stats.research;
         int length = gameAssets.research.GetLength(1);
         for (int i = 0; i < 4; i++)
         {
@@ -630,24 +633,24 @@ public class UIManager : MonoBehaviour
     {
         if(index % 100 == 0)
         {
-            return !GameManager.Instance.humanPlayer.research[index / 100, index % 100];
+            return !GameManager.Instance.humanPlayer.stats.research[index / 100, index % 100];
         }
         else
         {
-            return !GameManager.Instance.humanPlayer.research[index / 100, index % 100] && GameManager.Instance.humanPlayer.research[index / 100, index % 100 -1]; ;
+            return !GameManager.Instance.humanPlayer.stats.research[index / 100, index % 100] && GameManager.Instance.humanPlayer.stats.research[index / 100, index % 100 -1]; ;
         }
     }
     private void BuyResearch(int index)
     {
         Research research = gameAssets.research[index / 100, index % 100];
 
-        if (GameManager.Instance.humanPlayer.developmentPoints.CanAfford(research.price))
+        if (GameManager.Instance.humanPlayer.stats.developmentPoints.CanAfford(research.price))
         {
             if (CanBuyResearch(index))
             {
-                GameManager.Instance.humanPlayer.research[index / 100, index % 100] = true;
-                GameManager.Instance.humanPlayer.developmentPoints.Subtract(research.price);
-                BonusManager.AddPlayerBonus(GameManager.Instance.humanPlayer, index);
+                GameManager.Instance.humanPlayer.stats.research[index / 100, index % 100] = true;
+                GameManager.Instance.humanPlayer.stats.developmentPoints.Subtract(research.price);            
+                BonusManager.AddPlayerBonus(GameManager.Instance.humanPlayer.stats, index);
                 CloseUIWindow("Research");
             }
         }

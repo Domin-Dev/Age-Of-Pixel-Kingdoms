@@ -61,7 +61,6 @@ public class CameraController : MonoBehaviour
                 transform.position = new Vector3(Mathf.Clamp(position.x, -0.5f, Limit.x), Mathf.Clamp(position.y, -0.5f, Limit.y), -10);
             }
 
-
             if (Input.touchCount >= 2)
             {
                 float Value = Vector2.Distance(Input.GetTouch(0).position, Input.GetTouch(1).position);

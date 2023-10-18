@@ -67,7 +67,7 @@ public class ProvinceStats
         neighbors = provinceStats.neighbors;
         index = provinceStats.index;
 
-        GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.texesIndex,out float coins, out float people);
+        GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex,out float coins, out float people);
         population.AddBonus(-100, new Bonus("Taxes", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return  ((int)population.value).ToString() + Icons.GetIcon("Population") + " x " + multiplier; },people));
         population.AddBonus(-200, new Bonus("Base income", (float multiplier) => { return 0.1f; }, (float multiplier) => { return ""; }, 0f));
 
@@ -76,7 +76,7 @@ public class ProvinceStats
         if (!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)
         {
             this.units = new Dictionary<int, int>();
-            if (Random.Range(0, 4) != 0)
+            if (Random.Range(0, 2) != 0)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -101,15 +101,14 @@ public class ProvinceStats
     {
         if (index == 0)
         {
-            Debug.Log("xd");
-            GameManager.Instance.humanPlayer.warriors.limit += warriors.value;
-            GameManager.Instance.humanPlayer.movementPoints.limit += movementPoints.value;
-            GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.texesIndex, out float coins, out float people);
+            GameManager.Instance.humanPlayer.stats.warriors.limit += warriors.value;
+            GameManager.Instance.humanPlayer.stats.movementPoints.limit += movementPoints.value;
+            GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex, out float coins, out float people);
             population.bonuses[-100].multiplier = people;
 
             UIManager.Instance.UpdateCounters();
         }
-        provinceOwnerIndex = index;
+        provinceOwnerIndex = index;         
     }
     public void NextTurn()
     {

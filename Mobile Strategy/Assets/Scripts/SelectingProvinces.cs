@@ -206,17 +206,17 @@ public class SelectingProvinces : MonoBehaviour
     public void Build(int index)
     {
         BuildingStats buildingStats = GameAssets.Instance.buildingsStats[index];
-        if (selectedProvince != null && GameManager.Instance.humanPlayer.coins.CanAfford(buildingStats.price))
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.stats.coins.CanAfford(buildingStats.price))
         {
-            if (GameManager.Instance.humanPlayer.movementPoints.CanAfford(buildingStats.movementPointsPrice))
+            if (GameManager.Instance.humanPlayer.stats.movementPoints.CanAfford(buildingStats.movementPointsPrice))
             {
                 ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
                 if (provinceStats.buildingIndex == -1)
                 {
                     BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
 
-                    GameManager.Instance.humanPlayer.movementPoints.Subtract(buildingStats.movementPointsPrice);
-                    GameManager.Instance.humanPlayer.coins.Subtract(buildingStats.price);
+                    GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(buildingStats.movementPointsPrice);
+                    GameManager.Instance.humanPlayer.stats.coins.Subtract(buildingStats.price);
 
                     Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
                     transform.position = selectedProvince.position + new Vector3(0, 0.08f, 0);
@@ -419,7 +419,7 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void SelectUnitToMove(int index, int provinceNumber)
     {
-        if (selectedProvince != null && GameManager.Instance.humanPlayer.movementPoints.value > 0)
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.stats.movementPoints.value > 0)
         {
             if (selectedUnitIndex >= 0 && selectedProvinceNumber >= 0)
             {
@@ -428,7 +428,7 @@ public class SelectingProvinces : MonoBehaviour
             }
 
             barState = 0;
-            maxUnitsNumber = (int)GameManager.Instance.humanPlayer.movementPoints.value;
+            maxUnitsNumber = (int)GameManager.Instance.humanPlayer.stats.movementPoints.value;
             slider.maxValue = maxUnitsNumber;
             selectedUnitIndex = index;
             selectedProvinceNumber = provinceNumber;
@@ -457,14 +457,14 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void SelectUnitToRecruit(int index)
     {
-        if (selectedProvince != null && GameManager.Instance.humanPlayer.coins.CanAfford(GameAssets.Instance.unitStats[index].price))
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.stats.coins.CanAfford(GameAssets.Instance.unitStats[index].price))
         {
             int population = (int)GetProvinceStats(selectedProvince).population.value;
             if(population > 0)
             {
-                if (GameManager.Instance.humanPlayer.warriors.CheckLimit(1))
+                if (GameManager.Instance.humanPlayer.stats.warriors.CheckLimit(1))
                 {
-                    if (GameManager.Instance.humanPlayer.movementPoints.value >= GameAssets.Instance.unitStats[index].movementPointsPrice)
+                    if (GameManager.Instance.humanPlayer.stats.movementPoints.value >= GameAssets.Instance.unitStats[index].movementPointsPrice)
                     {
                         barState = 1;
                         if (selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
@@ -474,10 +474,10 @@ public class SelectingProvinces : MonoBehaviour
 
 
 
-                        int maxToRecruit = (int)GameManager.Instance.humanPlayer.coins.value / GameAssets.Instance.unitStats[index].price;
+                        int maxToRecruit = (int)GameManager.Instance.humanPlayer.stats.coins.value / GameAssets.Instance.unitStats[index].price;
                         int value = math.min(maxToRecruit, population);
-                        value = math.min(value, (int)(GameManager.Instance.humanPlayer.movementPoints.value / GameAssets.Instance.unitStats[index].movementPointsPrice ));
-                        value = math.min(value, GameManager.Instance.humanPlayer.warriors.ToLimit());
+                        value = math.min(value, (int)(GameManager.Instance.humanPlayer.stats.movementPoints.value / GameAssets.Instance.unitStats[index].movementPointsPrice ));
+                        value = math.min(value, GameManager.Instance.humanPlayer.stats.warriors.ToLimit());
 
 
 
@@ -521,9 +521,9 @@ public class SelectingProvinces : MonoBehaviour
             provinceStats.unitsCounter += unitsNumber;
             provinceStats.population.Subtract(unitsNumber);
 
-            GameManager.Instance.humanPlayer.coins.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
-            GameManager.Instance.humanPlayer.movementPoints.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].movementPointsPrice);
-            GameManager.Instance.humanPlayer.warriors.Add(unitsNumber);
+            GameManager.Instance.humanPlayer.stats.coins.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
+            GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].movementPointsPrice);
+            GameManager.Instance.humanPlayer.stats.warriors.Add(unitsNumber);
 
 
             if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
@@ -556,7 +556,7 @@ public class SelectingProvinces : MonoBehaviour
             ProvinceStats provinceStats1 = GetProvinceStats(selectedProvince);
             ProvinceStats provinceStats2 = GetProvinceStats(selectedNeighbor);
 
-            GameManager.Instance.humanPlayer.movementPoints.Subtract(unitsNumber);
+            GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(unitsNumber);
 
             if (selectedProvinceNumber == 1)
             {
@@ -579,6 +579,8 @@ public class SelectingProvinces : MonoBehaviour
         from.units[selectedUnitIndex] -= unitsNumber;
         to.unitsCounter += unitsNumber;
 
+
+        Debug.Log("move");
         if (to.units != null)
         {
             if (to.units.ContainsKey(selectedUnitIndex))
@@ -592,10 +594,10 @@ public class SelectingProvinces : MonoBehaviour
             to.units.Add(selectedUnitIndex, unitsNumber);
         }
 
-        if(unitsNumber > 0 && to.provinceOwnerIndex == -1)
+        if(unitsNumber > 0 && from.provinceOwnerIndex != to.provinceOwnerIndex) //&& to.provinceOwnerIndex == -1)
         {
-            to.SetNewOwner(0);
-            ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), Color.red);
+            to.SetNewOwner(from.provinceOwnerIndex);
+            ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(),GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
         }
         UIManager.Instance.OpenUIWindow("ProvinceStats", to.index);
     } 
@@ -631,9 +633,9 @@ public class SelectingProvinces : MonoBehaviour
 
         if (provinceStatsFrom.units != null)
         {
-            if (GameManager.Instance.humanPlayer.movementPoints.CanAfford(provinceStatsFrom.unitsCounter))
+            if (GameManager.Instance.humanPlayer.stats.movementPoints.CanAfford(provinceStatsFrom.unitsCounter))
             {
-                GameManager.Instance.humanPlayer.movementPoints.Subtract(provinceStatsFrom.unitsCounter);
+                GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(provinceStatsFrom.unitsCounter);
                 for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                 {
                     selectedUnitIndex = i;
@@ -676,9 +678,9 @@ public class SelectingProvinces : MonoBehaviour
 
         if (provinceStatsFrom.units != null)
         {
-            if (GameManager.Instance.humanPlayer.movementPoints.CanAfford(provinceStatsFrom.unitsCounter/2))
+            if (GameManager.Instance.humanPlayer.stats.movementPoints.CanAfford(provinceStatsFrom.unitsCounter/2))
             {
-                GameManager.Instance.humanPlayer.movementPoints.Subtract(provinceStatsFrom.unitsCounter / 2);
+                GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(provinceStatsFrom.unitsCounter / 2);
                 for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                 {
                     selectedUnitIndex = i;
@@ -693,13 +695,11 @@ public class SelectingProvinces : MonoBehaviour
 
                         if (b > 0 && (numberFrom + numberTo) / 2 == 0 && units > units / 2 + b)
                         {
-                            Debug.Log(b);
                             unitsNumber = units / 2 + (b / 2);
                             b = 0;
                         }
                         else if (b > 1)
                         {
-                            Debug.Log(b);
                             unitsNumber = units / 2 + (b / 2);
                             b = 0;
                         }

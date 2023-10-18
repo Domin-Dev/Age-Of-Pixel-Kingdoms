@@ -40,7 +40,7 @@ MonoBehaviour:
     neighbors: 020000000400000009000000
   - index: 4
     isSea: 0
-    provinceOwnerIndex: -1
+    provinceOwnerIndex: 1
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0300000005000000
@@ -112,7 +112,7 @@ MonoBehaviour:
     neighbors: 080000000a0000001000000014000000
   - index: 16
     isSea: 0
-    provinceOwnerIndex: -1
+    provinceOwnerIndex: 2
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0a0000000e0000000f00000014000000
@@ -142,7 +142,7 @@ MonoBehaviour:
     neighbors: 080000000f000000100000001a000000
   - index: 21
     isSea: 0
-    provinceOwnerIndex: -1
+    provinceOwnerIndex: 3
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0c0000001100000013000000180000001b0000001c000000

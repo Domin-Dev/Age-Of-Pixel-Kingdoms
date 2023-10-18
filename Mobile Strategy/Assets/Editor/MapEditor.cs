@@ -398,6 +398,6 @@ public class MapEditor : EditorWindow
     private void SetOwner(int playerIndex,int provinceIndex)
     {
        Resources.Load<MapStats>("Maps/World").provinces[provinceIndex].SetNewOwner(playerIndex);
-       selectingProvinces.ChangeProvinceColor(mapParent.GetChild(provinceIndex).GetComponent<SpriteRenderer>(), Color.green);
+       selectingProvinces.ChangeProvinceColor(mapParent.GetChild(provinceIndex).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(provinceIndex));
     }
 }

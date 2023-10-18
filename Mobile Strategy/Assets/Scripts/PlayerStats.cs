@@ -20,17 +20,17 @@ public class PlayerStats
 
     public int texesIndex;
     public int researchIndex;
-    public PlayerStats(int coins)
+
+    private int index;
+    public PlayerStats(int coins, int index)
     {
+        this.index = index;
         this.texesIndex = 2;
         this.coins = new Statistic((float)coins, 0f, () => { UIManager.Instance.UpdateCounters(); }, "Coin");
         this.coins.AddBonus(-100, new Bonus("Base income", 100f, Bonus.bonusType.Income));
         this.coins.AddBonus(-200, new Bonus("Taxes", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.2f));
         this.coins.AddBonus(-300,new Bonus("Research funding", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, -0.02f));
         this.coins.SetDescription("Coins are used for \nunit recruitment and construction.");
-
-
-
 
         this.warriors = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); }, 0, "Warrior");
         this.warriors.AddBonus(-100, new Bonus("Base Value", 20, Bonus.bonusType.IncreaseLimit));
@@ -45,6 +45,10 @@ public class PlayerStats
         this.movementPoints.AddBonus(-200, new Bonus("Provinces", (float multiplier) => { return GetMovementPoints(); }, (float multiplier) => { return ""; })) ;
         this.buildingsPermit = new bool[GameAssets.Instance.buildingsStats.Length];
         this.research = new bool[4,GameAssets.Instance.research.GetLength(0)];
+
+        movementPoints.UpdateLimit();
+        warriors.UpdateLimit();
+        movementPoints.value = movementPoints.limit;
     }   
     public float GetNumberOfProvinces()
     {
@@ -63,7 +67,7 @@ public class PlayerStats
         int population = 0;
         for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
         {
-            if (GameManager.Instance.provinces[i].provinceOwnerIndex == 0)
+            if (GameManager.Instance.provinces[i].provinceOwnerIndex == index)
             {
                 population += (int)GameManager.Instance.provinces[i].population.value;
             }
@@ -75,7 +79,7 @@ public class PlayerStats
         int warriors = 0;
         for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
         {
-            if (GameManager.Instance.provinces[i].provinceOwnerIndex == 0)
+            if (GameManager.Instance.provinces[i].provinceOwnerIndex == index)
             {
                 warriors += (int)GameManager.Instance.provinces[i].warriors.value;
             }
@@ -87,7 +91,7 @@ public class PlayerStats
         int movementPoints = 0;
         for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
         {
-            if (GameManager.Instance.provinces[i].provinceOwnerIndex == 0)
+            if (GameManager.Instance.provinces[i].provinceOwnerIndex == index)
             {
                 movementPoints += (int)GameManager.Instance.provinces[i].movementPoints.value;
             }
@@ -106,7 +110,7 @@ public class PlayerStats
     {
         for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
         {
-            if (GameManager.Instance.provinces[i].provinceOwnerIndex == 0)
+            if (GameManager.Instance.provinces[i].provinceOwnerIndex == index)
             {
                 GameManager.Instance.provinces[i].population.bonuses[-100].multiplier = populationMultiplier;
             }
