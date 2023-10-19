@@ -12,6 +12,8 @@ public abstract class Icons
             case "Population": icon += "1"; break;
             case "DevelopmentPoint": icon += "22"; break;
             case "Warrior": icon += "0"; break;
+            case "Life": icon += "16"; break;
+
         }
         icon += ">";
         return icon;

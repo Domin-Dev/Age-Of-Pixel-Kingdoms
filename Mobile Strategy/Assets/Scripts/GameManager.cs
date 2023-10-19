@@ -44,7 +44,9 @@ public class GameManager : MonoBehaviour
 
 
             ProvinceStats[] array = Resources.Load<MapStats>("Maps/World").provinces;
-			provinces = new ProvinceStats[array.Length];
+            numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
+
+            provinces = new ProvinceStats[array.Length];
 			for (int i = 0; i < array.Length; i++)
 			{
 				provinces[i] = new ProvinceStats();
@@ -54,19 +56,7 @@ public class GameManager : MonoBehaviour
 				{
 					selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), GetPlayerColor(provinceStats.provinceOwnerIndex));
 				}
-				if (provinceStats.buildingIndex != -1)
-				{
-					BonusManager.SetBonus(provinceStats, provinceStats.buildingIndex);
-					Transform province = map.GetChild(provinceStats.index).transform;
-					Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
-					transform.position = province.position + new Vector3(0, 0.08f, 0);
-					transform.parent = buildings;
-					transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex].icon;
-					transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
-				}
 			}
-			numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
-
 		}
 		else
 		{
@@ -75,7 +65,21 @@ public class GameManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		DontDestroyOnLoad(this);
+		for (int i = 0; i < provinces.Length; i++)
+		{
+			ProvinceStats provinceStats = provinces[i];
+			if (provinceStats.buildingIndex != -1)
+			{
+				BonusManager.SetBonus(provinceStats, provinceStats.buildingIndex);
+				Transform province = map.GetChild(provinceStats.index).transform;
+				Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
+				transform.position = province.position + new Vector3(0, 0.08f, 0);
+				transform.parent = buildings;
+				transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex].icon;
+				transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+			}
+		}
+        DontDestroyOnLoad(this);
 		Time.timeScale = 1.0f;
 	}
 	private void LoadBots()
@@ -172,10 +176,10 @@ public class GameManager : MonoBehaviour
 			UpdateUnitCounter(i);
 		}
 	}
-	public void NextTurn(TextMeshProUGUI text, TextMeshProUGUI debug)
+	public void NextTurn(TextMeshProUGUI text)
 	{
 		turn++;
-		BotsNextTurn(debug);
+		BotsNextTurn();
 
 		humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
 
@@ -218,20 +222,29 @@ public class GameManager : MonoBehaviour
 		UIManager.Instance.OpenTurnDetails(stats);
 	}
 
-	private void BotsNextTurn(TextMeshProUGUI text)
+	private void BotsNextTurn()
 	{
-		string debugtext = "";
 		foreach (Player bot in botsList)
 		{
 			PlayerStats playerStats = bot.stats;
-
             playerStats.movementPoints.Set(playerStats.movementPoints.limit);
             playerStats.developmentPoints.NextTurn();
 			playerStats.coins.NextTurn();
-
-			debugtext += "<color=#"+ GetPlayerColor(bot.index).ToHexString().Remove(6)+ ">Player " + bot.index  +" : <color=white>" + Icons.GetIcon("Coin")+ playerStats.coins.ToString() +"   " + Icons.GetIcon("DevelopmentPoint") + playerStats.developmentPoints.ToString() + "\n";
 		}
-		text.text = debugtext;	
+		UpdateBotDebuger();
+	}
+
+	private void UpdateBotDebuger()
+	{
+        string debugtext = "";
+        foreach (Player bot in botsList)
+        {
+            PlayerStats playerStats = bot.stats;
+
+            debugtext += "<color=#" + GetPlayerColor(bot.index).ToHexString().Remove(6) + ">Player " + bot.index + " : <color=white>" + Icons.GetIcon("Coin") + playerStats.coins.ToString() + "   " + Icons.GetIcon("DevelopmentPoint") + playerStats.developmentPoints.ToString() +
+            Icons.GetIcon("Warrior") + playerStats.warriors.ToString() + "\n";
+        }
+        UIManager.Instance.debugText.text = debugtext;
 	}
 
 	/// 0,1,2,3,4

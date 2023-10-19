@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6393958de954fa44191e1f7d67655868
+guid: 35dfc07a8dd1ff04498ba9f39361e9df
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -175,7 +175,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: armed_peasant_attack_0
+      name: armed_peasant_move 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4471f2a605d0e0849895a620df8e0ffa
+      internalID: -187852348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armed_peasant_move 1_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 80
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5adedacc77b39ae4987057cfa12684e4
+      internalID: 1660508593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armed_peasant_move 1_2
       rect:
         serializedVersion: 2
         x: 0
@@ -189,14 +231,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16f13d79e2a7e7148aa320872a734a03
-      internalID: 17889569
+      spriteID: 30a41389477b6fe4d8bbae2acbeb13c6
+      internalID: 893677006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: armed_peasant_attack_1
+      name: armed_peasant_move 1_3
       rect:
         serializedVersion: 2
         x: 40
@@ -210,14 +252,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 450db32ae9b36204da16f5850d7ee511
-      internalID: -2113859101
+      spriteID: 4de05594af21e2f4787b1b686eddd16c
+      internalID: 2076882251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: armed_peasant_attack_2
+      name: armed_peasant_move 1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -231,8 +273,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3215441c0c139d84099e064bc7f10b73
-      internalID: -546870349
+      spriteID: 3ac3585f8149f0245815af83a1c7f2f9
+      internalID: 858518852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armed_peasant_move 1_5
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e51208ae70ae649aaad4a5f72e615f
+      internalID: -591796254
       vertices: []
       indices: 
       edges: []
@@ -248,9 +311,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      armed_peasant_attack_0: 17889569
-      armed_peasant_attack_1: -2113859101
-      armed_peasant_attack_2: -546870349
+      armed_peasant_move 1_0: -187852348
+      armed_peasant_move 1_1: 1660508593
+      armed_peasant_move 1_2: 893677006
+      armed_peasant_move 1_3: 2076882251
+      armed_peasant_move 1_4: 858518852
+      armed_peasant_move 1_5: -591796254
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

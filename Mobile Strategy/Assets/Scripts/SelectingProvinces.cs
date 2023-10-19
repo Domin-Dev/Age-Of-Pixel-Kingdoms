@@ -429,7 +429,6 @@ public class SelectingProvinces : MonoBehaviour
 
             barState = 0;
             maxUnitsNumber = (int)GameManager.Instance.humanPlayer.stats.movementPoints.value;
-            slider.maxValue = maxUnitsNumber;
             selectedUnitIndex = index;
             selectedProvinceNumber = provinceNumber;
 
@@ -437,7 +436,7 @@ public class SelectingProvinces : MonoBehaviour
             if(transform != null)  transform.GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
 
 
-            if (GetProvinceStats(provinceNumber).units.ContainsKey(index))
+            if (GetProvinceStats(provinceNumber).units.ContainsKey(index) && GetProvinceStats(provinceNumber).units[index] < maxUnitsNumber)
                 maxUnitsNumber = GetProvinceStats(provinceNumber).units[index];
 
             slider.maxValue = maxUnitsNumber;
@@ -445,10 +444,8 @@ public class SelectingProvinces : MonoBehaviour
             UpdateRecruitUI();
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             selectedUnitIndex = index;
-
             SetSelectionNumberUnits(true);
             UIManager.Instance.OpenUIWindow("SelectionNumberUnits", 0);
-
         }
         else
         {

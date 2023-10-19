@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6393958de954fa44191e1f7d67655868
+guid: ce84351d327c9b34c9e0d1e1b3035a45
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -175,7 +175,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: armed_peasant_attack_0
+      name: New Piskel (3) 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1c4e6c4b08fa5c4a8f46706cb969c1a
+      internalID: -1820288900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Piskel (3) 1_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 80
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2181b7f383732d4787a94b643438e62
+      internalID: 1119319861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Piskel (3) 1_2
       rect:
         serializedVersion: 2
         x: 0
@@ -189,14 +231,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16f13d79e2a7e7148aa320872a734a03
-      internalID: 17889569
+      spriteID: f73e1a71cd0db2d479c36a88c92f4f38
+      internalID: 1663328376
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: armed_peasant_attack_1
+      name: New Piskel (3) 1_3
       rect:
         serializedVersion: 2
         x: 40
@@ -210,14 +252,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 450db32ae9b36204da16f5850d7ee511
-      internalID: -2113859101
+      spriteID: 79f892d65cf5c774786f468e5b001b9c
+      internalID: -2114303640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: armed_peasant_attack_2
+      name: New Piskel (3) 1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -231,8 +273,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3215441c0c139d84099e064bc7f10b73
-      internalID: -546870349
+      spriteID: 6acc2486eea78ee4180a3a4d727717e9
+      internalID: -1927112278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Piskel (3) 1_5
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ec98593c8b449b459f50ce24906f5c6
+      internalID: -2007227783
       vertices: []
       indices: 
       edges: []
@@ -248,9 +311,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      armed_peasant_attack_0: 17889569
-      armed_peasant_attack_1: -2113859101
-      armed_peasant_attack_2: -546870349
+      New Piskel (3) 1_0: -1820288900
+      New Piskel (3) 1_1: 1119319861
+      New Piskel (3) 1_2: 1663328376
+      New Piskel (3) 1_3: -2114303640
+      New Piskel (3) 1_4: -1927112278
+      New Piskel (3) 1_5: -2007227783
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

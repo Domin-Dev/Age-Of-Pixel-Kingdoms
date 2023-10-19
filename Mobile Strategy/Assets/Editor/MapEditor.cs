@@ -393,7 +393,6 @@ public class MapEditor : EditorWindow
     {
       ProvinceStats[] provinces = Resources.Load<MapStats>("Maps/World").provinces;
       provinces[provinceIndex].buildingIndex = buildingIndex;
-      Debug.Log(provinces[provinceIndex].lifePoints);
     }
     private void SetOwner(int playerIndex,int provinceIndex)
     {

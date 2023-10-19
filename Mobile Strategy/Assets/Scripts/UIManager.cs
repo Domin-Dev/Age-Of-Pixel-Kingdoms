@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI turnConter;
     [SerializeField] private Transform details;
 
-    [SerializeField] private TextMeshProUGUI debugText;
+    [SerializeField] public TextMeshProUGUI debugText;
 
     [SerializeField] private Transform topBar;  
     [SerializeField] private Transform bottomBar;  
@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
         ManagerUI(false);
 
         turnConter.text = "Turn:0";
-        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter,debugText); });
+        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); });
 
         coinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         warriorsCounter = topBar.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -384,7 +384,7 @@ public class UIManager : MonoBehaviour
             BuildingStats buildingStats = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex];
             transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Image>().sprite = buildingStats.icon;
             transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = buildingStats.name;
-            transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = buildingStats.description;
+            transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = StringToIcons(buildingStats.description);
         }
 
     //    transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.developmentPoints.CountIncome(),2).ToString() + "<sprite index=2/>";
@@ -510,14 +510,12 @@ public class UIManager : MonoBehaviour
         developmentPointsCounter.text = GameManager.Instance.humanPlayer.stats.developmentPoints.ToString();
         movementPointsCounter.text = GameManager.Instance.humanPlayer.stats.movementPoints.ToString();
     }
-
     private void OpenStatsDetails(Statistic statistic)
     {
         OpenUIWindow("Details",0);
         details.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Details";
         details.GetChild(1).GetComponent<TextMeshProUGUI>().text = statistic.GetDetails();
     }
-
     private void OpenManagement()
     {
         string details = "";
@@ -533,7 +531,6 @@ public class UIManager : MonoBehaviour
 
         managementWindow.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = details; 
     }
-
     private void UpdateTaxesText()
     {
         int index = GameManager.Instance.humanPlayer.stats.texesIndex;
@@ -660,4 +657,55 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private string StringToIcons(string str)
+    {
+        bool isIcon = false;
+        bool isColor = false;
+        string icon = "";
+        string stringToReturn = "";
+        for (int i = 0; i < str.Length; i++)
+        {
+            char c = str[i];
+
+            if (c == '#')
+            {
+                stringToReturn += "\n";
+                continue;
+            }
+            if(c == '+')
+            {
+                stringToReturn += "<color=green>+";
+                isColor = true;
+                continue;
+            }
+            if(c == '-')
+            {
+                stringToReturn += "<color=red>-";
+                isColor = true;
+                continue;
+            }
+            if (c == ' ' && isColor) { 
+
+                stringToReturn += "</color>";
+                isColor = false;
+                continue;
+            }
+            if (isIcon)
+            {
+                if (c == ']')
+                {
+                    isIcon = false;
+                    stringToReturn += Icons.GetIcon(icon);
+                    icon = "";
+                }
+                else icon += c;
+            }
+            else
+            {
+                if (c == '[') isIcon = true;
+                else stringToReturn += c;
+            }
+        }
+        return stringToReturn;
+    }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6393958de954fa44191e1f7d67655868
+guid: 66433c7ed5e539f4b8b2ddb4202dd3ac
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -175,7 +175,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: armed_peasant_attack_0
+      name: armed_peasant_move (1)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -189,14 +189,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16f13d79e2a7e7148aa320872a734a03
-      internalID: 17889569
+      spriteID: d010587baae0e174b9122b20c00026d2
+      internalID: -1381210496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: armed_peasant_attack_1
+      name: armed_peasant_move (1)_1
       rect:
         serializedVersion: 2
         x: 40
@@ -210,14 +210,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 450db32ae9b36204da16f5850d7ee511
-      internalID: -2113859101
+      spriteID: 6bf760470fd05b44990123f2ae78cffa
+      internalID: -1177890231
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: armed_peasant_attack_2
+      name: armed_peasant_move (1)_2
       rect:
         serializedVersion: 2
         x: 0
@@ -231,8 +231,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3215441c0c139d84099e064bc7f10b73
-      internalID: -546870349
+      spriteID: 65417f226243d0d4da8d37e40639c009
+      internalID: -96095023
       vertices: []
       indices: 
       edges: []
@@ -248,9 +248,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      armed_peasant_attack_0: 17889569
-      armed_peasant_attack_1: -2113859101
-      armed_peasant_attack_2: -546870349
+      armed_peasant_move (1)_0: -1381210496
+      armed_peasant_move (1)_1: -1177890231
+      armed_peasant_move (1)_2: -96095023
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
