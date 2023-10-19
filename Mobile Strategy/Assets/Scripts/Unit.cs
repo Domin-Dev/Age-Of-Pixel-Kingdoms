@@ -110,7 +110,7 @@ public class Unit : MonoBehaviour
             {
                 IsActive =false;
                 timeToChange = 0;
-                spriteRenderer.material = new Material(Shader.Find("Sprites/Default"));
+            //    spriteRenderer.material = new Material(Shader.Find("Sprites/Default"));
                 transform.localScale = new Vector3(1, 1, 1);
             }
         }
