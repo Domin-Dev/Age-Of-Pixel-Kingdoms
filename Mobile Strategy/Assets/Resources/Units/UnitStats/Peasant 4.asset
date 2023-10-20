@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 558b5a8b3d62ddf4dba274ef14caccc1, type: 3}
-  m_Name: Peasant
+  m_Name: Peasant 4
   m_EditorClassIdentifier: 
-  unit: {fileID: 7467447978965924233, guid: f9e63c2f15b3923499f5dade96b6c733, type: 3}
-  <sprite>k__BackingField: {fileID: 895813475, guid: 440e54f4b3e81a74ba71d7879252d2bf, type: 3}
+  unit: {fileID: 5724200034309035396, guid: d241f2965250f9546b77ceed01becd80, type: 3}
+  <sprite>k__BackingField: {fileID: -1867872320, guid: 0e5d4906343e7da4f9e9226539ae86e8, type: 3}
   <speed>k__BackingField: 40
   <lifePoints>k__BackingField: 230
   <damage>k__BackingField: 43
-  <range>k__BackingField: 1
-  <bullet>k__BackingField: {fileID: 0}
+  <range>k__BackingField: 3
+  <bullet>k__BackingField: {fileID: 21300000, guid: 809e925a139fd114c957d630b50a9267, type: 3}
   <rateOfFire>k__BackingField: 30
   <turnCost>k__BackingField: 0
-  <price>k__BackingField: 20
-  <movementPointsPrice>k__BackingField: 1
-  <unitType>k__BackingField: 0
+  <price>k__BackingField: 75
+  <movementPointsPrice>k__BackingField: 2
+  <unitType>k__BackingField: 2

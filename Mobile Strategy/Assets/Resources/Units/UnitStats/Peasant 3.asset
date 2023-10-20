@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558b5a8b3d62ddf4dba274ef14caccc1, type: 3}
   m_Name: Peasant 3
   m_EditorClassIdentifier: 
-  unit: {fileID: 4476419575737143508, guid: 896a749d5fd8c034fa756608061098fb, type: 3}
-  <sprite>k__BackingField: {fileID: -1236270703, guid: c299273750f8e5540ac36879d42eb352, type: 3}
+  unit: {fileID: 9102305325393592849, guid: 639e63a9106928d4b9789f42fdbc936b, type: 3}
+  <sprite>k__BackingField: {fileID: 1507427600, guid: 6c50aae142c99fc48b066adcc9d62c90, type: 3}
   <speed>k__BackingField: 40
   <lifePoints>k__BackingField: 230
   <damage>k__BackingField: 43
