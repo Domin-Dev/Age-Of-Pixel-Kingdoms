@@ -62,46 +62,46 @@ public class UIManager : MonoBehaviour
 
         LoadBuildings(-1);
 
-        provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); });
-        recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); });
-        selectionNumberUnitsWindow.GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("SelectionNumberUnits"); });
-        buildingsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Buildings"); });
-        unitsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Units"); });
-        battleWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Battle"); });
-        developmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Development"); });
+        provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); Sounds.instance.PlaySound(5); });
+        recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); Sounds.instance.PlaySound(5); });
+        selectionNumberUnitsWindow.GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("SelectionNumberUnits"); Sounds.instance.PlaySound(5); });
+        buildingsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Buildings"); Sounds.instance.PlaySound(5); });
+        unitsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Units"); Sounds.instance.PlaySound(5); });
+        battleWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Battle"); Sounds.instance.PlaySound(5); });
+        developmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Development"); Sounds.instance.PlaySound(5); });
         groups = developmentWindow.GetChild(1).GetChild(0).GetChild(0).transform;
 
-        researchWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Research"); });
-        managementWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Management"); });
+        researchWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Research"); Sounds.instance.PlaySound(5); });
+        managementWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Management"); Sounds.instance.PlaySound(5); });
 
 
 
-        bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); });
-        bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); });
-        bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.HighlightNeighbors(); });
+        bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); Sounds.instance.PlaySound(5); });
+        bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); Sounds.instance.PlaySound(5); });
+        bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.HighlightNeighbors(); Sounds.instance.PlaySound(5); });
 
-        bottomBar.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Development", 0); });
-        bottomBar.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Management", 0); OpenManagement(); });
-        managementWindow.GetChild(2).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.stats.texesIndex = (int)value; UpdateTaxesText(); });
-        managementWindow.GetChild(3).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.stats.researchIndex = (int)value; UpdateResearchText(); });
+        bottomBar.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Development", 0); Sounds.instance.PlaySound(5); });
+        bottomBar.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Management", 0); OpenManagement(); Sounds.instance.PlaySound(5); });
+        managementWindow.GetChild(2).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.stats.texesIndex = (int)value; UpdateTaxesText(); Sounds.instance.PlaySound(5); });
+        managementWindow.GetChild(3).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.stats.researchIndex = (int)value; UpdateResearchText(); Sounds.instance.PlaySound(5); });
 
 
-        details.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Details");});
+        details.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Details"); Sounds.instance.PlaySound(5); });
 
         ManagerUI(false);
 
         turnConter.text = "Turn:0";
-        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); });
+        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); Sounds.instance.PlaySound(5); });
 
         coinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         warriorsCounter = topBar.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         developmentPointsCounter = topBar.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         movementPointsCounter = topBar.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        topBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.coins); });
-        topBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.developmentPoints); });
-        topBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.warriors); });
-        topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.movementPoints); });
+        topBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.coins); Sounds.instance.PlaySound(5); });
+        topBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.developmentPoints); Sounds.instance.PlaySound(5); });
+        topBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.warriors); Sounds.instance.PlaySound(5); });
+        topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.movementPoints); Sounds.instance.PlaySound(5); });
 
         UpdateCounters();
         LoadResearch();
@@ -571,7 +571,7 @@ public class UIManager : MonoBehaviour
                 Research research = gameAssets.research[i,j];
                 GameObject obj = Instantiate(gameAssets.researchUI, groups.GetChild(i).transform);
                 int index = i * 100 + j;
-                obj.GetComponent<Button>().onClick.AddListener(() => { OpenResearch(index); });
+                obj.GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenResearch(index); });
                 obj.transform.GetChild(0).GetComponent<Image>().sprite = research.image;
                 obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name + " " + index.ToString();
                 obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
@@ -645,6 +645,7 @@ public class UIManager : MonoBehaviour
         {
             if (CanBuyResearch(index))
             {
+                Sounds.instance.PlaySound(3);
                 GameManager.Instance.humanPlayer.stats.research[index / 100, index % 100] = true;
                 GameManager.Instance.humanPlayer.stats.developmentPoints.Subtract(research.price);            
                 BonusManager.AddPlayerBonus(GameManager.Instance.humanPlayer.stats, index);

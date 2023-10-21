@@ -27,6 +27,7 @@ public class Alert : MonoBehaviour
     }
     public void OpenAlert(string message)
     {
+        Sounds.instance.PlaySound(4);
         if (!isPlaying)
         {
             isPlaying = true;

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Data.Common;
+using Unity.VisualScripting;
 
 public class UnitsManager : MonoBehaviour
 {
@@ -195,6 +196,7 @@ public class UnitsManager : MonoBehaviour
         unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false,unitindex); CheckUnits(); }, (unit) => { return CheckPath(unit);});
         units.Add(unit);
 
+        SetUnitColor(GameManager.Instance.GetPlayerColor(0), unit.GetComponent<SpriteRenderer>());
         battleEnemy.CheckPaths();
     }
     public bool EnemyCreateUnit(int unitindex, int pathIndex)
@@ -211,6 +213,7 @@ public class UnitsManager : MonoBehaviour
             Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
             unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit);if (!isDead) UnitCame(true, unitindex); CheckUnits(); battleEnemy.CheckPaths(); }, (unit) => { return CheckPath(unit); });
             units.Add(unit);
+            SetUnitColor(GameManager.Instance.GetPlayerColor(1), unit.GetComponent<SpriteRenderer>());
             return true;
         }
         return false;
@@ -378,5 +381,12 @@ public class UnitsManager : MonoBehaviour
             }
             
         }   
+    }
+    private void SetUnitColor(Color color,SpriteRenderer spriteRenderer)
+    {
+        MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+        materialPropertyBlock.SetColor("_Color", color);
+        materialPropertyBlock.SetTexture("_MainTex", spriteRenderer.sprite.texture);
+        spriteRenderer.SetPropertyBlock(materialPropertyBlock);
     }
 }

@@ -59,16 +59,16 @@ public class SelectingProvinces : MonoBehaviour
         buttonRecruit.onClick.RemoveAllListeners();
         buttonRecruit.onClick.AddListener(() => {  Sounds.instance.PlaySound(0); Recruit(); });
         slider.maxValue = maxUnitsNumber;
-        slider.onValueChanged.AddListener((float value) => { SetUnitsNumber((int)(value)); });
+        slider.onValueChanged.AddListener((float value) => { SetUnitsNumber((int)(value)); Sounds.instance.PlaySound(5); });
 
 
-        buttons.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-20); });
-        buttons.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-5); });
-        buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-1); });
+        buttons.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-20); Sounds.instance.PlaySound(5); });
+        buttons.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-5); Sounds.instance.PlaySound(5); });
+        buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(-1); Sounds.instance.PlaySound(5); });
 
-        buttons.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(1); });
-        buttons.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(5); });
-        buttons.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(20); });
+        buttons.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(1); Sounds.instance.PlaySound(5); });
+        buttons.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(5); Sounds.instance.PlaySound(5); });
+        buttons.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { AddToUnitsNumber(20); Sounds.instance.PlaySound(5); });
 
         moveAll1 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>();
         moveHalf1 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(0).GetChild(0).GetChild(2).GetComponent<Button>();
@@ -76,11 +76,11 @@ public class SelectingProvinces : MonoBehaviour
         moveAll2 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(1).GetChild(0).GetChild(1).GetComponent<Button>();
         moveHalf2 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(1).GetChild(0).GetChild(2).GetComponent<Button>();
 
-        moveAll1.onClick.AddListener(() => { MoveAll(1); }); 
-        moveHalf1.onClick.AddListener(() => { MoveHalf(1); });
+        moveAll1.onClick.AddListener(() => { MoveAll(1); Sounds.instance.PlaySound(5); }); 
+        moveHalf1.onClick.AddListener(() => { MoveHalf(1); Sounds.instance.PlaySound(5); });
 
-        moveAll2.onClick.AddListener(() => { MoveAll(2); });
-        moveHalf2.onClick.AddListener(() => { MoveHalf(2); });
+        moveAll2.onClick.AddListener(() => { MoveAll(2); Sounds.instance.PlaySound(5); });
+        moveHalf2.onClick.AddListener(() => { MoveHalf(2); Sounds.instance.PlaySound(5); });
         
 
          map = GameObject.FindGameObjectWithTag("GameMap").transform;
@@ -104,6 +104,7 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void SelectingProvince()
     {
+        Sounds.instance.PlaySound(6);
         Vector3 worldClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         foreach (RaycastHit2D item in Physics2D.RaycastAll(worldClickPosition, Vector2.zero))
@@ -213,6 +214,7 @@ public class SelectingProvinces : MonoBehaviour
                 ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
                 if (provinceStats.buildingIndex == -1)
                 {
+                    Sounds.instance.PlaySound(1);
                     BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
 
                     GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(buildingStats.movementPointsPrice);
@@ -257,7 +259,7 @@ public class SelectingProvinces : MonoBehaviour
                     break;
                 }
             }
-
+            Sounds.instance.PlaySound(2);
             provinceStats.buildingIndex = -1;
 
             UIManager.Instance.UpdateCounters();

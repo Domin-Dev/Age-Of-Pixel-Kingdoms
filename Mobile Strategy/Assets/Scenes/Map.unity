@@ -8418,6 +8418,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundsList:
   - {fileID: 8300000, guid: c1e68a7824e9c24459cc97a57a65dea5, type: 3}
+  - {fileID: 8300000, guid: ef9bce2375db10f469e138a533f6b762, type: 3}
+  - {fileID: 8300000, guid: ccfc8601fd867794bb85640533f09adb, type: 3}
+  - {fileID: 8300000, guid: af49d168648b4cc43b9baf5682fde9a6, type: 3}
+  - {fileID: 8300000, guid: 57fdf21fa70decf4888f4047277e89be, type: 3}
+  - {fileID: 8300000, guid: 5e6f75776bc1eee4c82f1cace53e444b, type: 3}
+  - {fileID: 8300000, guid: 97c6a80288cac4448b1ace6153015460, type: 3}
 --- !u!4 &516054666
 Transform:
   m_ObjectHideFlags: 0
@@ -22368,7 +22374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -50.00006, y: 2.516098}
+  m_AnchoredPosition: {x: -50, y: 2.516098}
   m_SizeDelta: {x: -132.1, y: 74.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1328653935
@@ -28460,7 +28466,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -55.00006, y: 0}
+  m_AnchoredPosition: {x: -55, y: 0}
   m_SizeDelta: {x: -134.20776, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1784612532
@@ -30502,7 +30508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -7.5000305}
+  m_AnchoredPosition: {x: 0, y: -7.5}
   m_SizeDelta: {x: 20, y: 35.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1910263740

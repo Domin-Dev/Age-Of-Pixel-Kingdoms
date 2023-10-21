@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Peasant
   m_EditorClassIdentifier: 
   unit: {fileID: 7467447978965924233, guid: f9e63c2f15b3923499f5dade96b6c733, type: 3}
-  <sprite>k__BackingField: {fileID: 895813475, guid: 440e54f4b3e81a74ba71d7879252d2bf, type: 3}
+  <sprite>k__BackingField: {fileID: -991060721, guid: 7a92174e19e876141a8c498b639bb0ed, type: 3}
   <speed>k__BackingField: 40
   <lifePoints>k__BackingField: 230
   <damage>k__BackingField: 43
