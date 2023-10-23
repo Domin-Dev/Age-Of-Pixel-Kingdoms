@@ -23,4 +23,7 @@ MonoBehaviour:
   <turnCost>k__BackingField: 0
   <price>k__BackingField: 75
   <movementPointsPrice>k__BackingField: 2
+  <movementSound>k__BackingField: 9
+  <attackSound>k__BackingField: 10
+  <hitSound>k__BackingField: 0
   <unitType>k__BackingField: 0

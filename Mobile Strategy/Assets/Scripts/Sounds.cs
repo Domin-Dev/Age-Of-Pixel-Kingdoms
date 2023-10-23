@@ -30,4 +30,9 @@ public class Sounds : MonoBehaviour
     {
         audioSource.PlayOneShot(soundsList[index]);
     }
+
+    public AudioClip GetClip(int index)
+    {
+        return soundsList[index];
+    }
 }

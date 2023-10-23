@@ -371,7 +371,7 @@ public class UIManager : MonoBehaviour
         transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
         Button button = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => {OpenStatsDetails(provinceStats.population);});
+        button.onClick.AddListener(() => {OpenStatsDetails(provinceStats.population); Sounds.instance.PlaySound(5); });
 
         if (provinceStats.buildingIndex == -1)
         {

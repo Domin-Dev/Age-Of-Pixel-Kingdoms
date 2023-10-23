@@ -80,7 +80,7 @@ public class ProvinceStats
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    int number = Random.Range(0, 3);
+                    int number = Random.Range(0, 8);
                     int unitIndex = Random.Range(0, GameAssets.Instance.unitStats.Length);
                     if (units.ContainsKey(unitIndex))
                     {

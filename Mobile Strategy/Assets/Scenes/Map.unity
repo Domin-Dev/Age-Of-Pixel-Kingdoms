@@ -8424,6 +8424,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 57fdf21fa70decf4888f4047277e89be, type: 3}
   - {fileID: 8300000, guid: 5e6f75776bc1eee4c82f1cace53e444b, type: 3}
   - {fileID: 8300000, guid: 97c6a80288cac4448b1ace6153015460, type: 3}
+  - {fileID: 8300000, guid: faf3bfde43ed81b4399b28d8a7b49760, type: 3}
+  - {fileID: 8300000, guid: 572b39c07ff97e8439424771d5962e24, type: 3}
+  - {fileID: 8300000, guid: b37a686ab5c929f4e896bc004e4d8d0b, type: 3}
+  - {fileID: 8300000, guid: f328c46d6c3f729478ed46abcbd31d50, type: 3}
+  - {fileID: 8300000, guid: 9594fcdd4bb480344bc17cb826212478, type: 3}
+  - {fileID: 8300000, guid: d457ea9205e7d664ca5542ddd83fca31, type: 3}
+  - {fileID: 8300000, guid: 49134a237e3244244b0f7f8dedea8f24, type: 3}
+  - {fileID: 8300000, guid: c628ed40c782bac4096ca836960e12c1, type: 3}
 --- !u!4 &516054666
 Transform:
   m_ObjectHideFlags: 0
@@ -16504,7 +16512,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1910263739}
   m_Direction: 2
   m_Value: 0.9999986
-  m_Size: 0.65312976
+  m_Size: 0.7294719
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

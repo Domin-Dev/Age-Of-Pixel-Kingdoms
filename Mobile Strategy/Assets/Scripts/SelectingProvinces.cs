@@ -76,11 +76,11 @@ public class SelectingProvinces : MonoBehaviour
         moveAll2 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(1).GetChild(0).GetChild(1).GetComponent<Button>();
         moveHalf2 = UIManager.Instance.GetUnitsWindow().GetChild(1).GetChild(1).GetChild(0).GetChild(2).GetComponent<Button>();
 
-        moveAll1.onClick.AddListener(() => { MoveAll(1); Sounds.instance.PlaySound(5); }); 
-        moveHalf1.onClick.AddListener(() => { MoveHalf(1); Sounds.instance.PlaySound(5); });
+        moveAll1.onClick.AddListener(() => { MoveAll(1); }); 
+        moveHalf1.onClick.AddListener(() => { MoveHalf(1);});
 
-        moveAll2.onClick.AddListener(() => { MoveAll(2); Sounds.instance.PlaySound(5); });
-        moveHalf2.onClick.AddListener(() => { MoveHalf(2); Sounds.instance.PlaySound(5); });
+        moveAll2.onClick.AddListener(() => { MoveAll(2); });
+        moveHalf2.onClick.AddListener(() => { MoveHalf(2);});
         
 
          map = GameObject.FindGameObjectWithTag("GameMap").transform;
@@ -90,7 +90,7 @@ public class SelectingProvinces : MonoBehaviour
         if(isMove)
         {
             buttonRecruit.onClick.RemoveAllListeners();
-            buttonRecruit.onClick.AddListener(() => { Move(); });
+            buttonRecruit.onClick.AddListener(() => { Sounds.instance.PlaySound(7);  Move(); });
             nameWindow.text = "movement of units";
             buttonText.text = "Move";
         }
@@ -578,8 +578,6 @@ public class SelectingProvinces : MonoBehaviour
         from.units[selectedUnitIndex] -= unitsNumber;
         to.unitsCounter += unitsNumber;
 
-
-        Debug.Log("move");
         if (to.units != null)
         {
             if (to.units.ContainsKey(selectedUnitIndex))
@@ -634,23 +632,31 @@ public class SelectingProvinces : MonoBehaviour
         {
             if (GameManager.Instance.humanPlayer.stats.movementPoints.CanAfford(provinceStatsFrom.unitsCounter))
             {
-                GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(provinceStatsFrom.unitsCounter);
-                for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+                if (provinceStatsFrom.unitsCounter > 0)
                 {
-                    selectedUnitIndex = i;
-                    if (provinceStatsFrom.units.ContainsKey(selectedUnitIndex))
+                    Sounds.instance.PlaySound(7);
+                    GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(provinceStatsFrom.unitsCounter);
+                    for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                     {
-                        unitsNumber = provinceStatsFrom.units[selectedUnitIndex];
-                        MoveTo(provinceStatsFrom, provinceStatsTo);
+                        selectedUnitIndex = i;
+                        if (provinceStatsFrom.units.ContainsKey(selectedUnitIndex))
+                        {
+                            unitsNumber = provinceStatsFrom.units[selectedUnitIndex];
+                            MoveTo(provinceStatsFrom, provinceStatsTo);
+                        }
                     }
-                }
 
-                UpdateUnitNumber(selectedProvince);
-                UpdateUnitNumber(selectedNeighbor);
-                UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name), true);
-                selectedUnitIndex = -1;   
+                    UpdateUnitNumber(selectedProvince);
+                    UpdateUnitNumber(selectedNeighbor);
+                    UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name), true);
+                    selectedUnitIndex = -1;
+                }
+                else
+                {
+                    Alert.Instance.OpenAlert("no units!");
+                }
             }
-            else
+        else
             {
                 Alert.Instance.OpenAlert("no movement points!");
             }
@@ -679,44 +685,51 @@ public class SelectingProvinces : MonoBehaviour
         {
             if (GameManager.Instance.humanPlayer.stats.movementPoints.CanAfford(provinceStatsFrom.unitsCounter/2))
             {
-                GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(provinceStatsFrom.unitsCounter / 2);
-                for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+                if (provinceStatsFrom.unitsCounter / 2 > 0)
                 {
-                    selectedUnitIndex = i;
-                    if (provinceStatsFrom.units.ContainsKey(selectedUnitIndex))
+                    Sounds.instance.PlaySound(7);
+                    GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(provinceStatsFrom.unitsCounter / 2);
+                    for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                     {
-                        int units = provinceStatsFrom.units[selectedUnitIndex];
+                        selectedUnitIndex = i;
+                        if (provinceStatsFrom.units.ContainsKey(selectedUnitIndex))
+                        {
+                            int units = provinceStatsFrom.units[selectedUnitIndex];
 
-                        if (units % 2 == 1)
-                        {
-                            b++;
-                        }
+                            if (units % 2 == 1)
+                            {
+                                b++;
+                            }
 
-                        if (b > 0 && (numberFrom + numberTo) / 2 == 0 && units > units / 2 + b)
-                        {
-                            unitsNumber = units / 2 + (b / 2);
-                            b = 0;
-                        }
-                        else if (b > 1)
-                        {
-                            unitsNumber = units / 2 + (b / 2);
-                            b = 0;
-                        }
-                        else
-                        {
-                            unitsNumber = units / 2;
-                        }
+                            if (b > 0 && (numberFrom + numberTo) / 2 == 0 && units > units / 2 + b)
+                            {
+                                unitsNumber = units / 2 + (b / 2);
+                                b = 0;
+                            }
+                            else if (b > 1)
+                            {
+                                unitsNumber = units / 2 + (b / 2);
+                                b = 0;
+                            }
+                            else
+                            {
+                                unitsNumber = units / 2;
+                            }
 
-                        numberFrom -= unitsNumber;
-                        numberTo += unitsNumber;
-                        MoveTo(provinceStatsFrom, provinceStatsTo);
+                            numberFrom -= unitsNumber;
+                            numberTo += unitsNumber;
+                            MoveTo(provinceStatsFrom, provinceStatsTo);
+                        }
                     }
+                    UpdateUnitNumber(selectedProvince);
+                    UpdateUnitNumber(selectedNeighbor);
+                    UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name), true);
+                    selectedUnitIndex = -1;
                 }
-
-                UpdateUnitNumber(selectedProvince);
-                UpdateUnitNumber(selectedNeighbor);
-                UIManager.Instance.LoadUnitsMove(int.Parse(selectedProvince.name), int.Parse(selectedNeighbor.name), true);
-                selectedUnitIndex = -1;
+                else
+                {
+                    Alert.Instance.OpenAlert("No units!");
+                }
             }
             else
             {

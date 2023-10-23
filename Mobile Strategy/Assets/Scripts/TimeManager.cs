@@ -12,7 +12,7 @@ public class TimeManager : MonoBehaviour
     private void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(() => { SetSpeed(); });
+        button.onClick.AddListener(() => { SetSpeed(); Sounds.instance.PlaySound(5); });
         currentSpeed = 0;
         text = GetComponentInChildren<TextMeshProUGUI>();
     }

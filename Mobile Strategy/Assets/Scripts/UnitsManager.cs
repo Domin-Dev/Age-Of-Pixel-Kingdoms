@@ -130,6 +130,7 @@ public class UnitsManager : MonoBehaviour
     {
         if (yourUnits[index] > 0)
         {
+            Sounds.instance.PlaySound(5);
             for (int i = 0; i < GameAssets.Instance.BattleUnits.childCount; i++)
             {
                 if (GameAssets.Instance.BattleUnits.GetChild(i).name == index.ToString())
@@ -185,10 +186,10 @@ public class UnitsManager : MonoBehaviour
     }
     private void CreateUnit(int unitindex,Transform pathTransform)
     {
+        Sounds.instance.PlaySound(6);
         yourUnits[unitindex]--;
         yourUnitCount--;
         UpdateUnitsUI(unitindex);
-
         int path = int.Parse(pathTransform.name);
         List<Unit> units = GetPath(path);
 
@@ -322,7 +323,7 @@ public class UnitsManager : MonoBehaviour
             (startYourUnits - yourUnitCount).ToString() + " <sprite index=20>";
         infoWindow.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnitCount.ToString() + " <sprite index=0>\n" +
             (startEnemyUnits - enemyUnitCount).ToString() + " <sprite index=20>";
-        infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(0); });
+        infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); SceneManager.LoadScene(0); });
     }
     private void CountUnits()
     {

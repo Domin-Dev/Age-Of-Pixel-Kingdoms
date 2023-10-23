@@ -1,12 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using static UnityEngine.UI.CanvasScaler;
+using UnityEngine.AdaptivePerformance.VisualScripting;
 
 public class Unit : MonoBehaviour
 {
@@ -45,15 +40,22 @@ public class Unit : MonoBehaviour
     Unit target;
 
 
+    AudioSource audioSource;
+    bool movementIsPlaying;
+    int movementSound;
+    int attackSound;
+
+
     private void Start()
     {
         IsActive = false;
         lerpIsActive = false;
+        movementIsPlaying = false;
 
         isReadyToAttack = true;
         attackTimer = 60 / rateOfFire;
 
-
+        audioSource = this.GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         lifePoints = maxLifePoints;
         lifeBar = transform.GetChild(0).GetChild(0).transform;
@@ -71,7 +73,9 @@ public class Unit : MonoBehaviour
         this.range = unitStats.range;
         this.rateOfFire = unitStats.rateOfFire;
         this.bullet = unitStats.bullet;
-        
+        this.movementSound = unitStats.movementSound; 
+        this.attackSound = unitStats.attackSound;
+
 
         this.targetPositionX = targetPositionX;
         this.clearList = clearList;
@@ -132,6 +136,12 @@ public class Unit : MonoBehaviour
             animator.SetBool("Idle", false);
             if (Math.Abs(targetPositionX - transform.position.x) > 0.5f)
             {
+                if(!movementIsPlaying)
+                {
+                    movementIsPlaying = true;
+                    audioSource.loop = true;
+                    audioSource.PlayOneShot(Sounds.instance.GetClip(movementSound));
+                }
                 transform.position = new Vector3(positionX, transform.position.y, 0f);
             }
             else
@@ -143,6 +153,12 @@ public class Unit : MonoBehaviour
         else
         {
             animator.SetBool("Idle", true);
+            if (movementIsPlaying)
+            {
+                movementIsPlaying = false;
+                audioSource.loop = false;
+                audioSource.Stop();
+            }
             if (unit.unitIsFriendly != unitIsFriendly)
             {
                 target = unit;
@@ -160,7 +176,11 @@ public class Unit : MonoBehaviour
     }
     public void EndOfAnimation()
     {
-        if(target != null  && target.gameObject != null) target.Hit(damage);
+        if (target != null && target.gameObject != null)
+        {
+            audioSource.PlayOneShot(Sounds.instance.GetClip(attackSound));
+            target.Hit(damage);
+        }
         target = null;
     }
     public void Shot()
