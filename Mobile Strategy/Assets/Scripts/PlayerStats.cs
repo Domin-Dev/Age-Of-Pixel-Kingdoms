@@ -21,7 +21,7 @@ public class PlayerStats
     public int texesIndex;
     public int researchIndex;
 
-    private int index;
+    public int index {private set; get; }
     public PlayerStats(int coins, int index)
     {
         this.index = index;

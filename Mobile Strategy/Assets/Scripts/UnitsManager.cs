@@ -29,6 +29,8 @@ public class UnitsManager : MonoBehaviour
     private int enemyHP;
     private int maxEnemyHP;
 
+    Color yourColor;
+    Color enemyColor;
 
 
     int SelectedUnitIndex = -1;
@@ -90,8 +92,18 @@ public class UnitsManager : MonoBehaviour
         startEnemyUnits = enemyUnitCount;
         startYourUnits = yourUnitCount;
         battleEnemy = GetComponent<BattleEnemy>();
+
     }
-    private void Update()
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (level == 1)
+        {
+            yourColor = GameManager.Instance.GetPlayerColor(0);
+            enemyColor = GameManager.Instance.GetPlayerColor(GameManager.Instance.GetEnemyIndex());
+        }
+    }
+private void Update()
     {
         if (!isEnd)
         {
@@ -197,7 +209,7 @@ public class UnitsManager : MonoBehaviour
         unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false,unitindex); CheckUnits(); }, (unit) => { return CheckPath(unit);});
         units.Add(unit);
 
-        SetUnitColor(GameManager.Instance.GetPlayerColor(0), unit.GetComponent<SpriteRenderer>());
+        SetUnitColor(yourColor, unit.GetComponent<SpriteRenderer>());
         battleEnemy.CheckPaths();
     }
     public bool EnemyCreateUnit(int unitindex, int pathIndex)
@@ -214,7 +226,7 @@ public class UnitsManager : MonoBehaviour
             Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
             unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit);if (!isDead) UnitCame(true, unitindex); CheckUnits(); battleEnemy.CheckPaths(); }, (unit) => { return CheckPath(unit); });
             units.Add(unit);
-            SetUnitColor(GameManager.Instance.GetPlayerColor(1), unit.GetComponent<SpriteRenderer>());
+            SetUnitColor(enemyColor, unit.GetComponent<SpriteRenderer>());
             return true;
         }
         return false;

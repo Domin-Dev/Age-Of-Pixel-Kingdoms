@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 	public Transform buildings;
 	public SelectingProvinces selectingProvinces;
 
-	private int yourProvinceIndex;
+    private int yourProvinceIndex;
 	private int enemyProvinceIndex;
 	public bool youAttack { private set; get; }
 
@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 					selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), GetPlayerColor(provinceStats.provinceOwnerIndex));
 				}
 			}
+			UpdateBotProvinces();
 		}
 		else
 		{
@@ -88,6 +89,14 @@ public class GameManager : MonoBehaviour
         botsList.Add(new Player("xd", true, Color.cyan,1000,1 + botsList.Count));
         botsList.Add(new Player("green", true, Color.red,1000,1 + botsList.Count));
     }
+	private void UpdateBotProvinces()
+	{
+		foreach (Player item in botsList)
+		{
+			item.UpdateProvinces();
+		}
+	}
+
 	public void UpdateUnitCounter(int index)
 	{
 		selectingProvinces.UpdateUnitNumber(map.GetChild(index).transform);
@@ -230,10 +239,10 @@ public class GameManager : MonoBehaviour
             playerStats.movementPoints.Set(playerStats.movementPoints.limit);
             playerStats.developmentPoints.NextTurn();
 			playerStats.coins.NextTurn();
+			bot.RunEnemyManager();
 		}
 		UpdateBotDebuger();
 	}
-
 	private void UpdateBotDebuger()
 	{
         string debugtext = "";
@@ -246,7 +255,6 @@ public class GameManager : MonoBehaviour
         }
         UIManager.Instance.debugText.text = debugtext;
 	}
-
 	/// 0,1,2,3,4
 	public void GetValuesByTaxesIndex(int index, out float coinsIncome,out float peopleIncome)
 	{
@@ -304,20 +312,54 @@ public class GameManager : MonoBehaviour
 				break; 
 		}
 	}
-
 	public Color GetPlayerColor(int playerIndex)
 	{
 		if(playerIndex == 0)
 		{
 			return humanPlayer.playerColor;
 		}
-		else if(playerIndex - 1 <= botsList.Count) 
+		else if(playerIndex - 1 <= botsList.Count && playerIndex > 0) 
 		{
-			return botsList[playerIndex -1].playerColor;
+			return botsList[playerIndex - 1].playerColor;
 		}
+		return Color.gray;
+	}
+	public int GetEnemyIndex()
+	{
+		return provinces[enemyProvinceIndex].provinceOwnerIndex;
+	}
+	public void AIRecruit(int provinceIndex, int unitIndex, int unitsNumber, PlayerStats playerStats)
+	{
+        ProvinceStats provinceStats = provinces[provinceIndex];
+        if (playerStats.warriors.CheckLimit(unitsNumber) && playerStats.movementPoints.CanAfford(unitsNumber * GameAssets.Instance.unitStats[unitIndex].movementPointsPrice) && 
+			playerStats.coins.CanAfford(unitsNumber * GameAssets.Instance.unitStats[unitIndex].price) && provinceStats.population.CanAfford(unitsNumber))
+		{
+			provinceStats.unitsCounter += unitsNumber;
+			provinceStats.population.Subtract(unitsNumber);
+			playerStats.coins.Subtract(unitsNumber * GameAssets.Instance.unitStats[unitIndex].price);
+			playerStats.movementPoints.Subtract(unitsNumber * GameAssets.Instance.unitStats[unitIndex].movementPointsPrice);
+			playerStats.warriors.Add(unitsNumber);
 
-		Debug.Log(playerIndex);
-		return Color.black;
+
+			if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
+
+			if (provinceStats.units.ContainsKey(unitIndex))
+			{
+				provinceStats.units[unitIndex] += unitsNumber;
+			}
+			else
+			{
+				provinceStats.units.Add(unitIndex, unitsNumber);
+			}
+
+			Transform provinceTransform = map.GetChild(provinceIndex);
+
+			if (provinceTransform.childCount == 0)
+			{
+				Instantiate(GameAssets.Instance.unitCounter, provinceTransform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, provinceTransform);
+			}
+			provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
+		}
 	}
 }
 
