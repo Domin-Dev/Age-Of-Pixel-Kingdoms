@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aa1c1dd32a57f947bd71b533b390044, type: 3}
-  m_Name: Economic Development
+  m_Name: Better management
   m_EditorClassIdentifier: 
-  name: 'New castle '
-  description: add new castle
-  image: {fileID: 21300000, guid: ee76166b431571449b2bec9d107c7658, type: 3}
-  researchID: 0
-  price: 2103
-  indexTree: 0
+  name: better management
+  description: +5 [MovementPoint]
+  image: {fileID: 21300000, guid: 6543f73de37f91142ac26fce333d8204, type: 3}
+  researchID: 1
+  price: 100

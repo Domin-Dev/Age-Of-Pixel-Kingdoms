@@ -79,10 +79,10 @@ public class GameAssets : MonoBehaviour
         if(SceneManager.GetActiveScene().buildIndex == 0)
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
 
-        LoadResearch("Development/EconomicDevelopment", 0);
-        LoadResearch("Development/ManagementDevelopment", 1);
-        LoadResearch("Development/MilitaryDevelopment", 2);
-        LoadResearch("Development/ScientificDevelopment", 3);
+        LoadResearch("Development/EconomicDevelopment", 2);
+        LoadResearch("Development/ManagementDevelopment", 3);
+        LoadResearch("Development/MilitaryDevelopment", 0);
+        LoadResearch("Development/ScientificDevelopment", 1);
 
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");    

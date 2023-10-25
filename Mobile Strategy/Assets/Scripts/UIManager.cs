@@ -575,7 +575,7 @@ public class UIManager : MonoBehaviour
                 obj.transform.GetChild(0).GetComponent<Image>().sprite = research.image;
                 obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name + " " + index.ToString();
                 obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
-                obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = research.description;
+                obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = StringToIcons(research.description);
             }
         }
         UpdateResearch();
@@ -617,7 +617,7 @@ public class UIManager : MonoBehaviour
             OpenUIWindow("Research", 0);
             Research research = gameAssets.research[index / 100, index % 100];
             researchWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name;
-            researchWindow.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.description;
+            researchWindow.GetChild(1).GetComponent<TextMeshProUGUI>().text = StringToIcons(research.description);
             researchWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research\n" + research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
             researchWindow.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
             researchWindow.GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
@@ -648,7 +648,7 @@ public class UIManager : MonoBehaviour
                 Sounds.instance.PlaySound(3);
                 GameManager.Instance.humanPlayer.stats.research[index / 100, index % 100] = true;
                 GameManager.Instance.humanPlayer.stats.developmentPoints.Subtract(research.price);            
-                BonusManager.AddPlayerBonus(GameManager.Instance.humanPlayer.stats, index);
+                BonusManager.AddPlayerBonus(GameManager.Instance.humanPlayer.stats, GameAssets.Instance.research[index / 100, index % 100].researchID);
                 CloseUIWindow("Research");
             }
         }

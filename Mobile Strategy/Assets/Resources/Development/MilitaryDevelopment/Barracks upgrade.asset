@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aa1c1dd32a57f947bd71b533b390044, type: 3}
-  m_Name: Economic Development
+  m_Name: Barracks upgrade
   m_EditorClassIdentifier: 
-  name: 'New castle '
-  description: add new castle
-  image: {fileID: 21300000, guid: ee76166b431571449b2bec9d107c7658, type: 3}
+  name: Barracks upgrade
+  description: +5[Warrior]
+  image: {fileID: 21300000, guid: effd972c740680848ae4e48238052a04, type: 3}
   researchID: 0
-  price: 2103
+  price: 100
   indexTree: 0

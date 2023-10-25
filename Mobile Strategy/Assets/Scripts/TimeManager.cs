@@ -13,6 +13,7 @@ public class TimeManager : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(() => { SetSpeed(); Sounds.instance.PlaySound(5); });
+        GameObject.FindWithTag("Pause").GetComponent<Button>().onClick.AddListener(() => { Pause(); });
         currentSpeed = 0;
         text = GetComponentInChildren<TextMeshProUGUI>();
     }
@@ -28,6 +29,15 @@ public class TimeManager : MonoBehaviour
         }
         Time.timeScale = speeds[currentSpeed];
         text.text = speeds[currentSpeed].ToString() + "X";
+    }
+
+    private void Pause()
+    {
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = speeds[currentSpeed];
+        }
+        else Time.timeScale = 0;
     }
     private void OnDestroy()
     {

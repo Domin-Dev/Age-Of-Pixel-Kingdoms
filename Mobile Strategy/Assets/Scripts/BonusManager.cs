@@ -39,22 +39,36 @@ public static class BonusManager
         }
         UpdateLimits(provinceStats.provinceOwnerIndex);
     }
-
     public static void AddPlayerBonus(PlayerStats playerStats,int bonusIndex)
     {
-        
         switch(bonusIndex)
         {
             case 0:
+                playerStats.warriors.AddBonus(0, new Bonus("Barracks upgrade", 5, Bonus.bonusType.IncreaseLimit));
+                UpdateLimits(playerStats.index);
+                break;
+            case 1:
+                playerStats.movementPoints.AddBonus(0, new Bonus("better management", 5, Bonus.bonusType.IncreaseLimit));
+                UpdateLimits(playerStats.index);
+                break;
+            case 199:
                 playerStats.buildingsPermit[0] = true;
                 playerStats.CanBuild(0);
                 break;
         }
+        if(playerStats.index == 0) UIManager.Instance.UpdateCounters();
     }
-
     private static void UpdateLimits(int index)
     {
-        if (index == 0) GameManager.Instance.humanPlayer.stats.warriors.UpdateLimit();
-        else GameManager.Instance.botsList[index - 1].stats.warriors.UpdateLimit();
+        if (index == 0)
+        {
+            GameManager.Instance.humanPlayer.stats.warriors.UpdateLimit();
+            GameManager.Instance.humanPlayer.stats.movementPoints.UpdateLimit();
+        }
+        else
+        {
+            GameManager.Instance.botsList[index - 1].stats.warriors.UpdateLimit();
+            GameManager.Instance.botsList[index - 1].stats.movementPoints.UpdateLimit();
+        }
     }
 }

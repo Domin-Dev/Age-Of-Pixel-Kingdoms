@@ -20,10 +20,10 @@ public class EnemyManager
 
     public void NextTurn()
     {
-        //  lastScan = Scanning();
+          lastScan = Scanning();
         //   Recruit();
-        //  if (index == 2)// Move();
-        GameManager.Instance.pathFinding.FindPath(0, 21);
+       //  if (index == 2)// Move();
+      //  GameManager.Instance.pathFinding.FindPath(0, 21);
     }
     private void Recruit()
     {
@@ -39,9 +39,18 @@ public class EnemyManager
         }
         GameManager.Instance.selectingProvinces.AIRecruit(selectedIndex, 3, 3, playerStats);
     }
-
     private void Move()
     {
+        float maxValue = float.MinValue;
+        int selectedIndex = provinces[0];
+        foreach (float2 i in lastScan)
+        {
+            if (i.y > maxValue)
+            {
+                maxValue = i.y;
+                selectedIndex = (int)i.x;
+            }
+        }
         GameManager.Instance.selectingProvinces.AIMove(provinces[0], provinces[1],1,3);
     }
     private List<float2> Scanning()
@@ -57,7 +66,7 @@ public class EnemyManager
                 int owner = allProvinces[provinceIndex].provinceOwnerIndex;
                 if (owner != -1 && owner != index)
                 {
-                    value.y += allProvinces[provinceIndex].unitsCounter + 3f;
+                    value.y += CountUnits(allProvinces[provinceIndex]) + 3f;
                 }
                 for (int j = 0; j < allProvinces[provinceIndex].neighbors.Count;j++)
                 {
@@ -65,18 +74,33 @@ public class EnemyManager
                     owner = allProvinces[provinceIndex2].provinceOwnerIndex;
                     if (owner != -1 && owner != index)
                     {
-                        value.y += 0.3f * allProvinces[provinceIndex2].unitsCounter;
+                        value.y += 0.4f * CountUnits(allProvinces[provinceIndex2]);
                     }
                 }
             }
-            value.y -= allProvinces[item].unitsCounter;
+            value.y -= CountUnits(allProvinces[item]);
             scan.Add(value);
         }
         foreach (float2 item in scan)
         {
-         //   Debug.Log(item + " " + index);
+            Debug.Log(item + " " + index);
         }
         return scan;
+    }
+    private float CountUnits(ProvinceStats provinceStats)
+    {
+        float value = 0;
+        if(provinceStats.units !=null)
+        {
+            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+            {
+                if (provinceStats.units.ContainsKey(i))
+                {
+                    value += GameAssets.Instance.unitStats[i].battleValue * provinceStats.units[i];
+                }
+            }
+        }
+        return value;
     }
     public void UpdateProvinces()
     {

@@ -9,6 +9,7 @@ TagManager:
   - GameMap
   - Buildings
   - Paths
+  - Pause
   layers:
   - Default
   - TransparentFX

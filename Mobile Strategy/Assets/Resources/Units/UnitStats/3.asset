@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 558b5a8b3d62ddf4dba274ef14caccc1, type: 3}
-  m_Name: Peasant 4
+  m_Name: 3
   m_EditorClassIdentifier: 
-  unit: {fileID: 5724200034309035396, guid: d241f2965250f9546b77ceed01becd80, type: 3}
-  <sprite>k__BackingField: {fileID: -1867872320, guid: 0e5d4906343e7da4f9e9226539ae86e8, type: 3}
+  unit: {fileID: 7742407762973993446, guid: d808e99630d60114c9b69f80cc6ce3d5, type: 3}
+  <sprite>k__BackingField: {fileID: -1381210496, guid: 66433c7ed5e539f4b8b2ddb4202dd3ac, type: 3}
   <speed>k__BackingField: 40
-  <lifePoints>k__BackingField: 230
-  <damage>k__BackingField: 43
-  <range>k__BackingField: 3
+  <lifePoints>k__BackingField: 100
+  <damage>k__BackingField: 25
+  <range>k__BackingField: 4.5
   <bullet>k__BackingField: {fileID: 21300000, guid: 809e925a139fd114c957d630b50a9267, type: 3}
-  <rateOfFire>k__BackingField: 30
+  <rateOfFire>k__BackingField: 40
   <turnCost>k__BackingField: 0
-  <price>k__BackingField: 75
+  <price>k__BackingField: 120
   <movementPointsPrice>k__BackingField: 2
   <movementSound>k__BackingField: 9
-  <attackSound>k__BackingField: 14
+  <attackSound>k__BackingField: 13
   <unitType>k__BackingField: 2
+  <battleValue>k__BackingField: 0.5

@@ -30,6 +30,8 @@ public class UnitStats : ScriptableObject
 
     [field: SerializeField] public UnitType unitType { get; private set; }
 
+    [field: SerializeField] public float battleValue { get; private set; }// E (0,1]
+
     public enum UnitType
     {
         NormalUnit,

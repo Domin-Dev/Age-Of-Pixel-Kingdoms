@@ -78,7 +78,7 @@ public class ProvinceStats
             this.units = new Dictionary<int, int>();
             if (Random.Range(0, 2) != 0)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     int number = Random.Range(0, 8);
                     int unitIndex = Random.Range(0, GameAssets.Instance.unitStats.Length);

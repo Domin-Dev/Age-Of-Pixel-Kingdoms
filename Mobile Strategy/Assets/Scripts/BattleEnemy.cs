@@ -129,7 +129,7 @@ public class BattleEnemy : MonoBehaviour
     {
         if (units.ContainsKey(unitIndex))
         {
-            if(unitsManager.EnemyCreateUnit(unitIndex, pathIndex))
+            if(unitsManager.EnemyCreateUnit(unitIndex, pathIndex,false))
             {
                 typesArray[(int)GameAssets.Instance.unitStats[unitIndex].unitType]--;
             }

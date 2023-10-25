@@ -11,5 +11,4 @@ public class Research : ScriptableObject
     [field: SerializeField] public int researchID;
 
     [field: SerializeField] public int price;
-    [field: SerializeField] public int indexTree;
 }

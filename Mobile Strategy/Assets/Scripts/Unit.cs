@@ -176,17 +176,17 @@ public class Unit : MonoBehaviour
     }
     public void EndOfAnimation()
     {
-        if (target != null && target.gameObject != null)
+        if (target != null && target.gameObject != null )
         {
             AudioClip clip = Sounds.instance.GetClip(attackSound);
-            if(clip != null) audioSource.PlayOneShot(clip);
+            if(isActiveAndEnabled) audioSource.PlayOneShot(clip);
             target.Hit(damage);
         }
         target = null;
     }
     public void Shot()
     {
-       if(target !=null) Bullet.NewBullet(transform.GetChild(1).position, target.transform, bullet, () => { EndOfAnimation(); });
+       if(target !=null) Bullet.NewBullet(transform.GetChild(1).position, target.transform, bullet, () => { EndOfAnimation(); },transform);
     }
     private void Hit(float damage)
     {

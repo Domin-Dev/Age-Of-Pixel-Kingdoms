@@ -103,11 +103,10 @@ public class UnitsManager : MonoBehaviour
             enemyColor = GameManager.Instance.GetPlayerColor(GameManager.Instance.GetEnemyIndex());
         }
     }
-private void Update()
+    private void Update()
     {
         if (!isEnd)
         {
-
             if (Input.GetMouseButtonDown(0) && SelectedUnitIndex != -1)
             {
                 Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -136,6 +135,13 @@ private void Update()
                     }
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1)) EnemyCreateUnit(0, 1,true);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) EnemyCreateUnit(1, 1, true);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) EnemyCreateUnit(2, 1, true);
+            if (Input.GetKeyDown(KeyCode.Alpha4)) EnemyCreateUnit(3, 1,true);
+            if (Input.GetKeyDown(KeyCode.Alpha5)) EnemyCreateUnit(4, 1, true);
+            if (Input.GetKeyDown(KeyCode.Alpha6)) EnemyCreateUnit(5, 1, true);
         }
     }
     public void SetUnitIndex(int index)
@@ -212,13 +218,16 @@ private void Update()
         SetUnitColor(yourColor, unit.GetComponent<SpriteRenderer>());
         battleEnemy.CheckPaths();
     }
-    public bool EnemyCreateUnit(int unitindex, int pathIndex)
+    public bool EnemyCreateUnit(int unitindex, int pathIndex, bool debug)
     {
         Transform pathTransform = paths.GetChild(pathIndex - 1);
-        if (CanSpawn(pathTransform, true) && enemyUnits[unitindex] > 0)
+        if ((CanSpawn(pathTransform, true) && enemyUnits[unitindex] > 0)|| debug)
         {
-            enemyUnits[unitindex]--;
-            enemyUnitCount--;
+            if(!debug)
+            {
+                enemyUnits[unitindex]--;
+                enemyUnitCount--;
+            }
 
             int path = int.Parse(pathTransform.name);
             List<Unit> units = GetPath(path);
