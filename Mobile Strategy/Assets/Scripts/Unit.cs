@@ -178,7 +178,8 @@ public class Unit : MonoBehaviour
     {
         if (target != null && target.gameObject != null)
         {
-            audioSource.PlayOneShot(Sounds.instance.GetClip(attackSound));
+            AudioClip clip = Sounds.instance.GetClip(attackSound);
+            if(clip != null) audioSource.PlayOneShot(clip);
             target.Hit(damage);
         }
         target = null;

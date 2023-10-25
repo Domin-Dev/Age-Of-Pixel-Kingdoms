@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 	public Transform map;
 	public Transform buildings;
 	public SelectingProvinces selectingProvinces;
+	public PathFinding pathFinding;
 
     private int yourProvinceIndex;
 	private int enemyProvinceIndex;
@@ -31,7 +32,6 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-
 		if (Instance == null)
 		{
 			Instance = this;
@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
 				}
 			}
 			UpdateBotProvinces();
+			pathFinding = new PathFinding();
 		}
 		else
 		{
@@ -328,38 +329,7 @@ public class GameManager : MonoBehaviour
 	{
 		return provinces[enemyProvinceIndex].provinceOwnerIndex;
 	}
-	public void AIRecruit(int provinceIndex, int unitIndex, int unitsNumber, PlayerStats playerStats)
-	{
-        ProvinceStats provinceStats = provinces[provinceIndex];
-        if (playerStats.warriors.CheckLimit(unitsNumber) && playerStats.movementPoints.CanAfford(unitsNumber * GameAssets.Instance.unitStats[unitIndex].movementPointsPrice) && 
-			playerStats.coins.CanAfford(unitsNumber * GameAssets.Instance.unitStats[unitIndex].price) && provinceStats.population.CanAfford(unitsNumber))
-		{
-			provinceStats.unitsCounter += unitsNumber;
-			provinceStats.population.Subtract(unitsNumber);
-			playerStats.coins.Subtract(unitsNumber * GameAssets.Instance.unitStats[unitIndex].price);
-			playerStats.movementPoints.Subtract(unitsNumber * GameAssets.Instance.unitStats[unitIndex].movementPointsPrice);
-			playerStats.warriors.Add(unitsNumber);
-
-
-			if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
-
-			if (provinceStats.units.ContainsKey(unitIndex))
-			{
-				provinceStats.units[unitIndex] += unitsNumber;
-			}
-			else
-			{
-				provinceStats.units.Add(unitIndex, unitsNumber);
-			}
-
-			Transform provinceTransform = map.GetChild(provinceIndex);
-
-			if (provinceTransform.childCount == 0)
-			{
-				Instantiate(GameAssets.Instance.unitCounter, provinceTransform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, provinceTransform);
-			}
-			provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
-		}
-	}
 }
+
+
 

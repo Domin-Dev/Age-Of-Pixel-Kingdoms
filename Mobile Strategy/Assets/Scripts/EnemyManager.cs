@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class EnemyManager
 {
@@ -10,6 +8,7 @@ public class EnemyManager
     private int index;
 
     List<int> provinces = new List<int>();
+    List<float2> lastScan;
 
     public EnemyManager(PlayerStats playerStats)
     {
@@ -21,45 +20,61 @@ public class EnemyManager
 
     public void NextTurn()
     {
-        Recruit(provinces[0]);
-      if(index == 3)  Scanning();
+        //  lastScan = Scanning();
+        //   Recruit();
+        //  if (index == 2)// Move();
+        GameManager.Instance.pathFinding.FindPath(0, 21);
     }
-    private void Recruit(int provinceIndex)
+    private void Recruit()
     {
-        GameManager.Instance.AIRecruit(provinceIndex, 3, 10, playerStats);
+        float maxValue = float.MinValue;
+        int selectedIndex = provinces[0];
+        foreach (float2 i in lastScan)
+        { 
+            if(i.y > maxValue)
+            {
+                maxValue = i.y;
+                selectedIndex = (int)i.x;
+            }
+        }
+        GameManager.Instance.selectingProvinces.AIRecruit(selectedIndex, 3, 3, playerStats);
     }
 
-    private List<int2> Scanning()
+    private void Move()
+    {
+        GameManager.Instance.selectingProvinces.AIMove(provinces[0], provinces[1],1,3);
+    }
+    private List<float2> Scanning()
     {
         ProvinceStats[] allProvinces = GameManager.Instance.provinces;
-        List<int2> scan = new List<int2>();
+        List<float2> scan = new List<float2>();
         foreach (int item in provinces)
         {
-            int2 value = new int2(item, 0);
+            float2 value = new float2((float)item, 0);
             for (int i = 0; i < allProvinces[item].neighbors.Count; i++)
             {
                 int provinceIndex = allProvinces[item].neighbors[i];
                 int owner = allProvinces[provinceIndex].provinceOwnerIndex;
                 if (owner != -1 && owner != index)
                 {
-                    value.y += allProvinces[provinceIndex].unitsCounter;
+                    value.y += allProvinces[provinceIndex].unitsCounter + 3f;
                 }
-                for (int j = 0; j < allProvinces[i].neighbors.Count;j++)
+                for (int j = 0; j < allProvinces[provinceIndex].neighbors.Count;j++)
                 {
-                    provinceIndex = allProvinces[i].neighbors[j];
-                    owner = allProvinces[provinceIndex].provinceOwnerIndex;
+                    int provinceIndex2 = allProvinces[provinceIndex].neighbors[j];
+                    owner = allProvinces[provinceIndex2].provinceOwnerIndex;
                     if (owner != -1 && owner != index)
                     {
-                        value.y += allProvinces[provinceIndex].unitsCounter;
+                        value.y += 0.3f * allProvinces[provinceIndex2].unitsCounter;
                     }
-                    Debug.Log(provinceIndex);
                 }
             }
+            value.y -= allProvinces[item].unitsCounter;
             scan.Add(value);
         }
-        foreach (int2 item in scan)
+        foreach (float2 item in scan)
         {
-     //       Debug.Log(item + " " + index);
+         //   Debug.Log(item + " " + index);
         }
         return scan;
     }
@@ -72,5 +87,9 @@ public class EnemyManager
                 provinces.Add(item.index);
             }
         }
+    }
+    private ProvinceStats GetProvince(int index)
+    {
+        return GameManager.Instance.provinces[index];
     }
 }
