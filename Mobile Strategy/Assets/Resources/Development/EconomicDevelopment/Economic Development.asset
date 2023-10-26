@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Economic Development
   m_EditorClassIdentifier: 
   name: k
-  description: 1
-  image: {fileID: 21300000, guid: ee76166b431571449b2bec9d107c7658, type: 3}
-  researchID: 0
-  price: 2103
-  indexTree: 0
+  description: '[Coin]+10 [Turn]'
+  image: {fileID: 21300000, guid: e16cfcfab984c8947acf37289c5abf4c, type: 3}
+  researchID: 2
+  price: 100

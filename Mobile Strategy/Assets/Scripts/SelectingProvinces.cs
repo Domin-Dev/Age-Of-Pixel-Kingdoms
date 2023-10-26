@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
-using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -809,5 +807,105 @@ public class SelectingProvinces : MonoBehaviour
             UpdateUnitNumber(map.GetChild(fromIndex));
             UpdateUnitNumber(map.GetChild(toIndex));
        }
+    }
+
+    public void AutoBattle(int aggressorProvinceIndex, int defenderProvinceIndex)
+    {
+        ProvinceStats aggressor = GameManager.Instance.provinces[aggressorProvinceIndex];
+        ProvinceStats defender = GameManager.Instance.provinces[defenderProvinceIndex];
+        float aggressorPower = 0;
+        float defenderPower = 0;
+        int unitsNumber = GameAssets.Instance.unitStats.Length;
+        for (int i = 0; i < unitsNumber; i++)
+        {
+            float unitValue = GameAssets.Instance.unitStats[i].battleValue;
+            bool isRangeUnit = GameAssets.Instance.unitStats[i].unitType == UnitStats.UnitType.RangeUnit;
+            if (aggressor.units.ContainsKey(i))
+            {
+                aggressorPower += unitValue * aggressor.units[i];
+            } 
+            
+            if (defender.units.ContainsKey(i))
+            {
+                defenderPower += unitValue * defender.units[i];
+            }
+        }
+        ProvinceStats winner;
+        ProvinceStats loser;
+        float value;
+
+        if (defenderPower > aggressorPower)
+        {
+            winner = defender;
+            value = aggressorPower;
+            loser = aggressor;
+        }
+        else
+        {
+            winner = aggressor;
+            value = defenderPower;
+            loser = defender;
+        }
+        loser.unitsCounter = 0;
+        for (int i = 0; i < unitsNumber; i++)
+        {
+            if (loser.units.ContainsKey(i))
+            {
+                loser.units[i] = 0;
+            }
+        }
+
+        List<float3> list = new List<float3>();
+        for (int i = 0; i < unitsNumber; i++)
+        {
+            if(winner.units.ContainsKey(i) && winner.units[i] > 0)
+            {
+                float3 f = new float3(i, winner.units[i], GameAssets.Instance.unitStats[i].battleValue);
+                list.Add(f);
+            }
+        }
+        while (value > 0)
+        {
+            if (value > 1f)
+            {
+                int index = UnityEngine.Random.Range(0, list.Count);
+                value -= list[index].z;
+                float3 v = list[index];
+                v.y--;
+                list[index] = v;    
+                if (v.y <= 0)
+                {
+                    list.RemoveAt(index);
+                }
+            }
+            else value = 0f;
+        }
+
+        int number = 0;
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log(list[i].y);
+        }
+
+        for (int i = 0; i < unitsNumber; i++)
+        {
+            if (winner.units.ContainsKey(i))
+            {
+                for (int j = 0; j < list.Count; j++)
+                {
+                    if (i == (int)list[j].x)
+                    {
+                        winner.units[i] = (int)list[j].y;
+                        number += (int)list[j].y;
+                        break;
+                    }
+                    if (j + 1 == list.Count) winner.units[i] = 0;
+                }
+            }
+        }
+        winner.unitsCounter = number;
+        UpdateUnitNumber(map.GetChild(aggressorProvinceIndex));
+        UpdateUnitNumber(map.GetChild(defenderProvinceIndex));
     }
 }

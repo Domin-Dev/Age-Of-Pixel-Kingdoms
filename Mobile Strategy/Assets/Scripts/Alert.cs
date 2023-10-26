@@ -35,7 +35,6 @@ public class Alert : MonoBehaviour
             animator.SetTrigger("Alert");
         }
     }
-
     public void End()
     {
         isPlaying = false;

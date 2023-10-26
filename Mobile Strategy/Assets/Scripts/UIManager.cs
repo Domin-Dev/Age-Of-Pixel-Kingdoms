@@ -418,11 +418,14 @@ public class UIManager : MonoBehaviour
         battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + yourProvinceIndex.ToString();
         LoadProvinceUnitCounters(yourProvinceIndex, gameAssets.AttackUnitContentUI1, false);
 
-        Button button = battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>();
+        Button button = battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => { GameManager.Instance.Battle(yourProvinceIndex,enemyProvinceIndex,true); });
 
-        button =  battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>(); 
+        button =  battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>();
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => { GameManager.Instance.selectingProvinces.AutoBattle(yourProvinceIndex, enemyProvinceIndex); });
+
 
         battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + enemyProvinceIndex.ToString();
         LoadProvinceUnitCounters(enemyProvinceIndex, gameAssets.AttackUnitContentUI2, false);

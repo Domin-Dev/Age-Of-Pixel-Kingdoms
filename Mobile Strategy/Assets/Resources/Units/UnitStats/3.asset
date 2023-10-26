@@ -25,5 +25,5 @@ MonoBehaviour:
   <movementPointsPrice>k__BackingField: 2
   <movementSound>k__BackingField: 9
   <attackSound>k__BackingField: 13
-  <unitType>k__BackingField: 2
+  <unitType>k__BackingField: 1
   <battleValue>k__BackingField: 0.5

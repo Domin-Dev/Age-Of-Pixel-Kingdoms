@@ -35,7 +35,6 @@ public class UnitStats : ScriptableObject
     public enum UnitType
     {
         NormalUnit,
-        FastUnit,
         RangeUnit,
     }
 }
