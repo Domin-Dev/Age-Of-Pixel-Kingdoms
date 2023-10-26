@@ -30,6 +30,7 @@ public class PlayerStats
         this.coins.AddBonus(-100, new Bonus("Base income", 100f, Bonus.bonusType.Income));
         this.coins.AddBonus(-200, new Bonus("Taxes", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.2f));
         this.coins.AddBonus(-300,new Bonus("Research funding", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, -0.02f));
+        this.coins.AddBonus(-400, new Bonus("Units Cost", (float multiplier) => { return -GetTurnWarriosCost(); }, (float multiplier) => { return ""; }, 0f));
         this.coins.SetDescription("Coins are used for \nunit recruitment and construction.");
 
         this.warriors = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); }, 0, "Warrior");
@@ -85,6 +86,27 @@ public class PlayerStats
             }
         }
         return warriors;
+    }
+
+    public float GetTurnWarriosCost()
+    {
+        int cost = 0;
+        int unitsNumber = GameAssets.Instance.unitStats.Length;
+        for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
+        {
+            ProvinceStats province = GameManager.Instance.provinces[i];
+            if (province.provinceOwnerIndex == index && province.unitsCounter > 0 && province.units !=null)
+            {
+                for (int j = 0; j < unitsNumber; j++)
+                {
+                    if(province.units.ContainsKey(j))
+                    {
+                        cost += province.units[j] * GameAssets.Instance.unitStats[j].turnCost;
+                    }
+                }
+            }
+        }
+        return cost;
     }
     public float GetMovementPoints()
     {

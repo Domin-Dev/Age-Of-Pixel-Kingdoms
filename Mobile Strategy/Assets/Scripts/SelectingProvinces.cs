@@ -809,7 +809,7 @@ public class SelectingProvinces : MonoBehaviour
        }
     }
 
-    public void AutoBattle(int aggressorProvinceIndex, int defenderProvinceIndex)
+    public void AutoBattle(bool isPlayer,int aggressorProvinceIndex, int defenderProvinceIndex)
     {
         ProvinceStats aggressor = GameManager.Instance.provinces[aggressorProvinceIndex];
         ProvinceStats defender = GameManager.Instance.provinces[defenderProvinceIndex];
@@ -905,7 +905,14 @@ public class SelectingProvinces : MonoBehaviour
             }
         }
         winner.unitsCounter = number;
+        if (winner.index == aggressorProvinceIndex)
+        {
+            loser.SetNewOwner(winner.provinceOwnerIndex);
+            ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));
+        }
         UpdateUnitNumber(map.GetChild(aggressorProvinceIndex));
         UpdateUnitNumber(map.GetChild(defenderProvinceIndex));
+        if (isPlayer) UIManager.Instance.CloseUIWindow("Battle");
+        Sounds.instance.PlaySound(8);
     }
 }

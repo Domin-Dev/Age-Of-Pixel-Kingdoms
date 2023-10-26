@@ -424,7 +424,7 @@ public class UIManager : MonoBehaviour
 
         button =  battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => { GameManager.Instance.selectingProvinces.AutoBattle(yourProvinceIndex, enemyProvinceIndex); });
+        button.onClick.AddListener(() => { GameManager.Instance.selectingProvinces.AutoBattle(true,yourProvinceIndex, enemyProvinceIndex); });
 
 
         battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + enemyProvinceIndex.ToString();
