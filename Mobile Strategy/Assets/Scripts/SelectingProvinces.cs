@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 
 public class SelectingProvinces : MonoBehaviour
 {
@@ -547,6 +548,7 @@ public class SelectingProvinces : MonoBehaviour
             UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(selectedProvince.name));
             GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
             UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
+            UIManager.Instance.UpdateCounters();
         }
     }
     public void Move()
@@ -771,14 +773,59 @@ public class SelectingProvinces : MonoBehaviour
             }
             provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
         }
-
     }
+    public void AIRecruitArray(int provinceIndex, int[] array,PlayerStats playerStats)
+    {
+        ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
+        int unitsNumber, price, movementPoints;
+        ArrayCount(array, out unitsNumber, out movementPoints, out price);
 
+        if (playerStats.warriors.CheckLimit(unitsNumber) && playerStats.movementPoints.CanAfford(movementPoints) &&
+            playerStats.coins.CanAfford(price) && provinceStats.population.CanAfford(unitsNumber))
+        {
+            provinceStats.unitsCounter += unitsNumber;
+            provinceStats.population.Subtract(unitsNumber);
+            playerStats.coins.Subtract(price);
+            playerStats.movementPoints.Subtract(movementPoints);
+            playerStats.warriors.Add(unitsNumber);
+            if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (provinceStats.units.ContainsKey(i))
+                {
+                    provinceStats.units[i] += array[i];
+                }
+                else
+                {
+                    provinceStats.units.Add(i, array[i]);
+                }
+            }
+
+            Transform provinceTransform = map.GetChild(provinceIndex);
+            if (provinceTransform.childCount == 0)
+            {
+                Instantiate(GameAssets.Instance.unitCounter, provinceTransform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, provinceTransform);
+            }
+            provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
+        }
+    }
+    private void ArrayCount(int[] array, out int number, out int movementPoints,out int price)
+    {
+        number = 0;
+        movementPoints = 0;
+        price = 0;
+        for (int i = 0; i < array.Length; i++)
+        {
+            movementPoints += array[i] * GameAssets.Instance.unitStats[i].movementPointsPrice;
+            number += array[i];
+            price += array[i] * GameAssets.Instance.unitStats[i].price;
+        }
+    }
     public void AIMove(int fromIndex,int toIndex,int unitsNumber,int unitIndex)
     {
-        
-            ProvinceStats from = GameManager.Instance.provinces[fromIndex];
-            ProvinceStats to = GameManager.Instance.provinces[toIndex];
+       ProvinceStats from = GameManager.Instance.provinces[fromIndex];
+       ProvinceStats to = GameManager.Instance.provinces[toIndex];
        if(from.unitsCounter >= unitsNumber)
        {
             from.unitsCounter -= unitsNumber;
@@ -833,19 +880,27 @@ public class SelectingProvinces : MonoBehaviour
         ProvinceStats winner;
         ProvinceStats loser;
         float value;
-
-        if (defenderPower > aggressorPower)
-        {
-            winner = defender;
-            value = aggressorPower;
-            loser = aggressor;
-        }
-        else
+        if (aggressorPower > defenderPower)
         {
             winner = aggressor;
             value = defenderPower;
             loser = defender;
         }
+        else
+        {
+            winner = defender;
+            value = aggressorPower;
+            loser = aggressor;
+        }
+        if (loser.provinceOwnerIndex == 0)
+        {
+            GameManager.Instance.humanPlayer.stats.warriors.value -=  loser.unitsCounter;
+        }
+        else if (loser.provinceOwnerIndex > 0)
+        {
+            GameManager.Instance.botsList[winner.provinceOwnerIndex + 1].stats.warriors.value -= loser.unitsCounter;
+        }
+
         loser.unitsCounter = 0;
         for (int i = 0; i < unitsNumber; i++)
         {
@@ -854,7 +909,6 @@ public class SelectingProvinces : MonoBehaviour
                 loser.units[i] = 0;
             }
         }
-
         List<float3> list = new List<float3>();
         for (int i = 0; i < unitsNumber; i++)
         {
@@ -864,9 +918,11 @@ public class SelectingProvinces : MonoBehaviour
                 list.Add(f);
             }
         }
+
+        Debug.Log(value);
         while (value > 0)
         {
-            if (value > 1f)
+            if (value > 0.5f)
             {
                 int index = UnityEngine.Random.Range(0, list.Count);
                 value -= list[index].z;
@@ -880,13 +936,7 @@ public class SelectingProvinces : MonoBehaviour
             }
             else value = 0f;
         }
-
         int number = 0;
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            Debug.Log(list[i].y);
-        }
 
         for (int i = 0; i < unitsNumber; i++)
         {
@@ -900,9 +950,21 @@ public class SelectingProvinces : MonoBehaviour
                         number += (int)list[j].y;
                         break;
                     }
-                    if (j + 1 == list.Count) winner.units[i] = 0;
+                    if (j + 1 == list.Count)
+                    {
+                        winner.units[i] = 0;
+                    }
                 }
+                if(list.Count == 0) winner.units[i] = 0;
             }
+        }
+        if(winner.provinceOwnerIndex == 0)
+        {
+            GameManager.Instance.humanPlayer.stats.warriors.value -=  winner.unitsCounter - number;
+        }
+        else if(winner.provinceOwnerIndex > 0)
+        {
+            GameManager.Instance.botsList[winner.provinceOwnerIndex - 1].stats.warriors.value -= winner.unitsCounter - number;
         }
         winner.unitsCounter = number;
         if (winner.index == aggressorProvinceIndex)
@@ -912,7 +974,12 @@ public class SelectingProvinces : MonoBehaviour
         }
         UpdateUnitNumber(map.GetChild(aggressorProvinceIndex));
         UpdateUnitNumber(map.GetChild(defenderProvinceIndex));
-        if (isPlayer) UIManager.Instance.CloseUIWindow("Battle");
+        if (isPlayer)
+        {
+            UIManager.Instance.UpdateCounters();
+            UIManager.Instance.CloseUIWindow("ProvinceStats");
+            UIManager.Instance.CloseUIWindow("Battle");
+        }
         Sounds.instance.PlaySound(8);
     }
 }

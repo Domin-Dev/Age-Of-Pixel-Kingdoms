@@ -82,7 +82,8 @@ public class GameManager : MonoBehaviour
 			}
 		}
         DontDestroyOnLoad(this);
-		Time.timeScale = 1.0f;
+        UIManager.Instance.UpdateCounters();
+        Time.timeScale = 1.0f;
 	}
 	private void LoadBots()
 	{

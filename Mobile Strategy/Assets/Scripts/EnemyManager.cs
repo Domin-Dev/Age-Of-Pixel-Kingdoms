@@ -10,34 +10,47 @@ public class EnemyManager
     List<int> provinces = new List<int>();
     List<float2> lastScan;
 
+    float[] powerUnits;
     public EnemyManager(PlayerStats playerStats)
     {
         this.playerStats = playerStats;
         this.index = playerStats.index;
+        powerUnits = new float[GameAssets.Instance.unitStats.Length];
+        for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+        {
+            powerUnits[i] = GameAssets.Instance.unitStats[i].battleValue;
+        }
     }
 
 
 
     public void NextTurn()
     {
-          lastScan = Scanning();
+        Recruit(provinces[0], 0f);
+        lastScan = Scanning();
+        foreach (float2 i in lastScan) 
+        { 
+            if(i.y > 2f)
+            {
+                Recruit((int)i.x, i.y);
+            }
+        }
         //   Recruit();
        //  if (index == 2)// Move();
       //  GameManager.Instance.pathFinding.FindPath(0, 21);
     }
-    private void Recruit()
+    private void Recruit(int provinceIndex, float battlePower)
     {
-        float maxValue = float.MinValue;
-        int selectedIndex = provinces[0];
-        foreach (float2 i in lastScan)
-        { 
-            if(i.y > maxValue)
-            {
-                maxValue = i.y;
-                selectedIndex = (int)i.x;
-            }
+        int[] units = new int[powerUnits.Length];
+        while (battlePower > 0f)
+        {
+            int index = UnityEngine.Random.Range(0, units.Length);
+            battlePower -= powerUnits[index];
+            units[index]++;
         }
-        GameManager.Instance.selectingProvinces.AIRecruit(selectedIndex, 3, 3, playerStats);
+        int selectedIndex = provinceIndex;
+        int[] ints = { 1, 1, 1, 1, 1, 1 };
+        GameManager.Instance.selectingProvinces.AIRecruitArray(provinces[0], ints, playerStats);
     }
     private void Move()
     {
@@ -81,9 +94,10 @@ public class EnemyManager
             value.y -= CountUnits(allProvinces[item]);
             scan.Add(value);
         }
-        foreach (float2 item in scan)
+
+        foreach (var item in scan)
         {
-            Debug.Log(item + " " + index);
+            Debug.Log(item);
         }
         return scan;
     }
@@ -104,6 +118,7 @@ public class EnemyManager
     }
     public void UpdateProvinces()
     {
+        provinces.Clear();
         foreach (ProvinceStats item in GameManager.Instance.provinces)
         {
             if (item.provinceOwnerIndex == playerStats.index)

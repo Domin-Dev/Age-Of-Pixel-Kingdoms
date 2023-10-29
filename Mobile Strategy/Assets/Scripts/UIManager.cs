@@ -5,6 +5,7 @@ using TMPro;
 using System;
 using Unity.VisualScripting;
 using System.Net.NetworkInformation;
+using Unity.Mathematics;
 
 public class UIManager : MonoBehaviour
 {
@@ -135,7 +136,7 @@ public class UIManager : MonoBehaviour
             {
                 transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice +" <sprite index=23> 1 <sprite index=1>";
 
-                transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.SelectUnitToRecruit(id); });
+                transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); selectingProvinces.SelectUnitToRecruit(id); });
             }
             index++;
         }
@@ -541,7 +542,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.humanPlayer.stats.ChangeCoinsMultiplier(coins);
         GameManager.Instance.humanPlayer.stats.ChangePopulationMultiplier(people);
         int population = (int)GameManager.Instance.humanPlayer.stats.GetPopulation();
-        managementWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Taxes: ( "+ GetColorString(population * coins) + Icons.GetIcon("Coin") + "  " + GetColorString(people * population) + Icons.GetIcon("Population") + " )" + Icons.GetIcon("Turn");
+        managementWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Taxes: ( "+ GetColorString((float)Math.Round(population * coins,2)) + Icons.GetIcon("Coin") + "  " + GetColorString((float)Math.Round(people * population,2)) + Icons.GetIcon("Population") + " )" + Icons.GetIcon("Turn");
         UpdateCounters();
     }
     private void UpdateResearchText()
@@ -550,7 +551,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.GetValuesByResearchIndex(index, out float coins,out float development);
         GameManager.Instance.humanPlayer.stats.ChangeDevelopmentMultiplier(development);
         int population = (int)GameManager.Instance.humanPlayer.stats.GetPopulation();
-        managementWindow.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research funding: ( " + GetColorString(population * coins) + Icons.GetIcon("Coin") + "  " + GetColorString(development * population) + Icons.GetIcon("DevelopmentPoint") +" )" + Icons.GetIcon("Turn");
+        managementWindow.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research: ( " + GetColorString((float)Math.Round(population * coins,2)) + Icons.GetIcon("Coin") + "  " + GetColorString((float)Math.Round(development * population,2)) + Icons.GetIcon("DevelopmentPoint") +" )" + Icons.GetIcon("Turn");
         UpdateCounters();
     }
     private string GetColorString(float value)

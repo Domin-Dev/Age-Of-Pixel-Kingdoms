@@ -99,16 +99,24 @@ public class ProvinceStats
     }
     public void SetNewOwner(int index)
     {
+        int lastOwner = provinceOwnerIndex;
+        provinceOwnerIndex = index;
+        if (lastOwner > 0) GameManager.Instance.botsList[lastOwner - 1].UpdateProvinces();
         if (index == 0)
         {
             GameManager.Instance.humanPlayer.stats.warriors.limit += warriors.value;
             GameManager.Instance.humanPlayer.stats.movementPoints.limit += movementPoints.value;
             GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex, out float coins, out float people);
             population.bonuses[-100].multiplier = people;
-
             UIManager.Instance.UpdateCounters();
         }
-        provinceOwnerIndex = index;         
+        else
+        {
+            GameManager.Instance.botsList[index - 1].stats.warriors.limit += warriors.value;
+            GameManager.Instance.botsList[index -1].stats.movementPoints.limit += movementPoints.value;
+            GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.botsList[index - 1].stats.texesIndex, out float coins, out float people);
+            population.bonuses[-100].multiplier = people;
+        }
     }
     public void NextTurn()
     {

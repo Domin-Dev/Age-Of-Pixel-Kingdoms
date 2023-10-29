@@ -1,6 +1,4 @@
-
 using System;
-
 public class Bonus
 {
     public override string ToString()
