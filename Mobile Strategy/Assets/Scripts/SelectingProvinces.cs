@@ -39,9 +39,6 @@ public class SelectingProvinces : MonoBehaviour
     public Button moveAll2;
     public Button moveHalf2;
 
-
-
-
     private void Start()
     {
         barState = -1;
@@ -860,117 +857,120 @@ public class SelectingProvinces : MonoBehaviour
     {
         ProvinceStats aggressor = GameManager.Instance.provinces[aggressorProvinceIndex];
         ProvinceStats defender = GameManager.Instance.provinces[defenderProvinceIndex];
-        float aggressorPower = 0;
-        float defenderPower = 0;
-        int unitsNumber = GameAssets.Instance.unitStats.Length;
-        for (int i = 0; i < unitsNumber; i++)
+        if (aggressor.unitsCounter > 0)
         {
-            float unitValue = GameAssets.Instance.unitStats[i].battleValue;
-            bool isRangeUnit = GameAssets.Instance.unitStats[i].unitType == UnitStats.UnitType.RangeUnit;
-            if (aggressor.units.ContainsKey(i))
+            float aggressorPower = 0;
+            float defenderPower = 0;
+            int unitsNumber = GameAssets.Instance.unitStats.Length;
+            for (int i = 0; i < unitsNumber; i++)
             {
-                aggressorPower += unitValue * aggressor.units[i];
-            } 
-            
-            if (defender.units.ContainsKey(i))
-            {
-                defenderPower += unitValue * defender.units[i];
-            }
-        }
-        ProvinceStats winner;
-        ProvinceStats loser;
-        float value;
-        if (aggressorPower > defenderPower)
-        {
-            winner = aggressor;
-            value = defenderPower;
-            loser = defender;
-        }
-        else
-        {
-            winner = defender;
-            value = aggressorPower;
-            loser = aggressor;
-        }
-        if (loser.provinceOwnerIndex == 0)
-        {
-            GameManager.Instance.humanPlayer.stats.warriors.value -=  loser.unitsCounter;
-        }
-        else if (loser.provinceOwnerIndex > 0)
-        {
-            GameManager.Instance.botsList[winner.provinceOwnerIndex + 1].stats.warriors.value -= loser.unitsCounter;
-        }
+                float unitValue = GameAssets.Instance.unitStats[i].battleValue;
 
-        loser.unitsCounter = 0;
-        for (int i = 0; i < unitsNumber; i++)
-        {
-            if (loser.units.ContainsKey(i))
-            {
-                loser.units[i] = 0;
-            }
-        }
-        List<float3> list = new List<float3>();
-        for (int i = 0; i < unitsNumber; i++)
-        {
-            if(winner.units.ContainsKey(i) && winner.units[i] > 0)
-            {
-                float3 f = new float3(i, winner.units[i], GameAssets.Instance.unitStats[i].battleValue);
-                list.Add(f);
-            }
-        }
-
-        Debug.Log(value);
-        while (value > 0)
-        {
-            if (value > 0.5f)
-            {
-                int index = UnityEngine.Random.Range(0, list.Count);
-                value -= list[index].z;
-                float3 v = list[index];
-                v.y--;
-                list[index] = v;    
-                if (v.y <= 0)
+                if (aggressor.units.ContainsKey(i))
                 {
-                    list.RemoveAt(index);
+                    aggressorPower += unitValue * aggressor.units[i];
+                }
+
+                if (defender.units.ContainsKey(i))
+                {
+                    defenderPower += unitValue * defender.units[i];
                 }
             }
-            else value = 0f;
-        }
-        int number = 0;
-
-        for (int i = 0; i < unitsNumber; i++)
-        {
-            if (winner.units.ContainsKey(i))
+            ProvinceStats winner;
+            ProvinceStats loser;
+            float value;
+            if (aggressorPower > defenderPower)
             {
-                for (int j = 0; j < list.Count; j++)
+                winner = aggressor;
+                value = defenderPower;
+                loser = defender;
+            }
+            else
+            {
+                winner = defender;
+                value = aggressorPower;
+                loser = aggressor;
+            }
+            if (loser.provinceOwnerIndex == 0)
+            {
+                GameManager.Instance.humanPlayer.stats.warriors.value -= loser.unitsCounter;
+            }
+            else if (loser.provinceOwnerIndex > 0)
+            {
+                GameManager.Instance.botsList[winner.provinceOwnerIndex + 1].stats.warriors.value -= loser.unitsCounter;
+            }
+
+            loser.unitsCounter = 0;
+            for (int i = 0; i < unitsNumber; i++)
+            {
+                if (loser.units.ContainsKey(i))
                 {
-                    if (i == (int)list[j].x)
+                    loser.units[i] = 0;
+                }
+            }
+            List<float3> list = new List<float3>();
+            for (int i = 0; i < unitsNumber; i++)
+            {
+                if (winner.units.ContainsKey(i) && winner.units[i] > 0)
+                {
+                    float3 f = new float3(i, winner.units[i], GameAssets.Instance.unitStats[i].battleValue);
+                    list.Add(f);
+                }
+            }
+
+            Debug.Log(value);
+            while (value > 0)
+            {
+                if (value > 0.5f)
+                {
+                    int index = UnityEngine.Random.Range(0, list.Count);
+                    value -= list[index].z;
+                    float3 v = list[index];
+                    v.y--;
+                    list[index] = v;
+                    if (v.y <= 0)
                     {
-                        winner.units[i] = (int)list[j].y;
-                        number += (int)list[j].y;
-                        break;
-                    }
-                    if (j + 1 == list.Count)
-                    {
-                        winner.units[i] = 0;
+                        list.RemoveAt(index);
                     }
                 }
-                if(list.Count == 0) winner.units[i] = 0;
+                else value = 0f;
             }
-        }
-        if(winner.provinceOwnerIndex == 0)
-        {
-            GameManager.Instance.humanPlayer.stats.warriors.value -=  winner.unitsCounter - number;
-        }
-        else if(winner.provinceOwnerIndex > 0)
-        {
-            GameManager.Instance.botsList[winner.provinceOwnerIndex - 1].stats.warriors.value -= winner.unitsCounter - number;
-        }
-        winner.unitsCounter = number;
-        if (winner.index == aggressorProvinceIndex)
-        {
-            loser.SetNewOwner(winner.provinceOwnerIndex);
-            ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));
+            int number = 0;
+
+            for (int i = 0; i < unitsNumber; i++)
+            {
+                if (winner.units.ContainsKey(i))
+                {
+                    for (int j = 0; j < list.Count; j++)
+                    {
+                        if (i == (int)list[j].x)
+                        {
+                            winner.units[i] = (int)list[j].y;
+                            number += (int)list[j].y;
+                            break;
+                        }
+                        if (j + 1 == list.Count)
+                        {
+                            winner.units[i] = 0;
+                        }
+                    }
+                    if (list.Count == 0) winner.units[i] = 0;
+                }
+            }
+            if (winner.provinceOwnerIndex == 0)
+            {
+                GameManager.Instance.humanPlayer.stats.warriors.value -= winner.unitsCounter - number;
+            }
+            else if (winner.provinceOwnerIndex > 0)
+            {
+                GameManager.Instance.botsList[winner.provinceOwnerIndex - 1].stats.warriors.value -= winner.unitsCounter - number;
+            }
+            winner.unitsCounter = number;
+            if (winner.index == aggressorProvinceIndex)
+            {
+                loser.SetNewOwner(winner.provinceOwnerIndex);
+                ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));
+            }
         }
         UpdateUnitNumber(map.GetChild(aggressorProvinceIndex));
         UpdateUnitNumber(map.GetChild(defenderProvinceIndex));

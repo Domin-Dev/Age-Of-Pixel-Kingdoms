@@ -48,6 +48,14 @@ public static class BonusManager
                 UpdateLimits(playerStats.index);
                 break;
             case 1:
+                playerStats.units[1] = true;
+                UpdateLimits(playerStats.index);
+                break; 
+            case 2:
+                playerStats.units[2] = true;
+                UpdateLimits(playerStats.index);
+                break;
+            case 555:
                 playerStats.movementPoints.AddBonus(0, new Bonus("better management", 5, Bonus.bonusType.IncreaseLimit));
                 UpdateLimits(playerStats.index);
                 break;

@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
 		}
         DontDestroyOnLoad(this);
         UIManager.Instance.UpdateCounters();
+        humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
         Time.timeScale = 1.0f;
 	}
 	private void LoadBots()

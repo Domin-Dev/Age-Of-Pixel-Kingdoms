@@ -58,8 +58,7 @@ public class UIManager : MonoBehaviour
     {
         gameAssets = GameAssets.Instance;
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
-        LoadUnits(gameAssets.recruitUnitContentUI,false,0);
-        // LoadUnits(gameAssets.moveUnitContentUI1,true);
+        LoadUnits(gameAssets.recruitUnitContentUI);
 
         LoadBuildings(-1);
 
@@ -114,31 +113,36 @@ public class UIManager : MonoBehaviour
             bottomBar.GetChild(i).gameObject.SetActive(open);
         }
     }
-    private void LoadUnits(Transform ContentUI, bool isMove, int provinceNumber)
+    private void LoadUnits(Transform contentUI)
     {
-        int index = 0;
-        foreach (UnitStats item in gameAssets.unitStats)
+        if (contentUI.childCount == 0)
         {
-            Transform transform = Instantiate(gameAssets.unitSlotUI, ContentUI).transform;
-            transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = item.name; 
-            transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.sprite;
-           
-            Transform transformStats = transform.GetChild(0).GetChild(2);
-            transformStats.GetChild(0).GetComponent<TextMeshProUGUI>().text = "<sprite index=20>" + item.lifePoints.ToString();
-            transformStats.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<sprite index=18>" + item.damage.ToString();
-            transformStats.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<sprite index=17>" + item.speed.ToString();
-            transformStats.GetChild(3).GetComponent<TextMeshProUGUI>().text = "<sprite index=19>" + item.range.ToString();
-            transformStats.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<sprite index=22>" + item.rateOfFire.ToString();
-            transformStats.GetChild(5).GetComponent<TextMeshProUGUI>().text = "<sprite index=23>" + item.turnCost.ToString();
-
-            int id = index;
-            if (!isMove)
+            int index = 0;
+            foreach (UnitStats item in gameAssets.unitStats)
             {
-                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice +" <sprite index=23> 1 <sprite index=1>";
+                Transform transform = Instantiate(gameAssets.unitSlotUI, contentUI).transform;
+                transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = item.name;
+                transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.sprite;
+                Transform transformStats = transform.GetChild(0).GetChild(2);
+                transformStats.GetChild(0).GetComponent<TextMeshProUGUI>().text = "<sprite index=20>" + item.lifePoints.ToString();
+                transformStats.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<sprite index=18>" + item.damage.ToString();
+                transformStats.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<sprite index=17>" + item.speed.ToString();
+                transformStats.GetChild(3).GetComponent<TextMeshProUGUI>().text = "<sprite index=19>" + item.range.ToString();
+                transformStats.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<sprite index=22>" + item.rateOfFire.ToString();
+                transformStats.GetChild(5).GetComponent<TextMeshProUGUI>().text = "<sprite index=23>" + item.turnCost.ToString();
 
+                int id = index;
+                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice + " <sprite index=23> 1 <sprite index=1>";
                 transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); selectingProvinces.SelectUnitToRecruit(id); });
+                index++;
             }
-            index++;
+        }
+        else
+        {
+            for (int i = 0; i < GameManager.Instance.humanPlayer.stats.units.Length; i++)
+            {
+                contentUI.GetChild(i).gameObject.SetActive(GameManager.Instance.humanPlayer.stats.units[i]);
+            }
         }
     }
     public void LoadBuildings(int provinceIndex)
@@ -337,10 +341,13 @@ public class UIManager : MonoBehaviour
             if(IsSea(selectingProvinces.selectedProvince)) return;
             LoadBuildings(int.Parse(selectingProvinces.selectedProvince.name));
         }
-
         if(name == "Development")
         {
             UpdateResearch();
+        }
+        if(name == "UnitsRecruitment")
+        {
+            LoadUnits(gameAssets.recruitUnitContentUI); 
         }
 
 
@@ -593,7 +600,6 @@ public class UIManager : MonoBehaviour
             bool isFirst = false; 
             for (int j = 0; j < length; j++)
             {
-
                 if (list[i,j] == true)
                 {
                     groups.GetChild(i).GetChild(j + 1).GetComponent<Image>().sprite = gameAssets.blueTexture;

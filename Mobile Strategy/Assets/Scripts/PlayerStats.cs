@@ -15,6 +15,7 @@ public class PlayerStats
 
     public bool[] buildingsPermit;
     public bool[,] research;
+    public bool[] units;
 
     public int income { private set; get; }
 
@@ -45,7 +46,9 @@ public class PlayerStats
         this.movementPoints.AddBonus(-100,new Bonus("Base Value",30,Bonus.bonusType.IncreaseLimit));
         this.movementPoints.AddBonus(-200, new Bonus("Provinces", (float multiplier) => { return GetMovementPoints(); }, (float multiplier) => { return ""; })) ;
         this.buildingsPermit = new bool[GameAssets.Instance.buildingsStats.Length];
-        this.research = new bool[4,GameAssets.Instance.research.GetLength(0)];
+        this.research = new bool[4,GameAssets.Instance.research.GetLength(1)];
+        this.units = new bool[GameAssets.Instance.unitStats.Length];
+        this.units[0] = true;
 
         movementPoints.UpdateLimit();
         warriors.UpdateLimit();

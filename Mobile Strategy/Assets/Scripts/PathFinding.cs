@@ -31,10 +31,6 @@ public class PathFinding
             path.Add(selected);
             currentProvince = selected;
         }
-        foreach (int i in path)
-        {
-            Debug.Log(i);
-        }
         return null;
     }
     public void CheckNeighbors(int index)

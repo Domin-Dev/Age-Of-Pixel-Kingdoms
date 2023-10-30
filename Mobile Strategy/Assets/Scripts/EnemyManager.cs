@@ -9,6 +9,7 @@ public class EnemyManager
 
     List<int> provinces = new List<int>();
     List<float2> lastScan;
+    List<float3> neighbors;
 
     float[] powerUnits;
     public EnemyManager(PlayerStats playerStats)
@@ -20,6 +21,7 @@ public class EnemyManager
         {
             powerUnits[i] = GameAssets.Instance.unitStats[i].battleValue;
         }
+        neighbors = new List<float3>();
     }
 
 
@@ -35,6 +37,15 @@ public class EnemyManager
                 Recruit((int)i.x, i.y);
             }
         }
+
+        foreach (var item in neighbors)
+        {
+            if(item.y == 0)
+            {
+                Attack((int)item.x);
+            }
+        }
+
         //   Recruit();
        //  if (index == 2)// Move();
       //  GameManager.Instance.pathFinding.FindPath(0, 21);
@@ -52,24 +63,36 @@ public class EnemyManager
         int[] ints = { 1, 1, 1, 1, 1, 1 };
         GameManager.Instance.selectingProvinces.AIRecruitArray(provinces[0], ints, playerStats);
     }
-    private void Move()
+
+    private void Attack(int target)
     {
-        float maxValue = float.MinValue;
-        int selectedIndex = provinces[0];
-        foreach (float2 i in lastScan)
+        ProvinceStats provinceStats = GameManager.Instance.provinces[target];
+        int value = -1;
+        int maxUnits = 0;
+        foreach (int item in provinceStats.neighbors)
         {
-            if (i.y > maxValue)
+            ProvinceStats province = GameManager.Instance.provinces[item];
+            if (province.provinceOwnerIndex == index)
             {
-                maxValue = i.y;
-                selectedIndex = (int)i.x;
+                if (province.unitsCounter >= maxUnits)
+                {
+                    value = province.index; ;
+                    maxUnits = province.unitsCounter;
+                }
             }
         }
-        GameManager.Instance.selectingProvinces.AIMove(provinces[0], provinces[1],1,3);
+        GameManager.Instance.selectingProvinces.AutoBattle(false, value,target);
+    }
+    private void Move(int from,int to)
+    {
+        GameManager.Instance.selectingProvinces.AIMove(from,to,1,3);
     }
     private List<float2> Scanning()
     {
         ProvinceStats[] allProvinces = GameManager.Instance.provinces;
         List<float2> scan = new List<float2>();
+        neighbors.Clear();
+
         foreach (int item in provinces)
         {
             float2 value = new float2((float)item, 0);
@@ -77,10 +100,13 @@ public class EnemyManager
             {
                 int provinceIndex = allProvinces[item].neighbors[i];
                 int owner = allProvinces[provinceIndex].provinceOwnerIndex;
-                if (owner != -1 && owner != index)
+                if (owner != index)
                 {
-                    value.y += CountUnits(allProvinces[provinceIndex]) + 3f;
+                    float power = CountUnits(allProvinces[provinceIndex]);
+                    if (owner != -1) value.y += power + 3f;
+                    neighbors.Add(new float3(provinceIndex,power,item));
                 }
+
                 for (int j = 0; j < allProvinces[provinceIndex].neighbors.Count;j++)
                 {
                     int provinceIndex2 = allProvinces[provinceIndex].neighbors[j];
@@ -93,11 +119,6 @@ public class EnemyManager
             }
             value.y -= CountUnits(allProvinces[item]);
             scan.Add(value);
-        }
-
-        foreach (var item in scan)
-        {
-            Debug.Log(item);
         }
         return scan;
     }
