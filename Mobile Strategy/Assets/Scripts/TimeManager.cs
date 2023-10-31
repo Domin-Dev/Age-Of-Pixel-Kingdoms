@@ -19,6 +19,9 @@ public class TimeManager : MonoBehaviour
     }
     private void SetSpeed()
     {
+        if(Time.timeScale == 0) GameAssets.Instance.pause.gameObject.SetActive(false);
+
+
         if (currentSpeed + 1 < speeds.Length)
         {
             currentSpeed++;
@@ -36,8 +39,13 @@ public class TimeManager : MonoBehaviour
         if (Time.timeScale == 0)
         {
             Time.timeScale = speeds[currentSpeed];
+            GameAssets.Instance.pause.gameObject.SetActive(false);
         }
-        else Time.timeScale = 0;
+        else
+        {
+            Time.timeScale = 0;
+            GameAssets.Instance.pause.gameObject.SetActive(true);
+        }
     }
     private void OnDestroy()
     {

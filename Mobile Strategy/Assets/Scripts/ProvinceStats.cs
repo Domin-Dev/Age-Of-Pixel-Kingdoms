@@ -59,7 +59,6 @@ public class ProvinceStats
     //    coins = new Statistic(0, "Coin");
     //    coins.AddBonus(-100,new Bonus("Population", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return ""; }, 0.1f));
 
-
         isSea = provinceStats.isSea;
         provinceOwnerIndex = provinceStats.provinceOwnerIndex;
         unitsCounter = provinceStats.unitsCounter;

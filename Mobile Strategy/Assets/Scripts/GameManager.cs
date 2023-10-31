@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
             LoadBots();
             humanPlayer = new Player("Player", false, Color.green, 10000, 0);
 
-
             ProvinceStats[] array = Resources.Load<MapStats>("Maps/World").provinces;
             numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
 
@@ -84,6 +83,10 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
         UIManager.Instance.UpdateCounters();
         humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
+		for (int i = 0; i < botsList.Count; i++)
+		{
+			BonusManager.UpdateLimits(botsList[i].index);
+        }
         Time.timeScale = 1.0f;
 	}
 	private void LoadBots()
@@ -133,6 +136,12 @@ public class GameManager : MonoBehaviour
 	public void SetUnitsConters(int your, int enemy)
     {
 		GameManager.Instance.humanPlayer.stats.warriors.Subtract(provinces[yourProvinceIndex].unitsCounter - your);
+		ProvinceStats province = provinces[enemyProvinceIndex];
+		if (province.provinceOwnerIndex > 0)
+		{
+			botsList[province.provinceOwnerIndex - 1].stats.warriors.Subtract(provinces[enemyProvinceIndex].unitsCounter - enemy);
+		}
+
 		provinces[yourProvinceIndex].unitsCounter = your;
 		provinces[enemyProvinceIndex].unitsCounter = enemy;
 	}
@@ -246,7 +255,7 @@ public class GameManager : MonoBehaviour
 		}
 		UpdateBotDebuger();
 	}
-	private void UpdateBotDebuger()
+	public void UpdateBotDebuger()
 	{
         string debugtext = "";
         foreach (Player bot in botsList)

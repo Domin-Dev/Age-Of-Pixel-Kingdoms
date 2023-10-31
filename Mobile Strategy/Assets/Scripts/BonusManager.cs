@@ -10,7 +10,7 @@ public static class BonusManager
         {
             case 0:
                 provinceStats.lifePoints.AddBonus(0,new Bonus("Capital", 20,Bonus.bonusType.Disposable));
-                provinceStats.warriors.AddBonus(1,new Bonus("Capital", 5,Bonus.bonusType.Disposable));
+                provinceStats.warriors.AddBonus(1,new Bonus("Capital", 10,Bonus.bonusType.Disposable));
                 break;
             case 1:
                 provinceStats.population.AddBonus(2, new Bonus("ko", 10, Bonus.bonusType.Income));
@@ -55,7 +55,7 @@ public static class BonusManager
                 playerStats.units[2] = true;
                 UpdateLimits(playerStats.index);
                 break;
-            case 555:
+            case 100:
                 playerStats.movementPoints.AddBonus(0, new Bonus("better management", 5, Bonus.bonusType.IncreaseLimit));
                 UpdateLimits(playerStats.index);
                 break;
@@ -66,7 +66,7 @@ public static class BonusManager
         }
         if(playerStats.index == 0) UIManager.Instance.UpdateCounters();
     }
-    private static void UpdateLimits(int index)
+    public static void UpdateLimits(int index)
     {
         if (index == 0)
         {

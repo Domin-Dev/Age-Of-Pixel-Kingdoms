@@ -63,8 +63,9 @@ public class GameAssets : MonoBehaviour
     public BuildingStats[] buildingsStats { private set; get; }
     public UnitStats[] unitStats { private set; get; }  
 
-    public Research[,] research { private set; get; }  
+    public Research[,] research { private set; get; }
 
+    public Transform pause;
     private void Awake()
     {
         if(Instance == null)
@@ -79,10 +80,10 @@ public class GameAssets : MonoBehaviour
         if(SceneManager.GetActiveScene().buildIndex == 0)
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
 
-        LoadResearch("Development/EconomicDevelopment", 2);
-        LoadResearch("Development/ManagementDevelopment", 3);
-        LoadResearch("Development/MilitaryDevelopment", 0);
-        LoadResearch("Development/ScientificDevelopment", 1);
+        LoadResearch("Development/2EconomicDevelopment", 2);
+        LoadResearch("Development/3ManagementDevelopment", 3);
+        LoadResearch("Development/0MilitaryDevelopment", 0);
+        LoadResearch("Development/1ScientificDevelopment", 1);
 
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");    

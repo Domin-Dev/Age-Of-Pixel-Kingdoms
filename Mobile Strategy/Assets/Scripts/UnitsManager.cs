@@ -202,21 +202,24 @@ public class UnitsManager : MonoBehaviour
         }
         return true;
     }
-    private void CreateUnit(int unitindex,Transform pathTransform)
+    private void CreateUnit(int unitindex, Transform pathTransform)
     {
-        Sounds.instance.PlaySound(6);
-        yourUnits[unitindex]--;
-        yourUnitCount--;
-        UpdateUnitsUI(unitindex);
-        int path = int.Parse(pathTransform.name);
-        List<Unit> units = GetPath(path);
+        if (Time.timeScale > 0)
+        {
+            Sounds.instance.PlaySound(6);
+            yourUnits[unitindex]--;
+            yourUnitCount--;
+            UpdateUnitsUI(unitindex);
+            int path = int.Parse(pathTransform.name);
+            List<Unit> units = GetPath(path);
 
-        Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-        unit.SetUp (unitindex,path,true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false,unitindex); CheckUnits(); }, (unit) => { return CheckPath(unit);});
-        units.Add(unit);
+            Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
+            unit.SetUp(unitindex, path, true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false, unitindex); CheckUnits(); }, (unit) => { return CheckPath(unit); });
+            units.Add(unit);
 
-        SetUnitColor(yourColor, unit.GetComponent<SpriteRenderer>());
-        battleEnemy.CheckPaths();
+            SetUnitColor(yourColor, unit.GetComponent<SpriteRenderer>());
+            battleEnemy.CheckPaths();
+        }
     }
     public bool EnemyCreateUnit(int unitindex, int pathIndex, bool debug)
     {
