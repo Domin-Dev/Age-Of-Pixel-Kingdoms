@@ -930,23 +930,38 @@ public class SelectingProvinces : MonoBehaviour
     {
         ProvinceStats aggressor = GameManager.Instance.provinces[aggressorProvinceIndex];
         ProvinceStats defender = GameManager.Instance.provinces[defenderProvinceIndex];
-        if (aggressor.unitsCounter > 0)
+        if (aggressor.unitsCounter > 0 )
         {
             float aggressorPower = 0;
             float defenderPower = 0;
             int unitsNumber = GameAssets.Instance.unitStats.Length;
-            for (int i = 0; i < unitsNumber; i++)
+            if (defender.units != null)
             {
-                float unitValue = GameAssets.Instance.unitStats[i].battleValue;
-
-                if (aggressor.units.ContainsKey(i))
+                for (int i = 0; i < unitsNumber; i++)
                 {
-                    aggressorPower += unitValue * aggressor.units[i];
+                    float unitValue = GameAssets.Instance.unitStats[i].battleValue;
+
+                    if (aggressor.units.ContainsKey(i))
+                    {
+                        aggressorPower += unitValue * aggressor.units[i];
+                    }
+
+                    if (defender.units.ContainsKey(i))
+                    {
+                        defenderPower += unitValue * defender.units[i];
+                    }
                 }
-
-                if (defender.units.ContainsKey(i))
+            }
+            else
+            {
+                defenderPower = 0;
+                for (int i = 0; i < unitsNumber; i++)
                 {
-                    defenderPower += unitValue * defender.units[i];
+                    float unitValue = GameAssets.Instance.unitStats[i].battleValue;
+                    if (aggressor.units.ContainsKey(i))
+                    {
+                        aggressorPower += unitValue * aggressor.units[i];
+                    }
                 }
             }
             ProvinceStats winner;
@@ -974,11 +989,14 @@ public class SelectingProvinces : MonoBehaviour
             }
 
             loser.unitsCounter = 0;
-            for (int i = 0; i < unitsNumber; i++)
+            if (loser.units != null)
             {
-                if (loser.units.ContainsKey(i))
+                for (int i = 0; i < unitsNumber; i++)
                 {
-                    loser.units[i] = 0;
+                    if (loser.units.ContainsKey(i))
+                    {
+                        loser.units[i] = 0;
+                    }
                 }
             }
             List<float3> list = new List<float3>();

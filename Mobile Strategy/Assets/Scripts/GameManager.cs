@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance;
+	public CameraController cameraController;
 
 	public ProvinceStats[] provinces;
 	public int numberOfProvinces;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
 	}
 	private void Start()
 	{
+		cameraController = Camera.main.GetComponent<CameraController>();
 		for (int i = 0; i < provinces.Length; i++)
 		{
 			ProvinceStats provinceStats = provinces[i];

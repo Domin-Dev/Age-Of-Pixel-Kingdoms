@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] SpriteRenderer target;
 
     public Vector3 Limit;
+    bool isFrozen;
+    private Transform provinceTarget;
 
     Vector3 startPosition;
     Vector3 endPosition;
@@ -21,6 +23,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        isFrozen = false;
         Application.targetFrameRate = 60;
         selectingProvinces = GetComponent<SelectingProvinces>();
 
@@ -46,7 +49,7 @@ public class CameraController : MonoBehaviour
     float lastValue;
     private void Update()
     {
-        if (target == null)
+        if (target == null && !isFrozen)
         {
             if (Input.GetMouseButtonDown(0) && !MouseIsOverUI())
             {
@@ -81,6 +84,22 @@ public class CameraController : MonoBehaviour
                 lastValue = 0;
             }
         }
+
+        if(isFrozen)
+        {
+            Vector3 vector3 = Vector3.Lerp(transform.position, provinceTarget.position, 1f * Time.deltaTime);          
+            transform.position = new Vector3(vector3.x, vector3.y,-10);
+            Debug.Log(Vector2.Distance(vector3, provinceTarget.position));
+            if (Vector2.Distance(vector3, provinceTarget.position) < 0.6f)
+            {
+                isFrozen = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SetTartget(GameManager.Instance.map.GetChild(10).transform);
+        }
     }
 
     private bool MouseIsOverUI()
@@ -89,7 +108,19 @@ public class CameraController : MonoBehaviour
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-        return results.Count > 0;   
+        return results.Count > 0;
     }
 
+    public void SetTartget(Transform province)
+    {
+        isFrozen = true;
+        provinceTarget = province;
+        waiter(5f);
+    }
+
+
+    IEnumerator waiter(float time)
+    {
+        yield return new WaitForSeconds(time);
+    }
 }

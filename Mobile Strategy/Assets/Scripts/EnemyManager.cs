@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class EnemyManager
@@ -29,11 +30,7 @@ public class EnemyManager
 
     public void NextTurn()
     {
-        lastScan = Scanning();
-        if (provinces.Count > 1)
-        {
-
-        }
+        lastScan = Scanning();     
         foreach (float2 i in lastScan) 
         {
             if(i.y > 0.5f)
@@ -41,10 +38,14 @@ public class EnemyManager
                Defense((int)i.x, i.y);
             }
         }
+        if(playerStats.warriors.value / playerStats.warriors.limit > 0.1f)
+        {
+            Recruit(provinces[UnityEngine.Random.Range(0, provinces.Count)], 3f);
+        }
 
         foreach (var item in neighbors)
         {
-            if(item.y == 0)
+            if(item.y < 10)
             {
                 Attack((int)item.x);
             }
@@ -70,6 +71,7 @@ public class EnemyManager
     {
         if (!Recruit(provinceIndex, battlePower) && battlePower > 1f)
         {
+            Debug.Log("def");
             ProvinceStats province = GameManager.Instance.provinces[provinceIndex];
             for (int i = 0; i < province.neighbors.Count; i++)
             {
@@ -101,6 +103,13 @@ public class EnemyManager
                 }
             }
         }
+
+        if(maxUnits == 0) 
+        {
+            Recruit(value, 2f);
+        }
+
+        GameManager.Instance.cameraController.SetTartget(GameManager.Instance.map.GetChild(target));
         GameManager.Instance.selectingProvinces.AutoBattle(false, value,target);
     }
     private void Move(int from,int to, float battlePower)
@@ -115,7 +124,7 @@ public class EnemyManager
             }
 
             int[] units = new int[powerUnits.Length];
-            while (battlePower > 0f)
+            while (battlePower > 0f || unitsFrom.Count > 0)
             {
                 int indexList = UnityEngine.Random.Range(0, unitsFrom.Count);
                 int index = (int)unitsFrom[indexList].x;
@@ -130,6 +139,8 @@ public class EnemyManager
                     unitsFrom.RemoveAt(indexList);
                 }
             }
+
+
             GameManager.Instance.selectingProvinces.AIMoveArray(units, from, to);
         }
     }
