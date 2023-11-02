@@ -1,21 +1,27 @@
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
+
+
+	public bool ready;
+	private bool readyToNextTurn;
+
 	public static GameManager Instance;
 	public CameraController cameraController;
 
 	public ProvinceStats[] provinces;
 	public int numberOfProvinces;
 	public List<Player> botsList;
+	public Transform players;
 
 	public Player humanPlayer;
 
@@ -36,12 +42,15 @@ public class GameManager : MonoBehaviour
 		if (Instance == null)
 		{
 			Instance = this;
-			
+			players = new GameObject("Players").transform;
+			players.tag = "Players";
+			DontDestroyOnLoad(players);
+
 			map = GameObject.FindGameObjectWithTag("GameMap").transform;
 			buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
 			selectingProvinces = FindObjectOfType<SelectingProvinces>();
+            CreateHumanPlayer();
             LoadBots();
-            humanPlayer = new Player("Player", false, Color.green, 10000, 0);
 
             ProvinceStats[] array = Resources.Load<MapStats>("Maps/World").provinces;
             numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
@@ -67,6 +76,8 @@ public class GameManager : MonoBehaviour
 	}
 	private void Start()
 	{
+		ready = true;
+		readyToNextTurn = true;
 		cameraController = Camera.main.GetComponent<CameraController>();
 		for (int i = 0; i < provinces.Length; i++)
 		{
@@ -93,11 +104,27 @@ public class GameManager : MonoBehaviour
 	}
 	private void LoadBots()
 	{
-        botsList.Add(new Player("Player", true, Color.yellow,1000,1 + botsList.Count));
-        botsList.Add(new Player("xd", true, Color.cyan,1000,1 + botsList.Count));
-        botsList.Add(new Player("green", true, Color.red,1000,1 + botsList.Count));
+        AddBot("Player", true, Color.yellow,1000,1 + botsList.Count);
+        AddBot("xd", true, Color.cyan,1000,1 + botsList.Count);
+        AddBot("green", true, Color.red,1000,1 + botsList.Count);
     }
-	private void UpdateBotProvinces()
+
+	private void AddBot(string name,bool isComputer,Color color, int startCoins,int index)
+	{
+		Player player = new GameObject(name, typeof(Player)).GetComponent<Player>();
+		player.transform.parent = players;
+		player.SetUp(name,isComputer, color, startCoins, index);
+		botsList.Add(player);
+	}
+
+	private void CreateHumanPlayer()
+	{
+        Player player = new GameObject("Human", typeof(Player)).GetComponent<Player>();
+        player.transform.parent = players;
+        player.SetUp("Player", false, Color.blue, 10000, 0);
+		humanPlayer = player;
+    }
+    private void UpdateBotProvinces()
 	{
 		foreach (Player item in botsList)
 		{
@@ -171,6 +198,15 @@ public class GameManager : MonoBehaviour
 	}
 	public void UpdateMap()
 	{
+        cameraController = Camera.main.GetComponent<CameraController>();
+        players = GameObject.FindGameObjectWithTag("Players").transform;
+		humanPlayer = players.GetChild(0).GetComponent<Player>();
+		for (int i = 0; i < botsList.Count; i++)
+		{
+			botsList[i] = players.GetChild(i + 1).GetComponent<Player>();
+		} 
+
+
 		map = GameObject.FindGameObjectWithTag("GameMap").transform;
 		buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
 		selectingProvinces = FindObjectOfType<SelectingProvinces>();
@@ -201,61 +237,70 @@ public class GameManager : MonoBehaviour
 	}
 	public void NextTurn(TextMeshProUGUI text)
 	{
-		turn++;
-		BotsNextTurn();
-
-		humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
-
-		float startDevelopmentPoints = (float)Math.Round(humanPlayer.stats.developmentPoints.value, 2);
-		float developmentPointsIncome = (float)Math.Round(humanPlayer.stats.developmentPoints.NextTurn(),2);
-
-		float startCoins = (int)humanPlayer.stats.coins.value;
-		float coinsIncome = humanPlayer.stats.coins.NextTurn();
-
-		float startPopulation = humanPlayer.stats.GetPopulation();
-		float populationIncome = 0;
-
-
-		text.text = "Turn:" + turn;
-		UIManager.Instance.CloseUIWindow("ProvinceStats");
-
-		for (int i = 0; i < provinces.Length; i++)
+		if (readyToNextTurn)
 		{
-			float value = provinces[i].population.NextTurn();
-		  //  provinces[i].developmentPoints.NextTurn(); 
-			if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
+			turn++;
+			StartCoroutine(BotsNextTurn());
+
+			humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
+
+			float startDevelopmentPoints = (float)Math.Round(humanPlayer.stats.developmentPoints.value, 2);
+			float developmentPointsIncome = (float)Math.Round(humanPlayer.stats.developmentPoints.NextTurn(), 2);
+
+			float startCoins = (int)humanPlayer.stats.coins.value;
+			float coinsIncome = humanPlayer.stats.coins.NextTurn();
+
+			float startPopulation = humanPlayer.stats.GetPopulation();
+			float populationIncome = 0;
+
+
+			text.text = "Turn:" + turn;
+			UIManager.Instance.CloseUIWindow("ProvinceStats");
+
+
+			for (int i = 0; i < provinces.Length; i++)
+			{
+				float value = provinces[i].population.NextTurn();
+				if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
+			}
+			/*
+			string stats = startCoins + " <sprite index=21/>   ";
+			if (coinsIncome >= 0) stats += "<color=green>+"+ coinsIncome +"</color>";
+			else stats += "<color=red>" + coinsIncome + "</color>";
+
+			stats += "\n";
+
+			stats +=  startPopulation + " <sprite index=1/>   ";
+			if (populationIncome >= 0) stats += "<color=green>+" + populationIncome + "</color>";
+			else stats += "<color=red>" + populationIncome + "</color>";
+
+			stats += "\n";
+
+			stats += startDevelopmentPoints + " <sprite index=22/>   ";
+			if (developmentPointsIncome >= 0) stats += "<color=green>+" + developmentPointsIncome + "</color>";
+			else stats += "<color=red>" + developmentPointsIncome + "</color>";
+
+			UIManager.Instance.OpenTurnDetails(stats);
+			*/
 		}
+    }
 
-		string stats = startCoins + " <sprite index=21/>   ";
-		if (coinsIncome >= 0) stats += "<color=green>+"+ coinsIncome +"</color>";
-		else stats += "<color=red>" + coinsIncome + "</color>";
-
-		stats += "\n";
-
-		stats +=  startPopulation + " <sprite index=1/>   ";
-		if (populationIncome >= 0) stats += "<color=green>+" + populationIncome + "</color>";
-		else stats += "<color=red>" + populationIncome + "</color>";
-
-		stats += "\n";
-
-		stats += startDevelopmentPoints + " <sprite index=22/>   ";
-		if (developmentPointsIncome >= 0) stats += "<color=green>+" + developmentPointsIncome + "</color>";
-		else stats += "<color=red>" + developmentPointsIncome + "</color>";
-
-		UIManager.Instance.OpenTurnDetails(stats);
-	}
-
-	private void BotsNextTurn()
+    IEnumerator BotsNextTurn()
 	{
+		readyToNextTurn = false;
 		foreach (Player bot in botsList)
 		{
-			PlayerStats playerStats = bot.stats;
+            yield return new WaitUntil(() => ready);
+			ready = false;
+            PlayerStats playerStats = bot.stats;
             playerStats.movementPoints.Set(playerStats.movementPoints.limit);
             playerStats.developmentPoints.NextTurn();
 			playerStats.coins.NextTurn();
 			bot.RunEnemyManager();
 		}
+		readyToNextTurn = true;
 		UpdateBotDebuger();
+		yield return 0;
 	}
 	public void UpdateBotDebuger()
 	{

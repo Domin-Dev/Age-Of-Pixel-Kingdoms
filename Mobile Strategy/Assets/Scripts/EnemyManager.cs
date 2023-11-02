@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-public class EnemyManager
+public class EnemyManager 
 {
     private PlayerStats playerStats;
     private int index;
@@ -12,6 +14,8 @@ public class EnemyManager
     List<int> provinces = new List<int>();
     List<float2> lastScan;
     List<float3> neighbors;
+
+    bool done;
 
     float[] powerUnits;
     public EnemyManager(PlayerStats playerStats)
@@ -24,39 +28,41 @@ public class EnemyManager
             powerUnits[i] = GameAssets.Instance.unitStats[i].battleValue;
         }
         neighbors = new List<float3>();
+        done = false;
     }
 
-
-
-    public void NextTurn()
+    public IEnumerator NextTurnFunction()
     {
-        lastScan = Scanning();     
-        foreach (float2 i in lastScan) 
+        lastScan = Scanning();
+        foreach (float2 i in lastScan)
         {
-            if(i.y > 0.5f)
+            if (i.y > 0.5f)
             {
-               Defense((int)i.x, i.y);
+                Defense((int)i.x, i.y);
+                yield return new WaitUntil(() => done);
             }
         }
-        if(playerStats.warriors.value / playerStats.warriors.limit > 0.1f)
+        if (playerStats.warriors.value / playerStats.warriors.limit > 0.1f)
         {
             Recruit(provinces[UnityEngine.Random.Range(0, provinces.Count)], 3f);
+            yield return new WaitUntil(() => done);
         }
 
         foreach (var item in neighbors)
         {
-            if(item.y < 10)
+            if (item.y < 10)
             {
                 Attack((int)item.x);
+                yield return new WaitUntil(() => done);
             }
         }
 
-        //   Recruit();
-       //  if (index == 2)// Move();
-      //  GameManager.Instance.pathFinding.FindPath(0, 21);
+        GameManager.Instance.ready = true;
+        yield return 0;
     }
     private bool Recruit(int provinceIndex, float battlePower)
     {
+        done = false;
         int[] units = new int[powerUnits.Length];
         while (battlePower > 0f)
         {
@@ -64,14 +70,14 @@ public class EnemyManager
               battlePower -= powerUnits[index];
               units[index]++;
         }
-       return GameManager.Instance.selectingProvinces.AIRecruitArray(provinceIndex, units, playerStats);
+        GameManager.Instance.cameraController.SetProvince(GameManager.Instance.map.GetChild(provinceIndex), () => { done = true; });
+        return GameManager.Instance.selectingProvinces.AIRecruitArray(provinceIndex, units, playerStats);
     }
 
     private void Defense(int provinceIndex, float battlePower)
     {
         if (!Recruit(provinceIndex, battlePower) && battlePower > 1f)
         {
-            Debug.Log("def");
             ProvinceStats province = GameManager.Instance.provinces[provinceIndex];
             for (int i = 0; i < province.neighbors.Count; i++)
             {
@@ -88,6 +94,7 @@ public class EnemyManager
     }
     private void Attack(int target)
     {
+        done = false;
         ProvinceStats provinceStats = GameManager.Instance.provinces[target];
         int value = -1;
         int maxUnits = 0;
@@ -109,8 +116,8 @@ public class EnemyManager
             Recruit(value, 2f);
         }
 
-        GameManager.Instance.cameraController.SetTartget(GameManager.Instance.map.GetChild(target));
-        GameManager.Instance.selectingProvinces.AutoBattle(false, value,target);
+       GameManager.Instance.cameraController.SetProvince(GameManager.Instance.map.GetChild(target), () => { done = true; });
+       GameManager.Instance.selectingProvinces.AutoBattle(false, value,target);
     }
     private void Move(int from,int to, float battlePower)
     {
@@ -124,19 +131,26 @@ public class EnemyManager
             }
 
             int[] units = new int[powerUnits.Length];
-            while (battlePower > 0f || unitsFrom.Count > 0)
+            while (battlePower > 0f)
             {
-                int indexList = UnityEngine.Random.Range(0, unitsFrom.Count);
-                int index = (int)unitsFrom[indexList].x;
-
-                battlePower -= powerUnits[index];
-                units[index]++;
-                float2 float2 = unitsFrom[indexList];
-                float2.y--;
-                unitsFrom[indexList] = float2;
-                if(float2.y <= 0)
+                if (unitsFrom.Count > 0)
                 {
-                    unitsFrom.RemoveAt(indexList);
+                    int indexList = UnityEngine.Random.Range(0, unitsFrom.Count);
+                    int index = (int)unitsFrom[indexList].x;
+
+                    battlePower -= powerUnits[index];
+                    units[index]++;
+                    float2 float2 = unitsFrom[indexList];
+                    float2.y--;
+                    unitsFrom[indexList] = float2;
+                    if (float2.y <= 0)
+                    {
+                        unitsFrom.RemoveAt(indexList);
+                    }
+                }
+                else
+                {
+                    break;
                 }
             }
 

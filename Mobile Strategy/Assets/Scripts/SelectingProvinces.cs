@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Unity.Mathematics;
+using System.Collections;
 
 public class SelectingProvinces : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class SelectingProvinces : MonoBehaviour
     public Button moveAll2;
     public Button moveHalf2;
 
+    private Transform battleIcon;
     private void Start()
     {
         barState = -1;
@@ -79,6 +81,32 @@ public class SelectingProvinces : MonoBehaviour
 
 
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
+        SetUpBattleIcon();
+    }
+
+    private void SetUpBattleIcon()
+    {
+        battleIcon = new GameObject("Battle", typeof(SpriteRenderer)).transform;
+        battleIcon.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        battleIcon.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.battleIcon;
+        battleIcon.GetComponent<SpriteRenderer>().sortingOrder = 60;
+        battleIcon.gameObject.SetActive(false);
+    }
+
+    float currentTime = 0;
+    float time = 0;
+    private void Update()
+    {
+        if (time > 0)
+        {
+            currentTime += Time.deltaTime;
+            if(currentTime >= time)
+            {
+                battleIcon.gameObject.SetActive(false);
+                time = 0;
+                currentTime = 0;
+            }
+        }
     }
     private void SetSelectionNumberUnits(bool isMove)
     {
@@ -1072,5 +1100,22 @@ public class SelectingProvinces : MonoBehaviour
             UIManager.Instance.CloseUIWindow("Battle");
         }
         Sounds.instance.PlaySound(8);
+        SetBattleIcon(aggressorProvinceIndex, defenderProvinceIndex);
+    }
+
+
+    private void SetBattleIcon(int province1,int province2)
+    {
+        Vector3 vector1 = map.GetChild(province1).transform.position;
+        Vector3 vector2 = map.GetChild(province2).transform.position;
+        battleIcon.gameObject.SetActive(true);
+        battleIcon.transform.position = new Vector3((vector1.x + vector2.x) / 2, (vector1.y + vector2.y) / 2, 0);
+        SetTimer(1f);
+    }
+
+    private void SetTimer(float timer)
+    {
+        time = timer;
+        currentTime = 0;
     }
 }

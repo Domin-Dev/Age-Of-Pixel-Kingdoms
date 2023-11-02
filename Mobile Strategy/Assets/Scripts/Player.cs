@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class Player
+public class Player : MonoBehaviour
 {
     public string playerName { private set; get; }
 
@@ -16,20 +16,20 @@ public class Player
     public PlayerStats stats;
     private EnemyManager enemyManager;
     public int index { private set; get; }
-
-    public Player(string playerName,bool isComputer,Color playerColor,int startCoins, int index)
+    public void SetUp(string playerName, bool isComputer, Color playerColor, int startCoins, int index)
     {
-        this.stats = new PlayerStats(startCoins,index);
+        this.stats = new PlayerStats(startCoins, index);
         this.index = index;
         this.playerName = playerName;
-        this.isComputer = isComputer;   
+        this.isComputer = isComputer;
         this.playerColor = playerColor;
-        if (isComputer) enemyManager = new EnemyManager(stats); 
+        if (isComputer) enemyManager = new EnemyManager(stats);
+        DontDestroyOnLoad(gameObject);
     }
 
     public void RunEnemyManager()
     {
-        enemyManager.NextTurn();
+       StartCoroutine(enemyManager.NextTurnFunction());
     }
 
     public void UpdateProvinces()

@@ -12,8 +12,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] SpriteRenderer target;
 
     public Vector3 Limit;
+
+
     bool isFrozen;
     private Transform provinceTarget;
+    private Action end;
 
     Vector3 startPosition;
     Vector3 endPosition;
@@ -89,16 +92,16 @@ public class CameraController : MonoBehaviour
         {
             Vector3 vector3 = Vector3.Lerp(transform.position, provinceTarget.position, 1f * Time.deltaTime);          
             transform.position = new Vector3(vector3.x, vector3.y,-10);
-            Debug.Log(Vector2.Distance(vector3, provinceTarget.position));
-            if (Vector2.Distance(vector3, provinceTarget.position) < 0.6f)
+            if (Vector2.Distance(vector3, provinceTarget.position) < 0.3f)
             {
                 isFrozen = false;
+                end();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            SetTartget(GameManager.Instance.map.GetChild(10).transform);
+            SetProvince(GameManager.Instance.map.GetChild(10).transform,() => { });
         }
     }
 
@@ -111,16 +114,10 @@ public class CameraController : MonoBehaviour
         return results.Count > 0;
     }
 
-    public void SetTartget(Transform province)
+    public void SetProvince(Transform province,Action action)
     {
         isFrozen = true;
         provinceTarget = province;
-        waiter(5f);
-    }
-
-
-    IEnumerator waiter(float time)
-    {
-        yield return new WaitForSeconds(time);
+        end = action;
     }
 }

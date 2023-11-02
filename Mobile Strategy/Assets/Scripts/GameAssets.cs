@@ -66,6 +66,8 @@ public class GameAssets : MonoBehaviour
     public Research[,] research { private set; get; }
 
     public Transform pause;
+
+    public Sprite battleIcon;
     private void Awake()
     {
         if(Instance == null)
