@@ -94,8 +94,7 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(vector3.x, vector3.y,-10);
             if (Vector2.Distance(vector3, provinceTarget.position) < 0.3f)
             {
-                isFrozen = false;
-                end();
+                StartCoroutine(EndMove());
             }
         }
 
@@ -119,5 +118,12 @@ public class CameraController : MonoBehaviour
         isFrozen = true;
         provinceTarget = province;
         end = action;
+    }
+
+    IEnumerator EndMove()
+    {
+       isFrozen = false;
+       yield return new WaitForSeconds(1f);
+       end();
     }
 }

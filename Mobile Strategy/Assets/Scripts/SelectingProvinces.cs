@@ -823,11 +823,12 @@ public class SelectingProvinces : MonoBehaviour
         }
 
         Transform provinceTransform = map.GetChild(provinceIndex);
-        if (provinceTransform.childCount == 0)
+        if (provinceTransform.childCount == 0 && unitsNumber > 0)
         {
             Instantiate(GameAssets.Instance.unitCounter, provinceTransform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, provinceTransform);
         }
-        provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
+       
+        if( unitsNumber > 0 ) provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
 
         if (unitsNumber == 0) return false;
         else return true;

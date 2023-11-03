@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform developmentWindow;
     [SerializeField] private Transform managementWindow;
     [SerializeField] private Transform researchWindow;
+    [SerializeField] private Transform pauseWindow;
 
     private Transform groups;
 
@@ -62,6 +63,7 @@ public class UIManager : MonoBehaviour
 
         LoadBuildings(-1);
 
+        pauseWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Pause"); Sounds.instance.PlaySound(5); });
         provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); Sounds.instance.PlaySound(5); });
         recruitmentWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("UnitsRecruitment"); Sounds.instance.PlaySound(5); });
         selectionNumberUnitsWindow.GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("SelectionNumberUnits"); Sounds.instance.PlaySound(5); });
@@ -82,6 +84,8 @@ public class UIManager : MonoBehaviour
 
         bottomBar.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Development", 0); Sounds.instance.PlaySound(5); });
         bottomBar.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Management", 0); OpenManagement(); Sounds.instance.PlaySound(5); });
+        bottomBar.GetChild(6).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Pause", 0); Sounds.instance.PlaySound(5); }) ; 
+
         managementWindow.GetChild(2).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.stats.texesIndex = (int)value; UpdateTaxesText(); Sounds.instance.PlaySound(5); });
         managementWindow.GetChild(3).GetComponent<Slider>().onValueChanged.AddListener((float value) => {GameManager.Instance.humanPlayer.stats.researchIndex = (int)value; UpdateResearchText(); Sounds.instance.PlaySound(5); });
 
@@ -322,7 +326,8 @@ public class UIManager : MonoBehaviour
         {
             LoadProvinceStats(transform,provinceIndex);
         }
-        else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units" || name == "Battle" || name == "Development" || name == "Management" || name == "Details"|| name == "Research")
+        else if(name == "Buildings" || name == "UnitsRecruitment" || name =="Units" || name == "Battle" ||
+            name == "Development" || name == "Management" || name == "Details"|| name == "Research" || name == "Pause")
         {
             if (name == "Development" || name == "Management") CloseUIWindow("ProvinceStats");
             selectingProvinces.ResetNeighbors();
@@ -334,6 +339,7 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("Management");
             CloseUIWindow("Development");
             CloseUIWindow("Research");
+            CloseUIWindow("Pause");
         }
 
         if(name == "Buildings")
@@ -453,6 +459,7 @@ public class UIManager : MonoBehaviour
             CloseUIWindow("Development");
             CloseUIWindow("Management");
             CloseUIWindow("Research");
+            CloseUIWindow("Pause");
         }
         else if(name == "UnitsRecruitment")
         {
@@ -492,6 +499,7 @@ public class UIManager : MonoBehaviour
             case "Development": return developmentWindow;
             case "Management": return managementWindow;
             case "Research": return researchWindow;
+            case "Pause": return pauseWindow;
         }
         return null;
     }

@@ -23,7 +23,11 @@ public class Player : MonoBehaviour
         this.playerName = playerName;
         this.isComputer = isComputer;
         this.playerColor = playerColor;
-        if (isComputer) enemyManager = new EnemyManager(stats);
+        if (isComputer)
+        {
+            enemyManager = gameObject.AddComponent<EnemyManager>();
+            enemyManager.SetUp(stats);
+        }
         DontDestroyOnLoad(gameObject);
     }
 

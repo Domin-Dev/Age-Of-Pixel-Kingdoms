@@ -79,7 +79,7 @@ public class ProvinceStats
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    int number = Random.Range(0, 8);
+                    int number = Random.Range(0, 3 );
                     int unitIndex = Random.Range(0, GameAssets.Instance.unitStats.Length);
                     if (units.ContainsKey(unitIndex))
                     {
@@ -115,6 +115,21 @@ public class ProvinceStats
             GameManager.Instance.botsList[index -1].stats.movementPoints.limit += movementPoints.value;
             GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.botsList[index - 1].stats.texesIndex, out float coins, out float people);
             population.bonuses[-100].multiplier = people;
+        }
+
+        if (lastOwner >= 0)
+        {
+            if (lastOwner == 0)
+            {
+                GameManager.Instance.humanPlayer.stats.warriors.limit -= warriors.value;
+                GameManager.Instance.humanPlayer.stats.movementPoints.limit -= movementPoints.value;
+                UIManager.Instance.UpdateCounters();
+            }
+            else
+            {
+                GameManager.Instance.botsList[lastOwner - 1].stats.warriors.limit -= warriors.value;
+                GameManager.Instance.botsList[lastOwner - 1].stats.movementPoints.limit -= movementPoints.value;
+            }
         }
     }
     public void NextTurn()

@@ -11,6 +11,8 @@ TagManager:
   - Paths
   - Pause
   - Players
+  - Sounds
+  - Music
   layers:
   - Default
   - TransparentFX
