@@ -18,6 +18,7 @@ public class Sounds : MonoBehaviour
     Slider soundsSlider;
     Slider musicSlider;
 
+    [SerializeField] int currentMusic;
     private void Awake()
     {
         if(instance == null )
@@ -38,9 +39,25 @@ public class Sounds : MonoBehaviour
         soundsSlider.onValueChanged.AddListener((float value) => { SetSoundsVolume(value); });
         musicSlider.onValueChanged.AddListener((float value) => { SetMusicVolume(value); });
 
-        PlayMusic(0);
+        currentMusic = Random.Range(0, musicList.Count);
+        PlayMusic(currentMusic);
     }
 
+    private void Update()
+    {
+        if(!audioSourceMusic.isPlaying)
+        {
+            if(currentMusic + 1 < musicList.Count)
+            {
+                currentMusic++;
+                PlayMusic(currentMusic);
+            }
+            else
+            {
+                currentMusic = 0;
+            }
+        }
+    }
     public void SetSoundsVolume(float value)
     {
         audioMixer.SetFloat("Sounds", Mathf.Log10(value)*20);

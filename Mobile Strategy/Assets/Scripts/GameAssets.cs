@@ -77,10 +77,13 @@ public class GameAssets : MonoBehaviour
         else 
         {
             Destroy(this);
-        }
-        
-        if(SceneManager.GetActiveScene().buildIndex == 0)
-        map = GameObject.FindGameObjectWithTag("GameMap").transform;
+        }   
+    }
+
+    public void SetUp()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+            map = GameObject.FindGameObjectWithTag("GameMap").transform;
 
         LoadResearch("Development/2EconomicDevelopment", 2);
         LoadResearch("Development/3ManagementDevelopment", 3);
@@ -88,7 +91,7 @@ public class GameAssets : MonoBehaviour
         LoadResearch("Development/1ScientificDevelopment", 1);
 
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
-        unitStats = Resources.LoadAll<UnitStats>("Units");    
+        unitStats = Resources.LoadAll<UnitStats>("Units");
     }
 
     private void LoadResearch(string path,int index)

@@ -13,10 +13,6 @@ public class ProvinceStats
     public Statistic warriors;
     public Statistic movementPoints;
 
-  //   public Statistic coins;
-  //public Statistic developmentPoints;
-
-
     public int index;
     public bool isSea;
     public int provinceOwnerIndex  = -1;// -1 == null , 0 is Player, >0 is Computer
@@ -32,7 +28,7 @@ public class ProvinceStats
     {
         neighbors.Add(index);
     }
-    public ProvinceStats(int index, float scienceDevelopment, float incomeInCoins, bool isSea)
+    public ProvinceStats(int index, bool isSea)
     {
         this.index = index;
         this.provinceOwnerIndex = -1;
@@ -69,8 +65,6 @@ public class ProvinceStats
         GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex,out float coins, out float people);
         population.AddBonus(-100, new Bonus("Taxes", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return  ((int)population.value).ToString() + Icons.GetIcon("Population") + " x " + multiplier; },people));
         population.AddBonus(-200, new Bonus("Base income", (float multiplier) => { return 0.1f; }, (float multiplier) => { return ""; }, 0f));
-
-
 
         if (!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)
         {

@@ -4,8 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Data.Common;
-using Unity.VisualScripting;
+
 
 public class UnitsManager : MonoBehaviour
 {
@@ -347,7 +346,7 @@ public class UnitsManager : MonoBehaviour
             (startYourUnits - yourUnitCount).ToString() + " <sprite index=20>";
         infoWindow.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnitCount.ToString() + " <sprite index=0>\n" +
             (startEnemyUnits - enemyUnitCount).ToString() + " <sprite index=20>";
-        infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); SceneManager.LoadScene(0); });
+        infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); SceneManager.LoadScene(2); });
     }
     private void CountUnits()
     {

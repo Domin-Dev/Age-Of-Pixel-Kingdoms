@@ -17,12 +17,14 @@ public class PlayerStats
     public bool[,] research;
     public bool[] units;
 
-    public int income { private set; get; }
-
     public int texesIndex;
     public int researchIndex;
+    public int index;
 
-    public int index {private set; get; }
+    public PlayerStats()
+    {
+
+    }
     public PlayerStats(int coins, int index)
     {
         this.index = index;

@@ -1,23 +1,18 @@
 using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
-using UnityEngine.SocialPlatforms;
-using static UnityEngine.Rendering.DebugUI;
 
-
+[System.Serializable]
 public struct Statistic 
 {
     public float value;
     public float limit;
-    public float turnIncome {private set; get; }
+    public float turnIncome;
 
     public Dictionary<int,Bonus> bonuses;
+
+
     public string description;
-
-
-
     private string icon;
     private Action updateCounter;
     public override string ToString()

@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
 
-
 [System.Serializable]
 public class Player : MonoBehaviour
 {
-    public string playerName { private set; get; }
-
-    public bool isComputer { private set; get; }
-
-    public Color playerColor { private set; get; }
-
+    public string playerName;
+    public bool isComputer;
+    public Color playerColor;
     public PlayerStats stats;
     private EnemyManager enemyManager;
-    public int index { private set; get; }
+    public int index;
     public void SetUp(string playerName, bool isComputer, Color playerColor, int startCoins, int index)
     {
-        this.stats = new PlayerStats(startCoins, index);
+        if(startCoins >= 0)
+        {
+            this.stats = new PlayerStats(startCoins, index);
+            DontDestroyOnLoad(gameObject);
+        }
         this.index = index;
         this.playerName = playerName;
         this.isComputer = isComputer;
@@ -28,8 +28,9 @@ public class Player : MonoBehaviour
             enemyManager = gameObject.AddComponent<EnemyManager>();
             enemyManager.SetUp(stats);
         }
-        DontDestroyOnLoad(gameObject);
     }
+
+
 
     public void RunEnemyManager()
     {

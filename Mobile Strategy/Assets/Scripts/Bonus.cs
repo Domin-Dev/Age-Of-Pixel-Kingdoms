@@ -1,4 +1,8 @@
 using System;
+
+
+
+[System.Serializable]
 public class Bonus
 {
     public override string ToString()

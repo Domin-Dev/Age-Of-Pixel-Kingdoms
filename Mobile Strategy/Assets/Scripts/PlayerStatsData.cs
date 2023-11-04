@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class PlayerStatsData 
+{
+    public StatisticData coins;
+    public StatisticData warriors;
+    public StatisticData developmentPoints;
+    public StatisticData movementPoints;
+
+    public bool[] buildingsPermit;
+    public bool[,] research;
+    public bool[] units;
+
+    public int texesIndex;
+    public int researchIndex;
+
+    public int index { private set; get; }
+
+    public PlayerStatsData(PlayerStats playerStats)
+    {
+        this.coins = new StatisticData(playerStats.coins);
+        this.warriors = new StatisticData(playerStats.warriors);
+        this.developmentPoints = new StatisticData(playerStats.developmentPoints);
+        this.movementPoints = new StatisticData(playerStats.movementPoints);
+
+        this.buildingsPermit = playerStats.buildingsPermit;
+        this.research = playerStats.research;
+        this.units = playerStats.units;
+
+        this.texesIndex = playerStats.texesIndex;
+        this.researchIndex = playerStats.researchIndex;
+    }
+
+    public PlayerStats ToPlayerStats()
+    {
+        PlayerStats playerStats = new PlayerStats();
+        playerStats.coins = coins.ToStatistic();
+        playerStats.warriors = warriors.ToStatistic();
+        playerStats.developmentPoints = developmentPoints.ToStatistic();
+        playerStats.movementPoints = movementPoints.ToStatistic();
+
+        playerStats.buildingsPermit = buildingsPermit;
+        playerStats.research = research;
+        playerStats.units = units;
+
+        playerStats.texesIndex = texesIndex;
+        playerStats.researchIndex = researchIndex;
+
+        playerStats.index = index;
+        return playerStats;
+    }
+}

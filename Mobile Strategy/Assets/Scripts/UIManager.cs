@@ -6,6 +6,7 @@ using System;
 using Unity.VisualScripting;
 using System.Net.NetworkInformation;
 using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class UIManager : MonoBehaviour
     private TextMeshProUGUI movementPointsCounter;
 
 
-    private void Start()
+    public void SetUp()
     {
         gameAssets = GameAssets.Instance;
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
@@ -75,7 +76,7 @@ public class UIManager : MonoBehaviour
 
         researchWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Research"); Sounds.instance.PlaySound(5); });
         managementWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Management"); Sounds.instance.PlaySound(5); });
-
+        pauseWindow.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(0); });
 
 
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); Sounds.instance.PlaySound(5); });
@@ -106,6 +107,7 @@ public class UIManager : MonoBehaviour
         topBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.developmentPoints); Sounds.instance.PlaySound(5); });
         topBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.warriors); Sounds.instance.PlaySound(5); });
         topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.movementPoints); Sounds.instance.PlaySound(5); });
+
 
         UpdateCounters();
         LoadResearch();

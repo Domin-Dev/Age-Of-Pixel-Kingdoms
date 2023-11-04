@@ -164,11 +164,11 @@ public class MapEditor : EditorWindow
             {
                 if (provincesList[i].Count == 0)
                 {
-                    provinces[i] = new ProvinceStats(i, 10, 0.1f,true);
+                    provinces[i] = new ProvinceStats(i,true);
                 }
                 else
                 {
-                    provinces[i] = new ProvinceStats(i, 10, 0.1f,false);
+                    provinces[i] = new ProvinceStats(i,false);
                 }
             }
 
