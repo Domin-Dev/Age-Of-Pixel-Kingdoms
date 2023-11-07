@@ -34,8 +34,18 @@ public class Sounds : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        soundsSlider = GameObject.FindGameObjectWithTag("Sounds").GetComponent<Slider>();
-        musicSlider = GameObject.FindGameObjectWithTag("Music").GetComponent<Slider>();
+        Slider[] sliders = FindObjectsByType<Slider>(FindObjectsInactive.Include,FindObjectsSortMode.None);
+        foreach (Slider sl in sliders)
+        {
+            if (sl.tag == "Sounds")
+            {
+                soundsSlider = sl;
+            }
+            else if (sl.tag == "Music")
+            {
+                musicSlider = sl;
+            }
+        }
         soundsSlider.onValueChanged.AddListener((float value) => { SetSoundsVolume(value); });
         musicSlider.onValueChanged.AddListener((float value) => { SetMusicVolume(value); });
 

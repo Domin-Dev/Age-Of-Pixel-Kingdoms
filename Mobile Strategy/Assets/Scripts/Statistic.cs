@@ -13,7 +13,7 @@ public struct Statistic
 
 
     public string description;
-    private string icon;
+    public string icon;
     private Action updateCounter;
     public override string ToString()
     {

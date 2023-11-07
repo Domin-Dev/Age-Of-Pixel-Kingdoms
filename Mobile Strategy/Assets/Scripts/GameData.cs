@@ -31,6 +31,11 @@ public class GameData
         }
         return map;
     }
+
+    public PlayerData[] GetPlayers()
+    {
+        return playerStats;
+    }
 }
 
 

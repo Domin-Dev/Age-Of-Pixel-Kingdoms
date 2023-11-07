@@ -450,9 +450,53 @@ public class GameManager : MonoBehaviour
         GameData gameData = SavesManager.Load();
 		provinces = gameData.LoadProvinces();
 		UpdateMap();
-		//humanPlayer = gameData.LoadPlayers()[0];
+		PlayerData[] players = gameData.GetPlayers();
+
+
+    //        public string playerName;
+    //public bool isComputer;
+    //public float[] playerColor = new float[4];
+    //public PlayerStatsData stats;
+    //public int index;
+
+		if(humanPlayer != null) { Destroy(humanPlayer.gameObject); }
+		Player player = new GameObject("Human", typeof(Player)).GetComponent<Player>();
+	    player.transform.parent = this.players;
+		player.index = 0;
+		player.name = players[0].playerName;
+		player.isComputer = false;
+		player.playerColor = GetColor(players[0].playerColor);
+		player.stats = players[0].stats.ToPlayerStats();
+        humanPlayer = player;
+
+
+		for (int i = 0; i < botsList.Count; i++)
+		{
+			if (botsList[i] != null) Destroy(botsList[i].gameObject);
+		}
+		botsList.Clear();
+
+		for (int i = 1;i < players.Length;i++)
+		{ 
+            player = new GameObject(name, typeof(Player)).GetComponent<Player>();
+            player.transform.parent = this.players;
+            player.index = players[i].index;
+			player.name = players[i].playerName;
+			player.isComputer = true;
+			player.playerColor = GetColor(players[i].playerColor);
+			player.stats = players[i].stats.ToPlayerStats();
+            botsList.Add(player);
+        }
+
+		UpdateBotDebuger();
+		UIManager.Instance.UpdateCounters();
         Debug.Log("Loaded");
     }
+
+	private Color GetColor(float[] rgba)
+	{
+		return new Color(rgba[0], rgba[1], rgba[2], rgba[3]);
+	}
 }
 
 
