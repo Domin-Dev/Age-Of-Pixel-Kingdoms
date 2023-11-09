@@ -33,8 +33,19 @@ public class Sounds : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        SetSliders();
+        currentMusic = Random.Range(0, musicList.Count);
+        PlayMusic(currentMusic);
+    }
 
-        Slider[] sliders = FindObjectsByType<Slider>(FindObjectsInactive.Include,FindObjectsSortMode.None);
+    private void OnLevelWasLoaded(int level)
+    {
+        SetSliders();
+    }
+
+    private void SetSliders()
+    {
+        Slider[] sliders = FindObjectsByType<Slider>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (Slider sl in sliders)
         {
             if (sl.tag == "Sounds")
@@ -46,13 +57,9 @@ public class Sounds : MonoBehaviour
                 musicSlider = sl;
             }
         }
-        soundsSlider.onValueChanged.AddListener((float value) => { SetSoundsVolume(value); });
-        musicSlider.onValueChanged.AddListener((float value) => { SetMusicVolume(value); });
-
-        currentMusic = Random.Range(0, musicList.Count);
-        PlayMusic(currentMusic);
+        soundsSlider.onValueChanged.AddListener((float value) => { SetSoundsVolume(value); PlaySound(5); });
+        musicSlider.onValueChanged.AddListener((float value) => { SetMusicVolume(value); PlaySound(5); });
     }
-
     private void Update()
     {
         if(!audioSourceMusic.isPlaying)

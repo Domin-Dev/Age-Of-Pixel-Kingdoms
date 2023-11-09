@@ -6,7 +6,7 @@ using UnityEngine;
 public class MapEditor : EditorWindow
 {
     //input
-    string filePath = "Assets/Maps/Map1";
+    string filePath = "Assets/Maps/";
     Texture2D rawMap;
     Material outlineMaterial;
     Material highlightMaterial;
@@ -45,7 +45,6 @@ public class MapEditor : EditorWindow
         GetWindow<MapEditor>("Map Editor");
     }
 
-   
 
     private void OnGUI()
     {
@@ -123,7 +122,7 @@ public class MapEditor : EditorWindow
         }
     }
 
-    
+
     private void CuttingMap()
     {
         Camera.main.GetComponent<CameraController>().Limit = new Vector3(rawMap.width/100 + 1f, rawMap.height/100 + 1f);
@@ -192,7 +191,8 @@ public class MapEditor : EditorWindow
             
 
             mapStats = new MapStats(mapParent.transform.childCount, provinces);
-            AssetDatabase.CreateAsset(mapStats, "Assets/Resources/Maps/" + rawMap.name  + ".asset");
+            PrefabUtility.SaveAsPrefabAssetAndConnect(mapParent.gameObject, "Assets/Resources/Maps/map.prefab", InteractionMode.UserAction);
+            AssetDatabase.CreateAsset(mapStats, "Assets/Resources/Maps/" + rawMap.name + ".asset");
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
             Debug.Log("The map is ready!");
