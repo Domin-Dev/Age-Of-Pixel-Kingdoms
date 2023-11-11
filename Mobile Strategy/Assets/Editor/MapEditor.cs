@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SubsystemsImplementation;
 
 public class MapEditor : EditorWindow
 {
     //input
-    string filePath = "Assets/Maps/";
+
+    const string mapsPath = "Assets/Resources/Maps/";
     Texture2D rawMap;
     Material outlineMaterial;
     Material highlightMaterial;
@@ -59,7 +61,7 @@ public class MapEditor : EditorWindow
 
         GUILayout.Box(rawMap);
         EditorGUILayout.Space(10);
-        filePath = EditorGUILayout.TextField("File Path", filePath);
+       // filePath = EditorGUILayout.TextField("File Path", filePath);
 
 
         outlineMaterial = obj2 as Material; 
@@ -142,6 +144,14 @@ public class MapEditor : EditorWindow
 
         if(rawMap != null)
         {
+            if (!AssetDatabase.IsValidFolder(mapsPath + rawMap.name))
+            {
+                AssetDatabase.CreateFolder("Assets/Resources/Maps", rawMap.name);
+                AssetDatabase.CreateFolder("Assets/Resources/Maps/" + rawMap.name, "Sprites");
+                AssetDatabase.Refresh();
+                AssetDatabase.SaveAssets();
+            }
+
             map = new Texture2D(100, 100);
 
             Vector2Int startPosition = Vector2Int.zero;
@@ -186,16 +196,24 @@ public class MapEditor : EditorWindow
                 }         
             }
 
-            
 
-            
+
+
 
             mapStats = new MapStats(mapParent.transform.childCount, provinces);
-            PrefabUtility.SaveAsPrefabAssetAndConnect(mapParent.gameObject, "Assets/Resources/Maps/map.prefab", InteractionMode.UserAction);
-            AssetDatabase.CreateAsset(mapStats, "Assets/Resources/Maps/" + rawMap.name + ".asset");
+
+            PrefabUtility.SaveAsPrefabAssetAndConnect(mapParent.gameObject, mapsPath + rawMap.name + "/Map.prefab", InteractionMode.UserAction);
+            AssetDatabase.CreateAsset(mapStats,mapsPath + rawMap.name + "/MapStats.asset");
+
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
             Debug.Log("The map is ready!");
+            //5 = 0 1 2 3 4
+            while (mapParent.childCount > 0)
+            {
+                DestroyImmediate(mapParent.GetChild(0).gameObject);
+            }
+            DestroyImmediate(mapParent.gameObject);
         }
         else
         {
@@ -252,7 +270,7 @@ public class MapEditor : EditorWindow
         map.Apply();
         map.filterMode = FilterMode.Point;        
 
-        AssetDatabase.CreateAsset(map, filePath + "/"  + rawMap.name + number.ToString() +".asset");
+        AssetDatabase.CreateAsset(map, mapsPath + rawMap.name + "/Sprites/" + number.ToString() +".asset");
         AssetDatabase.Refresh();
 
         GameObject gameObject = new GameObject(number.ToString(), typeof(SpriteRenderer));
