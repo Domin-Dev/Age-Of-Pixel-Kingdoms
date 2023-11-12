@@ -6,10 +6,13 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
-	public bool ready;
+    const string mapsPath = "Assets/Resources/Maps/";
+
+    public bool ready;
 	private bool readyToNextTurn;
 
 	public static GameManager Instance;
@@ -41,8 +44,9 @@ public class GameManager : MonoBehaviour
 		if (Instance == null)
 		{
 			Instance = this;
-		}
-		else
+            LoadMap("World");
+        }
+        else
 		{
 			Destroy(this.gameObject);
 		}
@@ -55,12 +59,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if(UnityEngine.Input.GetKeyDown(KeyCode.S))
 		{
 			Save();
 		} 
 		
-		if(Input.GetKeyDown(KeyCode.L))
+		if(UnityEngine.Input.GetKeyDown(KeyCode.L))
 		{
 			Load();
 		}
@@ -83,6 +87,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+	private void LoadMap(string name)
+	{
+		if(Directory.Exists(mapsPath +  name))
+		{
+			GameObject obj = Resources.Load("Maps/" + name+ "/Map") as GameObject;
+			Texture2D[] sprites = Resources.LoadAll<Texture2D>("Maps/" + name + "/Sprites");
+			foreach (Texture2D sprite in sprites)
+			{
+				Debug.Log(sprite.name);
+			}
+			Debug.Log(sprites.Length);
+
+			obj = Instantiate(obj);
+		}
+		else
+		{
+			Debug.Log("Map does not exist");
+		}
+
+	}
     private void SetUp()
 	{
         GameAssets.Instance.SetUp();
@@ -96,8 +120,8 @@ public class GameManager : MonoBehaviour
         CreateHumanPlayer();
         LoadBots();
 
-        ProvinceStats[] array = Resources.Load<MapStats>("Maps/World").provinces;
-        numberOfProvinces = Resources.Load<MapStats>("Maps/World").numberOfProvinces;
+        ProvinceStats[] array = Resources.Load<MapStats>("Maps/World/MapStats").provinces;
+        numberOfProvinces = Resources.Load<MapStats>("Maps/World/MapStats").numberOfProvinces;
 
         provinces = new ProvinceStats[array.Length];
         for (int i = 0; i < array.Length; i++)

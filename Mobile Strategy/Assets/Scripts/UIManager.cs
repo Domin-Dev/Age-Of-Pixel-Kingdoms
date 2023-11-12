@@ -16,7 +16,6 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            map = GameObject.FindWithTag("GameMap").transform;
         }
         else
         {
@@ -58,6 +57,7 @@ public class UIManager : MonoBehaviour
 
     public void SetUp()
     {
+        map = GameObject.FindWithTag("GameMap").transform;
         gameAssets = GameAssets.Instance;
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
         LoadUnits(gameAssets.recruitUnitContentUI);
