@@ -37,14 +37,15 @@ public class GameManager : MonoBehaviour
 
 	public int turn { private set; get; } = 0;
 
-	bool isPlaying;
+	public bool isPlaying = true;
 
 	private void Awake()
 	{
-		if (Instance == null)
+        LoadMap("World");
+        if (Instance == null)
 		{
 			Instance = this;
-            LoadMap("World");
+			isPlaying = true;
         }
         else
 		{
@@ -53,8 +54,11 @@ public class GameManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		if(SceneManager.GetActiveScene().buildIndex == 2)
-		SetUp();
+		if (isPlaying)
+		{
+			isPlaying = false;
+			SetUp();
+		}
 	}
 
     private void Update()
@@ -75,10 +79,10 @@ public class GameManager : MonoBehaviour
     {
         if (level == 2)
         {
-			if (!isPlaying)
+			if (isPlaying)
 			{
 				SetUp();
-				isPlaying = true;
+				isPlaying = false;
 			}
 			else
 			{
@@ -93,14 +97,14 @@ public class GameManager : MonoBehaviour
 		{
 			GameObject obj = Resources.Load("Maps/" + name+ "/Map") as GameObject;
 			Texture2D[] sprites = Resources.LoadAll<Texture2D>("Maps/" + name + "/Sprites");
-			foreach (Texture2D sprite in sprites)
-			{
-				Debug.Log(sprite.name);
-			}
-			Debug.Log(sprites.Length);
-
 			obj = Instantiate(obj);
-		}
+			map = obj.transform;
+            foreach (Texture2D sprite in sprites)
+            {
+				SpriteRenderer spriteRenderer = obj.transform.GetChild(int.Parse(sprite.name)).GetComponent<SpriteRenderer>();
+				spriteRenderer.sprite = Sprite.Create(sprite, new Rect(0, 0,sprite.width, sprite.height), new Vector2(0.5f, 0.5f));
+            }
+        }
 		else
 		{
 			Debug.Log("Map does not exist");
@@ -109,6 +113,7 @@ public class GameManager : MonoBehaviour
 	}
     private void SetUp()
 	{
+		Debug.Log("setp");
         GameAssets.Instance.SetUp();
         players = new GameObject("Players").transform;
         players.tag = "Players";
@@ -119,9 +124,9 @@ public class GameManager : MonoBehaviour
         selectingProvinces = FindObjectOfType<SelectingProvinces>();
         CreateHumanPlayer();
         LoadBots();
-
         ProvinceStats[] array = Resources.Load<MapStats>("Maps/World/MapStats").provinces;
         numberOfProvinces = Resources.Load<MapStats>("Maps/World/MapStats").numberOfProvinces;
+
 
         provinces = new ProvinceStats[array.Length];
         for (int i = 0; i < array.Length; i++)
@@ -135,7 +140,7 @@ public class GameManager : MonoBehaviour
             }
         }
         UpdateBotProvinces();
-        pathFinding = new PathFinding();
+        pathFinding = new PathFinding(numberOfProvinces);
 
         ready = true;
         readyToNextTurn = true;

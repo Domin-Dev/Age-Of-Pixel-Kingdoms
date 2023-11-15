@@ -5,9 +5,9 @@ public class PathFinding
 {
     int[] checks;
 
-    public PathFinding()
+    public PathFinding(int number)
     {
-        checks = new int[GameManager.Instance.numberOfProvinces];
+        checks = new int[number];
     }
     public List<int> FindPath(int startIndex, int targetIndex)
     {

@@ -59,6 +59,7 @@ public class UnitsManager : MonoBehaviour
         isEnd = false;
 
         unitStats = GameAssets.Instance.unitStats;
+        Debug.Log(GameAssets.Instance.unitStats.Length);
         GameManager.Instance.GetUnits(out yourUnits,out enemyUnits);
         paths = GameObject.FindWithTag("Paths").transform;
 

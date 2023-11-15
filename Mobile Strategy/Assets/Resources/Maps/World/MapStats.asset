@@ -70,7 +70,7 @@ MonoBehaviour:
       icon: 
     index: 1
     isSea: 0
-    provinceOwnerIndex: -1
+    provinceOwnerIndex: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0000000002000000090000000a000000
@@ -100,7 +100,7 @@ MonoBehaviour:
       icon: 
     index: 2
     isSea: 0
-    provinceOwnerIndex: -1
+    provinceOwnerIndex: 3
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 010000000300000009000000

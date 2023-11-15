@@ -61,7 +61,7 @@ public class GameAssets : MonoBehaviour
     public Sprite noBuilding;
 
     public BuildingStats[] buildingsStats { private set; get; }
-    public UnitStats[] unitStats { private set; get; }  
+    public UnitStats[] unitStats { private set; get; }
 
     public Research[,] research { private set; get; }
 
@@ -80,6 +80,11 @@ public class GameAssets : MonoBehaviour
         }   
     }
 
+    private void Start()
+    {
+       if (SceneManager.GetActiveScene().buildIndex != 2) SetUp();
+    }
+
     public void SetUp()
     {
         if (SceneManager.GetActiveScene().buildIndex == 2)
@@ -92,6 +97,7 @@ public class GameAssets : MonoBehaviour
 
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");
+        Debug.Log(unitStats.Length);
     }
 
     private void LoadResearch(string path,int index)
