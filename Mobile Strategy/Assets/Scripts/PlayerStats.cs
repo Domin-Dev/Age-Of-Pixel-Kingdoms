@@ -146,7 +146,6 @@ public class PlayerStats
     }
     public bool CanBuild(int index)
     {
-        Debug.Log(buildingsPermit[index]);
         return buildingsPermit[index];
     }
 }

@@ -37,7 +37,6 @@ public class MapEditor : EditorWindow
     int minY;
 
     int number = 0;
-    Mesh mesh;
 
 
     [MenuItem("Window/Map Editor")]
@@ -130,10 +129,10 @@ public class MapEditor : EditorWindow
 
         provinceNumber = 0;
 
-        mapParent = new GameObject("Game Map",typeof(LineRenderer)).transform;
+        mapParent = new GameObject("Game Map").transform;
         mapParent.tag = "GameMap";
 
-        SetUpOutline();
+      //  SetUpOutline();
         ClearMapSize();
         number = 0;
         mapArray = new bool [rawMap.width,rawMap.height,2];
@@ -203,11 +202,9 @@ public class MapEditor : EditorWindow
 
             PrefabUtility.SaveAsPrefabAssetAndConnect(mapParent.gameObject, mapsPath + rawMap.name + "/Map.prefab", InteractionMode.UserAction);
             AssetDatabase.CreateAsset(mapStats,mapsPath + rawMap.name + "/MapStats.asset");
-
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
             Debug.Log("The map is ready!");
-            //5 = 0 1 2 3 4
             while (mapParent.childCount > 0)
             {
                 DestroyImmediate(mapParent.GetChild(0).gameObject);

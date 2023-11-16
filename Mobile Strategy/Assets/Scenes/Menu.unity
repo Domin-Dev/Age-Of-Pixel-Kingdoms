@@ -2732,6 +2732,37 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &898547183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 898547184}
+  m_Layer: 0
+  m_Name: Buildings
+  m_TagString: Buildings
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &898547184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898547183}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.7408571, y: 0.5385325, z: 0.12012385}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &920601046
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,6 +4325,7 @@ MonoBehaviour:
   map: {fileID: 0}
   buildings: {fileID: 0}
   selectingProvinces: {fileID: 0}
+  isPlaying: 1
 --- !u!4 &1785781255
 Transform:
   m_ObjectHideFlags: 0
@@ -4801,3 +4833,4 @@ SceneRoots:
   - {fileID: 493484546}
   - {fileID: 1583224225}
   - {fileID: 714794137}
+  - {fileID: 898547184}
