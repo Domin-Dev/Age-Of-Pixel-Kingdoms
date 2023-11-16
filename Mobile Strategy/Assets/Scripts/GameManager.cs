@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
 
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
 	public ProvinceStats[] provinces;
 	public int numberOfProvinces;
 	public List<Player> botsList;
-	public Transform players;
+	private Transform players;
 
 	public Player humanPlayer;
 
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
 	public int turn { private set; get; } = 0;
 
 	public bool isPlaying = true;
+	public bool toLoad;
 
 	public Action load;
 	private void Awake()
@@ -49,17 +51,19 @@ public class GameManager : MonoBehaviour
 		{
 			Instance = this;
 			isPlaying = true;
-		}
-		else
+            DontDestroyOnLoad(this);
+        }
+        else
 		{
 			Destroy(this.gameObject);
 		}
 	}
 	private void Start()
 	{
-		if (isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
+		if (!toLoad && isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
 		{
 			isPlaying = false;
+			Debug.Log("xs");
 			SetUp();
 		}
 	}
@@ -80,24 +84,34 @@ public class GameManager : MonoBehaviour
 	private void OnLevelWasLoaded(int level)
 	{
 		if (level == 2)
-		{
+		{        	
 			if (isPlaying)
 			{
-				SetUp();
-				if(load != null) load();
-				isPlaying = false;
-			}
+                isPlaying = false;
+				Debug.Log("si");
+                SetUp();
+                if(toLoad)
+                {
+                    Debug.Log("Git!!!!!!");
+                    load();
+                    toLoad = false;
+                }
+            }
 			else
 			{
 				UpdateMap();
-			}
+			}		
+		}else if(level ==0)
+		{
+			isPlaying = true;
 		}
 	}
+
+
 
 	
 	private void LoadMap(string name)
 	{
-		Debug.Log("load");
 		if (Directory.Exists(mapsPath + name))
 		{
 			GameObject obj = Resources.Load("Maps/" + name + "/Map") as GameObject;
@@ -118,13 +132,11 @@ public class GameManager : MonoBehaviour
 	}
 	private void SetUp()
 	{
-		Debug.Log("setp");
+		//Debug.Log("setp");
 		GameAssets.Instance.SetUp();
-		players = new GameObject("Players").transform;
-		players.tag = "Players";
+		players = GameObject.FindGameObjectWithTag("Players").transform;
 		DontDestroyOnLoad(players);
-
-		map = GameObject.FindGameObjectWithTag("GameMap").transform;
+        map = GameObject.FindGameObjectWithTag("GameMap").transform;
 		buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
 		selectingProvinces = FindObjectOfType<SelectingProvinces>();
 		CreateHumanPlayer();
@@ -164,7 +176,6 @@ public class GameManager : MonoBehaviour
 				transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
 			}
 		}
-		DontDestroyOnLoad(this);
 		for (int i = 0; i < botsList.Count; i++)
 		{
 			BonusManager.UpdateLimits(botsList[i].index);
@@ -483,7 +494,7 @@ public class GameManager : MonoBehaviour
 	{
 		GameData gameData = SavesManager.Load(name);
 		provinces = gameData.LoadProvinces();
-		//UpdateMap();
+		UpdateMap();
 		PlayerData[] players = gameData.GetPlayers();
 
 		if (humanPlayer != null) { Destroy(humanPlayer.gameObject); }
@@ -498,6 +509,7 @@ public class GameManager : MonoBehaviour
 
 		for (int i = 0; i < botsList.Count; i++)
 		{
+			Debug.Log("de");
 			if (botsList[i] != null) Destroy(botsList[i].gameObject);
 		}
 		botsList.Clear();
@@ -507,7 +519,7 @@ public class GameManager : MonoBehaviour
 			player = new GameObject(name, typeof(Player)).GetComponent<Player>();
 			player.transform.parent = this.players;
 			player.index = players[i].index;
-			player.name = players[i].playerName;
+			player.name = players[i].playerName + "1" ;
 			player.isComputer = true;
 			player.playerColor = GetColor(players[i].playerColor);
 			player.stats = players[i].stats.ToPlayerStats();

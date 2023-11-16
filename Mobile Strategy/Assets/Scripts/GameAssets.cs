@@ -97,8 +97,7 @@ public class GameAssets : MonoBehaviour
 
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");
-        Debug.Log(unitStats.Length);
-    }
+    }    
 
     private void LoadResearch(string path,int index)
     {

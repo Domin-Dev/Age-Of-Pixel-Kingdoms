@@ -39,6 +39,6 @@ public class Player : MonoBehaviour
 
     public void UpdateProvinces()
     {
-      if(enemyManager != null)  enemyManager.UpdateProvinces();
+      enemyManager.UpdateProvinces();
     }
 }

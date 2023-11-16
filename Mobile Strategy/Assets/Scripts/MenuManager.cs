@@ -3,21 +3,32 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
 
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private Transform buttons;
 
+
     [SerializeField] private Transform settings;
     [SerializeField] private Transform saves;
+    [SerializeField] private Transform confirmation;
+    [SerializeField] private Transform maps;
 
     [SerializeField] private GameObject saveUI;
 
+    private string nameSaveToDelete;
+    Transform objToDelete;
     private void Start()
     {
         buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { settings.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
         buttons.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { saves.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
 
+
+        confirmation.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { confirmation.gameObject.SetActive(false);Sounds.instance.PlaySound(5); });
+        confirmation.GetChild(1).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { Delete(true); Sounds.instance.PlaySound(5); });
+        confirmation.GetChild(1).GetChild(1).GetComponent<Button>().onClick.AddListener(() => { Delete(false); Sounds.instance.PlaySound(5); });
+        
         settings.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => {  settings.gameObject.SetActive(false); Sounds.instance.PlaySound(5); });
         saves.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { saves.gameObject.SetActive(false); Sounds.instance.PlaySound(5); });
         LoadSaves();
@@ -53,7 +64,8 @@ public class MenuManager : MonoBehaviour
             Transform save = Instantiate(saveUI, parent).transform;
             FileInfo fileInfo = new FileInfo(file);
             save.GetChild(1).GetComponent<TextMeshProUGUI>().text = GetName(fileInfo.Name) + "<size=50><color=#686868>\n" + fileInfo.LastWriteTime;
-            save.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { LoadSave(fileInfo.Name); });
+            save.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); LoadSave(fileInfo.Name); });
+            save.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenConfirmation(fileInfo.FullName,save.transform); });
         }
     }
 
@@ -79,13 +91,28 @@ public class MenuManager : MonoBehaviour
 
     private void LoadSave(string name)
     {
-        GameManager.Instance.isPlaying = true;
+        GameManager.Instance.toLoad = true;
         GameManager.Instance.load = () =>
         {
             GameManager.Instance.Load(name);
-            GameManager.Instance.load = null;         
         };
         SceneManager.LoadScene(2);
+    }
 
+    private void OpenConfirmation(string name,Transform todelete)
+    {
+        confirmation.gameObject.SetActive(true);
+        nameSaveToDelete = name;
+        objToDelete = todelete.transform;
+    }
+
+    private void Delete(bool x)
+    {
+        if(x)
+        {
+            File.Delete(nameSaveToDelete);
+            objToDelete.gameObject.SetActive(false);
+        }
+        confirmation.gameObject.SetActive(false);
     }
 }
