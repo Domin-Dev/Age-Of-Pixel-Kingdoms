@@ -5,14 +5,12 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
 	const string mapsPath = "Assets/Resources/Maps/";
-	string currentMap = "World";
+	public string currentMap = "World";
 	public string saveName;
 
 	public bool ready;
@@ -40,30 +38,29 @@ public class GameManager : MonoBehaviour
 
 	public int turn { private set; get; } = 0;
 
-	public bool isPlaying = true;
+	public bool isPlaying;
 	public bool toLoad;
 
 	public Action load;
 	private void Awake()
 	{
-		if(SceneManager.GetActiveScene().buildIndex == 2)LoadMap(currentMap);
-		if (Instance == null)
+        if (Instance == null)
 		{
 			Instance = this;
 			isPlaying = true;
-            DontDestroyOnLoad(this);
-        }
-        else
+			DontDestroyOnLoad(this);
+		}
+		else
 		{
-			Destroy(this.gameObject);
+            Destroy(this.gameObject);
 		}
 	}
+
 	private void Start()
 	{
-		if (!toLoad && isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
+        if (!toLoad && isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
 		{
 			isPlaying = false;
-			Debug.Log("xs");
 			SetUp();
 		}
 	}
@@ -74,25 +71,18 @@ public class GameManager : MonoBehaviour
 		{
 			Save();
 		}
-
-		if (UnityEngine.Input.GetKeyDown(KeyCode.L))
-		{
-			Load(saveName);
-		}
-
 	}
 	private void OnLevelWasLoaded(int level)
 	{
-		if (level == 2)
-		{        	
-			if (isPlaying)
+        if (level == 2 && Instance == this)
+		{
+            LoadMap(currentMap);
+            if (isPlaying)
 			{
                 isPlaying = false;
-				Debug.Log("si");
                 SetUp();
                 if(toLoad)
                 {
-                    Debug.Log("Git!!!!!!");
                     load();
                     toLoad = false;
                 }
@@ -104,6 +94,7 @@ public class GameManager : MonoBehaviour
 		}else if(level ==0)
 		{
 			isPlaying = true;
+		 if(players !=null)Destroy(players.gameObject);
 		}
 	}
 
@@ -112,37 +103,33 @@ public class GameManager : MonoBehaviour
 	
 	private void LoadMap(string name)
 	{
-		if (Directory.Exists(mapsPath + name))
+		GameObject obj = Resources.Load("Maps/" + name + "/Map") as GameObject;
+		Texture2D[] sprites = Resources.LoadAll<Texture2D>("Maps/" + name + "/Sprites");
+		obj = Instantiate(obj);
+		map = obj.transform;
+		foreach (Texture2D sprite in sprites)
 		{
-			GameObject obj = Resources.Load("Maps/" + name + "/Map") as GameObject;
-			Texture2D[] sprites = Resources.LoadAll<Texture2D>("Maps/" + name + "/Sprites");
-			obj = Instantiate(obj);
-			map = obj.transform;
-			foreach (Texture2D sprite in sprites)
-			{
-				SpriteRenderer spriteRenderer = obj.transform.GetChild(int.Parse(sprite.name)).GetComponent<SpriteRenderer>();
-				spriteRenderer.sprite = Sprite.Create(sprite, new Rect(0, 0, sprite.width, sprite.height), new Vector2(0.5f, 0.5f));
-			}
+			SpriteRenderer spriteRenderer = obj.transform.GetChild(int.Parse(sprite.name)).GetComponent<SpriteRenderer>();
+			spriteRenderer.sprite = Sprite.Create(sprite, new Rect(0, 0, sprite.width, sprite.height), new Vector2(0.5f, 0.5f));
 		}
-		else
-		{
-			Debug.Log("Map does not exist");
-		}
-
 	}
 	private void SetUp()
 	{
-		//Debug.Log("setp");
-		GameAssets.Instance.SetUp();
+        Debug.Log("SetUp");
+        GameAssets.Instance.SetUp();
 		players = GameObject.FindGameObjectWithTag("Players").transform;
 		DontDestroyOnLoad(players);
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
 		buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
 		selectingProvinces = FindObjectOfType<SelectingProvinces>();
-		CreateHumanPlayer();
-		LoadBots();
-		ProvinceStats[] array = Resources.Load<MapStats>("Maps/World/MapStats").provinces;
-		numberOfProvinces = Resources.Load<MapStats>("Maps/World/MapStats").numberOfProvinces;
+		botsList.Clear();
+		if (humanPlayer == null)
+		{
+			CreateHumanPlayer();
+			LoadBots();
+		}
+		ProvinceStats[] array = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").provinces;
+		numberOfProvinces = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").numberOfProvinces;
 
 
 		provinces = new ProvinceStats[array.Length];
@@ -176,6 +163,7 @@ public class GameManager : MonoBehaviour
 				transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
 			}
 		}
+
 		for (int i = 0; i < botsList.Count; i++)
 		{
 			BonusManager.UpdateLimits(botsList[i].index);
@@ -274,6 +262,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void UpdateMap()
 	{
+	
 		cameraController = Camera.main.GetComponent<CameraController>();
 		players = GameObject.FindGameObjectWithTag("Players").transform;
 		humanPlayer = players.GetChild(0).GetComponent<Player>();
@@ -315,8 +304,12 @@ public class GameManager : MonoBehaviour
 			}
 			UpdateUnitCounter(i);
 		}
+
+		GameAssets.Instance.SetUp();
+		UIManager.Instance.SetUp();
+		UIManager.Instance.UpdateTurnCounter();
 	}
-	public void NextTurn(TextMeshProUGUI text)
+	public void NextTurn()
 	{
 		if (readyToNextTurn)
 		{
@@ -335,7 +328,7 @@ public class GameManager : MonoBehaviour
 			float populationIncome = 0;
 
 
-			text.text = "Turn:" + turn;
+			UIManager.Instance.UpdateTurnCounter();
 			UIManager.Instance.CloseUIWindow("ProvinceStats");
 
 
@@ -363,6 +356,7 @@ public class GameManager : MonoBehaviour
 
 			UIManager.Instance.OpenTurnDetails(stats);
 			*/
+			UIManager.Instance.UpdateCounters();
 		}
 	}
 
@@ -476,7 +470,7 @@ public class GameManager : MonoBehaviour
 
 
 
-	private void Save()
+	public void Save()
 	{
 		Player[] players = new Player[botsList.Count + 1];
 		players[0] = humanPlayer;
@@ -484,20 +478,21 @@ public class GameManager : MonoBehaviour
 		{
 			players[i + 1] = botsList[i];
 		}
-
 		GameData gameData = new GameData(provinces, players);
 		SavesManager.Save(gameData);
 		Debug.Log("Saved");
 	}
 
-	public void Load(string name)
+	public void Load(string name,int turn)
 	{
+		this.turn = turn;
 		GameData gameData = SavesManager.Load(name);
 		provinces = gameData.LoadProvinces();
 		UpdateMap();
 		PlayerData[] players = gameData.GetPlayers();
 
 		if (humanPlayer != null) { Destroy(humanPlayer.gameObject); }
+
 		Player player = new GameObject("Human", typeof(Player)).GetComponent<Player>();
 		player.transform.parent = this.players;
 		player.index = 0;
@@ -508,8 +503,7 @@ public class GameManager : MonoBehaviour
 		humanPlayer = player;
 
 		for (int i = 0; i < botsList.Count; i++)
-		{
-			Debug.Log("de");
+		{;
 			if (botsList[i] != null) Destroy(botsList[i].gameObject);
 		}
 		botsList.Clear();
@@ -523,12 +517,14 @@ public class GameManager : MonoBehaviour
 			player.isComputer = true;
 			player.playerColor = GetColor(players[i].playerColor);
 			player.stats = players[i].stats.ToPlayerStats();
+			player.EnemyManagerSetUp();
 			botsList.Add(player);
 		}
 
 		UpdateBotDebuger();
 		UIManager.Instance.UpdateCounters();
-		Debug.Log("Loaded");
+        UIManager.Instance.UpdateTurnCounter();
+        Debug.Log("Loaded");
 	}
 
 	private Color GetColor(float[] rgba)
@@ -539,6 +535,16 @@ public class GameManager : MonoBehaviour
 	public string GetName()
 	{
 		return currentMap + " Turn " + turn.ToString() + "  " + DateTime.Now.Ticks.ToString();
+	}
+
+	private string GetTurn(string fileName)
+	{
+
+		for (int i = 0; i < fileName.Length; i++)
+		{
+
+		}
+		return "";
 	}
 }
 

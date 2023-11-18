@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine.Experimental.GlobalIllumination;
+
 
 [System.Serializable]
 public class StatisticData 

@@ -1,7 +1,6 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance.VisualScripting;
 
 public class Unit : MonoBehaviour
 {

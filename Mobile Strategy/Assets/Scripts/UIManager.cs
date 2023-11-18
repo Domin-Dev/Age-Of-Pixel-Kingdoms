@@ -3,9 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using Unity.VisualScripting;
-using System.Net.NetworkInformation;
-using Unity.Mathematics;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
@@ -76,13 +73,12 @@ public class UIManager : MonoBehaviour
 
         researchWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Research"); Sounds.instance.PlaySound(5); });
         managementWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Management"); Sounds.instance.PlaySound(5); });
-        pauseWindow.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(0); });
+        pauseWindow.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.Save();  SceneManager.LoadScene(0); });
 
 
         bottomBar.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Buildings", 0); Sounds.instance.PlaySound(5); });
         bottomBar.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("UnitsRecruitment", 0); Sounds.instance.PlaySound(5); });
         bottomBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.HighlightNeighbors(); Sounds.instance.PlaySound(5); });
-
         bottomBar.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Development", 0); Sounds.instance.PlaySound(5); });
         bottomBar.GetChild(5).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Management", 0); OpenManagement(); Sounds.instance.PlaySound(5); });
         bottomBar.GetChild(6).GetComponent<Button>().onClick.AddListener(() => { OpenUIWindow("Pause", 0); Sounds.instance.PlaySound(5); }) ; 
@@ -96,7 +92,7 @@ public class UIManager : MonoBehaviour
         ManagerUI(false);
 
         turnConter.text = "Turn:0";
-        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(turnConter); Sounds.instance.PlaySound(5); });
+        nextTurn.GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.NextTurn(); Sounds.instance.PlaySound(5); });
 
         coinCounter = topBar.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         warriorsCounter = topBar.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -108,7 +104,6 @@ public class UIManager : MonoBehaviour
         topBar.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.warriors); Sounds.instance.PlaySound(5); });
         topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.movementPoints); Sounds.instance.PlaySound(5); });
 
-
         UpdateCounters();
         LoadResearch();
     }
@@ -118,6 +113,12 @@ public class UIManager : MonoBehaviour
         {
             bottomBar.GetChild(i).gameObject.SetActive(open);
         }
+    }
+
+    public void UpdateTurnCounter()
+    {
+        Debug.Log("x");
+        turnConter.text = "Turn:" + GameManager.Instance.turn;
     }
     private void LoadUnits(Transform contentUI)
     {
@@ -156,23 +157,26 @@ public class UIManager : MonoBehaviour
         PlayerStats player = GameManager.Instance.humanPlayer.stats;
         if (provinceIndex == -1)
         {
-            int index = 0;
-            foreach (BuildingStats item in gameAssets.buildingsStats)
+            if (gameAssets.buildingsContentUI.childCount == 0)
             {
-                if (item.canBuild )
+                int index = 0;
+                foreach (BuildingStats item in gameAssets.buildingsStats)
                 {
-                    Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
-                    transform.name = index.ToString();
-                    transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
-                    transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
-                    transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice + " <sprite index=23>";
-                    transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
+                    if (item.canBuild)
+                    {
+                        Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
+                        transform.name = index.ToString();
+                        transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
+                        transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
+                        transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice + " <sprite index=23>";
+                        transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
 
-                    int id = index;
-                    transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
+                        int id = index;
+                        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
+                    }
+                    index++;
+
                 }
-                index++;
-
             }
         }
         else

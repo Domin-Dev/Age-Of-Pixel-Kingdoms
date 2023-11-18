@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
+
 
 public class MenuManager : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Transform maps;
 
     [SerializeField] private GameObject saveUI;
+    [SerializeField] private GameObject mapUI;
 
     private string nameSaveToDelete;
     Transform objToDelete;
@@ -23,7 +24,7 @@ public class MenuManager : MonoBehaviour
     {
         buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { settings.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
         buttons.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { saves.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
-
+        buttons.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { maps.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
 
         confirmation.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { confirmation.gameObject.SetActive(false);Sounds.instance.PlaySound(5); });
         confirmation.GetChild(1).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { Delete(true); Sounds.instance.PlaySound(5); });
@@ -31,7 +32,9 @@ public class MenuManager : MonoBehaviour
         
         settings.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => {  settings.gameObject.SetActive(false); Sounds.instance.PlaySound(5); });
         saves.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { saves.gameObject.SetActive(false); Sounds.instance.PlaySound(5); });
-        LoadSaves();
+        maps.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { maps.gameObject.SetActive(false); Sounds.instance.PlaySound(5); });
+        LoadMaps();
+        LoadSaves(); 
     }
 
     private void LoadSaves()
@@ -39,7 +42,6 @@ public class MenuManager : MonoBehaviour
         Transform parent = saves.GetChild(1).GetChild(0).GetChild(0).transform;
         string path = Application.persistentDataPath + "/Saves";
         string[] files = Directory.GetFiles(path);
-
         int k = files.Length;
         for (int j = 0; j < files.Length; j++)
         {
@@ -58,14 +60,31 @@ public class MenuManager : MonoBehaviour
             }
             k--;
         }
-
         foreach (string file in files)
         {
             Transform save = Instantiate(saveUI, parent).transform;
             FileInfo fileInfo = new FileInfo(file);
+
+            Texture2D texture = Resources.Load<Texture2D>("Texture/" + GetMapName(fileInfo.Name,out string turn));
+            save.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
             save.GetChild(1).GetComponent<TextMeshProUGUI>().text = GetName(fileInfo.Name) + "<size=50><color=#686868>\n" + fileInfo.LastWriteTime;
             save.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); LoadSave(fileInfo.Name); });
             save.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenConfirmation(fileInfo.FullName,save.transform); });
+        }
+    }
+
+    private void LoadMaps()
+    {
+        Transform parent = maps.GetChild(1).GetChild(0).GetChild(0).transform;
+        Texture2D[] mapArray = Resources.LoadAll<Texture2D>("Texture");
+        Transform map;
+        foreach (Texture2D item in mapArray)
+        {
+            map =  Instantiate(mapUI, parent).transform;
+            map.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenMap(item.name);});
+            map.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
+            map.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Sprite.Create(item, new Rect(0, 0, item.width, item.height), new Vector2(0.5f, 0.5f));
         }
     }
 
@@ -89,15 +108,50 @@ public class MenuManager : MonoBehaviour
         return toReturn;
     }
 
+    private string GetMapName(string fileName,out string turn)
+    {
+        string toReturn = "";
+        turn = "";
+        for (int i = 0; i < fileName.Length; i++)
+        {
+            if (fileName[i] == ' ')
+            {
+                string m = fileName[i+1].ToString() + fileName[i+ 2].ToString() + fileName[i+ 3].ToString() + fileName[i+ 4].ToString();
+                if (m == "Turn")
+                {
+                    int j = i + 6;
+                    while (fileName[j] != ' ')
+                    {
+                        turn += fileName[j];
+                        j++;
+                    }
+                    break;
+                }
+            }
+            toReturn += fileName[i];
+        }
+        return toReturn;
+    }
     private void LoadSave(string name)
     {
+        string turn;
+        GameManager.Instance.currentMap = GetMapName(name,out turn);
+        GameManager.Instance.saveName = name;
         GameManager.Instance.toLoad = true;
         GameManager.Instance.load = () =>
         {
-            GameManager.Instance.Load(name);
+            GameManager.Instance.Load(name,int.Parse(turn));
         };
         SceneManager.LoadScene(2);
     }
+    private void OpenMap(string name)
+    {
+        GameManager.Instance.currentMap = name;
+        GameManager.Instance.saveName = "";
+
+        SceneManager.LoadScene(2);
+    }
+
 
     private void OpenConfirmation(string name,Transform todelete)
     {

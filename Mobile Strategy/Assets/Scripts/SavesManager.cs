@@ -13,6 +13,8 @@ public static class SavesManager
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         string name = GameManager.Instance.saveName;
 
+
+        Debug.Log(name);
         if(name != null && File.Exists(path + "/" + name))
         {
             File.Delete(path + "/" + name);

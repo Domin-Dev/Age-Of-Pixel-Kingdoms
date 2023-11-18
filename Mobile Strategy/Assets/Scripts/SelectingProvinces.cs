@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Unity.Mathematics;
-using System.Collections;
 
 public class SelectingProvinces : MonoBehaviour
 {

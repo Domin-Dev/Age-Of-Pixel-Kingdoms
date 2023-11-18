@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+
 using UnityEngine;
 
 [System.Serializable]
@@ -25,9 +23,16 @@ public class Player : MonoBehaviour
         this.playerColor = playerColor;
         if (isComputer)
         {
+            Debug.Log("enemy!!!!!");
             enemyManager = gameObject.AddComponent<EnemyManager>();
             enemyManager.SetUp(stats);
         }
+    }
+
+    public void EnemyManagerSetUp()
+    {
+        enemyManager = gameObject.AddComponent<EnemyManager>();
+        enemyManager.SetUp(stats);
     }
 
 
