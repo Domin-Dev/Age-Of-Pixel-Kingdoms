@@ -123,11 +123,9 @@ public class GameManager : MonoBehaviour
 		buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
 		selectingProvinces = FindObjectOfType<SelectingProvinces>();
 		botsList.Clear();
-		if (humanPlayer == null)
-		{
-			CreateHumanPlayer();
-			LoadBots();
-		}
+		CreateHumanPlayer();
+		LoadBots();
+		
 		ProvinceStats[] array = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").provinces;
 		numberOfProvinces = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").numberOfProvinces;
 
@@ -191,9 +189,12 @@ public class GameManager : MonoBehaviour
 
 	private void CreateHumanPlayer()
 	{
-		Player player = new GameObject("Human", typeof(Player)).GetComponent<Player>();
+        if (humanPlayer != null) Destroy(humanPlayer.gameObject);
+        Player player = new GameObject("Human", typeof(Player)).GetComponent<Player>();
 		player.transform.parent = players;
 		player.SetUp("Player", false, Color.blue, 10000, 0);
+
+		Debug.Log("xd");
 		humanPlayer = player;
 	}
 	private void UpdateBotProvinces()
@@ -262,7 +263,6 @@ public class GameManager : MonoBehaviour
 	}
 	public void UpdateMap()
 	{
-	
 		cameraController = Camera.main.GetComponent<CameraController>();
 		players = GameObject.FindGameObjectWithTag("Players").transform;
 		humanPlayer = players.GetChild(0).GetComponent<Player>();
@@ -501,6 +501,8 @@ public class GameManager : MonoBehaviour
 		player.playerColor = GetColor(players[0].playerColor);
 		player.stats = players[0].stats.ToPlayerStats();
 		humanPlayer = player;
+
+		Debug.Log(player.stats.warriors.ToString());
 
 		for (int i = 0; i < botsList.Count; i++)
 		{;

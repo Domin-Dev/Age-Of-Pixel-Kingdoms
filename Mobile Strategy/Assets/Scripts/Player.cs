@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
         this.playerColor = playerColor;
         if (isComputer)
         {
-            Debug.Log("enemy!!!!!");
             enemyManager = gameObject.AddComponent<EnemyManager>();
             enemyManager.SetUp(stats);
         }
