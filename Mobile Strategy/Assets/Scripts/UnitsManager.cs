@@ -214,7 +214,7 @@ public class UnitsManager : MonoBehaviour
             List<Unit> units = GetPath(path);
 
             Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-            unit.SetUp(unitindex, path, true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false, unitindex); CheckUnits(); }, (unit) => { return CheckPath(unit); });
+            unit.SetUp(unitindex, path, true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false, unitindex); CheckUnits(); }, () => { return CheckPath(unit); },() => { return CheckPosition(unit);});
             units.Add(unit);
 
             SetUnitColor(yourColor, unit.GetComponent<SpriteRenderer>());
@@ -236,7 +236,7 @@ public class UnitsManager : MonoBehaviour
             List<Unit> units = GetPath(path);
 
             Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
-            unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit);if (!isDead) UnitCame(true, unitindex); CheckUnits(); battleEnemy.CheckPaths(); }, (unit) => { return CheckPath(unit); });
+            unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit);if (!isDead) UnitCame(true, unitindex); CheckUnits(); battleEnemy.CheckPaths(); }, () => { return CheckPath(unit); }, () => { return CheckPosition(unit);} );
             units.Add(unit);
             SetUnitColor(enemyColor, unit.GetComponent<SpriteRenderer>());
             return true;
@@ -248,7 +248,6 @@ public class UnitsManager : MonoBehaviour
         List<Unit> units = GetPath(selectedUnit.pathIndex);
         Unit friendlyUnit = null;
         again:
-        {
             foreach (Unit unit in units)
             {
 
@@ -277,10 +276,44 @@ public class UnitsManager : MonoBehaviour
                 }
 
             }
-        }
-
         if (friendlyUnit != null) return friendlyUnit;
         return null;
+    }
+
+    private float CheckPosition(Unit selectedUnit)
+    {
+        List<Unit> units = GetPath(selectedUnit.pathIndex);
+        float position = 1000f;
+        float distanceMin = 1000f;
+
+        foreach (Unit unit in units)
+        {
+            if (unit != selectedUnit)
+            {
+                if(unit.unitIsFriendly == selectedUnit.unitIsFriendly)
+                {
+                    if (unit.transform.position.x * unit.multiplier > selectedUnit.transform.position.x * selectedUnit.multiplier)
+                    {
+                        float distance = Mathf.Abs(unit.transform.position.x - selectedUnit.transform.position.x);
+                        if (distanceMin > distance)
+                        {
+                            distanceMin = distance;
+                            position = unit.transform.position.x;   
+                        }
+                    }
+                }
+                else
+                {
+                    float distance = Mathf.Abs(unit.transform.position.x - selectedUnit.transform.position.x);
+                    if (distanceMin > distance)
+                    {
+                        distanceMin = distance;
+                        position = unit.transform.position.x;
+                    }                 
+                }
+            }
+        }
+        return position;
     }
     public List<Unit> GetPath(int index)
     {

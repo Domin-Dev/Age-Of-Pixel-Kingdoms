@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
         bullet.GetComponent<Bullet>().archer = archer;
         bullet.AddComponent<SpriteRenderer>().sprite = bulletImage;
         bullet.GetComponent<SpriteRenderer>().sortingOrder = 10;
+        if (startPosition.x > target.position.x) bullet.GetComponent<SpriteRenderer>().flipX = true;
     }
 
     private void Update()

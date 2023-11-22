@@ -6,7 +6,7 @@ public class TimeManager : MonoBehaviour
 {
     Button button;
     TextMeshProUGUI text;
-    int[] speeds = { 1, 2, 4, 8};
+    float[] speeds = { 1, 2, 4,0.5f,0.2f};
     int currentSpeed;
 
     private void Start()

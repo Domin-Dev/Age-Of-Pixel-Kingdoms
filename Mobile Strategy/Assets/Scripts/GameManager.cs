@@ -166,6 +166,8 @@ public class GameManager : MonoBehaviour
 		{
 			BonusManager.UpdateLimits(botsList[i].index);
 		}
+		BonusManager.UpdateLimits(0);
+
 		Time.timeScale = 1.0f;
 
 		UIManager.Instance.SetUp();

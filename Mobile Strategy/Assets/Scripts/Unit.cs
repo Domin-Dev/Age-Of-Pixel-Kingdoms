@@ -6,8 +6,8 @@ public class Unit : MonoBehaviour
 {
 
     UnitStats.UnitType unitType;
-    public int unitIndex;   
-    public float speed { get; private set; }
+    public int unitIndex;
+    public float speed;
     public float maxLifePoints { get; private set; }
     public float damage { get; private set; }
     public float range { get; private set; }
@@ -23,7 +23,10 @@ public class Unit : MonoBehaviour
     public bool unitIsFriendly { get; private set; }
     public int pathIndex { get; private set; }
     private Action<bool> clearList;
-    private Func<Unit, Unit> checkPath;
+    private Func<Unit> checkPath;
+    private Func<float> checkPosition;
+    private Action changeSpeed;
+
     private Animator animator;
     //////////////////////////
     //Attack//
@@ -61,7 +64,7 @@ public class Unit : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    public void SetUp(int index,int pathIndex,bool unitIsFriendly, float targetPositionX, Action<bool> clearList, Func<Unit, Unit> checkPath)
+    public void SetUp(int index,int pathIndex,bool unitIsFriendly, float targetPositionX, Action<bool> clearList, Func<Unit> checkPath, Func<float> checkPosition)
     {
         UnitStats unitStats = GameAssets.Instance.unitStats[index];
         this.unitType = unitStats.unitType;
@@ -79,6 +82,7 @@ public class Unit : MonoBehaviour
         this.targetPositionX = targetPositionX;
         this.clearList = clearList;
         this.checkPath = checkPath;
+        this.checkPosition = checkPosition;
         this.unitIsFriendly = unitIsFriendly;
         this.pathIndex = pathIndex; 
 
@@ -129,7 +133,8 @@ public class Unit : MonoBehaviour
         }
 
         positionX = transform.position.x + 0.1f * speed * multiplier * Time.deltaTime;
-        Unit unit = checkPath(this);
+        Unit unit = checkPath();
+      //  float pos = checkPosition() - multiplier;
         if (unit == null)
         {
             animator.SetBool("Idle", false);
@@ -141,10 +146,13 @@ public class Unit : MonoBehaviour
                     audioSource.loop = true;
                     audioSource.PlayOneShot(Sounds.instance.GetClip(movementSound));
                 }
+              //  if (positionX * multiplier > pos * multiplier) positionX = pos - multiplier;           
                 transform.position = new Vector3(positionX, transform.position.y, 0f);
+                //
             }
             else
             {
+                if (changeSpeed != null) changeSpeed();
                 Destroy(gameObject);
                 clearList(false);
             }
@@ -154,6 +162,15 @@ public class Unit : MonoBehaviour
             animator.SetBool("Idle", true);
             if (movementIsPlaying)
             {
+                if(unit.unitIsFriendly == unitIsFriendly && unit.speed < speed)
+                {
+                    speed = unit.speed;
+                    unit.changeSpeed = () => 
+                    {
+                        speed = GameAssets.Instance.unitStats[unitIndex].speed;
+                        if(changeSpeed != null) changeSpeed();
+                    };             
+                }
                 movementIsPlaying = false;
                 audioSource.loop = false;
                 audioSource.Stop();
@@ -185,7 +202,10 @@ public class Unit : MonoBehaviour
     }
     public void Shot()
     {
-       if(target !=null) Bullet.NewBullet(transform.GetChild(1).position, target.transform, bullet, () => { EndOfAnimation(); },transform);
+        if (target != null)
+        {
+            Bullet.NewBullet(transform.GetChild(1).position, target.transform, bullet, () => { EndOfAnimation(); }, transform);
+        }
     }
     private void Hit(float damage)
     {
@@ -196,6 +216,7 @@ public class Unit : MonoBehaviour
             lifePoints = math.clamp(lifePoints - damage, 0, maxLifePoints);
             if (lifePoints <= 0)
             {
+                if (changeSpeed != null) changeSpeed();
                 Destroy(gameObject);
                 clearList(true);
             }
