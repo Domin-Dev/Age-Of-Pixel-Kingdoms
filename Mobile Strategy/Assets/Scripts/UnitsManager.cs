@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using System.Net.Sockets;
 
 public class UnitsManager : MonoBehaviour
 {
@@ -33,8 +33,9 @@ public class UnitsManager : MonoBehaviour
 
 
     int SelectedUnitIndex = -1;
+    int selectedSpellIndex = -1;
 
-    private Transform paths;
+    public Transform paths { private set; get; }
     public static UnitsManager Instance { private set; get; }
 
     private int startYourUnits;
@@ -59,9 +60,22 @@ public class UnitsManager : MonoBehaviour
         isEnd = false;
 
         unitStats = GameAssets.Instance.unitStats;
-        Debug.Log(GameAssets.Instance.unitStats.Length);
         GameManager.Instance.GetUnits(out yourUnits,out enemyUnits);
         paths = GameObject.FindWithTag("Paths").transform;
+
+        for (int i = 0; i < GameAssets.Instance.spells.Length; i++)
+        {
+            Spell item = GameAssets.Instance.spells[i];
+            Transform transform = Instantiate(GameAssets.Instance.BattleConter, GameAssets.Instance.BattleUnits.transform).transform;
+            transform.name = item.spellName.ToString();
+            transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
+            transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = "GIT";
+            transform.GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.redTexture;
+            int index = i;
+            transform.GetComponent<Button>().onClick.AddListener(() => { SetSpellIndex(index); });
+        }
+            
+        
 
         if (yourUnits != null)
         {
@@ -89,6 +103,7 @@ public class UnitsManager : MonoBehaviour
                 }
             }
         }
+
         startEnemyUnits = enemyUnitCount;
         startYourUnits = yourUnitCount;
         battleEnemy = GetComponent<BattleEnemy>();
@@ -107,16 +122,33 @@ public class UnitsManager : MonoBehaviour
     {
         if (!isEnd)
         {
-            if (Input.GetMouseButtonDown(0) && SelectedUnitIndex != -1)
+            if (Input.GetMouseButtonDown(0))
             {
                 Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+                Transform path = null;
                 foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(worldMousePosition, Vector3.zero))
                 {
                     if (raycastHit.collider.CompareTag("Path"))
                     {
-                        if (CanSpawn(raycastHit.collider.transform, false) && yourUnits[SelectedUnitIndex] > 0)
-                            CreateUnit(SelectedUnitIndex, raycastHit.collider.transform);
+                        path = raycastHit.collider.transform;
+                    }
+                }
+
+                if (path != null)
+                {
+                    if (SelectedUnitIndex != -1)
+                    {
+
+                        if (CanSpawn(path, false) && yourUnits[SelectedUnitIndex] > 0)
+                        {
+                            CreateUnit(SelectedUnitIndex, path);
+                        }
+                    }
+                    else if (selectedSpellIndex != -1)
+                    {
+                        Transform transform = Instantiate(GameAssets.Instance.spells[selectedSpellIndex].spell).transform;
+                        transform.GetComponent<ISpellBase>().StartSpell(int.Parse(path.name),this);
+                         
                     }
                 }
             }
@@ -146,6 +178,11 @@ public class UnitsManager : MonoBehaviour
     }
     public void SetUnitIndex(int index)
     {
+
+        if (selectedSpellIndex >= 0) GameAssets.Instance.BattleUnits.GetChild(selectedSpellIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+        selectedSpellIndex = -1;
+
+
         if (yourUnits[index] > 0)
         {
             Sounds.instance.PlaySound(5);
@@ -162,6 +199,27 @@ public class UnitsManager : MonoBehaviour
             }
             SelectedUnitIndex = index;
         }
+    }
+
+    public void SetSpellIndex(int index)
+    {
+        if (SelectedUnitIndex >= 0)
+        {
+            for (int i = 0; i < GameAssets.Instance.BattleUnits.childCount; i++)
+            {
+                if (GameAssets.Instance.BattleUnits.GetChild(i).name == SelectedUnitIndex.ToString())
+                {
+                    GameAssets.Instance.BattleUnits.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+                }
+            }
+        }
+        SelectedUnitIndex = -1;
+
+        Sounds.instance.PlaySound(5);
+        if (selectedSpellIndex >= 0) GameAssets.Instance.BattleUnits.GetChild(selectedSpellIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
+        if( index >= 0) GameAssets.Instance.BattleUnits.GetChild(index).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
+        selectedSpellIndex = index;
+        Debug.Log(index);
     }
     private void ClearSelectedUnit()
     {

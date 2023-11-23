@@ -16,7 +16,8 @@ public class GameAssets : MonoBehaviour
 
     [Space(20f, order = 0)]
 
-    
+
+    public Sprite redTexture;
     public Sprite brownTexture;
     public Sprite blueTexture;
     public Sprite blackTexture;
@@ -60,6 +61,8 @@ public class GameAssets : MonoBehaviour
     public BuildingStats[] buildingsStats { private set; get; }
     public UnitStats[] unitStats { private set; get; }
 
+    public Spell[] spells { private set; get; }
+
     public Research[,] research { private set; get; }
 
     public Transform pause;
@@ -94,6 +97,7 @@ public class GameAssets : MonoBehaviour
 
         buildingsStats = Resources.LoadAll<BuildingStats>("Buildings");
         unitStats = Resources.LoadAll<UnitStats>("Units");
+        spells = Resources.LoadAll<Spell>("Spells");
     }    
 
     private void LoadResearch(string path,int index)
