@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1250731770847781794}
   - component: {fileID: 1290954149537617274}
   m_Layer: 0
-  m_Name: Spell
+  m_Name: Arrows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

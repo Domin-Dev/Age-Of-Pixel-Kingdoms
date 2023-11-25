@@ -4,7 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Net.Sockets;
+using Unity.Mathematics;
+using System;
 
 public class UnitsManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class UnitsManager : MonoBehaviour
     public List<Unit> path4 { get; private set; } = new List<Unit>();
 
     UnitStats[] unitStats;
+    float2[] spellTimer;
+    bool startTimer = false;
 
     public Dictionary<int, int> yourUnits;
     public Dictionary<int, int> enemyUnits;
@@ -62,21 +65,22 @@ public class UnitsManager : MonoBehaviour
         unitStats = GameAssets.Instance.unitStats;
         GameManager.Instance.GetUnits(out yourUnits,out enemyUnits);
         paths = GameObject.FindWithTag("Paths").transform;
+        spellTimer = new float2[GameAssets.Instance.spells.Length];
 
         for (int i = 0; i < GameAssets.Instance.spells.Length; i++)
         {
             Spell item = GameAssets.Instance.spells[i];
+            spellTimer[i] = new float2(item.timeToReload, item.timeToReload);
+
             Transform transform = Instantiate(GameAssets.Instance.BattleConter, GameAssets.Instance.BattleUnits.transform).transform;
             transform.name = item.spellName.ToString();
             transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
-            transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = "GIT";
+            transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = "";
             transform.GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.redTexture;
             int index = i;
             transform.GetComponent<Button>().onClick.AddListener(() => { SetSpellIndex(index); });
         }
             
-        
-
         if (yourUnits != null)
         {
             for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
@@ -107,7 +111,6 @@ public class UnitsManager : MonoBehaviour
         startEnemyUnits = enemyUnitCount;
         startYourUnits = yourUnitCount;
         battleEnemy = GetComponent<BattleEnemy>();
-
     }
 
     private void OnLevelWasLoaded(int level)
@@ -120,6 +123,7 @@ public class UnitsManager : MonoBehaviour
     }
     private void Update()
     {
+        if(startTimer) UpdateTimers();
         if (!isEnd)
         {
             if (Input.GetMouseButtonDown(0))
@@ -146,9 +150,12 @@ public class UnitsManager : MonoBehaviour
                     }
                     else if (selectedSpellIndex != -1)
                     {
+                        GameAssets.Instance.BattleUnits.GetChild(selectedSpellIndex).GetComponent<Button>().interactable = false;
                         Transform transform = Instantiate(GameAssets.Instance.spells[selectedSpellIndex].spell).transform;
-                        transform.GetComponent<ISpellBase>().StartSpell(int.Parse(path.name),this);
-                         
+                        transform.GetComponent<ISpellBase>().StartSpell(true,int.Parse(path.name),this);
+                        spellTimer[selectedSpellIndex].x = 0;
+                        startTimer = true;
+                        SetSpellIndex(-1);
                     }
                 }
             }
@@ -176,6 +183,34 @@ public class UnitsManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha6)) EnemyCreateUnit(5, 1, true);
         }
     }
+
+    private void UpdateTimers()
+    {
+        for (int i = 0; i < spellTimer.Length; i++)
+        {
+            float2 item = spellTimer[i];
+            Debug.Log(item);
+            if (item.x != item.y)
+            {
+                
+                item.x += Time.deltaTime;
+                if (item.x >= item.y)
+                {
+                    item.x = item.y;
+                    GameAssets.Instance.BattleUnits.GetChild(i).GetComponent<Button>().interactable = true;
+                    GameAssets.Instance.BattleUnits.GetChild(i).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                }
+                else
+                {
+                    float value = (float)Math.Round(item.y - item.x, 1);
+                    GameAssets.Instance.BattleUnits.GetChild(i).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = value.ToString() + " s";
+                }
+                spellTimer[i] = item;
+            }
+        }
+    }
+
+
     public void SetUnitIndex(int index)
     {
 
@@ -200,7 +235,6 @@ public class UnitsManager : MonoBehaviour
             SelectedUnitIndex = index;
         }
     }
-
     public void SetSpellIndex(int index)
     {
         if (SelectedUnitIndex >= 0)

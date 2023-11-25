@@ -3047,6 +3047,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d457ea9205e7d664ca5542ddd83fca31, type: 3}
   - {fileID: 8300000, guid: 49134a237e3244244b0f7f8dedea8f24, type: 3}
   - {fileID: 8300000, guid: c628ed40c782bac4096ca836960e12c1, type: 3}
+  - {fileID: 8300000, guid: 2e176de6b9959974aaa85e74a5fa6388, type: 3}
+  - {fileID: 8300000, guid: 1e4efe1219d0b174c9677e1da16f9182, type: 3}
   audioMixer: {fileID: 24100000, guid: 8559c78f9a8cb594387ac558a8cd8f39, type: 2}
   currentMusic: 0
 --- !u!4 &714794137

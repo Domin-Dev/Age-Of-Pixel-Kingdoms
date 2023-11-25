@@ -7,6 +7,9 @@ public class Unit : MonoBehaviour
 
     UnitStats.UnitType unitType;
     public int unitIndex;
+
+
+    public float speedValue;
     public float speed;
     public float maxLifePoints { get; private set; }
     public float damage { get; private set; }
@@ -69,6 +72,7 @@ public class Unit : MonoBehaviour
         UnitStats unitStats = GameAssets.Instance.unitStats[index];
         this.unitType = unitStats.unitType;
         this.unitIndex = index;
+        this.speedValue = unitStats.speed;
         this.speed = unitStats.speed;
         this.maxLifePoints = unitStats.lifePoints;
         this.damage = unitStats.damage;
@@ -167,7 +171,7 @@ public class Unit : MonoBehaviour
                     speed = unit.speed;
                     unit.changeSpeed = () => 
                     {
-                        speed = GameAssets.Instance.unitStats[unitIndex].speed;
+                        speed = speedValue;
                         if(changeSpeed != null) changeSpeed();
                     };             
                 }
@@ -207,7 +211,7 @@ public class Unit : MonoBehaviour
             Bullet.NewBullet(transform.GetChild(1).position, target.transform, bullet, () => { EndOfAnimation(); }, transform);
         }
     }
-    private void Hit(float damage)
+    public void Hit(float damage)
     {
         if (gameObject != null)
         {
@@ -227,6 +231,16 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public void Heal(float value)
+    {   
+        lifePoints = math.clamp(lifePoints + value, 0, maxLifePoints);
+        lifeBar.localScale = new Vector3(lifePoints / maxLifePoints, 1, 1);
+    }
+    public void SpeedBoost(float value)
+    {
+        speedValue = value * speedValue; 
+        speed = value * speed;
+    }
     private void TargetIsNull()
     {
         target = null;

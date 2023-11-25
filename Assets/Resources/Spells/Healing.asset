@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 272d5fd051f8d8041adbe606f3f3bba1, type: 3}
-  m_Name: Arrows
+  m_Name: Healing
   m_EditorClassIdentifier: 
-  <spellName>k__BackingField: Arrows
+  <spellName>k__BackingField: Healing
   <description>k__BackingField: 
   <price>k__BackingField: 100
-  <spell>k__BackingField: {fileID: 8792571325793234231, guid: fdaa32fab4e1854478ff01707310aa7f, type: 3}
-  <icon>k__BackingField: {fileID: 21300000, guid: 325a8897179f0ca42b11830fc1d29101, type: 3}
-  <timeToReload>k__BackingField: 10
+  <spell>k__BackingField: {fileID: 3054042400462640378, guid: 43bafb8fedf961948a1b53880b904160, type: 3}
+  <icon>k__BackingField: {fileID: 21300000, guid: e713c7a2231720648b4409d30b19c4e4, type: 3}
+  <timeToReload>k__BackingField: 5
