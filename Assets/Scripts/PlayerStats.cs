@@ -12,6 +12,9 @@ public class PlayerStats
     public bool[] buildingsPermit;
     public bool[,] research;
     public bool[] units;
+    public bool[] spells;
+
+    public int[] selectedSpells;
 
     public int texesIndex;
     public int researchIndex;
@@ -48,6 +51,13 @@ public class PlayerStats
         this.research = new bool[4,GameAssets.Instance.research.GetLength(1)];
         this.units = new bool[GameAssets.Instance.unitStats.Length];
         this.units[0] = true;
+        this.spells = new bool[GameAssets.Instance.spells.Length];
+        this.selectedSpells = new int[3];
+        for (int i = 0; i < 3; i++)
+        {
+            selectedSpells[i] = -1;
+        }
+        selectedSpells[2] = -2;
 
         movementPoints.UpdateLimit();
         warriors.UpdateLimit();

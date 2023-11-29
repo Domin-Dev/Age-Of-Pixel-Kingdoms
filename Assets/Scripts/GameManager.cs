@@ -115,7 +115,6 @@ public class GameManager : MonoBehaviour
 	}
 	private void SetUp()
 	{
-        Debug.Log("SetUp");
         GameAssets.Instance.SetUp();
 		players = GameObject.FindGameObjectWithTag("Players").transform;
 		DontDestroyOnLoad(players);
@@ -535,12 +534,10 @@ public class GameManager : MonoBehaviour
 	{
 		return new Color(rgba[0], rgba[1], rgba[2], rgba[3]);
 	}
-
 	public string GetName()
 	{
 		return currentMap + " Turn " + turn.ToString() + "  " + DateTime.Now.Ticks.ToString();
 	}
-
 	private string GetTurn(string fileName)
 	{
 

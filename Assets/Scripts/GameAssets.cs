@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +15,13 @@ public class GameAssets : MonoBehaviour
 
     [Space(20f, order = 0)]
 
+    public GameObject spell;
 
+    [Space(20f, order = 0)]
+
+
+    public Sprite empty;
+    public Sprite locked;
     public Sprite redTexture;
     public Sprite brownTexture;
     public Sprite blueTexture;

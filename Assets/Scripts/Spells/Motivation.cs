@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Assault : MonoBehaviour, ISpellBase
-{ 
+public class Motivation : MonoBehaviour, ISpellBase
+{
     public void AnimationEnd()
     {
-
     }
 
     public void ExecuteSpell()
     {
-
     }
 
     public void StartSpell(bool isPlayer, int pathIndex, UnitsManager unitsManager)

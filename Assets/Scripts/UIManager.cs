@@ -4,7 +4,9 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
-using UnityEditor.Tilemaps;
+using Unity.VisualScripting;
+using System.Net.Sockets;
+
 
 public class UIManager : MonoBehaviour
 {
@@ -53,6 +55,7 @@ public class UIManager : MonoBehaviour
     private TextMeshProUGUI developmentPointsCounter;
     private TextMeshProUGUI movementPointsCounter;
 
+    private int selectedSpell;
 
     public void SetUp()
     {
@@ -110,7 +113,9 @@ public class UIManager : MonoBehaviour
         topBar.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { OpenStatsDetails(GameManager.Instance.humanPlayer.stats.movementPoints); Sounds.instance.PlaySound(5); });
 
         UpdateCounters();
+
         LoadResearch();
+        LoadSpells();
     }
     public void ManagerUI(bool open)
     {
@@ -596,21 +601,106 @@ public class UIManager : MonoBehaviour
     private void LoadResearch()
     {
         int length = gameAssets.research.GetLength(1);
-        for (int i = 0; i < 4; i++)
+        if(groups.GetChild(0).childCount == 1)
         {
-            for (int j = 0; j < length; j++)
+            for (int i = 0; i < 4; i++)
             {
-                Research research = gameAssets.research[i,j];
-                GameObject obj = Instantiate(gameAssets.researchUI, groups.GetChild(i).transform);
-                int index = i * 100 + j;
-                obj.GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenResearch(index); });
-                obj.transform.GetChild(0).GetComponent<Image>().sprite = research.image;
-                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name + " " + index.ToString();
-                obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
-                obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = StringToIcons(research.description);
+                for (int j = 0; j < length; j++)
+                {
+                    Research research = gameAssets.research[i, j];
+                    GameObject obj = Instantiate(gameAssets.researchUI, groups.GetChild(i).transform);
+                    int index = i * 100 + j;
+                    obj.GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenResearch(index); });
+                    obj.transform.GetChild(0).GetComponent<Image>().sprite = research.image;
+                    obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name + " " + index.ToString();
+                    obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
+                    obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = StringToIcons(research.description);
+                }
+            }
+            UpdateResearch();
+        }
+    }
+
+
+    private void LoadSpells()
+    {
+        int length = gameAssets.spells.Length;
+        Transform parent = spellsWindow.GetChild(1).GetChild(0).GetChild(0);
+        selectedSpell = 0;
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            Transform spellTransform = spellsWindow.GetChild(2).GetChild(i);
+            Spell spell = gameAssets.spells[i];
+            int index = i;
+            if (GameManager.Instance.humanPlayer.stats.selectedSpells[i] >= 0)
+            {               
+                if(selectedSpell == index)spellTransform.transform.GetComponent<Image>().sprite = gameAssets.blueTexture;
+                else spellTransform.transform.GetComponent<Image>().sprite = gameAssets.brownTexture;
+                
+                spellTransform.GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); SelectSpellSlot(index);});
+                spellTransform.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.name;
+                spellTransform.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = spell.description;
+                spellTransform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = spell.icon;
+            } 
+            else if (GameManager.Instance.humanPlayer.stats.selectedSpells[i] == -1)
+            {
+                if (selectedSpell == index) spellTransform.transform.GetComponent<Image>().sprite = gameAssets.blueTexture;
+                else spellTransform.transform.GetComponent<Image>().sprite = gameAssets.brownTexture;
+
+                spellTransform.GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); SelectSpellSlot(index);});
+                spellTransform.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "no selected spell";
+                spellTransform.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
+                spellTransform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = gameAssets.empty;
+            }
+            else
+            {
+                spellTransform.transform.GetComponent<Image>().sprite = gameAssets.blackTexture;
+                spellTransform.GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(4); });
+                spellTransform.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "locked";
+                spellTransform.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
+                spellTransform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = gameAssets.locked;
             }
         }
-        UpdateResearch();
+
+
+
+        if (parent.childCount == 0)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                Spell spell = gameAssets.spells[i];
+                GameObject obj = Instantiate(gameAssets.spell, parent);
+                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.name;
+                obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = spell.description;
+                obj.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = spell.icon;
+              
+                if (GameManager.Instance.humanPlayer.stats.spells[i])
+                {
+                    obj.GetComponent<Image>().sprite = gameAssets.brownTexture;
+                }
+                else
+                {
+                    obj.GetComponent<Image>().sprite = gameAssets.blackTexture;
+                }
+
+            }
+        }
+    }
+
+    private void SelectSpell(int index)
+    {
+        
+    }
+    private void SelectSpellSlot(int number)
+    {
+        if(selectedSpell != -1)
+        {
+            spellsWindow.GetChild(2).GetChild(selectedSpell).GetComponent<Image>().sprite = gameAssets.brownTexture;
+        }
+        selectedSpell = number;
+        spellsWindow.GetChild(2).GetChild(selectedSpell).GetComponent<Image>().sprite = gameAssets.blueTexture;
     }
     private void UpdateResearch()
     {
