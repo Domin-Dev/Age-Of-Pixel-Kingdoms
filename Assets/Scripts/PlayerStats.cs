@@ -52,6 +52,10 @@ public class PlayerStats
         this.units = new bool[GameAssets.Instance.unitStats.Length];
         this.units[0] = true;
         this.spells = new bool[GameAssets.Instance.spells.Length];
+        this.spells[0] = true;
+        this.spells[1] = true;
+        this.spells[2] = true;
+        this.spells[3] = true;
         this.selectedSpells = new int[3];
         for (int i = 0; i < 3; i++)
         {

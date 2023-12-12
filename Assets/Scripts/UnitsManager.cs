@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
+using static UnityEditor.Progress;
 
 public class UnitsManager : MonoBehaviour
 {
@@ -65,20 +66,28 @@ public class UnitsManager : MonoBehaviour
         unitStats = GameAssets.Instance.unitStats;
         GameManager.Instance.GetUnits(out yourUnits,out enemyUnits);
         paths = GameObject.FindWithTag("Paths").transform;
-        spellTimer = new float2[GameAssets.Instance.spells.Length];
+        spellTimer = new float2[GameManager.Instance.humanPlayer.stats.selectedSpells.Length];
 
-        for (int i = 0; i < GameAssets.Instance.spells.Length; i++)
+        for (int i = 0; i < GameManager.Instance.humanPlayer.stats.selectedSpells.Length; i++)
         {
-            Spell item = GameAssets.Instance.spells[i];
-            spellTimer[i] = new float2(item.timeToReload, item.timeToReload);
-
-            Transform transform = Instantiate(GameAssets.Instance.BattleConter, GameAssets.Instance.BattleUnits.transform).transform;
-            transform.name = item.spellName.ToString();
-            transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
-            transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = "";
-            transform.GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.redTexture;
-            int index = i;
-            transform.GetComponent<Button>().onClick.AddListener(() => { SetSpellIndex(index); });
+            int index = GameManager.Instance.humanPlayer.stats.selectedSpells[i];
+            if (index >= 0)
+            {
+                Spell item = GameAssets.Instance.spells[index];
+                spellTimer[i] = new float2(item.timeToReload, item.timeToReload);
+                Transform transform = Instantiate(GameAssets.Instance.BattleConter, GameAssets.Instance.BattleUnits.transform).transform;
+                transform.name = item.spellName.ToString();
+                transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
+                transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = "";
+                transform.GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.redTexture;
+                int id = i;
+                transform.GetComponent<Button>().onClick.AddListener(() => { SetSpellIndex(id); });
+            }else if(index == -1)
+            {
+                Transform transform = Instantiate(GameAssets.Instance.BattleConter, GameAssets.Instance.BattleUnits.transform).transform;
+                transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.empty;
+                transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = "";
+            }
         }
             
         if (yourUnits != null)
@@ -151,7 +160,8 @@ public class UnitsManager : MonoBehaviour
                     else if (selectedSpellIndex != -1)
                     {
                         GameAssets.Instance.BattleUnits.GetChild(selectedSpellIndex).GetComponent<Button>().interactable = false;
-                        Transform transform = Instantiate(GameAssets.Instance.spells[selectedSpellIndex].spell).transform;
+                        int index = GameManager.Instance.humanPlayer.stats.selectedSpells[selectedSpellIndex];
+                        Transform transform = Instantiate(GameAssets.Instance.spells[index].spell).transform;
                         transform.GetComponent<ISpellBase>().StartSpell(true,int.Parse(path.name),this);
                         spellTimer[selectedSpellIndex].x = 0;
                         startTimer = true;
@@ -174,13 +184,6 @@ public class UnitsManager : MonoBehaviour
                     }
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Alpha1)) EnemyCreateUnit(0, 1,true);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) EnemyCreateUnit(1, 1, true);
-            if (Input.GetKeyDown(KeyCode.Alpha3)) EnemyCreateUnit(2, 1, true);
-            if (Input.GetKeyDown(KeyCode.Alpha4)) EnemyCreateUnit(3, 1,true);
-            if (Input.GetKeyDown(KeyCode.Alpha5)) EnemyCreateUnit(4, 1, true);
-            if (Input.GetKeyDown(KeyCode.Alpha6)) EnemyCreateUnit(5, 1, true);
         }
     }
 
@@ -253,7 +256,6 @@ public class UnitsManager : MonoBehaviour
         if (selectedSpellIndex >= 0) GameAssets.Instance.BattleUnits.GetChild(selectedSpellIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
         if( index >= 0) GameAssets.Instance.BattleUnits.GetChild(index).GetComponent<Image>().sprite = GameAssets.Instance.blueTexture;
         selectedSpellIndex = index;
-        Debug.Log(index);
     }
     private void ClearSelectedUnit()
     {

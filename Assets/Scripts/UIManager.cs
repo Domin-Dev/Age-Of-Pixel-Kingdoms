@@ -678,7 +678,9 @@ public class UIManager : MonoBehaviour
               
                 if (GameManager.Instance.humanPlayer.stats.spells[i])
                 {
+                    int index = i;
                     obj.GetComponent<Image>().sprite = gameAssets.brownTexture;
+                    obj.GetComponent<Button>().onClick.AddListener(() => {SelectSpell(index); });
                 }
                 else
                 {
@@ -691,7 +693,25 @@ public class UIManager : MonoBehaviour
 
     private void SelectSpell(int index)
     {
-        
+        int[] array = GameManager.Instance.humanPlayer.stats.selectedSpells;
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] == index)
+            {
+                Sounds.instance.PlaySound(4);
+                return;
+            }
+        }
+
+
+        Spell spell = gameAssets.spells[index];
+        Transform spellTransform = spellsWindow.GetChild(2).GetChild(selectedSpell);
+
+        spellTransform.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.name;
+        spellTransform.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = spell.description;
+        spellTransform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = spell.icon;
+        GameManager.Instance.humanPlayer.stats.selectedSpells[selectedSpell] = index;
+        Sounds.instance.PlaySound(5);
     }
     private void SelectSpellSlot(int number)
     {

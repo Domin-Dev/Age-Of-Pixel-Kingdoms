@@ -23,6 +23,6 @@ public class Motivation : MonoBehaviour, ISpellBase
                 list[i].SpeedBoost(1.5f);
             }
         }
-        Sounds.instance.PlaySound(7);
+        Sounds.instance.PlaySound(8);
     }
 }
