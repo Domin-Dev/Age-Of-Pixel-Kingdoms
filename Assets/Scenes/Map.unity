@@ -3240,8 +3240,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1394822487}
   m_HandleRect: {fileID: 1394822486}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: -0.00000089071625
+  m_Size: 0.95921206
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -20701,7 +20701,7 @@ MonoBehaviour:
   m_StartAxis: 1
   m_CellSize: {x: 550, y: 200}
   m_Spacing: {x: 10, y: 20}
-  m_Constraint: 0
+  m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!1 &1651013780
 GameObject:

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
-using static UnityEditor.Progress;
+
 
 public class UnitsManager : MonoBehaviour
 {
@@ -151,21 +151,29 @@ public class UnitsManager : MonoBehaviour
                 {
                     if (SelectedUnitIndex != -1)
                     {
-
                         if (CanSpawn(path, false) && yourUnits[SelectedUnitIndex] > 0)
                         {
                             CreateUnit(SelectedUnitIndex, path);
+                        }else
+                        {
+                            Sounds.instance.PlaySound(4);                       
                         }
                     }
                     else if (selectedSpellIndex != -1)
                     {
-                        GameAssets.Instance.BattleUnits.GetChild(selectedSpellIndex).GetComponent<Button>().interactable = false;
                         int index = GameManager.Instance.humanPlayer.stats.selectedSpells[selectedSpellIndex];
                         Transform transform = Instantiate(GameAssets.Instance.spells[index].spell).transform;
-                        transform.GetComponent<ISpellBase>().StartSpell(true,int.Parse(path.name),this);
-                        spellTimer[selectedSpellIndex].x = 0;
-                        startTimer = true;
-                        SetSpellIndex(-1);
+                        if (transform.GetComponent<ISpellBase>().StartSpell(true, int.Parse(path.name), this))
+                        {
+                            GameAssets.Instance.BattleUnits.GetChild(selectedSpellIndex).GetComponent<Button>().interactable = false;
+                            spellTimer[selectedSpellIndex].x = 0;
+                            startTimer = true;
+                            SetSpellIndex(-1);
+                        }else
+                        {
+                            Destroy(transform.gameObject);
+                            Sounds.instance.PlaySound(4);
+                        }
                     }
                 }
             }
@@ -192,7 +200,6 @@ public class UnitsManager : MonoBehaviour
         for (int i = 0; i < spellTimer.Length; i++)
         {
             float2 item = spellTimer[i];
-            Debug.Log(item);
             if (item.x != item.y)
             {
                 
@@ -289,31 +296,50 @@ public class UnitsManager : MonoBehaviour
         List<Unit> path = GetPath(index);
         foreach (Unit unit in path)
         {
-            if (Vector2.Distance(unit.transform.position, pathTransform.GetChild(childIndex).position) < 0.8f)
+            if (Vector2.Distance(unit.transform.position, pathTransform.GetChild(childIndex).position) < 1f)
             {
                 return false;
             }
         }
         return true;
     }
-    private void CreateUnit(int unitindex, Transform pathTransform)
+    public bool CreateUnit(int unitindex, Transform pathTransform)
     {
         if (Time.timeScale > 0)
         {
             Sounds.instance.PlaySound(6);
-            yourUnits[unitindex]--;
-            yourUnitCount--;
-            UpdateUnitsUI(unitindex);
+            if (unitindex != 6)
+            {
+                yourUnits[unitindex]--;
+                yourUnitCount--;
+                UpdateUnitsUI(unitindex);
+            }
             int path = int.Parse(pathTransform.name);
             List<Unit> units = GetPath(path);
 
-            Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
+            if (unitindex == 6)
+            {
+                foreach (Unit item in units)
+                {
+                    if(item.unitIndex == 6 && item.unitIsFriendly)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+
+            Vector3 vector = new Vector3(0f, 0.4f, 0f);
+            if (unitindex == 6) vector = new Vector3(0.9f, 0.4f,0f);
+            Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + vector, Quaternion.identity).GetComponent<Unit>();
             unit.SetUp(unitindex, path, true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false, unitindex); CheckUnits(); }, () => { return CheckPath(unit); },() => { return CheckPosition(unit);});
             units.Add(unit);
 
             SetUnitColor(yourColor, unit.GetComponent<SpriteRenderer>());
             battleEnemy.CheckPaths();
+            return true;
         }
+        return false;
     }
     public bool EnemyCreateUnit(int unitindex, int pathIndex, bool debug)
     {
@@ -329,7 +355,20 @@ public class UnitsManager : MonoBehaviour
             int path = int.Parse(pathTransform.name);
             List<Unit> units = GetPath(path);
 
-            Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + new Vector3(0f, 0.4f, 0f), Quaternion.identity).GetComponent<Unit>();
+            if (unitindex == 6)
+            {
+                foreach (Unit item in units)
+                {
+                    if (item.unitIndex == 6 && !item.unitIsFriendly)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            Vector3 vector = new Vector3(0f, 0.4f, 0f);
+            if (unitindex == 6) vector = new Vector3(0.9f, 0.4f, 0f);
+            Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + vector, Quaternion.identity).GetComponent<Unit>();
             unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit);if (!isDead) UnitCame(true, unitindex); CheckUnits(); battleEnemy.CheckPaths(); }, () => { return CheckPath(unit); }, () => { return CheckPosition(unit);} );
             units.Add(unit);
             SetUnitColor(enemyColor, unit.GetComponent<SpriteRenderer>());
@@ -483,15 +522,18 @@ public class UnitsManager : MonoBehaviour
             List<Unit> units = GetPath(i);
             foreach (Unit unit in units)
             {
-                if(unit.unitIsFriendly)
+                if (unit.unitIndex != 6)
                 {
-                    yourUnitCount++;
-                    yourUnits[unit.unitIndex]++;
-                }
-                else
-                {
-                    enemyUnitCount++;
-                    enemyUnits[unit.unitIndex]++;
+                    if (unit.unitIsFriendly)
+                    {
+                        yourUnitCount++;
+                        yourUnits[unit.unitIndex]++;
+                    }
+                    else
+                    {
+                        enemyUnitCount++;
+                        enemyUnits[unit.unitIndex]++;
+                    }
                 }
             }
         }

@@ -7,14 +7,15 @@ public class Arrows : MonoBehaviour, ISpellBase
     UnitsManager unitsManager;
     int pathIndex;
     bool isPlayer;
-    public void StartSpell(bool isPlayer,int pathIndex,UnitsManager unitsManager)
+    public bool StartSpell(bool isPlayer,int pathIndex,UnitsManager unitsManager)
     {
-        Debug.Log(pathIndex);
         this.isPlayer = isPlayer;
         this.pathIndex = pathIndex;
         this.unitsManager = unitsManager;
         this.transform.position = new Vector3(transform.position.x, unitsManager.paths.GetChild(pathIndex -1).position.y, transform.position.z);
         Sounds.instance.PlaySound(15);
+        StartCoroutine(Damage());
+        return true;
     }
     public void AnimationEnd()
     {
@@ -28,5 +29,14 @@ public class Arrows : MonoBehaviour, ISpellBase
         {
            if(isPlayer != list[i].unitIsFriendly) list[i].Hit(100);
         }
+    }
+
+    IEnumerator Damage()
+    {
+        yield return new WaitForSeconds(0.9f);
+        Debug.Log("git");
+        ExecuteSpell();
+        AnimationEnd();
+        yield return null;
     }
 }

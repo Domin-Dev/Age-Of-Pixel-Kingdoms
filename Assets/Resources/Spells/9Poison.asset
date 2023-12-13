@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 272d5fd051f8d8041adbe606f3f3bba1, type: 3}
-  m_Name: Assault
+  m_Name: 9Poison
   m_EditorClassIdentifier: 
-  <spellName>k__BackingField: Assault
+  <spellName>k__BackingField: 
   <description>k__BackingField: 
-  <price>k__BackingField: 100
-  <spell>k__BackingField: {fileID: 3791460835019037400, guid: 5bccc2fdc99f42d4a8fc5f19ecb4fbfb, type: 3}
-  <icon>k__BackingField: {fileID: 21300000, guid: f8252dbba3bb3fd4594d3e3b57a947c5, type: 3}
-  <timeToReload>k__BackingField: 7
+  <price>k__BackingField: 0
+  <spell>k__BackingField: {fileID: 3680050567698704622, guid: 730f8c4178d234e4f98951af32a23845, type: 3}
+  <icon>k__BackingField: {fileID: 21300000, guid: e7e1e428517e0c24a81f1eef7ceb6847, type: 3}
+  <timeToReload>k__BackingField: 0

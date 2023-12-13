@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272d5fd051f8d8041adbe606f3f3bba1, type: 3}
+  m_Name: 3Healing
+  m_EditorClassIdentifier: 
+  <spellName>k__BackingField: Healing
+  <description>k__BackingField: 
+  <price>k__BackingField: 100
+  <spell>k__BackingField: {fileID: 3054042400462640378, guid: 43bafb8fedf961948a1b53880b904160, type: 3}
+  <icon>k__BackingField: {fileID: 21300000, guid: e713c7a2231720648b4409d30b19c4e4, type: 3}
+  <timeToReload>k__BackingField: 5
