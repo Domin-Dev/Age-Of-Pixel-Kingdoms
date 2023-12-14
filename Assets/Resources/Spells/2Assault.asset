@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <spellName>k__BackingField: Assault
   <description>k__BackingField: 
-  <price>k__BackingField: 100
+  <price>k__BackingField: 200
   <spell>k__BackingField: {fileID: 3791460835019037400, guid: 5bccc2fdc99f42d4a8fc5f19ecb4fbfb, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: f8252dbba3bb3fd4594d3e3b57a947c5, type: 3}
   <timeToReload>k__BackingField: 7

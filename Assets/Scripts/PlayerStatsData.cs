@@ -11,6 +11,9 @@ public class PlayerStatsData
     public bool[,] research;
     public bool[] units;
 
+    public bool[] spells;
+    public int[] selectedSpells;
+
     public int texesIndex;
     public int researchIndex;
 
@@ -29,6 +32,8 @@ public class PlayerStatsData
 
         this.texesIndex = playerStats.texesIndex;
         this.researchIndex = playerStats.researchIndex;
+        this.spells = playerStats.spells;
+        this.selectedSpells = playerStats.selectedSpells;
     }
 
     public PlayerStats ToPlayerStats()
@@ -47,6 +52,8 @@ public class PlayerStatsData
         playerStats.researchIndex = researchIndex;
 
         playerStats.index = index;
+        playerStats.spells = spells;
+        playerStats.selectedSpells = selectedSpells;
         return playerStats;
     }
 }

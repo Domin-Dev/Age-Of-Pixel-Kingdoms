@@ -330,7 +330,7 @@ public class UnitsManager : MonoBehaviour
 
 
             Vector3 vector = new Vector3(0f, 0.4f, 0f);
-            if (unitindex == 6) vector = new Vector3(0.9f, 0.4f,0f);
+            if (unitindex == 6) vector = new Vector3(0.9f, 0.4f, 0f);
             Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(0).transform.position + vector, Quaternion.identity).GetComponent<Unit>();
             unit.SetUp(unitindex, path, true, pathTransform.GetChild(1).position.x + 0.3f, (bool isDead) => { units.Remove(unit); if (!isDead) UnitCame(false, unitindex); CheckUnits(); }, () => { return CheckPath(unit); },() => { return CheckPosition(unit);});
             units.Add(unit);

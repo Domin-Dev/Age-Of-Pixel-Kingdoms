@@ -622,7 +622,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    private void LoadSpells()
+    public void LoadSpells()
     {
         int length = gameAssets.spells.Length;
         Transform parent = spellsWindow.GetChild(1).GetChild(0).GetChild(0);
@@ -632,15 +632,16 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             Transform spellTransform = spellsWindow.GetChild(2).GetChild(i);
-            Spell spell = gameAssets.spells[i];
+          
             int index = i;
             if (GameManager.Instance.humanPlayer.stats.selectedSpells[i] >= 0)
-            {               
-                if(selectedSpell == index)spellTransform.transform.GetComponent<Image>().sprite = gameAssets.blueTexture;
+            {
+                Spell spell = gameAssets.spells[GameManager.Instance.humanPlayer.stats.selectedSpells[i]];
+                if (selectedSpell == index)spellTransform.transform.GetComponent<Image>().sprite = gameAssets.blueTexture;
                 else spellTransform.transform.GetComponent<Image>().sprite = gameAssets.brownTexture;
                 
                 spellTransform.GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); SelectSpellSlot(index);});
-                spellTransform.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.name;
+                spellTransform.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.spellName;
                 spellTransform.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = spell.description;
                 spellTransform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = spell.icon;
             } 
@@ -672,19 +673,41 @@ public class UIManager : MonoBehaviour
             {
                 Spell spell = gameAssets.spells[i];
                 GameObject obj = Instantiate(gameAssets.spell, parent);
-                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.name;
+                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.spellName + "  " + spell.price + Icons.GetIcon("DevelopmentPoint");
                 obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = spell.description;
                 obj.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = spell.icon;
-              
+                
+                int index = i;
                 if (GameManager.Instance.humanPlayer.stats.spells[i])
                 {
-                    int index = i;
                     obj.GetComponent<Image>().sprite = gameAssets.brownTexture;
-                    obj.GetComponent<Button>().onClick.AddListener(() => {SelectSpell(index); });
+                    obj.GetComponent<Button>().onClick.AddListener(() => { SelectSpell(index); });
                 }
                 else
                 {
                     obj.GetComponent<Image>().sprite = gameAssets.blackTexture;
+                    obj.GetComponent<Button>().onClick.AddListener(() => { OpenSpellBuying(index); });
+                }
+
+            }
+        }else
+        {
+            for (int i = 0; i < length; i++)
+            {
+
+                Transform obj = parent.GetChild(i);
+                int index = i;
+                if (GameManager.Instance.humanPlayer.stats.spells[i])
+                {
+                    obj.GetComponent<Image>().sprite = gameAssets.brownTexture;
+                    obj.GetComponent<Button>().onClick.RemoveAllListeners();
+                    obj.GetComponent<Button>().onClick.AddListener(() => { SelectSpell(index); });
+                }
+                else
+                {
+                    obj.GetComponent<Image>().sprite = gameAssets.blackTexture;
+                    obj.GetComponent<Button>().onClick.RemoveAllListeners();
+                    obj.GetComponent<Button>().onClick.AddListener(() => { OpenSpellBuying(index); });
                 }
 
             }
@@ -707,11 +730,33 @@ public class UIManager : MonoBehaviour
         Spell spell = gameAssets.spells[index];
         Transform spellTransform = spellsWindow.GetChild(2).GetChild(selectedSpell);
 
-        spellTransform.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.name;
+        spellTransform.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.spellName;
         spellTransform.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = spell.description;
         spellTransform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = spell.icon;
         GameManager.Instance.humanPlayer.stats.selectedSpells[selectedSpell] = index;
         Sounds.instance.PlaySound(5);
+    }
+
+    private void OpenSpellBuying(int index)
+    {
+        Debug.Log("dziala"); 
+       if (GameManager.Instance.humanPlayer.stats.developmentPoints.CanAfford(gameAssets.spells[index].price))
+       { 
+            OpenUIWindow("Research", 0);
+            Spell spell = gameAssets.spells[index];
+            researchWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = spell.spellName;
+            researchWindow.GetChild(1).GetComponent<TextMeshProUGUI>().text = StringToIcons(spell.description);
+            researchWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research\n" + spell.price.ToString() + Icons.GetIcon("DevelopmentPoint");
+            researchWindow.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
+            researchWindow.GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
+            {
+                BuySpell(index);
+            });
+       }
+       else
+       {
+            Sounds.instance.PlaySound(4);
+       }
     }
     private void SelectSpellSlot(int number)
     {
@@ -765,6 +810,31 @@ public class UIManager : MonoBehaviour
             {
                 BuyResearch(index);
             });
+        }
+        else
+        {
+            Sounds.instance.PlaySound(4);
+        }
+    }
+
+    private void BuySpell(int index)
+    {
+        Spell spell = gameAssets.spells[index];
+        if (GameManager.Instance.humanPlayer.stats.developmentPoints.CanAfford(spell.price))
+        {
+            Transform obj = spellsWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(index);
+            obj.GetComponent<Image>().sprite = gameAssets.brownTexture;
+            obj.GetComponent<Button>().onClick.RemoveAllListeners();
+            obj.GetComponent<Button>().onClick.AddListener(() => { SelectSpell(index); });
+
+            Sounds.instance.PlaySound(3);
+            GameManager.Instance.humanPlayer.stats.developmentPoints.Subtract(spell.price);
+            GameManager.Instance.humanPlayer.stats.spells[index] = true;
+            CloseUIWindow("Research"); 
+        }
+        else
+        {
+            Alert.Instance.OpenAlert("No Development Points");
         }
     }
     private bool CanBuyResearch(int index)

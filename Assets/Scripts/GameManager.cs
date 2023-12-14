@@ -159,7 +159,16 @@ public class GameManager : MonoBehaviour
 				transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex].icon;
 				transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
 			}
-		}
+
+			if(provinceStats.chest)
+			{
+                Transform province = map.GetChild(provinceStats.index).transform;
+                Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
+                transform.position = province.position + new Vector3(0, 0.08f, 0);
+				transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.chest;
+                transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            }
+        }
 
 		for (int i = 0; i < botsList.Count; i++)
 		{
@@ -303,7 +312,17 @@ public class GameManager : MonoBehaviour
 				transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex].icon;
 				transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
 			}
-			UpdateUnitCounter(i);
+
+            if (provinceStats.chest)
+            {
+                Transform province = map.GetChild(provinceStats.index).transform;
+                Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
+                transform.position = province.position + new Vector3(0, 0.08f, 0);
+                transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.chest;
+                transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            }
+
+            UpdateUnitCounter(i);
 		}
 
 		GameAssets.Instance.SetUp();
@@ -527,6 +546,7 @@ public class GameManager : MonoBehaviour
 		UpdateBotDebuger();
 		UIManager.Instance.UpdateCounters();
         UIManager.Instance.UpdateTurnCounter();
+		UIManager.Instance.LoadSpells();
         Debug.Log("Loaded");
 	}
 

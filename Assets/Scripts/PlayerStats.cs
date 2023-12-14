@@ -52,20 +52,12 @@ public class PlayerStats
         this.units = new bool[GameAssets.Instance.unitStats.Length];
         this.units[0] = true;
         this.spells = new bool[GameAssets.Instance.spells.Length];
-        this.spells[0] = true;
-        this.spells[1] = true;
-        this.spells[2] = true;
-        this.spells[3] = true;
-        this.spells[4] = true;
-        this.spells[5] = true;
-        this.spells[6] = true;
-        this.spells[7] = true;
-        this.spells[8] = true;
         this.selectedSpells = new int[3];
         for (int i = 0; i < 3; i++)
         {
-            selectedSpells[i] = -1;
+            selectedSpells[i] = -2;
         }
+        selectedSpells[0] = -1;
 
         movementPoints.UpdateLimit();
         warriors.UpdateLimit();

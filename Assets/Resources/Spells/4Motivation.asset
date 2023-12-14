@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <spellName>k__BackingField: Motivation
   <description>k__BackingField: 
-  <price>k__BackingField: 100
+  <price>k__BackingField: 200
   <spell>k__BackingField: {fileID: 5192521666819197757, guid: eb94539164b37204084daf546583305f, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: 160c1e321ee905c49bd59a95ebee7cbe, type: 3}
   <timeToReload>k__BackingField: 5

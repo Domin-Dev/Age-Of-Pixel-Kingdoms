@@ -11,6 +11,7 @@ public class ProvinceStatsData
     public int index;
     public bool isSea;
     public int provinceOwnerIndex;
+    public bool chest;
 
     public int unitsCounter;
     public int buildingIndex;
@@ -32,6 +33,7 @@ public class ProvinceStatsData
         this.buildingIndex = provinceStats.buildingIndex;
         this.units = provinceStats.units;
         this.neighbors = provinceStats.neighbors;
+        this.chest = provinceStats.chest;
     }
 
     public ProvinceStats ToProvinceStats()
@@ -50,6 +52,7 @@ public class ProvinceStatsData
         provinceStats.buildingIndex = this.buildingIndex;
         provinceStats.units = this.units;
         provinceStats.neighbors = this.neighbors;
+        provinceStats.chest = this.chest;
         return provinceStats;
     }
 }

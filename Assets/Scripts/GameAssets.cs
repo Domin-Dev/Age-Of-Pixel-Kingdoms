@@ -19,6 +19,10 @@ public class GameAssets : MonoBehaviour
 
     [Space(20f, order = 0)]
 
+    public Sprite chest;
+
+
+    [Space(1f, order = 0)]
 
     public Sprite empty;
     public Sprite locked;

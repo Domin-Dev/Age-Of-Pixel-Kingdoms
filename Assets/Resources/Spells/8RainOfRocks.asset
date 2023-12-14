@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <spellName>k__BackingField: rain of rocks
   <description>k__BackingField: 
-  <price>k__BackingField: 0
-  <spell>k__BackingField: {fileID: 0}
+  <price>k__BackingField: 200
+  <spell>k__BackingField: {fileID: 2569836397706458934, guid: 53507abfa0a3a204fbd009a6f5c2fc86, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: cc91b61ab85608140bf06d72a1ead94d, type: 3}
-  <timeToReload>k__BackingField: 0
+  <timeToReload>k__BackingField: 5

@@ -216,7 +216,7 @@ public class Unit : MonoBehaviour
     {
         if (gameObject != null)
         {
-            lerpIsActive = true;
+            if(unitIndex != 6) lerpIsActive = true;
             if (transform.GetChild(0).gameObject != null) transform.GetChild(0).gameObject.SetActive(true);
             lifePoints = math.clamp(lifePoints - damage, 0, maxLifePoints);
             if (lifePoints <= 0)
@@ -237,10 +237,16 @@ public class Unit : MonoBehaviour
         lifePoints = math.clamp(lifePoints + value, 0, maxLifePoints);
         lifeBar.localScale = new Vector3(lifePoints / maxLifePoints, 1, 1);
     }
+
+    bool isIce;
+    bool isBossted;
     public void SpeedBoost(float value, Sprite sprite)
     {
-        if (speedValue <= GameAssets.Instance.unitStats[unitIndex].speed)
+        if ((isIce == false && value < 1)||( isBossted == false && value > 1 ))
         {
+            if (value > 1) isBossted = true;
+            else isIce = true;
+
             speedValue = value * speedValue;
             speed = value * speed;
             AddIcon(sprite);

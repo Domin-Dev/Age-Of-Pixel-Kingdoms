@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <spellName>k__BackingField: Barricade
   <description>k__BackingField: 
-  <price>k__BackingField: 0
+  <price>k__BackingField: 200
   <spell>k__BackingField: {fileID: 5881464084314975312, guid: 4e0f55a50025f06499f054a599813c30, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: 34a6b34fc08ca79449b3559089f29398, type: 3}
   <timeToReload>k__BackingField: 6

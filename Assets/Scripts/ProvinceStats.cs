@@ -14,6 +14,7 @@ public class ProvinceStats
     public bool isSea;
     public int provinceOwnerIndex  = -1;// -1 == null , 0 is Player, >0 is Computer
 
+    public bool chest;
     public int unitsCounter;
 
     public int buildingIndex = -1;
@@ -57,6 +58,10 @@ public class ProvinceStats
         GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex,out float coins, out float people);
         population.AddBonus(-100, new Bonus("Taxes", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return  ((int)population.value).ToString() + Icons.GetIcon("Population") + " x " + multiplier; },people));
         population.AddBonus(-200, new Bonus("Base income", (float multiplier) => { return 0.1f; }, (float multiplier) => { return ""; }, 0f));
+
+        if(!isSea)  chest = Random.Range(1, 11) > 8;
+
+
 
         if (!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)
         {
