@@ -59,8 +59,16 @@ public class ProvinceStats
         population.AddBonus(-100, new Bonus("Taxes", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return  ((int)population.value).ToString() + Icons.GetIcon("Population") + " x " + multiplier; },people));
         population.AddBonus(-200, new Bonus("Base income", (float multiplier) => { return 0.1f; }, (float multiplier) => { return ""; }, 0f));
 
-        if(!isSea)  chest = Random.Range(1, 11) > 8;
 
+        if (provinceOwnerIndex == -1 && !isSea)
+        {
+            chest = Random.Range(1, 11) > 8;
+            if (!chest)
+            {
+                if (Random.Range(1, 16) == 10) buildingIndex = 3;
+                else if (Random.Range(1, 16) == 10) buildingIndex = 5;
+            }
+        }
 
 
         if (!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)

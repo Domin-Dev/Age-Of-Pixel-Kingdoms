@@ -58,6 +58,8 @@ public class PlayerStats
             selectedSpells[i] = -2;
         }
         selectedSpells[0] = -1;
+        selectedSpells[1] = -1;
+        selectedSpells[2] = -1;
 
         movementPoints.UpdateLimit();
         warriors.UpdateLimit();

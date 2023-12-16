@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5b0d8ffce1bcec469690eb020d10618, type: 3}
-  m_Name: Castle 2
+  m_Name: 5ancient ruins
   m_EditorClassIdentifier: 
   <description>k__BackingField: 
-  <price>k__BackingField: 43
-  <icon>k__BackingField: {fileID: 21300000, guid: 2fd5777a62385e24d82fe6216364ad9d, type: 3}
+  <price>k__BackingField: 0
+  <icon>k__BackingField: {fileID: 21300000, guid: a1407d6b3e066d04b92699b6e176033b, type: 3}
   <turnCost>k__BackingField: 0
   <canBuild>k__BackingField: 1
-  <bonusIndex>k__BackingField: 2
-  <movementPointsPrice>k__BackingField: 5
+  <bonusIndex>k__BackingField: 0
+  <movementPointsPrice>k__BackingField: 0

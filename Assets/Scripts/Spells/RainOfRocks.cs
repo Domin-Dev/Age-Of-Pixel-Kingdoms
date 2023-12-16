@@ -35,7 +35,6 @@ public class RainOfRocks : MonoBehaviour,ISpellBase
     {
         yield return new WaitForSeconds(1f);
         ExecuteSpell();
-        AnimationEnd();
         yield return null;
     }
 }

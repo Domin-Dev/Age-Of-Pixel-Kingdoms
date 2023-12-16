@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Sounds : MonoBehaviour
 {
@@ -24,7 +25,10 @@ public class Sounds : MonoBehaviour
         if(instance == null )
         {
             instance = this;
-        }else
+            PlayerPrefs.SetFloat("Sounds", 0.5f);
+            PlayerPrefs.SetFloat("Music", 0.5f);
+        }
+        else
         {
             Destroy(gameObject);
         }
@@ -57,6 +61,8 @@ public class Sounds : MonoBehaviour
                 musicSlider = sl;
             }
         }
+        soundsSlider.value = PlayerPrefs.GetFloat("Sounds");
+        musicSlider.value = PlayerPrefs.GetFloat("Music");
         soundsSlider.onValueChanged.AddListener((float value) => { SetSoundsVolume(value); PlaySound(5); });
         musicSlider.onValueChanged.AddListener((float value) => { SetMusicVolume(value); PlaySound(5); });
     }

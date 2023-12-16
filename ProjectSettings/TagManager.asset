@@ -13,6 +13,7 @@ TagManager:
   - Players
   - Sounds
   - Music
+  - Chests
   layers:
   - Default
   - TransparentFX

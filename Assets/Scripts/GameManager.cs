@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 	public Player humanPlayer;
 
 
+	public Transform chests;
 	public Transform map;
 	public Transform buildings;
 	public SelectingProvinces selectingProvinces;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
 	public bool toLoad;
 
 	public Action load;
+	private bool isChest;
 	private void Awake()
 	{
         if (Instance == null)
@@ -67,7 +69,12 @@ public class GameManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (UnityEngine.Input.GetKeyDown(KeyCode.S))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.C))
+        {
+			UIManager.Instance.OpenChest(-1);
+        }
+
+        if (UnityEngine.Input.GetKeyDown(KeyCode.S))
 		{
 			Save();
 		}
@@ -90,7 +97,13 @@ public class GameManager : MonoBehaviour
 			else
 			{
 				UpdateMap();
-			}		
+
+                if (isChest)
+                {
+                    UIManager.Instance.OpenChest(-1);
+					isChest= false;
+                }
+            }		
 		}else if(level ==0)
 		{
 			isPlaying = true;
@@ -103,7 +116,7 @@ public class GameManager : MonoBehaviour
 	
 	private void LoadMap(string name)
 	{
-		GameObject obj = Resources.Load("Maps/" + name + "/Map") as GameObject;
+        GameObject obj = Resources.Load("Maps/" + name + "/Map") as GameObject;
 		Texture2D[] sprites = Resources.LoadAll<Texture2D>("Maps/" + name + "/Sprites");
 		obj = Instantiate(obj);
 		map = obj.transform;
@@ -118,16 +131,18 @@ public class GameManager : MonoBehaviour
         GameAssets.Instance.SetUp();
 		players = GameObject.FindGameObjectWithTag("Players").transform;
 		DontDestroyOnLoad(players);
+
         map = GameObject.FindGameObjectWithTag("GameMap").transform;
 		buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
-		selectingProvinces = FindObjectOfType<SelectingProvinces>();
+		chests = GameObject.FindGameObjectWithTag("Chests").transform;
+
+        selectingProvinces = FindObjectOfType<SelectingProvinces>();
 		botsList.Clear();
 		CreateHumanPlayer();
 		LoadBots();
 		
 		ProvinceStats[] array = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").provinces;
 		numberOfProvinces = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").numberOfProvinces;
-
 
 		provinces = new ProvinceStats[array.Length];
 		for (int i = 0; i < array.Length; i++)
@@ -165,7 +180,8 @@ public class GameManager : MonoBehaviour
                 Transform province = map.GetChild(provinceStats.index).transform;
                 Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
                 transform.position = province.position + new Vector3(0, 0.08f, 0);
-				transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.chest;
+                transform.parent = chests;
+                transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.chest;
                 transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
             }
         }
@@ -203,8 +219,6 @@ public class GameManager : MonoBehaviour
         Player player = new GameObject("Human", typeof(Player)).GetComponent<Player>();
 		player.transform.parent = players;
 		player.SetUp("Player", false, Color.blue, 10000, 0);
-
-		Debug.Log("xd");
 		humanPlayer = player;
 	}
 	private void UpdateBotProvinces()
@@ -265,7 +279,14 @@ public class GameManager : MonoBehaviour
 			provinceStats.SetNewOwner(0);
 			provinceStats.units = new Dictionary<int, int>();
 			provinceStats.unitsCounter = 0;
-		}
+			if (provinceStats.chest)
+			{
+				Debug.Log("sklkko");
+				provinceStats.chest = false;
+				isChest = true;
+			}
+			Debug.Log("simea");
+        }
 		else
 		{
 
@@ -273,6 +294,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void UpdateMap()
 	{
+		GameAssets.Instance.SetUp();
 		cameraController = Camera.main.GetComponent<CameraController>();
 		players = GameObject.FindGameObjectWithTag("Players").transform;
 		humanPlayer = players.GetChild(0).GetComponent<Player>();
@@ -284,14 +306,28 @@ public class GameManager : MonoBehaviour
 
 		map = GameObject.FindGameObjectWithTag("GameMap").transform;
 		buildings = GameObject.FindGameObjectWithTag("Buildings").transform;
-		selectingProvinces = FindObjectOfType<SelectingProvinces>();
+        chests = GameObject.FindGameObjectWithTag("Chests").transform;
+
+        selectingProvinces = FindObjectOfType<SelectingProvinces>();
 		humanPlayer.stats.movementPoints.limit = 30;
 
 		humanPlayer.stats.movementPoints.UpdateLimit();
 		humanPlayer.stats.warriors.UpdateLimit();
 
-		for (int i = 0; i < provinces.Length; i++)
+
+
+		for (int i = chests.childCount - 1; i >= 0; i--)
 		{
+			Destroy(chests.GetChild(i).gameObject);
+        }
+
+        for (int i = buildings.childCount - 1; i >= 0; i--)
+        {
+            Destroy(buildings.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < provinces.Length; i++)
+		{ 
 			ProvinceStats provinceStats = provinces[i];
 			if (provinceStats.provinceOwnerIndex != -1)
 			{
@@ -318,6 +354,7 @@ public class GameManager : MonoBehaviour
                 Transform province = map.GetChild(provinceStats.index).transform;
                 Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
                 transform.position = province.position + new Vector3(0, 0.08f, 0);
+                transform.parent = chests;
                 transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.chest;
                 transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
             }
@@ -566,6 +603,20 @@ public class GameManager : MonoBehaviour
 
 		}
 		return "";
+	}
+
+	public void ClearChest(int index)
+	{
+		if(index >= 0) provinces[index].chest = false;
+		for (int i = 0; i < chests.childCount; i++)
+		{
+			if(chests.GetChild(i).name == index.ToString())
+			{
+				Destroy(chests.GetChild(i).gameObject);
+				return;
+			}
+
+		}
 	}
 }
 

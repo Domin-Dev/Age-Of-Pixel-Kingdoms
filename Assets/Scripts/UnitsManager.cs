@@ -367,7 +367,7 @@ public class UnitsManager : MonoBehaviour
             }
 
             Vector3 vector = new Vector3(0f, 0.4f, 0f);
-            if (unitindex == 6) vector = new Vector3(0.9f, 0.4f, 0f);
+            if (unitindex == 6) vector = new Vector3(-0.9f, 0.4f, 0f);
             Unit unit = Instantiate(unitStats[unitindex].unit, pathTransform.GetChild(1).transform.position + vector, Quaternion.identity).GetComponent<Unit>();
             unit.SetUp(unitindex, path, false, pathTransform.GetChild(0).position.x, (bool isDead) => { units.Remove(unit);if (!isDead) UnitCame(true, unitindex); CheckUnits(); battleEnemy.CheckPaths(); }, () => { return CheckPath(unit); }, () => { return CheckPosition(unit);} );
             units.Add(unit);
@@ -505,6 +505,7 @@ public class UnitsManager : MonoBehaviour
         }
         else
         {
+
             infoWindow.GetChild(0).GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = "you Won";
             GameManager.Instance.SetBattleResult(true);
         }
@@ -513,7 +514,7 @@ public class UnitsManager : MonoBehaviour
             (startYourUnits - yourUnitCount).ToString() + " <sprite index=20>";
         infoWindow.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnitCount.ToString() + " <sprite index=0>\n" +
             (startEnemyUnits - enemyUnitCount).ToString() + " <sprite index=20>";
-        infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); SceneManager.LoadScene(2); });
+        infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => {Sounds.instance.PlaySound(5); SceneManager.LoadScene(2); });
     }
     private void CountUnits()
     {

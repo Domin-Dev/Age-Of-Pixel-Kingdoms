@@ -620,6 +620,7 @@ public class SelectingProvinces : MonoBehaviour
         if (unitsNumber > 0 && from.provinceOwnerIndex != to.provinceOwnerIndex) //&& to.provinceOwnerIndex == -1)
         {
             to.SetNewOwner(from.provinceOwnerIndex);
+            if (to.chest) UIManager.Instance.OpenChest(to.index);
             ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
         }
         UIManager.Instance.OpenUIWindow("ProvinceStats", to.index);

@@ -127,7 +127,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTurnCounter()
     {
-        Debug.Log("x");
         turnConter.text = "Turn:" + GameManager.Instance.turn;
     }
     private void LoadUnits(Transform contentUI)
@@ -739,7 +738,6 @@ public class UIManager : MonoBehaviour
 
     private void OpenSpellBuying(int index)
     {
-        Debug.Log("dziala"); 
        if (GameManager.Instance.humanPlayer.stats.developmentPoints.CanAfford(gameAssets.spells[index].price))
        { 
             OpenUIWindow("Research", 0);
@@ -816,7 +814,6 @@ public class UIManager : MonoBehaviour
             Sounds.instance.PlaySound(4);
         }
     }
-
     private void BuySpell(int index)
     {
         Spell spell = gameAssets.spells[index];
@@ -830,6 +827,7 @@ public class UIManager : MonoBehaviour
             Sounds.instance.PlaySound(3);
             GameManager.Instance.humanPlayer.stats.developmentPoints.Subtract(spell.price);
             GameManager.Instance.humanPlayer.stats.spells[index] = true;
+            SelectSpell(index);
             CloseUIWindow("Research"); 
         }
         else
@@ -868,7 +866,6 @@ public class UIManager : MonoBehaviour
             Alert.Instance.OpenAlert("No Development Points");
         }
     }
-
     private string StringToIcons(string str)
     {
         bool isIcon = false;
@@ -919,5 +916,21 @@ public class UIManager : MonoBehaviour
             }
         }
         return stringToReturn;
+    }
+
+    public void OpenChest(int index)
+    {
+        Sounds.instance.PlaySound(17);
+        OpenUIWindow("Research", 0);
+        GameManager.Instance.ClearChest(index);
+        researchWindow.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Chest";
+        researchWindow.GetChild(1).GetComponent<TextMeshProUGUI>().text = Chest.OpenChest(GameManager.Instance.humanPlayer.stats);
+        researchWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "collect";
+        researchWindow.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
+        UpdateCounters();
+        researchWindow.GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
+        {
+            CloseUIWindow("Research");
+        });
     }
 }

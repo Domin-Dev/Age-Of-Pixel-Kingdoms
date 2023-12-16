@@ -17,7 +17,7 @@ public static class BonusManager
                 break;
 
         }
-        UpdateLimits(provinceStats.provinceOwnerIndex);
+      if(provinceStats.provinceOwnerIndex != -1) UpdateLimits(provinceStats.provinceOwnerIndex);
     }
     public static void RemoveBonus(ProvinceStats provinceStats, int indexBonus)
     {

@@ -965,7 +965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 292.49997, y: -305.28735}
+  m_AnchoredPosition: {x: 292.5, y: -305.28735}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196716862
@@ -3053,6 +3053,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c628ed40c782bac4096ca836960e12c1, type: 3}
   - {fileID: 8300000, guid: 2e176de6b9959974aaa85e74a5fa6388, type: 3}
   - {fileID: 8300000, guid: 1e4efe1219d0b174c9677e1da16f9182, type: 3}
+  - {fileID: 8300000, guid: 08fa47cf763be0945b2e28cdf1e7fc5c, type: 3}
   audioMixer: {fileID: 24100000, guid: 8559c78f9a8cb594387ac558a8cd8f39, type: 2}
   currentMusic: 0
 --- !u!4 &714794137
@@ -6183,6 +6184,7 @@ MonoBehaviour:
   numberOfProvinces: 0
   botsList: []
   humanPlayer: {fileID: 0}
+  chests: {fileID: 0}
   map: {fileID: 0}
   buildings: {fileID: 0}
   selectingProvinces: {fileID: 0}
@@ -6198,6 +6200,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5793517, y: 0.44699287, z: 0.010721385}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1803494292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1803494293}
+  m_Layer: 0
+  m_Name: Chests
+  m_TagString: Chests
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1803494293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803494292}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.7408571, y: 0.5385325, z: 0.12012385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7202,4 +7235,5 @@ SceneRoots:
   - {fileID: 1583224225}
   - {fileID: 714794137}
   - {fileID: 898547184}
+  - {fileID: 1803494293}
   - {fileID: 431128742}

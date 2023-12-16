@@ -21,7 +21,6 @@ public class GameAssets : MonoBehaviour
 
     public Sprite chest;
 
-
     [Space(1f, order = 0)]
 
     public Sprite empty;

@@ -19,7 +19,6 @@ public class Arrows : MonoBehaviour, ISpellBase
     }
     public void AnimationEnd()
     {
-        Destroy(gameObject);
     }
     public void ExecuteSpell()
     {
@@ -36,7 +35,6 @@ public class Arrows : MonoBehaviour, ISpellBase
         yield return new WaitForSeconds(0.9f);
         Debug.Log("git");
         ExecuteSpell();
-        AnimationEnd();
         yield return null;
     }
 }
