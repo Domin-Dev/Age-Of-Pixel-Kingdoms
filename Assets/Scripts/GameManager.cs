@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour
 			SetUp();
 		}
 	}
-
 	private void Update()
 	{
         if (UnityEngine.Input.GetKeyDown(KeyCode.C))
@@ -110,10 +109,6 @@ public class GameManager : MonoBehaviour
 		 if(players !=null)Destroy(players.gameObject);
 		}
 	}
-
-
-
-	
 	private void LoadMap(string name)
 	{
         GameObject obj = Resources.Load("Maps/" + name + "/Map") as GameObject;
@@ -155,7 +150,37 @@ public class GameManager : MonoBehaviour
 				selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), GetPlayerColor(provinceStats.provinceOwnerIndex));
 			}
 		}
-		UpdateBotProvinces();
+
+		List<int> list = new List<int>();
+		for(int i = 0; i < provinces.Length; i++)
+		{
+			if (!provinces[i].isSea)list.Add(i);
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			int value = UnityEngine.Random.Range(0, list.Count);
+			value = list[value];
+            provinces[value].provinceOwnerIndex = i;
+			provinces[value].Clear();
+			if (list.Contains(value)) list.Remove(value);
+
+			for (int j = 0; j < provinces[value].neighbors.Count; j++)
+			{
+				int index = provinces[value].neighbors[j];
+                if (list.Contains(index)) list.Remove(index);
+
+                for (int k = 0; k < provinces[index].neighbors.Count;k++)
+                {
+                    int index2 = provinces[index].neighbors[k]; 
+                    if (list.Contains(index2)) list.Remove(index2);
+                }
+            }
+
+            selectingProvinces.ChangeProvinceColor(map.GetChild(value).GetComponent<SpriteRenderer>(), GetPlayerColor(provinces[value].provinceOwnerIndex));
+        }
+		
+        UpdateBotProvinces();
 		pathFinding = new PathFinding(numberOfProvinces);
 
 		ready = true;
@@ -201,7 +226,7 @@ public class GameManager : MonoBehaviour
 	private void LoadBots()
 	{
 		AddBot("Player", true, Color.yellow, 1000, 1 + botsList.Count);
-		AddBot("xd", true, Color.cyan, 1000, 1 + botsList.Count);
+		AddBot("xd", true, Color.green, 1000, 1 + botsList.Count);
 		AddBot("green", true, Color.red, 1000, 1 + botsList.Count);
 	}
 

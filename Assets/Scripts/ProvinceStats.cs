@@ -135,4 +135,13 @@ public class ProvinceStats
     {
         population.NextTurn();
     }
+
+    public void Clear()
+    {
+        chest = false;
+        buildingIndex = -1;
+        units = new Dictionary<int, int>();
+        unitsCounter = 0;
+        GameManager.Instance.UpdateUnitCounter(this.index);
+    }
 }

@@ -41,6 +41,7 @@ MonoBehaviour:
     index: 0
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 01000000080000000a000000
@@ -71,6 +72,7 @@ MonoBehaviour:
     index: 1
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0000000002000000090000000a000000
@@ -101,6 +103,7 @@ MonoBehaviour:
     index: 2
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 010000000300000009000000
@@ -131,6 +134,7 @@ MonoBehaviour:
     index: 3
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 020000000400000009000000
@@ -161,6 +165,7 @@ MonoBehaviour:
     index: 4
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0300000005000000
@@ -191,6 +196,7 @@ MonoBehaviour:
     index: 5
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0400000006000000
@@ -221,6 +227,7 @@ MonoBehaviour:
     index: 6
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 050000000c0000000d000000
@@ -251,6 +258,7 @@ MonoBehaviour:
     index: 7
     isSea: 1
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 
@@ -281,6 +289,7 @@ MonoBehaviour:
     index: 8
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 000000000a0000000f00000014000000
@@ -310,7 +319,8 @@ MonoBehaviour:
       icon: 
     index: 9
     isSea: 0
-    provinceOwnerIndex: 0
+    provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0100000002000000030000000a0000000b0000000e000000
@@ -341,6 +351,7 @@ MonoBehaviour:
     index: 10
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 000000000100000008000000090000000e0000000f00000010000000
@@ -371,6 +382,7 @@ MonoBehaviour:
     index: 11
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 090000000e00000012000000
@@ -401,6 +413,7 @@ MonoBehaviour:
     index: 12
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 060000000d000000110000001300000015000000
@@ -431,6 +444,7 @@ MonoBehaviour:
     index: 13
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 060000000c0000001300000016000000
@@ -461,6 +475,7 @@ MonoBehaviour:
     index: 14
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 090000000a0000000b0000001000000012000000
@@ -491,6 +506,7 @@ MonoBehaviour:
     index: 15
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 080000000a0000001000000014000000
@@ -521,6 +537,7 @@ MonoBehaviour:
     index: 16
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0a0000000e0000000f00000014000000
@@ -551,6 +568,7 @@ MonoBehaviour:
     index: 17
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0c00000012000000150000001800000019000000
@@ -581,6 +599,7 @@ MonoBehaviour:
     index: 18
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0b0000000e0000001100000019000000
@@ -611,6 +630,7 @@ MonoBehaviour:
     index: 19
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0c0000000d00000015000000160000001b000000
@@ -641,6 +661,7 @@ MonoBehaviour:
     index: 20
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 080000000f000000100000001a000000
@@ -671,6 +692,7 @@ MonoBehaviour:
     index: 21
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0c0000001100000013000000180000001b0000001c000000
@@ -701,6 +723,7 @@ MonoBehaviour:
     index: 22
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 0d000000130000001b0000001e000000
@@ -731,6 +754,7 @@ MonoBehaviour:
     index: 23
     isSea: 1
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 
@@ -761,6 +785,7 @@ MonoBehaviour:
     index: 24
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 1100000015000000190000001c0000001d000000
@@ -791,6 +816,7 @@ MonoBehaviour:
     index: 25
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 1100000012000000180000001d000000
@@ -821,6 +847,7 @@ MonoBehaviour:
     index: 26
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 14000000
@@ -851,6 +878,7 @@ MonoBehaviour:
     index: 27
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 1300000015000000160000001c0000001e0000001f000000
@@ -881,6 +909,7 @@ MonoBehaviour:
     index: 28
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 15000000180000001b0000001d0000001f000000
@@ -911,6 +940,7 @@ MonoBehaviour:
     index: 29
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 18000000190000001c0000001f000000
@@ -941,6 +971,7 @@ MonoBehaviour:
     index: 30
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 160000001b0000001f000000
@@ -971,6 +1002,7 @@ MonoBehaviour:
     index: 31
     isSea: 0
     provinceOwnerIndex: -1
+    chest: 0
     unitsCounter: 0
     buildingIndex: -1
     neighbors: 1b0000001c0000001d0000001e000000

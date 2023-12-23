@@ -1,4 +1,5 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -61,11 +62,11 @@ public class MapEditor : EditorWindow
         EditorGUILayout.Space(10);
        // filePath = EditorGUILayout.TextField("File Path", filePath);
 
-
+        
         outlineMaterial = obj2 as Material; 
         rawMap = obj as Texture2D;
         EditorGUILayout.Space(30);
-        if (GUILayout.Button("Cutting Map")) CuttingMap();
+        if (GUILayout.Button("Cutting Map"))CuttingMap();
         EditorGUILayout.Space(10);
 
         if (mapParent != null)
@@ -138,8 +139,6 @@ public class MapEditor : EditorWindow
         mapArray = new bool [rawMap.width,rawMap.height,2];
         provincesList = new List<List<Vector2Int>> ();
         
-
-
         if(rawMap != null)
         {
             if (!AssetDatabase.IsValidFolder(mapsPath + rawMap.name))
@@ -211,10 +210,7 @@ public class MapEditor : EditorWindow
             }
             DestroyImmediate(mapParent.gameObject);
         }
-        else
-        {
-            return;
-        }
+
     }
     private void SetUpOutline()
     {
@@ -319,7 +315,7 @@ public class MapEditor : EditorWindow
 
             if (color.a == 1)
             {
-                if(!isSea &&color.b == defaultColor.b)
+                if(!isSea && color.b == defaultColor.b)
                 {
                     isSea = true;
                     Debug.Log("water!");

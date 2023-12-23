@@ -33,20 +33,23 @@ public class PlayerStats
         this.coins.AddBonus(-200, new Bonus("Taxes", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.2f));
         this.coins.AddBonus(-300,new Bonus("Research funding", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, -0.02f));
         this.coins.AddBonus(-400, new Bonus("Units Cost", (float multiplier) => { return -GetTurnWarriosCost(); }, (float multiplier) => { return ""; }, 0f));
-        this.coins.SetDescription("Coins are used for \nunit recruitment and construction.");
+        this.coins.SetDescription("<color=#fad000>Coins</color> are used to recruit\n and build units.");
 
         this.warriors = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); }, 0, "Warrior");
         this.warriors.AddBonus(-100, new Bonus("Base Value", 20, Bonus.bonusType.IncreaseLimit));
         this.warriors.AddBonus(-200, new Bonus("Provinces", (float multiplier) => { return GetWarriors(); }, (float multiplier) => { return ""; }));
-
+        this.warriors.SetDescription("<color=#636363>The warrior limit </color>determines the maximum\n number of units. Conquer new provinces to\n increase this limit.");
 
         this.developmentPoints = new Statistic(0f, 0f, () => { UIManager.Instance.UpdateCounters(); }, "DevelopmentPoint");
         this.developmentPoints.AddBonus(-100, new Bonus("Base income", 10f, Bonus.bonusType.Income));
         this.developmentPoints.AddBonus(-200, new Bonus("Research", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.09f));
+        this.developmentPoints.SetDescription("<color=#004ffa>Development points</color> are used to discover \n new technologies and spells.");
 
         this.movementPoints = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); }, 0, "MovementPoint");
         this.movementPoints.AddBonus(-100,new Bonus("Base Value",30,Bonus.bonusType.IncreaseLimit));
         this.movementPoints.AddBonus(-200, new Bonus("Provinces", (float multiplier) => { return GetMovementPoints(); }, (float multiplier) => { return ""; })) ;
+        this.movementPoints.SetDescription("<color=#05a65b>Movement points</color> are used to recruit\nunits, construct buildings and move units.\n The points regenerate at the beginning of the turn.");
+        
         this.buildingsPermit = new bool[GameAssets.Instance.buildingsStats.Length];
         this.research = new bool[4,GameAssets.Instance.research.GetLength(1)];
         this.units = new bool[GameAssets.Instance.unitStats.Length];
