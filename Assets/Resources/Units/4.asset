@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 9102305325393592849, guid: 639e63a9106928d4b9789f42fdbc936b, type: 3}
   <sprite>k__BackingField: {fileID: 1507427600, guid: 6c50aae142c99fc48b066adcc9d62c90, type: 3}
+  <unitName>k__BackingField: Spearman
   <speed>k__BackingField: 55
   <lifePoints>k__BackingField: 250
   <damage>k__BackingField: 40

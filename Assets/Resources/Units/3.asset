@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 7742407762973993446, guid: d808e99630d60114c9b69f80cc6ce3d5, type: 3}
   <sprite>k__BackingField: {fileID: -1381210496, guid: 66433c7ed5e539f4b8b2ddb4202dd3ac, type: 3}
+  <unitName>k__BackingField: Archer
   <speed>k__BackingField: 40
   <lifePoints>k__BackingField: 100
   <damage>k__BackingField: 25

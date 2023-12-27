@@ -137,15 +137,15 @@ public class UIManager : MonoBehaviour
             foreach (UnitStats item in gameAssets.unitStats)
             {
                 Transform transform = Instantiate(gameAssets.unitSlotUI, contentUI).transform;
-                transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = item.name;
+                transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = item.unitName;
                 transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.sprite;
                 Transform transformStats = transform.GetChild(0).GetChild(2);
-                transformStats.GetChild(0).GetComponent<TextMeshProUGUI>().text = "<sprite index=20>" + item.lifePoints.ToString();
-                transformStats.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<sprite index=18>" + item.damage.ToString();
+                transformStats.GetChild(0).GetComponent<TextMeshProUGUI>().text = "<sprite index=16>" + item.lifePoints.ToString();
+                transformStats.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<sprite index=14>" + item.damage.ToString();
                 transformStats.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<sprite index=17>" + item.speed.ToString();
-                transformStats.GetChild(3).GetComponent<TextMeshProUGUI>().text = "<sprite index=19>" + item.range.ToString();
-                transformStats.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<sprite index=22>" + item.rateOfFire.ToString();
-                transformStats.GetChild(5).GetComponent<TextMeshProUGUI>().text = "<sprite index=23>" + item.turnCost.ToString();
+                transformStats.GetChild(3).GetComponent<TextMeshProUGUI>().text = "<sprite index=15>" + item.range.ToString();
+                transformStats.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<sprite index=18>" + item.rateOfFire.ToString();
+                transformStats.GetChild(5).GetComponent<TextMeshProUGUI>().text = "<sprite index=19>" + item.turnCost.ToString();
 
                 int id = index;
                 transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice + " <sprite index=23> 1 <sprite index=1>";
@@ -611,7 +611,7 @@ public class UIManager : MonoBehaviour
                     int index = i * 100 + j;
                     obj.GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenResearch(index); });
                     obj.transform.GetChild(0).GetComponent<Image>().sprite = research.image;
-                    obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name + " " + index.ToString();
+                    obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = research.name;
                     obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = research.price.ToString() + Icons.GetIcon("DevelopmentPoint");
                     obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = StringToIcons(research.description);
                 }

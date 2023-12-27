@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 5724200034309035396, guid: d241f2965250f9546b77ceed01becd80, type: 3}
   <sprite>k__BackingField: {fileID: -1867872320, guid: 0e5d4906343e7da4f9e9226539ae86e8, type: 3}
+  <unitName>k__BackingField: Crossbowman
   <speed>k__BackingField: 38
   <lifePoints>k__BackingField: 175
   <damage>k__BackingField: 60

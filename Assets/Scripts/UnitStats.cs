@@ -8,6 +8,8 @@ public class UnitStats : ScriptableObject
 
     [field: Space(20f,order = 0)]
     [field:SerializeField] public Sprite sprite { get; private set; }
+    [field:SerializeField] public string unitName { get; private set; }
+
 
 
     [field: Space(20f, order = 0)]

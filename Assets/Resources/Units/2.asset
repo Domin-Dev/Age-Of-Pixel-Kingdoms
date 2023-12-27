@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 7467447978965924233, guid: f9e63c2f15b3923499f5dade96b6c733, type: 3}
   <sprite>k__BackingField: {fileID: 612534761, guid: 7a92174e19e876141a8c498b639bb0ed, type: 3}
+  <unitName>k__BackingField: Armed peasant
   <speed>k__BackingField: 55
   <lifePoints>k__BackingField: 150
   <damage>k__BackingField: 15

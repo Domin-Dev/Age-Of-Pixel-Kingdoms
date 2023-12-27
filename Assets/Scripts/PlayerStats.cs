@@ -40,7 +40,7 @@ public class PlayerStats
         this.warriors.AddBonus(-200, new Bonus("Provinces", (float multiplier) => { return GetWarriors(); }, (float multiplier) => { return ""; }));
         this.warriors.SetDescription("<color=#636363>The warrior limit </color>determines the maximum\n number of units. Conquer new provinces to\n increase this limit.");
 
-        this.developmentPoints = new Statistic(0f, 0f, () => { UIManager.Instance.UpdateCounters(); }, "DevelopmentPoint");
+        this.developmentPoints = new Statistic(10000f, 0f, () => { UIManager.Instance.UpdateCounters(); }, "DevelopmentPoint");
         this.developmentPoints.AddBonus(-100, new Bonus("Base income", 10f, Bonus.bonusType.Income));
         this.developmentPoints.AddBonus(-200, new Bonus("Research", (float multiplier) => { return GetPopulation() * multiplier; }, (float multiplier) => { return GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.09f));
         this.developmentPoints.SetDescription("<color=#004ffa>Development points</color> are used to discover \n new technologies and spells.");
