@@ -113,7 +113,10 @@ public class GameManager : MonoBehaviour
 	{
         GameObject obj = Resources.Load("Maps/" + name + "/Map") as GameObject;
 		Texture2D[] sprites = Resources.LoadAll<Texture2D>("Maps/" + name + "/Sprites");
-		obj = Instantiate(obj);
+		Texture2D texture2D = Resources.Load<Texture2D>("Texture/" + name);
+        Camera.main.GetComponent<CameraController>().Limit = new Vector3(texture2D.width / 100 + 1f, texture2D.height / 100 + 1f);
+
+        obj = Instantiate(obj);
 		map = obj.transform;
 		foreach (Texture2D sprite in sprites)
 		{
@@ -140,6 +143,7 @@ public class GameManager : MonoBehaviour
 		numberOfProvinces = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").numberOfProvinces;
 
 		provinces = new ProvinceStats[array.Length];
+
 		for (int i = 0; i < array.Length; i++)
 		{
 			provinces[i] = new ProvinceStats();
