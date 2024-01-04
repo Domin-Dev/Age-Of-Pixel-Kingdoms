@@ -65,16 +65,43 @@ public static class BonusManager
                 UpdateLimits(playerStats.index);
                 break;
 
-
-
-            case 100:
+            case 6:
                 playerStats.movementPoints.AddBonus(0, new Bonus("better management", 5, Bonus.bonusType.IncreaseLimit));
                 UpdateLimits(playerStats.index);
                 break;
-            case 199:
-                playerStats.buildingsPermit[0] = true;
-                playerStats.CanBuild(0);
+            case 7:
+                playerStats.buildingsPermit[2] = true;
+                UpdateLimits(playerStats.index);
+                break;  
+            case 8:
+                playerStats.researchManagement = true;
+                UpdateLimits(playerStats.index);
                 break;
+            case 9:
+                playerStats.selectedSpells[1] = -1;
+                UIManager.Instance.LoadSpells();
+                UpdateLimits(playerStats.index);
+                break;
+            case 10:
+                playerStats.selectedSpells[1] = -1;
+                UpdateLimits(playerStats.index);
+                break;
+            case 11:
+                playerStats.selectedSpells[2] = -1;
+                UIManager.Instance.LoadSpells();
+                UpdateLimits(playerStats.index);
+                break;
+            case 12:
+                playerStats.coins.AddBonus(12, new Bonus("new tax", 10, Bonus.bonusType.Income));
+                UpdateLimits(playerStats.index);
+                break;
+
+
+
+
+
+
+
         }
         if(playerStats.index == 0) UIManager.Instance.UpdateCounters();
     }

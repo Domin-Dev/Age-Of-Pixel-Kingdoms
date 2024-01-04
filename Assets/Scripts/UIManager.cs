@@ -64,6 +64,7 @@ public class UIManager : MonoBehaviour
         selectingProvinces = Camera.main.GetComponent<SelectingProvinces>();  
         LoadUnits(gameAssets.recruitUnitContentUI);
 
+
         LoadBuildings(-1);
 
 
@@ -116,6 +117,7 @@ public class UIManager : MonoBehaviour
 
         LoadResearch();
         LoadSpells();
+        OpenManagement();
     }
     public void ManagerUI(bool open)
     {
@@ -175,7 +177,7 @@ public class UIManager : MonoBehaviour
                     {
                         Transform transform = Instantiate(gameAssets.buildingSlotUI, gameAssets.buildingsContentUI).transform;
                         transform.name = index.ToString();
-                        transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
+                        transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name.Substring(1);
                         transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
                         transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice + " <sprite index=23>";
                         transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
@@ -184,7 +186,6 @@ public class UIManager : MonoBehaviour
                         transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });
                     }
                     index++;
-
                 }
             }
         }
@@ -198,7 +199,7 @@ public class UIManager : MonoBehaviour
             {
                 for (int i = 0; i < transform.childCount; i++)
                 {
-                    if (player.CanBuild(i))
+                    if (player.CanBuild(int.Parse(transform.GetChild(i).name)))
                     {
                         BuildingStats buildingStats = gameAssets.buildingsStats[i];
                         transform.GetChild(i).gameObject.SetActive(true);
@@ -562,26 +563,58 @@ public class UIManager : MonoBehaviour
         details += "Provinces: " + value + " ( "+ Math.Round(value / (float)GameManager.Instance.numberOfProvinces,3) * 100 +"% )" + "\n";
         int index = GameManager.Instance.humanPlayer.stats.texesIndex;
         managementWindow.GetChild(2).GetComponent<Slider>().value = index;
+        if (GameManager.Instance.humanPlayer.stats.taxManagement)
+        {
+            managementWindow.GetChild(2).GetComponent<Slider>().interactable = true;
+            managementWindow.GetChild(2).GetChild(1).gameObject.SetActive(false);
+            managementWindow.GetChild(2).GetChild(1).GetComponent<Image>().sprite = null;
+        }
+        else
+        {
+            managementWindow.GetChild(2).GetComponent<Slider>().interactable = false;
+            managementWindow.GetChild(2).GetChild(1).gameObject.SetActive(true);
+            managementWindow.GetChild(2).GetChild(1).GetComponent<Image>().sprite = gameAssets.locked;
+        }
+
+        if (GameManager.Instance.humanPlayer.stats.researchManagement)
+        {
+            managementWindow.GetChild(3).GetComponent<Slider>().interactable = true;
+            managementWindow.GetChild(3).GetChild(1).gameObject.SetActive(false);
+            managementWindow.GetChild(3).GetChild(1).GetComponent<Image>().sprite = null;
+        }
+        else
+        {
+            managementWindow.GetChild(3).GetComponent<Slider>().interactable = false;
+            managementWindow.GetChild(3).GetChild(1).gameObject.SetActive(true);
+            managementWindow.GetChild(3).GetChild(1).GetComponent<Image>().sprite = gameAssets.locked;
+        }
+
+
+
         UpdateTaxesText();
         UpdateResearchText();
 
+        index = GameManager.Instance.humanPlayer.stats.researchIndex;
+        managementWindow.GetChild(3).GetComponent<Slider>().value = index;
         managementWindow.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = details; 
     }
     private void UpdateTaxesText()
     {
-        int index = GameManager.Instance.humanPlayer.stats.texesIndex;
-        GameManager.Instance.GetValuesByTaxesIndex(index, out float coins, out float people);
-        GameManager.Instance.humanPlayer.stats.ChangeCoinsMultiplier(coins);
-        GameManager.Instance.humanPlayer.stats.ChangePopulationMultiplier(people);
-        int population = (int)GameManager.Instance.humanPlayer.stats.GetPopulation();
-        managementWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Taxes: ( "+ GetColorString((float)Math.Round(population * coins,2)) + Icons.GetIcon("Coin") + "  " + GetColorString((float)Math.Round(people * population,2)) + Icons.GetIcon("Population") + " )" + Icons.GetIcon("Turn");
-        UpdateCounters();
+            int index = GameManager.Instance.humanPlayer.stats.texesIndex;
+            GameManager.Instance.GetValuesByTaxesIndex(index, out float coins, out float people);
+            GameManager.Instance.humanPlayer.stats.ChangeCoinsMultiplier(coins);
+            GameManager.Instance.humanPlayer.stats.ChangePopulationMultiplier(people);
+            int population = (int)GameManager.Instance.humanPlayer.stats.GetPopulation();
+            managementWindow.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Taxes: ( " + GetColorString((float)Math.Round(population * coins, 2)) + Icons.GetIcon("Coin") + "  " + GetColorString((float)Math.Round(people * population, 2)) + Icons.GetIcon("Population") + " )" + Icons.GetIcon("Turn");
+            UpdateCounters();
     }
     private void UpdateResearchText()
     {
         int index = GameManager.Instance.humanPlayer.stats.researchIndex;
         GameManager.Instance.GetValuesByResearchIndex(index, out float coins,out float development);
         GameManager.Instance.humanPlayer.stats.ChangeDevelopmentMultiplier(development);
+        GameManager.Instance.humanPlayer.stats.ChangeDevelopmentCoinsMultiplier(coins);
+
         int population = (int)GameManager.Instance.humanPlayer.stats.GetPopulation();
         managementWindow.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research: ( " + GetColorString((float)Math.Round(population * coins,2)) + Icons.GetIcon("Coin") + "  " + GetColorString((float)Math.Round(development * population,2)) + Icons.GetIcon("DevelopmentPoint") +" )" + Icons.GetIcon("Turn");
         UpdateCounters();

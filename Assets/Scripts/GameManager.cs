@@ -213,6 +213,13 @@ public class GameManager : MonoBehaviour
                 transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.chest;
                 transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
             }
+
+			if(provinceStats.provinceOwnerIndex == 0)
+			{
+				Vector3 vector3 = map.GetChild(provinceStats.index).transform.position;
+				vector3.z = Camera.main.transform.position.z;
+				Camera.main.transform.position = vector3;
+			}
         }
 
 		for (int i = 0; i < botsList.Count; i++)

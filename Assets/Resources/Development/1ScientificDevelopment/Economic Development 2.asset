@@ -15,5 +15,5 @@ MonoBehaviour:
   name: research management
   description: provides the ability to manage research finances
   image: {fileID: 21300000, guid: 4e07b7f0d1aa2d04e8585102f06b5c14, type: 3}
-  researchID: 0
+  researchID: 8
   price: 2103

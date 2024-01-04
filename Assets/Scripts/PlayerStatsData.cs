@@ -19,6 +19,10 @@ public class PlayerStatsData
 
     public int index { private set; get; }
 
+    public bool taxManagement;
+    public bool researchManagement;
+
+
     public PlayerStatsData(PlayerStats playerStats)
     {
         this.coins = new StatisticData(playerStats.coins);
@@ -34,6 +38,8 @@ public class PlayerStatsData
         this.researchIndex = playerStats.researchIndex;
         this.spells = playerStats.spells;
         this.selectedSpells = playerStats.selectedSpells;
+        this.taxManagement = playerStats.taxManagement;
+        this.researchManagement = playerStats.researchManagement;
     }
 
     public PlayerStats ToPlayerStats()
@@ -54,6 +60,9 @@ public class PlayerStatsData
         playerStats.index = index;
         playerStats.spells = spells;
         playerStats.selectedSpells = selectedSpells;
+
+        playerStats.taxManagement = taxManagement;
+        playerStats.researchManagement = researchManagement;
         return playerStats;
     }
 }

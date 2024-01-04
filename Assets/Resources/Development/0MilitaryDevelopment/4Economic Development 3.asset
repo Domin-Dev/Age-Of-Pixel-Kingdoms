@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aa1c1dd32a57f947bd71b533b390044, type: 3}
-  m_Name: Economic Development
+  m_Name: 4Economic Development 3
   m_EditorClassIdentifier: 
-  name: development of education
-  description: '[DevelopmentPoint]+1[Turn]'
-  image: {fileID: 21300000, guid: 9b2106727faa00d4ba589dec1a11335f, type: 3}
-  researchID: 100
-  price: 100
+  name: Spearman
+  description: Adds new unit for recruitment
+  image: {fileID: 21300000, guid: efdd19c64aeb0ea4687d8a7235129986, type: 3}
+  researchID: 3
+  price: 1000
