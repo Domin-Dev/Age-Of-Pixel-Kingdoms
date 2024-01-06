@@ -99,7 +99,7 @@ public class SelectingProvinces : MonoBehaviour
         if (time > 0)
         {
             currentTime += Time.deltaTime;
-            if(currentTime >= time)
+            if (currentTime >= time)
             {
                 battleIcon.gameObject.SetActive(false);
                 time = 0;
@@ -239,6 +239,7 @@ public class SelectingProvinces : MonoBehaviour
                 ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
                 if (provinceStats.buildingIndex == -1)
                 {
+                    provinceStats.buildingIndex = index;
                     Sounds.instance.PlaySound(1);
                     BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
 
@@ -250,7 +251,7 @@ public class SelectingProvinces : MonoBehaviour
                     transform.parent = buildingsParent;
                     transform.GetComponent<SpriteRenderer>().sprite = buildingStats.icon;
                     transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
-                    provinceStats.buildingIndex = index;
+
                 }
                 UIManager.Instance.LoadBuildings(int.Parse(selectedProvince.name));
                 UIManager.Instance.OpenUIWindow("ProvinceStats", int.Parse(selectedProvince.name));
@@ -797,11 +798,11 @@ public class SelectingProvinces : MonoBehaviour
             provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
         }
     }
-    public bool AIRecruitArray(int provinceIndex, int[] array,PlayerStats playerStats)
+    public bool AIRecruitArray(int provinceIndex, int[] array, PlayerStats playerStats)
     {
         ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
         int unitsNumber, price, movementPoints;
-        array = ArrayCount(array, out unitsNumber, out movementPoints, out price,playerStats,provinceStats);
+        array = ArrayCount(array, out unitsNumber, out movementPoints, out price, playerStats, provinceStats);
 
         provinceStats.unitsCounter += unitsNumber;
         provinceStats.population.Subtract(unitsNumber);
@@ -827,13 +828,13 @@ public class SelectingProvinces : MonoBehaviour
         {
             Instantiate(GameAssets.Instance.unitCounter, provinceTransform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, provinceTransform);
         }
-       
-        if( unitsNumber > 0 ) provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
+
+        if (unitsNumber > 0) provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
 
         if (unitsNumber == 0) return false;
         else return true;
     }
-    private int[] ArrayCount(int[] array, out int unitsNumber, out int mPoints, out int price, PlayerStats playerStats,ProvinceStats provinceStats)
+    private int[] ArrayCount(int[] array, out int unitsNumber, out int mPoints, out int price, PlayerStats playerStats, ProvinceStats provinceStats)
     {
         int movementPoits = (int)playerStats.movementPoints.value;
         int warriors = playerStats.warriors.ToLimit();
@@ -844,52 +845,52 @@ public class SelectingProvinces : MonoBehaviour
         unitsNumber = 0;
         price = 0;
 
-        for(int i = 0; i < array.Length; i++)
+        for (int i = 0; i < array.Length; i++)
         {
-           int max = array[i];
-           UnitStats stats = GameAssets.Instance.unitStats[i];
-           int value = movementPoits / stats.movementPointsPrice;
-           if (value < array[i])
-           {
+            int max = array[i];
+            UnitStats stats = GameAssets.Instance.unitStats[i];
+            int value = movementPoits / stats.movementPointsPrice;
+            if (value < array[i])
+            {
                 if (value < max) max = value;
-           }
-           movementPoits -= stats.movementPointsPrice * max;     
-            
-           value = warriors;
-           if (value < array[i])
-           {
-                if (value < max) max = value;
-           }
-           warriors -= max;
+            }
+            movementPoits -= stats.movementPointsPrice * max;
 
-           value = coins / stats.price;
-           if (value < array[i])
-           {
+            value = warriors;
+            if (value < array[i])
+            {
                 if (value < max) max = value;
-           }
-           coins -= stats.price * max;
+            }
+            warriors -= max;
 
-           value = population;
-           if (value < array[i])
-           {
+            value = coins / stats.price;
+            if (value < array[i])
+            {
                 if (value < max) max = value;
-           }
-           population -= max;
+            }
+            coins -= stats.price * max;
 
-           array[i] = max;
-           mPoints += array[i] * stats.movementPointsPrice;
-           unitsNumber += array[i];
-           price += array[i] * stats.price;
+            value = population;
+            if (value < array[i])
+            {
+                if (value < max) max = value;
+            }
+            population -= max;
+
+            array[i] = max;
+            mPoints += array[i] * stats.movementPointsPrice;
+            unitsNumber += array[i];
+            price += array[i] * stats.price;
         }
 
         return array;
     }
-    public void AIMove(int fromIndex,int toIndex,int unitsNumber,int unitIndex)
+    public void AIMove(int fromIndex, int toIndex, int unitsNumber, int unitIndex)
     {
-       ProvinceStats from = GameManager.Instance.provinces[fromIndex];
-       ProvinceStats to = GameManager.Instance.provinces[toIndex];
-       if(from.unitsCounter >= unitsNumber)
-       {
+        ProvinceStats from = GameManager.Instance.provinces[fromIndex];
+        ProvinceStats to = GameManager.Instance.provinces[toIndex];
+        if (from.unitsCounter >= unitsNumber)
+        {
             from.unitsCounter -= unitsNumber;
             from.units[unitIndex] -= unitsNumber;
             to.unitsCounter += unitsNumber;
@@ -915,7 +916,7 @@ public class SelectingProvinces : MonoBehaviour
             GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(unitsNumber);
             UpdateUnitNumber(map.GetChild(fromIndex));
             UpdateUnitNumber(map.GetChild(toIndex));
-       }
+        }
     }
     public void AIMoveArray(int[] array, int fromIndex, int toIndex)
     {
@@ -955,11 +956,11 @@ public class SelectingProvinces : MonoBehaviour
         UpdateUnitNumber(map.GetChild(fromIndex));
         UpdateUnitNumber(map.GetChild(toIndex));
     }
-    public void AutoBattle(bool isPlayer,int aggressorProvinceIndex, int defenderProvinceIndex)
+    public void AutoBattle(bool isPlayer, int aggressorProvinceIndex, int defenderProvinceIndex)
     {
         ProvinceStats aggressor = GameManager.Instance.provinces[aggressorProvinceIndex];
         ProvinceStats defender = GameManager.Instance.provinces[defenderProvinceIndex];
-        if (aggressor.unitsCounter > 0 )
+        if (aggressor.unitsCounter > 0)
         {
             float aggressorPower = 0;
             float defenderPower = 0;
@@ -1105,7 +1106,7 @@ public class SelectingProvinces : MonoBehaviour
     }
 
 
-    private void SetBattleIcon(int province1,int province2)
+    private void SetBattleIcon(int province1, int province2)
     {
         Vector3 vector1 = map.GetChild(province1).transform.position;
         Vector3 vector2 = map.GetChild(province2).transform.position;
@@ -1119,4 +1120,6 @@ public class SelectingProvinces : MonoBehaviour
         time = timer;
         currentTime = 0;
     }
+
+
 }

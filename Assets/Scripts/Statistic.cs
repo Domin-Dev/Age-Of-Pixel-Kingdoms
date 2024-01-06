@@ -73,7 +73,9 @@ public struct Statistic
             if(item.type == Bonus.bonusType.DependentIncome)
             {
                 income += item.countBonus(item.multiplier);
+              //  Debug.Log(item.countBonus(item.multiplier) + " "+ item.multiplier );
             }
+
         }
         income = (float)Math.Round(income,2);
         return income;
@@ -151,17 +153,22 @@ public struct Statistic
 
     public void RemoveBonus(int index)
     {
-        Bonus bonus = bonuses[index];
-        if (bonus.type == Bonus.bonusType.Disposable)
+        if (bonuses.ContainsKey(index))
         {
-            value -= bonus.bonusValue;
-        }
-        else
-        {
-            turnIncome -= bonus.bonusValue;
-        }
+            Bonus bonus = bonuses[index];
 
-        bonuses.Remove(index);
+            if (bonus.type == Bonus.bonusType.Disposable)
+            {
+                value -= bonus.bonusValue;
+            }
+            else
+            {
+                turnIncome -= bonus.bonusValue;
+            }
+
+            bonuses.Remove(index);
+        }
+       
     }
     public string GetDetails()
     {

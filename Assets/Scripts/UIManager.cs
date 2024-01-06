@@ -414,7 +414,7 @@ public class UIManager : MonoBehaviour
         {
             BuildingStats buildingStats = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex];
             transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Image>().sprite = buildingStats.icon;
-            transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = buildingStats.name;
+            transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = buildingStats.name.Substring(1);
             transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = StringToIcons(buildingStats.description);
         }
 

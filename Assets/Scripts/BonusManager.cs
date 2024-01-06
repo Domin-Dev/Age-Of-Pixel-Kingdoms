@@ -1,4 +1,6 @@
 
+using System.Diagnostics;
+
 public static class BonusManager
 {
     public static void SetBonus(ProvinceStats provinceStats,int indexBonus)
@@ -10,14 +12,19 @@ public static class BonusManager
                 provinceStats.warriors.AddBonus(1,new Bonus("Capital", 10,Bonus.bonusType.Disposable));
                 break;
             case 1:
-                provinceStats.population.AddBonus(2, new Bonus("ko", 10, Bonus.bonusType.Income));
+                PlayerStats playerStats = GameManager.Instance.GetPlayerStats(provinceStats.provinceOwnerIndex);
+                
+                if (!playerStats.coins.bonuses.ContainsKey(200))
+                    playerStats.coins.AddBonus(200, new Bonus("Workshops", (float multiplier) => { return playerStats.CountBuildings(1) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(1).ToString()  + " x " + multiplier; }, 10f));
                 break;
             case 2:
-             //   provinceStats.developmentPoints.AddBonus(3, new Bonus("ko", 5, Bonus.bonusType.Income));
+                //provinceStats.developmentPoints.AddBonus(3, new Bonus("ko", 5, Bonus.bonusType.Income));
                 break;
 
         }
-      if(provinceStats.provinceOwnerIndex != -1) UpdateLimits(provinceStats.provinceOwnerIndex);
+        GameManager.Instance.humanPlayer.stats.coins.ToString();
+      //  if (provinceStats.provinceOwnerIndex == 0) UIManager.Instance.UpdateCounters();
+        if (provinceStats.provinceOwnerIndex != -1) UpdateLimits(provinceStats.provinceOwnerIndex);
     }
     public static void RemoveBonus(ProvinceStats provinceStats, int indexBonus)
     {
@@ -95,6 +102,11 @@ public static class BonusManager
                 playerStats.coins.AddBonus(12, new Bonus("new tax", 10, Bonus.bonusType.Income));
                 UpdateLimits(playerStats.index);
                 break;
+            case 13:
+                playerStats.buildingsPermit[1] = true;
+                UpdateLimits(playerStats.index);
+                break;
+
 
 
 

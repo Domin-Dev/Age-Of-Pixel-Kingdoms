@@ -128,6 +128,20 @@ public class PlayerStats
         }
         return cost;
     }
+
+    public int CountBuildings(int buildingIndex)
+    {
+        int output = 0;
+        for (int i = 0; i < GameManager.Instance.provinces.Length; i++)
+        {
+            ProvinceStats province = GameManager.Instance.provinces[i];
+            if (province.provinceOwnerIndex == index && province.buildingIndex == buildingIndex) 
+            {
+                output++;
+            }
+        }
+        return output;
+    }
     public float GetMovementPoints()
     {
         int movementPoints = 0;
@@ -158,7 +172,6 @@ public class PlayerStats
             }
         }
     }
-
     public void ChangeDevelopmentCoinsMultiplier(float developmentCoinsMultiplier)
     {
         coins.bonuses[-300].multiplier = developmentCoinsMultiplier;

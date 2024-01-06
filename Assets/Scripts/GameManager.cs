@@ -654,6 +654,13 @@ public class GameManager : MonoBehaviour
 
 		}
 	}
+
+    public PlayerStats GetPlayerStats(int index)
+    {
+		if (index == 0) return humanPlayer.stats;
+		else if (index > 0 && index <= botsList.Count) return botsList[index - 1].stats;
+		else return null;
+    }
 }
 
 
