@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1Arrows
   m_EditorClassIdentifier: 
   <spellName>k__BackingField: Arrows
-  <description>k__BackingField: 
+  <description>k__BackingField: 'cooldown: 10s creates rain of arrows'
   <price>k__BackingField: 200
   <spell>k__BackingField: {fileID: 8718080173525734334, guid: fdaa32fab4e1854478ff01707310aa7f, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: 7946839fdd466bb4e811115bb6fdcf36, type: 3}

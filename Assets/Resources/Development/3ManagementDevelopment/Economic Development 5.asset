@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa1c1dd32a57f947bd71b533b390044, type: 3}
   m_Name: Economic Development 5
   m_EditorClassIdentifier: 
-  name: 'New castle '
-  description: add new castle
-  image: {fileID: 21300000, guid: ee76166b431571449b2bec9d107c7658, type: 3}
-  researchID: 0
+  name: better management
+  description: +20 [MovementPoint]
+  image: {fileID: 21300000, guid: 6543f73de37f91142ac26fce333d8204, type: 3}
+  researchID: 23
   price: 2103
-  indexTree: 0

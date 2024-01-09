@@ -16,5 +16,4 @@ MonoBehaviour:
   description: +5[Warrior]
   image: {fileID: 21300000, guid: effd972c740680848ae4e48238052a04, type: 3}
   researchID: 0
-  price: 100
-  indexTree: 0
+  price: 50

@@ -14,6 +14,14 @@ public class PlayerStats
     public bool[] units;
     public bool[] spells;
 
+    public bool cheaperBuilding;
+    public bool cheaperRecruitment;
+
+    public bool movementBuilding;
+    public bool movementRecruitment;
+
+
+
     public int[] selectedSpells;
 
     public int texesIndex;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5b0d8ffce1bcec469690eb020d10618, type: 3}
-  m_Name: 5ancient ruins
+  m_Name: 5Ancient ruins
   m_EditorClassIdentifier: 
   <description>k__BackingField: 
   <price>k__BackingField: 0

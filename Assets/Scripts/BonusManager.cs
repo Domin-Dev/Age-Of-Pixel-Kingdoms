@@ -10,6 +10,7 @@ public static class BonusManager
             case 0:
                 provinceStats.lifePoints.AddBonus(0,new Bonus("Capital", 20,Bonus.bonusType.Disposable));
                 provinceStats.warriors.AddBonus(1,new Bonus("Capital", 10,Bonus.bonusType.Disposable));
+                provinceStats.population.AddBonus(2,new Bonus("Capital", 1, Bonus.bonusType.Income));
                 break;
             case 1:
                 PlayerStats playerStats = GameManager.Instance.GetPlayerStats(provinceStats.provinceOwnerIndex);
@@ -18,7 +19,7 @@ public static class BonusManager
                     playerStats.coins.AddBonus(200, new Bonus("Workshops", (float multiplier) => { return playerStats.CountBuildings(1) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(1).ToString()  + " x " + multiplier; }, 10f));
                 break;
             case 2:
-                //provinceStats.developmentPoints.AddBonus(3, new Bonus("ko", 5, Bonus.bonusType.Income));
+                provinceStats.population.AddBonus(3, new Bonus("farm", 5, Bonus.bonusType.Income));
                 break;
 
         }
@@ -73,7 +74,7 @@ public static class BonusManager
                 break;
 
             case 6:
-                playerStats.movementPoints.AddBonus(0, new Bonus("better management", 5, Bonus.bonusType.IncreaseLimit));
+                playerStats.developmentPoints.AddBonus(6, new Bonus("development of education", 1, Bonus.bonusType.Income));
                 UpdateLimits(playerStats.index);
                 break;
             case 7:
@@ -90,7 +91,7 @@ public static class BonusManager
                 UpdateLimits(playerStats.index);
                 break;
             case 10:
-                playerStats.selectedSpells[1] = -1;
+                playerStats.developmentPoints.AddBonus(10, new Bonus("development of education", 10, Bonus.bonusType.Income));
                 UpdateLimits(playerStats.index);
                 break;
             case 11:
@@ -98,6 +99,7 @@ public static class BonusManager
                 UIManager.Instance.LoadSpells();
                 UpdateLimits(playerStats.index);
                 break;
+
             case 12:
                 playerStats.coins.AddBonus(12, new Bonus("new tax", 10, Bonus.bonusType.Income));
                 UpdateLimits(playerStats.index);
@@ -105,6 +107,37 @@ public static class BonusManager
             case 13:
                 playerStats.buildingsPermit[1] = true;
                 UpdateLimits(playerStats.index);
+                break;
+            case 14:
+                playerStats.cheaperBuilding = true;
+                break;
+            case 15:
+                playerStats.cheaperRecruitment = true;
+                break;
+            case 16:
+                playerStats.buildingsPermit[6] = true;
+                break;
+            case 17:
+                playerStats.coins.AddBonus(13, new Bonus("trading", 100, Bonus.bonusType.Income));
+                break;
+
+            case 18:
+                playerStats.movementPoints.AddBonus(18, new Bonus("better management", 5, Bonus.bonusType.IncreaseLimit));
+                break;
+            case 19:
+                playerStats.buildingsPermit[4] = true;
+                break;
+            case 20:
+                playerStats.movementRecruitment = true;
+                break;     
+            case 21:
+                playerStats.taxManagement = true;
+                break; 
+            case 22:
+                playerStats.movementBuilding = true;
+                break;
+            case 23:
+                playerStats.movementPoints.AddBonus(23, new Bonus("better management", 20, Bonus.bonusType.IncreaseLimit));
                 break;
 
 

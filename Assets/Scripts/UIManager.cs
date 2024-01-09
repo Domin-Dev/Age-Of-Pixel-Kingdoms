@@ -4,8 +4,6 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
-using System.Net.Sockets;
 
 
 public class UIManager : MonoBehaviour
@@ -150,7 +148,15 @@ public class UIManager : MonoBehaviour
                 transformStats.GetChild(5).GetComponent<TextMeshProUGUI>().text = "<sprite index=19>" + item.turnCost.ToString();
 
                 int id = index;
-                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice + " <sprite index=23> 1 <sprite index=1>";
+
+
+                int price = item.price;
+                int priceMP = item.movementPointsPrice;
+                if (GameManager.Instance.humanPlayer.stats.cheaperRecruitment) price = price - 5;
+                if (GameManager.Instance.humanPlayer.stats.movementRecruitment) priceMP = priceMP - 1;
+
+                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + price + " <sprite index=21>\n" + priceMP + " <sprite index=23> 1 <sprite index=1>";
+                transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + price + " <sprite index=21>\n" + priceMP + " <sprite index=23> 1 <sprite index=1>";
                 transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); selectingProvinces.SelectUnitToRecruit(id); });
                 index++;
             }
@@ -159,7 +165,21 @@ public class UIManager : MonoBehaviour
         {
             for (int i = 0; i < GameManager.Instance.humanPlayer.stats.units.Length; i++)
             {
-                contentUI.GetChild(i).gameObject.SetActive(GameManager.Instance.humanPlayer.stats.units[i]);
+                bool value = GameManager.Instance.humanPlayer.stats.units[i];
+                contentUI.GetChild(i).gameObject.SetActive(value);
+                if(value)
+                {
+                    Debug.Log(GameManager.Instance.humanPlayer.stats.cheaperRecruitment);
+                    Transform transform = contentUI.GetChild(i);
+                    UnitStats item = gameAssets.unitStats[i];
+                    int price = item.price;
+                    int priceMP = item.movementPointsPrice;
+                    if (GameManager.Instance.humanPlayer.stats.cheaperRecruitment) price = price - 5;
+                    if (GameManager.Instance.humanPlayer.stats.movementRecruitment) priceMP = priceMP - 1;
+
+                    transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "recruit\n" + price + " <sprite index=21>\n" + priceMP + " <sprite index=23> 1 <sprite index=1>";
+                }
+
             }
         }
     }
@@ -179,7 +199,13 @@ public class UIManager : MonoBehaviour
                         transform.name = index.ToString();
                         transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name.Substring(1);
                         transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = item.icon;
-                        transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + item.price + " <sprite index=21>\n" + item.movementPointsPrice + " <sprite index=23>";
+                        int price = item.price;
+                        int priceMP = item.movementPointsPrice;
+
+                        if (GameManager.Instance.humanPlayer.stats.cheaperBuilding) price = price - 50;
+                        if (GameManager.Instance.humanPlayer.stats.movementBuilding) priceMP = priceMP - 5;
+
+                        transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + price + " <sprite index=21>\n" + priceMP + " <sprite index=23>";
                         transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
 
                         int id = index;
@@ -201,9 +227,15 @@ public class UIManager : MonoBehaviour
                 {
                     if (player.CanBuild(int.Parse(transform.GetChild(i).name)))
                     {
-                        BuildingStats buildingStats = gameAssets.buildingsStats[i];
+                        BuildingStats buildingStats = gameAssets.buildingsStats[int.Parse(transform.GetChild(i).name)];
                         transform.GetChild(i).gameObject.SetActive(true);
-                        transform.GetChild(i).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + buildingStats.price + " <sprite index=21>\n" + buildingStats.movementPointsPrice + " <sprite index=23>";
+                        int price = buildingStats.price;
+                        int priceMP = buildingStats.movementPointsPrice; 
+
+                        if (GameManager.Instance.humanPlayer.stats.cheaperBuilding) price = price - 50;
+                        if (GameManager.Instance.humanPlayer.stats.movementBuilding) priceMP = priceMP - 5;
+
+                        transform.GetChild(i).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + price +" <sprite index=21>\n" + priceMP + " <sprite index=23>";
                         transform.GetChild(i).GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
                         int id = int.Parse(transform.GetChild(i).name);
                         transform.GetChild(i).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa1c1dd32a57f947bd71b533b390044, type: 3}
   m_Name: Economic Development 2
   m_EditorClassIdentifier: 
-  name: 'New castle '
-  description: add new castle
+  name: cheaper Recruitment
+  description: Recruitment is 1 [MovementPoint] cheaper.
   image: {fileID: 21300000, guid: 699f5ee70b9b3ac4c9e5a4d0444fde7d, type: 3}
-  researchID: 0
+  researchID: 20
   price: 2103

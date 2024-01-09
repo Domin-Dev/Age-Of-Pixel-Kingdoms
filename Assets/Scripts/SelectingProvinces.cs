@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Unity.Mathematics;
+using static UnityEditor.Progress;
+using UnityEditor;
 
 public class SelectingProvinces : MonoBehaviour
 {
@@ -232,9 +234,15 @@ public class SelectingProvinces : MonoBehaviour
     public void Build(int index)
     {
         BuildingStats buildingStats = GameAssets.Instance.buildingsStats[index];
-        if (selectedProvince != null && GameManager.Instance.humanPlayer.stats.coins.CanAfford(buildingStats.price))
+        int price = buildingStats.price;
+        int priceMP = buildingStats.movementPointsPrice;
+
+        if (GameManager.Instance.humanPlayer.stats.cheaperBuilding) price = price - 50;
+        if (GameManager.Instance.humanPlayer.stats.movementBuilding) priceMP = priceMP - 5;
+
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.stats.coins.CanAfford(price))
         {
-            if (GameManager.Instance.humanPlayer.stats.movementPoints.CanAfford(buildingStats.movementPointsPrice))
+            if (GameManager.Instance.humanPlayer.stats.movementPoints.CanAfford(priceMP))
             {
                 ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
                 if (provinceStats.buildingIndex == -1)
@@ -243,8 +251,8 @@ public class SelectingProvinces : MonoBehaviour
                     Sounds.instance.PlaySound(1);
                     BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
 
-                    GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(buildingStats.movementPointsPrice);
-                    GameManager.Instance.humanPlayer.stats.coins.Subtract(buildingStats.price);
+                    GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(priceMP);
+                    GameManager.Instance.humanPlayer.stats.coins.Subtract(price);
 
                     Transform transform = new GameObject(selectedProvince.name, typeof(SpriteRenderer)).transform;
                     transform.position = selectedProvince.position + new Vector3(0, 0.08f, 0);
@@ -387,9 +395,15 @@ public class SelectingProvinces : MonoBehaviour
     {
         if (barState != -1)
         {
+            UnitStats unitStats = GameAssets.Instance.unitStats[selectedUnitIndex];
+            int priceCoins = unitStats.price;
+            int priceMP = unitStats.movementPointsPrice;
+            if (GameManager.Instance.humanPlayer.stats.cheaperRecruitment) priceCoins = priceCoins - 5;
+            if (GameManager.Instance.humanPlayer.stats.movementRecruitment) priceMP = priceMP - 1;
+
             numberText.text = unitsNumber.ToString() + "/" + maxUnitsNumber.ToString();
             slider.value = unitsNumber;
-            if (barState == 1) price.text = "Price:  <color=#FF0000>" + unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price + " <sprite index=21>  " + unitsNumber + " <sprite index=1>  " + unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].movementPointsPrice + " <sprite index=23>";
+            if (barState == 1) price.text = "Price:  <color=#FF0000>" + unitsNumber * priceCoins + " <sprite index=21>  " + unitsNumber + " <sprite index=1>  " + unitsNumber * priceMP + " <sprite index=23>";
             else if (barState == 0) price.text = "Price:  <color=#FF0000>" + unitsNumber + " <sprite index=23>";
         }
     }
@@ -482,14 +496,21 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void SelectUnitToRecruit(int index)
     {
-        if (selectedProvince != null && GameManager.Instance.humanPlayer.stats.coins.CanAfford(GameAssets.Instance.unitStats[index].price))
+        UnitStats unitStats = GameAssets.Instance.unitStats[index];
+        int price = unitStats.price;
+        int priceMP = unitStats.movementPointsPrice;
+        if (GameManager.Instance.humanPlayer.stats.cheaperRecruitment) price = price - 5;
+        if (GameManager.Instance.humanPlayer.stats.movementRecruitment) priceMP = priceMP - 1;
+
+
+        if (selectedProvince != null && GameManager.Instance.humanPlayer.stats.coins.CanAfford(price))
         {
             int population = (int)GetProvinceStats(selectedProvince).population.value;
             if (population > 0)
             {
                 if (GameManager.Instance.humanPlayer.stats.warriors.CheckLimit(1))
                 {
-                    if (GameManager.Instance.humanPlayer.stats.movementPoints.value >= GameAssets.Instance.unitStats[index].movementPointsPrice)
+                    if (GameManager.Instance.humanPlayer.stats.movementPoints.value >= priceMP)
                     {
                         barState = 1;
                         if (selectedUnitIndex >= 0) GameAssets.Instance.recruitUnitContentUI.GetChild(selectedUnitIndex).GetComponent<Image>().sprite = GameAssets.Instance.brownTexture;
@@ -499,12 +520,10 @@ public class SelectingProvinces : MonoBehaviour
 
 
 
-                        int maxToRecruit = (int)GameManager.Instance.humanPlayer.stats.coins.value / GameAssets.Instance.unitStats[index].price;
+                        int maxToRecruit = (int)GameManager.Instance.humanPlayer.stats.coins.value / price;
                         int value = math.min(maxToRecruit, population);
-                        value = math.min(value, (int)(GameManager.Instance.humanPlayer.stats.movementPoints.value / GameAssets.Instance.unitStats[index].movementPointsPrice));
+                        value = math.min(value, (int)(GameManager.Instance.humanPlayer.stats.movementPoints.value / priceMP));
                         value = math.min(value, GameManager.Instance.humanPlayer.stats.warriors.ToLimit());
-
-
 
                         maxUnitsNumber = value;
                         slider.maxValue = maxUnitsNumber;
@@ -541,13 +560,19 @@ public class SelectingProvinces : MonoBehaviour
     {
         if (selectedProvince != null && unitsNumber > 0)
         {
-
+            
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             provinceStats.unitsCounter += unitsNumber;
             provinceStats.population.Subtract(unitsNumber);
+            
+            UnitStats unitStats = GameAssets.Instance.unitStats[selectedUnitIndex];
+            int price = unitStats.price;
+            int priceMP = unitStats.movementPointsPrice;
+            if (GameManager.Instance.humanPlayer.stats.cheaperRecruitment) price = price - 5;
+            if (GameManager.Instance.humanPlayer.stats.movementRecruitment) priceMP = priceMP - 1;
 
-            GameManager.Instance.humanPlayer.stats.coins.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].price);
-            GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(unitsNumber * GameAssets.Instance.unitStats[selectedUnitIndex].movementPointsPrice);
+            GameManager.Instance.humanPlayer.stats.coins.Subtract(unitsNumber * price);
+            GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(unitsNumber * priceMP);
             GameManager.Instance.humanPlayer.stats.warriors.Add(unitsNumber);
 
 
