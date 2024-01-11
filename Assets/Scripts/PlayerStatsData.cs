@@ -22,6 +22,11 @@ public class PlayerStatsData
     public bool taxManagement;
     public bool researchManagement;
 
+    public bool cheaperBuilding;
+    public bool cheaperRecruitment;
+
+    public bool movementBuilding;
+    public bool movementRecruitment;
 
     public PlayerStatsData(PlayerStats playerStats)
     {
@@ -40,6 +45,12 @@ public class PlayerStatsData
         this.selectedSpells = playerStats.selectedSpells;
         this.taxManagement = playerStats.taxManagement;
         this.researchManagement = playerStats.researchManagement;
+
+        this.cheaperBuilding = playerStats.cheaperBuilding;
+        this.cheaperRecruitment = playerStats.cheaperRecruitment;
+        this.movementBuilding = playerStats.movementBuilding;
+        this.movementRecruitment = playerStats.movementRecruitment;
+        
     }
 
     public PlayerStats ToPlayerStats()
@@ -63,6 +74,12 @@ public class PlayerStatsData
 
         playerStats.taxManagement = taxManagement;
         playerStats.researchManagement = researchManagement;
+
+        playerStats.cheaperBuilding = cheaperBuilding;
+        playerStats.cheaperRecruitment =  cheaperRecruitment;
+        playerStats.movementBuilding = movementBuilding;
+        playerStats.movementRecruitment = movementRecruitment;
+
         return playerStats;
     }
 }

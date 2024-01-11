@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b0d8ffce1bcec469690eb020d10618, type: 3}
   m_Name: 5Ancient ruins
   m_EditorClassIdentifier: 
-  <description>k__BackingField: 
+  <description>k__BackingField: '[DevelopmentPoint]+3[Turn]'
   <price>k__BackingField: 0
   <icon>k__BackingField: {fileID: 21300000, guid: a1407d6b3e066d04b92699b6e176033b, type: 3}
   <turnCost>k__BackingField: 0
   <canBuild>k__BackingField: 0
-  <bonusIndex>k__BackingField: 0
-  <movementPointsPrice>k__BackingField: 0
+  <bonusIndex>k__BackingField: 7
+  <movementPointsPrice>k__BackingField: -1

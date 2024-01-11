@@ -39,6 +39,10 @@ public static class BonusManager
                     if (!playerStats.coins.bonuses.ContainsKey(9))
                         playerStats.coins.AddBonus(9, new Bonus("gold mines", (float multiplier) => { return playerStats.CountBuildings(3) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(3).ToString() + " x " + multiplier; }, 3f));
                     break;
+                case 7:
+                    if (!playerStats.developmentPoints.bonuses.ContainsKey(9))
+                        playerStats.developmentPoints.AddBonus(9, new Bonus("Ancient ruins", (float multiplier) => { return playerStats.CountBuildings(5) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(5).ToString() + " x " + multiplier; }, 3f));
+                    break;
 
 
             }

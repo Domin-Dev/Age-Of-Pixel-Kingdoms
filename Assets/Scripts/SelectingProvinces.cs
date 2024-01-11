@@ -954,6 +954,7 @@ public class SelectingProvinces : MonoBehaviour
             value += unitsNumber;
             int unitIndex = i;
 
+            Debug.Log("move!!!!!!!1");
             from.unitsCounter -= unitsNumber;
             from.units[unitIndex] -= unitsNumber;
             to.unitsCounter += unitsNumber;
@@ -1114,8 +1115,15 @@ public class SelectingProvinces : MonoBehaviour
             if (winner.index == aggressorProvinceIndex)
             {
                 loser.SetNewOwner(winner.provinceOwnerIndex);
+                if (loser.chest)
+                {
+                    Debug.Log(Chest.OpenChest(GameManager.Instance.GetPlayerStats(winner.provinceOwnerIndex)));
+                    GameManager.Instance.ClearChest(loser.index);
+                }
                 ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));
             }
+
+
         }
         UpdateUnitNumber(map.GetChild(aggressorProvinceIndex));
         UpdateUnitNumber(map.GetChild(defenderProvinceIndex));

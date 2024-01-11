@@ -78,7 +78,7 @@ public class ProvinceStats
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    int number = Random.Range(0, 3 );
+                    int number = Random.Range(0, 1 );
                     int unitIndex = Random.Range(0, GameAssets.Instance.unitStats.Length);
                     if (units.ContainsKey(unitIndex))
                     {
@@ -114,6 +114,7 @@ public class ProvinceStats
             GameManager.Instance.botsList[index - 1].stats.warriors.limit += warriors.value;
             GameManager.Instance.botsList[index -1].stats.movementPoints.limit += movementPoints.value;
             GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.botsList[index - 1].stats.texesIndex, out float coins, out float people);
+            if (buildingIndex != -1) BonusManager.SetBonus(this, GameAssets.Instance.buildingsStats[buildingIndex].bonusIndex);
             population.bonuses[-100].multiplier = people;
         }
 

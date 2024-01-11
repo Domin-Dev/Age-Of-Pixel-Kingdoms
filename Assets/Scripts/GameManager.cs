@@ -66,19 +66,49 @@ public class GameManager : MonoBehaviour
 			SetUp();
 		}
 	}
-	private void Update()
-	{
-        if (UnityEngine.Input.GetKeyDown(KeyCode.C))
+
+	int indexbot = 0;
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			indexbot = 0;
+		}
+
+		if(Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			indexbot = 1;
+		}
+
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			indexbot = 2;
+		}
+
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-			UIManager.Instance.OpenChest(-1);
+			Debug.Log((indexbot +1) + " - " + botsList[indexbot].stats.coins.GetDetails());
         }
 
-        if (UnityEngine.Input.GetKeyDown(KeyCode.S))
-		{
-			Save();
-		}
-	}
-	private void OnLevelWasLoaded(int level)
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.developmentPoints.GetDetails());
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.warriors.GetDetails());
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.movementPoints.GetDetails());
+        }
+
+
+    }
+
+    private void OnLevelWasLoaded(int level)
 	{
         if (level == 2 && Instance == this)
 		{
@@ -236,9 +266,9 @@ public class GameManager : MonoBehaviour
 	}
 	private void LoadBots()
 	{
-		AddBot("Player", true, Color.yellow, 1000, 1 + botsList.Count);
-		AddBot("xd", true, Color.green, 1000, 1 + botsList.Count);
-		AddBot("green", true, Color.red, 1000, 1 + botsList.Count);
+		AddBot("Yellow", true, Color.yellow, 1000, 1 + botsList.Count);
+		AddBot("Green", true, Color.green, 1000, 1 + botsList.Count);
+		AddBot("Red", true, Color.red, 1000, 1 + botsList.Count);
 	}
 
 	private void AddBot(string name, bool isComputer, Color color, int startCoins, int index)
@@ -404,9 +434,10 @@ public class GameManager : MonoBehaviour
 	}
 	public void NextTurn()
 	{
-		if (readyToNextTurn)
+        Debug.Log(readyToNextTurn);
+        if (readyToNextTurn)
 		{
-			turn++;
+            turn++;
 			StartCoroutine(BotsNextTurn());
 
 			humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);

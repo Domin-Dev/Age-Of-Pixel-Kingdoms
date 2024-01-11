@@ -418,7 +418,7 @@ public class UIManager : MonoBehaviour
     {
 
         ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
-        transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString();
+        transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString() + " " + CountUnits(provinceIndex);
         TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
         if (provinceStats.provinceOwnerIndex != -1)
         {
@@ -996,5 +996,22 @@ public class UIManager : MonoBehaviour
         {
             CloseUIWindow("Research");
         });
+    }
+
+    private float CountUnits(int index)
+    {
+        ProvinceStats provinceStats = GameManager.Instance.provinces[index];
+        float value = 0;
+        if (provinceStats.units != null)
+        {
+            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+            {
+                if (provinceStats.units.ContainsKey(i))
+                {
+                    value += GameAssets.Instance.unitStats[i].battleValue * provinceStats.units[i];
+                }
+            }
+        }
+        return value;
     }
 }
