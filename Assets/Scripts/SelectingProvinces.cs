@@ -282,9 +282,6 @@ public class SelectingProvinces : MonoBehaviour
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             BuildingStats buildingStats = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex];
 
-
-
-            BonusManager.RemoveBonus(provinceStats, buildingStats.bonusIndex);
             for (int i = 0; i < buildingsParent.childCount; i++)
             {
                 if (buildingsParent.GetChild(i).name == provinceStats.index.ToString())
@@ -294,7 +291,10 @@ public class SelectingProvinces : MonoBehaviour
                 }
             }
             Sounds.instance.PlaySound(2);
+            int index = provinceStats.buildingIndex;
             provinceStats.buildingIndex = -1;
+            BonusManager.RemoveBonus(provinceStats, index);
+
 
             UIManager.Instance.UpdateCounters();
             UIManager.Instance.LoadBuildings(int.Parse(selectedProvince.name));

@@ -106,6 +106,7 @@ public class ProvinceStats
             GameManager.Instance.humanPlayer.stats.movementPoints.limit += movementPoints.value;
             GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex, out float coins, out float people);
             population.bonuses[-100].multiplier = people;
+            if(buildingIndex != -1) BonusManager.SetBonus(this, GameAssets.Instance.buildingsStats[buildingIndex].bonusIndex);
             UIManager.Instance.UpdateCounters();
         }
         else

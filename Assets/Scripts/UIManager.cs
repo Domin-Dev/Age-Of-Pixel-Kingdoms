@@ -169,7 +169,6 @@ public class UIManager : MonoBehaviour
                 contentUI.GetChild(i).gameObject.SetActive(value);
                 if(value)
                 {
-                    Debug.Log(GameManager.Instance.humanPlayer.stats.cheaperRecruitment);
                     Transform transform = contentUI.GetChild(i);
                     UnitStats item = gameAssets.unitStats[i];
                     int price = item.price;
@@ -206,7 +205,7 @@ public class UIManager : MonoBehaviour
                         if (GameManager.Instance.humanPlayer.stats.movementBuilding) priceMP = priceMP - 5;
 
                         transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Build\n" + price + " <sprite index=21>\n" + priceMP + " <sprite index=23>";
-                        transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = item.description;
+                        transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = StringToIcons(item.description);
 
                         int id = index;
                         transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { selectingProvinces.Build(id); });

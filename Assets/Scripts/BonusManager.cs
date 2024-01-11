@@ -1,30 +1,49 @@
-
-using System.Diagnostics;
-
+using UnityEngine;
 public static class BonusManager
 {
     public static void SetBonus(ProvinceStats provinceStats,int indexBonus)
     {
-        switch (indexBonus)
-        {
-            case 0:
-                provinceStats.lifePoints.AddBonus(0,new Bonus("Capital", 20,Bonus.bonusType.Disposable));
-                provinceStats.warriors.AddBonus(1,new Bonus("Capital", 10,Bonus.bonusType.Disposable));
-                provinceStats.population.AddBonus(2,new Bonus("Capital", 1, Bonus.bonusType.Income));
-                break;
-            case 1:
-                PlayerStats playerStats = GameManager.Instance.GetPlayerStats(provinceStats.provinceOwnerIndex);
-                
-                if (!playerStats.coins.bonuses.ContainsKey(200))
-                    playerStats.coins.AddBonus(200, new Bonus("Workshops", (float multiplier) => { return playerStats.CountBuildings(1) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(1).ToString()  + " x " + multiplier; }, 10f));
-                break;
-            case 2:
-                provinceStats.population.AddBonus(3, new Bonus("farm", 5, Bonus.bonusType.Income));
-                break;
+        PlayerStats playerStats = GameManager.Instance.GetPlayerStats(provinceStats.provinceOwnerIndex);
 
+        if (provinceStats.provinceOwnerIndex != -1)
+        {
+            switch (indexBonus)
+            {
+                case 0:
+                    provinceStats.lifePoints.AddBonus(0, new Bonus("Capital", 20, Bonus.bonusType.Disposable));
+                    provinceStats.warriors.AddBonus(1, new Bonus("Capital", 10, Bonus.bonusType.Disposable));
+                    provinceStats.population.AddBonus(2, new Bonus("Capital", 1, Bonus.bonusType.Income));
+                    break;
+                case 1:
+                    if (!playerStats.coins.bonuses.ContainsKey(200))
+                        playerStats.coins.AddBonus(3, new Bonus("Workshops", (float multiplier) => { return playerStats.CountBuildings(1) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(1).ToString() + " x " + multiplier; }, 10f));
+                    break;
+                case 2:
+                    provinceStats.population.AddBonus(4, new Bonus("farm", 5, Bonus.bonusType.Income));
+                    break;
+                case 3:
+                    if (!playerStats.developmentPoints.bonuses.ContainsKey(5))
+                        playerStats.developmentPoints.AddBonus(5, new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(2) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(2).ToString() + " x " + multiplier; }, 5f));
+                    break;
+                case 4:
+                    provinceStats.lifePoints.AddBonus(7, new Bonus("Castle", 10, Bonus.bonusType.Disposable));
+
+                    if (!playerStats.warriors.bonuses.ContainsKey(6))
+                        playerStats.warriors.AddBonus(6, new Bonus("Castles", (float multiplier) => { return playerStats.CountBuildings(4) * 5; }, (float multiplier) => { return playerStats.CountBuildings(4).ToString() + " x  5" ; }));
+                    break; 
+                case 5:
+                    if (!playerStats.coins.bonuses.ContainsKey(8))
+                        playerStats.coins.AddBonus(8, new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(6) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(6).ToString() + " x " + multiplier; }, 5f));
+                    break; 
+                case 6:
+                    if (!playerStats.coins.bonuses.ContainsKey(9))
+                        playerStats.coins.AddBonus(9, new Bonus("gold mines", (float multiplier) => { return playerStats.CountBuildings(3) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(3).ToString() + " x " + multiplier; }, 3f));
+                    break;
+
+
+            }
         }
-        GameManager.Instance.humanPlayer.stats.coins.ToString();
-      //  if (provinceStats.provinceOwnerIndex == 0) UIManager.Instance.UpdateCounters();
+        if (provinceStats.provinceOwnerIndex == 0) UIManager.Instance.UpdateCounters();
         if (provinceStats.provinceOwnerIndex != -1) UpdateLimits(provinceStats.provinceOwnerIndex);
     }
     public static void RemoveBonus(ProvinceStats provinceStats, int indexBonus)
@@ -34,12 +53,17 @@ public static class BonusManager
             case 0:
                 provinceStats.lifePoints.RemoveBonus(0);
                 provinceStats.warriors.RemoveBonus(1);
-                break;
-            case 1:
                 provinceStats.population.RemoveBonus(2);
                 break;
+            case 1:
+                break;
             case 2:
-                provinceStats.population.RemoveBonus(3);
+                provinceStats.population.RemoveBonus(4);
+                break; 
+            case 3:
+                break; 
+            case 4:
+                provinceStats.lifePoints.RemoveBonus(7);
                 break;
         }
         UpdateLimits(provinceStats.provinceOwnerIndex);

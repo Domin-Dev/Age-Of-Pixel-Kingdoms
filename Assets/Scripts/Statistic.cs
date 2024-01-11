@@ -203,6 +203,7 @@ public struct Statistic
 
     public void UpdateLimit()
     {
+        Debug.Log("up");
         if(limit < float.MaxValue && bonuses != null)
         {
             limit = 0;

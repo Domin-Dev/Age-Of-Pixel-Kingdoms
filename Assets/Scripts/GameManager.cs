@@ -195,14 +195,14 @@ public class GameManager : MonoBehaviour
 			ProvinceStats provinceStats = provinces[i];
 			if (provinceStats.buildingIndex != -1)
 			{
-				BonusManager.SetBonus(provinceStats, provinceStats.buildingIndex);
 				Transform province = map.GetChild(provinceStats.index).transform;
 				Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
 				transform.position = province.position + new Vector3(0, 0.08f, 0);
 				transform.parent = buildings;
 				transform.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex].icon;
 				transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
-			}
+                BonusManager.SetBonus(provinceStats, provinceStats.buildingIndex);
+            }
 
 			if(provinceStats.chest)
 			{

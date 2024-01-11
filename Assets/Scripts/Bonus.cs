@@ -58,7 +58,7 @@ public class Bonus
     public Bonus(string name, Func<float, float> countBonus, Func<float, string> toString)
     {
         this.multiplier = 1;
-        this.bonusValue = bonusValue;
+        this.bonusValue = 0;
         this.name = name;
         this.type = bonusType.IncreaseLimit;
         this.countBonus = countBonus;
