@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6428461378905077217}
   - component: {fileID: 5709810576191502403}
   m_Layer: 0
-  m_Name: Motivation 1
+  m_Name: Weakness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

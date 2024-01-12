@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -51,10 +52,19 @@ public class EnemyManager : MonoBehaviour
 
         foreach (var item in neighbors)
         {
-            if (index == 1) Debug.Log(item);
+            //if (index == 1) Debug.Log(item);
             if (item.y < 3f && item.x != -1)
             {
                StartCoroutine(Attack((int)item.x));
+               if (GameManager.Instance.provinces[(int)item.x].provinceOwnerIndex == index)
+                {
+                    float power = CheckPower((int)item.x);
+                    if (power > 0.3f)
+                    {
+                        if (!Recruit((int)item.x, power)) 
+                        GetStrongNeighbor((int)item.x, power);
+                    }
+               }
            //    yield return new WaitUntil(() => done);
             }
         }
@@ -150,7 +160,6 @@ public class EnemyManager : MonoBehaviour
                 if (maxPower >= enemyPower * 0.9)
                 {
                     GameManager.Instance.selectingProvinces.AutoBattle(false, value, target);
-                    Debug.Log(CheckPower(target));
                 }
                 
             }else
@@ -166,39 +175,61 @@ public class EnemyManager : MonoBehaviour
     {
         List<float2> unitsFrom = new List<float2>();
         ProvinceStats province = GameManager.Instance.provinces[from];
-        if (unitsFrom != null)
-        { 
-            for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
+        int movementPoints = (int)GameManager.Instance.GetPlayerStats(index).movementPoints.value;
+
+        if (movementPoints > 0)
+        {
+            for (int i = 0; i < province.units.Count; i++)
             {
-               if(province.units.ContainsKey(i)) unitsFrom.Add(new float2(i, province.units[i]));
+                Debug.Log(province.units[i]);
             }
 
-            int[] units = new int[powerUnits.Length];
-            while (battlePower > 0f)
+            if (unitsFrom != null && province.unitsCounter > 0)
             {
-                if (unitsFrom.Count > 0)
+                for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                 {
-                    int indexList = UnityEngine.Random.Range(0, unitsFrom.Count);
-                    int index = (int)unitsFrom[indexList].x;
+                    if (province.units.ContainsKey(i) && province.units[i] > 0) unitsFrom.Add(new float2(i, province.units[i]));
+                }
 
-                    battlePower -= powerUnits[index];
-                    units[index]++;
-                    float2 float2 = unitsFrom[indexList];
-                    float2.y--;
-                    unitsFrom[indexList] = float2;
-                    if (float2.y <= 0)
+
+
+                int[] units = new int[powerUnits.Length];
+                while (battlePower > 0f)
+                {
+                    if (unitsFrom.Count > 0 && movementPoints > 0)
                     {
-                        unitsFrom.RemoveAt(indexList);
+                        int indexList = UnityEngine.Random.Range(0, unitsFrom.Count);
+                        int index = (int)unitsFrom[indexList].x;
+
+                        battlePower -= powerUnits[index];
+                        units[index]++;
+                        float2 float2 = unitsFrom[indexList];
+                        float2.y--;
+                        unitsFrom[indexList] = float2;
+                        if (float2.y <= 0)
+                        {
+                            unitsFrom.RemoveAt(indexList);
+                        }
+                        movementPoints --;
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
-                else
+
+                Debug.Log(province.unitsCounter + "move!!!!!!!" + from + " " + to + " ");
+
+                for (int i = 0; i < units.Length; i++)
                 {
-                    break;
+                    Debug.Log(units[i]);
                 }
+
+                Debug.Log("move!!!!!!!" + from + " " + to + " ");
+
+
+                GameManager.Instance.selectingProvinces.AIMoveArray(units, from, to);
             }
-
-
-            GameManager.Instance.selectingProvinces.AIMoveArray(units, from, to);
         }
     }
 
@@ -321,5 +352,28 @@ public class EnemyManager : MonoBehaviour
         }
         value -= CountUnits(allProvinces[indexProvince]);
         return value;
+    }
+
+    private void GetStrongNeighbor(int index, float needPower)
+    {
+        ProvinceStats provinceStats = GameManager.Instance.provinces[index];
+        foreach (int item in provinceStats.neighbors)
+        {
+            ProvinceStats province = GameManager.Instance.provinces[item];
+            if(province.provinceOwnerIndex == index)
+            {
+                float value = CheckPower(item);
+                if(value < -0.5) { 
+                    Move(item, index, -value);
+                    needPower = needPower + value;
+                }
+                
+                if(needPower < 0)
+                {
+                    return;
+                }
+            }
+        }
+
     }
 }

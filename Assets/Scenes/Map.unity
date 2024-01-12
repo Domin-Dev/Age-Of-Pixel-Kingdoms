@@ -10282,11 +10282,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'lkl; \n k
+  m_text: 'mmmmmmmmmmmmmmmmmmmmmmmmm
 
-    kkkkkkkkkkk
-
-    kkkkkkkkkkkk'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af28d1fe879223a4f8bc7b562d3e075c, type: 2}
   m_sharedMaterial: {fileID: 363599970277940264, guid: af28d1fe879223a4f8bc7b562d3e075c, type: 2}
@@ -10313,7 +10311,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 35.75
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10329,7 +10327,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

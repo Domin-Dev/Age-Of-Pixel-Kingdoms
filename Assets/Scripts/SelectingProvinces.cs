@@ -943,10 +943,12 @@ public class SelectingProvinces : MonoBehaviour
             UpdateUnitNumber(map.GetChild(toIndex));
         }
     }
+
     public void AIMoveArray(int[] array, int fromIndex, int toIndex)
     {
         ProvinceStats from = GameManager.Instance.provinces[fromIndex];
         ProvinceStats to = GameManager.Instance.provinces[toIndex];
+
         int value = 0;
         for (int i = 0; i < array.Length; i++)
         {
@@ -954,10 +956,12 @@ public class SelectingProvinces : MonoBehaviour
             value += unitsNumber;
             int unitIndex = i;
 
-            Debug.Log("move!!!!!!!1");
             from.unitsCounter -= unitsNumber;
             from.units[unitIndex] -= unitsNumber;
             to.unitsCounter += unitsNumber;
+
+            Debug.Log(from.unitsCounter + " " + from.units[unitIndex] + "   " + unitsNumber);
+
 
             if (to.units != null)
             {
@@ -973,12 +977,13 @@ public class SelectingProvinces : MonoBehaviour
             }
         }
 
+        Debug.Log("from :" + from.unitsCounter);
         if (value > 0 && from.provinceOwnerIndex != to.provinceOwnerIndex) //&& to.provinceOwnerIndex == -1)
         {
             to.SetNewOwner(from.provinceOwnerIndex);
             ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
         }
-        GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(value);
+        GameManager.Instance.GetPlayerStats(from.provinceOwnerIndex).movementPoints.Subtract(value);
         UpdateUnitNumber(map.GetChild(fromIndex));
         UpdateUnitNumber(map.GetChild(toIndex));
     }
