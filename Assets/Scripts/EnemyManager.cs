@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEditor.Progress;
 
 public class EnemyManager : MonoBehaviour
@@ -10,16 +11,19 @@ public class EnemyManager : MonoBehaviour
     private PlayerStats playerStats;
     private int index;
     private EnemySettings settings;
+    private PathFinding pathFinding;
 
     List<int> provinces = new List<int>();
     List<float2> lastScan;
     List<float3> neighbors;
+    List<float2> safeProvinces;
 
     bool done;
 
     float[] powerUnits;
     public void SetUp(PlayerStats playerStats)
     {
+        this.pathFinding = new PathFinding();
         this.playerStats = playerStats;
         this.index = playerStats.index;
         powerUnits = new float[GameAssets.Instance.unitStats.Length];
@@ -46,14 +50,15 @@ public class EnemyManager : MonoBehaviour
 
         if (playerStats.warriors.value / playerStats.warriors.limit < 0.2f)
         {
-            Recruit(provinces[UnityEngine.Random.Range(0, provinces.Count)], 3f);
+           int value = UnityEngine.Random.Range(0, provinces.Count);
+            if(value < provinces.Count) Recruit(provinces[value], 3f);
           //  yield return new WaitUntil(() => done);
         }
 
         foreach (var item in neighbors)
         {
             //if (index == 1) Debug.Log(item);
-            if (item.y < 3f && item.x != -1)
+            if (item.x != -1)
             {
                StartCoroutine(Attack((int)item.x));
                if (GameManager.Instance.provinces[(int)item.x].provinceOwnerIndex == index)
@@ -68,6 +73,50 @@ public class EnemyManager : MonoBehaviour
            //    yield return new WaitUntil(() => done);
             }
         }
+
+        if(playerStats.movementPoints.value > 0)
+        {
+            safeProvinces = CheckSafeProvinces();
+            for (int i = 0; i < safeProvinces.Count; i++)
+            {
+                float2 fromProvince = safeProvinces[i];
+                if (safeProvinces[i].y < 0)
+                {
+                    ProvinceStats province = GameManager.Instance.provinces[(int)fromProvince.x];
+                    float minPower = float.MinValue;
+                    int provinceIndex = 0;
+                    foreach (int item in province.neighbors)
+                    {
+                        float value = CheckPower(item);
+                        if(value > minPower)
+                        {
+                            minPower = value;
+                            provinceIndex = item;
+                        }
+                    }
+
+                    if (minPower > 0) Move((int)fromProvince.x, provinceIndex, -fromProvince.y);
+                    else
+                    { 
+                        int helpProvince = NeedHelp((int)fromProvince.x);
+                        
+                        if (helpProvince > 0)
+                        {
+
+                            int next = pathFinding.FindPath((int)fromProvince.x, helpProvince)[0];
+                            Move((int)fromProvince.x, next, -fromProvince.y);
+                        }
+                    }
+                }
+
+                if(playerStats.movementPoints.value == 0)
+                {
+                    break;
+                }
+            }
+        }
+
+
         GameManager.Instance.ready = true;
         yield return 0;
     }
@@ -177,21 +226,14 @@ public class EnemyManager : MonoBehaviour
         ProvinceStats province = GameManager.Instance.provinces[from];
         int movementPoints = (int)GameManager.Instance.GetPlayerStats(index).movementPoints.value;
 
-        if (movementPoints > 0)
+        if (movementPoints > 0 && from != to)
         {
-            for (int i = 0; i < province.units.Count; i++)
-            {
-                Debug.Log(province.units[i]);
-            }
-
             if (unitsFrom != null && province.unitsCounter > 0)
             {
                 for (int i = 0; i < GameAssets.Instance.unitStats.Length; i++)
                 {
                     if (province.units.ContainsKey(i) && province.units[i] > 0) unitsFrom.Add(new float2(i, province.units[i]));
                 }
-
-
 
                 int[] units = new int[powerUnits.Length];
                 while (battlePower > 0f)
@@ -217,22 +259,10 @@ public class EnemyManager : MonoBehaviour
                         break;
                     }
                 }
-
-                Debug.Log(province.unitsCounter + "move!!!!!!!" + from + " " + to + " ");
-
-                for (int i = 0; i < units.Length; i++)
-                {
-                    Debug.Log(units[i]);
-                }
-
-                Debug.Log("move!!!!!!!" + from + " " + to + " ");
-
-
                 GameManager.Instance.selectingProvinces.AIMoveArray(units, from, to);
             }
         }
     }
-
     private float FindScan(int index)
     {
         foreach (float2 item in lastScan)
@@ -251,6 +281,8 @@ public class EnemyManager : MonoBehaviour
         foreach (int item in provinces)
         {
             float2 value = new float2((float)item, 0);
+            bool hasNeighbors = false;
+
 
             for (int i = 0; i < allProvinces[item].neighbors.Count; i++)
             {
@@ -259,6 +291,7 @@ public class EnemyManager : MonoBehaviour
 
                 if (owner != index)
                 {
+                    hasNeighbors = true;
                     float power = CountUnits(allProvinces[provinceIndex]);
                     if (owner != -1) value.y += power + 0.5f;
                     neighbors.Add(new float3(provinceIndex,power,item));
@@ -274,6 +307,7 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
             }
+            if (hasNeighbors) value.y += 0.5f;
             value.y -= CountUnits(allProvinces[item]);
             scan.Add(value);
         }
@@ -329,6 +363,8 @@ public class EnemyManager : MonoBehaviour
         ProvinceStats[] allProvinces = GameManager.Instance.provinces;
 
         float value = 0;
+        bool hasNeighbors = false;
+
         for (int i = 0; i < allProvinces[indexProvince].neighbors.Count; i++)
         {
             int provinceIndex = allProvinces[indexProvince].neighbors[i];
@@ -336,6 +372,7 @@ public class EnemyManager : MonoBehaviour
 
             if (owner != index)
             {
+                hasNeighbors = true;
                 float power = CountUnits(allProvinces[provinceIndex]);
                 if (owner != -1) value += power + 0.5f;
             }
@@ -350,6 +387,7 @@ public class EnemyManager : MonoBehaviour
                 }
             }
         }
+        if (hasNeighbors) value += 0.5f;
         value -= CountUnits(allProvinces[indexProvince]);
         return value;
     }
@@ -375,5 +413,42 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
+    }
+
+    private List<float2> CheckSafeProvinces()
+    {
+        List<float2> list = new List<float2>();
+        UpdateProvinces();
+        foreach (int item in provinces)
+        {
+            ProvinceStats province = GameManager.Instance.provinces[item];
+            bool isSafe = true;
+            foreach (int neighbor in province.neighbors)
+            {
+                if (GameManager.Instance.provinces[neighbor].provinceOwnerIndex != playerStats.index)
+                {
+                    isSafe = false;
+                    break;
+                }
+            }
+            if (isSafe) list.Add(new float2(province.index,CheckPower(province.index)));
+        }
+        return list;
+    }
+
+    private int NeedHelp(int index)
+    {
+
+        float max = float.MinValue;
+        int provinceIndex = -1;
+        foreach (float2 item in lastScan)
+        {
+            if(item.y > max && index != (int)item.x)
+            {              
+                max = item.y;
+                provinceIndex = (int)item.x;
+            }
+        }
+        return provinceIndex;
     }
 }

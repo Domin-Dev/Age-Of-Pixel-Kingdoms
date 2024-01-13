@@ -960,8 +960,6 @@ public class SelectingProvinces : MonoBehaviour
             from.units[unitIndex] -= unitsNumber;
             to.unitsCounter += unitsNumber;
 
-            Debug.Log(from.unitsCounter + " " + from.units[unitIndex] + "   " + unitsNumber);
-
 
             if (to.units != null)
             {
@@ -977,7 +975,6 @@ public class SelectingProvinces : MonoBehaviour
             }
         }
 
-        Debug.Log("from :" + from.unitsCounter);
         if (value > 0 && from.provinceOwnerIndex != to.provinceOwnerIndex) //&& to.provinceOwnerIndex == -1)
         {
             to.SetNewOwner(from.provinceOwnerIndex);
@@ -1122,7 +1119,7 @@ public class SelectingProvinces : MonoBehaviour
                 loser.SetNewOwner(winner.provinceOwnerIndex);
                 if (loser.chest)
                 {
-                    Debug.Log(Chest.OpenChest(GameManager.Instance.GetPlayerStats(winner.provinceOwnerIndex)));
+                    Chest.OpenChest(GameManager.Instance.GetPlayerStats(winner.provinceOwnerIndex));
                     GameManager.Instance.ClearChest(loser.index);
                 }
                 ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));

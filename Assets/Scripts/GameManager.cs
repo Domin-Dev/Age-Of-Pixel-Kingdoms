@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
         }
 		
         UpdateBotProvinces();
-		pathFinding = new PathFinding(numberOfProvinces);
+		pathFinding = new PathFinding();
 
 		ready = true;
 		readyToNextTurn = true;
@@ -434,7 +434,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void NextTurn()
 	{
-        Debug.Log(readyToNextTurn);
+
         if (readyToNextTurn)
 		{
             turn++;

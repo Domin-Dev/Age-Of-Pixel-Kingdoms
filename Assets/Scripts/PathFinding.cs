@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PathFinding 
 {
     int[] checks;
 
-    public PathFinding(int number)
+    public PathFinding()
     {
-        checks = new int[number];
+       
     }
     public List<int> FindPath(int startIndex, int targetIndex)
     {
+        checks = new int[GameManager.Instance.numberOfProvinces];
         List<int> path = new List<int>();
         checks[targetIndex] = 1;
         CheckNeighbors(targetIndex);
@@ -30,7 +32,8 @@ public class PathFinding
             path.Add(selected);
             currentProvince = selected;
         }
-        return null;
+
+        return path;
     }
     public void CheckNeighbors(int index)
     {
