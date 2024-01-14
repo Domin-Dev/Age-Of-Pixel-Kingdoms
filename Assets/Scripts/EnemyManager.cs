@@ -122,8 +122,8 @@ public class EnemyManager : MonoBehaviour
     }
     private bool Recruit(int provinceIndex, float battlePower)
     {
-      //  done = false;
-        int[] units = new int[powerUnits.Length];
+        //  done = false;
+        int[] units = LoadUnits();
         while (battlePower > 0f)
         {
               int index = UnityEngine.Random.Range(0, units.Length);
@@ -132,6 +132,19 @@ public class EnemyManager : MonoBehaviour
         }
       //  GameManager.Instance.cameraController.SetProvince(GameManager.Instance.map.GetChild(provinceIndex), () => { done = true; });
         return GameManager.Instance.selectingProvinces.AIRecruitArray(provinceIndex, units, playerStats);
+    }
+
+    private int[] LoadUnits()
+    {
+        int value = 0;
+        for (int i = 0; i < playerStats.units.Length; i++)
+        {
+            if (playerStats.units[i])
+            {
+                value = i;
+            }
+        }
+        return new int[value + 1];
     }
 
     private void Defense(int provinceIndex, float battlePower)

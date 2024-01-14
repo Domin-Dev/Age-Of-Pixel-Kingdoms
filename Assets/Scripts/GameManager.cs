@@ -270,7 +270,6 @@ public class GameManager : MonoBehaviour
 		AddBot("Green", true, Color.green, 1000, 1 + botsList.Count);
 		AddBot("Red", true, Color.red, 1000, 1 + botsList.Count);
 	}
-
 	private void AddBot(string name, bool isComputer, Color color, int startCoins, int index)
 	{
 		Player player = new GameObject(name, typeof(Player)).GetComponent<Player>();

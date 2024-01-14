@@ -952,26 +952,31 @@ public class SelectingProvinces : MonoBehaviour
         int value = 0;
         for (int i = 0; i < array.Length; i++)
         {
-            int unitsNumber = array[i];
-            value += unitsNumber;
-            int unitIndex = i;
-
-            from.unitsCounter -= unitsNumber;
-            from.units[unitIndex] -= unitsNumber;
-            to.unitsCounter += unitsNumber;
-
-
-            if (to.units != null)
+            if (array[i] > 0)
             {
-                if (to.units.ContainsKey(unitIndex))
-                    to.units[unitIndex] += unitsNumber;
+                int unitsNumber = array[i];
+                value += unitsNumber;
+                int unitIndex = i;
+
+
+ 
+                from.unitsCounter -= unitsNumber;
+                from.units[unitIndex] -= unitsNumber;
+                to.unitsCounter += unitsNumber;
+
+
+                if (to.units != null)
+                {
+                    if (to.units.ContainsKey(unitIndex))
+                        to.units[unitIndex] += unitsNumber;
+                    else
+                        to.units.Add(unitIndex, unitsNumber);
+                }
                 else
+                {
+                    to.units = new Dictionary<int, int>();
                     to.units.Add(unitIndex, unitsNumber);
-            }
-            else
-            {
-                to.units = new Dictionary<int, int>();
-                to.units.Add(unitIndex, unitsNumber);
+                }
             }
         }
 
@@ -1154,6 +1159,11 @@ public class SelectingProvinces : MonoBehaviour
     {
         time = timer;
         currentTime = 0;
+    }
+
+    private void GetResearch()
+    {
+        
     }
 
 

@@ -5,6 +5,7 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CameraController : MonoBehaviour
 {
@@ -54,6 +55,8 @@ public class CameraController : MonoBehaviour
     {
         if (target == null && !isFrozen)
         {
+           if(Input.mouseScrollDelta.y != 0) Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - Input.mouseScrollDelta.y * 0.5f, 0.5f, 3);
+
             if (Input.GetMouseButtonDown(0) && !MouseIsOverUI())
             {
                 startPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
