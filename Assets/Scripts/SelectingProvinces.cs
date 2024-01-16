@@ -560,7 +560,6 @@ public class SelectingProvinces : MonoBehaviour
     {
         if (selectedProvince != null && unitsNumber > 0)
         {
-            
             ProvinceStats provinceStats = GetProvinceStats(selectedProvince);
             provinceStats.unitsCounter += unitsNumber;
             provinceStats.population.Subtract(unitsNumber);
@@ -874,12 +873,18 @@ public class SelectingProvinces : MonoBehaviour
         {
             int max = array[i];
             UnitStats stats = GameAssets.Instance.unitStats[i];
-            int value = movementPoits / stats.movementPointsPrice;
+
+            int priceUnit = stats.price;
+            int priceMP = stats.movementPointsPrice;
+            if (playerStats.cheaperRecruitment) price = price - 5;
+            if (playerStats.movementRecruitment) priceMP = priceMP - 1;
+
+            int value = movementPoits / priceMP;
             if (value < array[i])
             {
                 if (value < max) max = value;
             }
-            movementPoits -= stats.movementPointsPrice * max;
+            movementPoits -= priceMP * max;
 
             value = warriors;
             if (value < array[i])
@@ -888,12 +893,12 @@ public class SelectingProvinces : MonoBehaviour
             }
             warriors -= max;
 
-            value = coins / stats.price;
+            value = coins / priceUnit;
             if (value < array[i])
             {
                 if (value < max) max = value;
             }
-            coins -= stats.price * max;
+            coins -= priceUnit * max;
 
             value = population;
             if (value < array[i])
@@ -903,9 +908,9 @@ public class SelectingProvinces : MonoBehaviour
             population -= max;
 
             array[i] = max;
-            mPoints += array[i] * stats.movementPointsPrice;
+            mPoints += array[i] * priceMP;
             unitsNumber += array[i];
-            price += array[i] * stats.price;
+            price += array[i] * priceUnit;
         }
 
         return array;
@@ -957,9 +962,9 @@ public class SelectingProvinces : MonoBehaviour
                 int unitsNumber = array[i];
                 value += unitsNumber;
                 int unitIndex = i;
+                
 
 
- 
                 from.unitsCounter -= unitsNumber;
                 from.units[unitIndex] -= unitsNumber;
                 to.unitsCounter += unitsNumber;

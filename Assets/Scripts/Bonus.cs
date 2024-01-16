@@ -1,7 +1,6 @@
 using System;
 
 
-
 [System.Serializable]
 public class Bonus
 {
@@ -23,14 +22,13 @@ public class Bonus
         else return answer + "<color=red>  " + value.ToString() + "</color>";
     }
 
-
     public float multiplier;
     public float bonusValue { private set; get; }
     public string name {private set; get; }
     public bonusType type { private set; get; }
 
-    public Func<float,float> countBonus { private set; get; } 
-    public Func<float,String> toString { private set; get; }
+    [NonSerialized] public Func<float, float> countBonus;
+    [NonSerialized] public Func<float, String> toString;
     public enum bonusType
     {
         Income,

@@ -16,7 +16,7 @@ public class GameData
         this.playerStats = new PlayerData [players.Length];
         for (int i = 0; i < players.Length; i++)
         {
-            this.playerStats[i] = new PlayerData(players[i]);
+             this.playerStats[i] = new PlayerData(players[i]);
         }
     }
     public ProvinceStats[] LoadProvinces()

@@ -1,10 +1,9 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditor.Progress;
+
 
 public class EnemyManager : MonoBehaviour
 {
@@ -39,6 +38,9 @@ public class EnemyManager : MonoBehaviour
     {
         UpdateProvinces();
         lastScan = Scanning();
+        Research();
+        if(UnityEngine.Random.Range(0,2) == 1) Building();
+
         foreach (float2 i in lastScan)
         {
             if (i.y > 0.5f)
@@ -463,5 +465,127 @@ public class EnemyManager : MonoBehaviour
             }
         }
         return provinceIndex;
+    }
+
+    private void Research()
+    {
+        float developmentPoints = playerStats.developmentPoints.value;
+        int researchIndex = GetResearchPath();
+        if(researchIndex >= 0) BuyResearch(researchIndex);
+    }
+
+    private int GetResearchPath()
+    {
+        List<int> paths = new List<int>();
+        for (int i = 0; i < 4; i++)
+        {
+            if (!playerStats.research[i, 5])
+            {
+                paths.Add(i);
+                if (i == 0)
+                {
+                    paths.Add(i);
+                    paths.Add(i);
+                }
+            }
+        }
+
+
+        int value = UnityEngine.Random.Range(0,paths.Count);
+        if(paths.Count > 0) return paths[value];
+        else return -1;
+    }
+
+    private void BuyResearch(int pathIndex)
+    {
+        int researchIndex = 0;
+        for (int i = 0;i < 6;i++)
+        {
+            if (!playerStats.research[pathIndex, i])
+            {
+                researchIndex = i;
+                break;
+            }
+        }
+        Research research = GameAssets.Instance.research[pathIndex,researchIndex];
+        if (playerStats.developmentPoints.CanAfford(research.price))
+        {
+            playerStats.research[pathIndex, researchIndex] = true;
+            playerStats.developmentPoints.Subtract(research.price);
+            BonusManager.AddPlayerBonus(playerStats, research.researchID);      
+
+            string text = "";
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    text += playerStats.research[i, j].ToString() + " | ";
+                }
+                text += "\n";
+            }
+         //   Debug.Log(text);
+        }
+    }
+
+    private void Building()
+    {
+        List<int> list = new List<int>();
+        for (int i = 0; i < playerStats.buildingsPermit.Length; i++)
+        {
+            if (playerStats.buildingsPermit[i]) list.Add(i);
+        }
+
+        if (list.Count > 0)
+        {
+            int provinceIndex = GetSafeProvince();
+            if (provinceIndex >= 0) Build(list[UnityEngine.Random.Range(0,list.Count)],provinceIndex);
+        }
+    }
+
+
+    private void Build(int index, int provinceIndex)
+    {
+        BuildingStats buildingStats = GameAssets.Instance.buildingsStats[index];
+        int price = buildingStats.price;
+        int priceMP = buildingStats.movementPointsPrice;
+
+        if (playerStats.cheaperBuilding) price = price - 50;
+        if (playerStats.movementBuilding) priceMP = priceMP - 5;
+
+        if (playerStats.coins.CanAfford(price))
+        {
+            if (playerStats.movementPoints.CanAfford(priceMP))
+            {
+                ProvinceStats provinceStats = GetProvince(provinceIndex);
+                provinceStats.buildingIndex = index;
+                Sounds.instance.PlaySound(1);
+                BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
+
+                GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(priceMP);
+                GameManager.Instance.humanPlayer.stats.coins.Subtract(price);
+                
+                Transform province = GameManager.Instance.map.GetChild(provinceIndex).transform;
+                Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;
+                transform.position = province.position + new Vector3(0, 0.08f, 0);
+                transform.parent = GameManager.Instance.buildings;
+                transform.GetComponent<SpriteRenderer>().sprite = buildingStats.icon;
+                transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            }
+        }
+    }
+
+    private int GetSafeProvince()
+    {
+        foreach (float2 item in lastScan)
+        {
+            if (item.y <= 0 && GetProvince((int) item.x).buildingIndex == -1) return (int)item.x;
+        }
+
+        foreach (float2 item in lastScan)
+        {
+            if ( GetProvince((int)item.x).buildingIndex == -1) return (int)item.x;
+        }
+
+        return -1;
     }
 }

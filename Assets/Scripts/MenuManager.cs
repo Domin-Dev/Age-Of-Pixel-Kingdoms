@@ -41,6 +41,12 @@ public class MenuManager : MonoBehaviour
     {
         Transform parent = saves.GetChild(1).GetChild(0).GetChild(0).transform;
         string path = Application.persistentDataPath + "/Saves";
+
+        if(!Directory.Exists(path)) 
+        {
+            Directory.CreateDirectory(path);
+        }
+
         string[] files = Directory.GetFiles(path);
         int k = files.Length;
         for (int j = 0; j < files.Length; j++)
