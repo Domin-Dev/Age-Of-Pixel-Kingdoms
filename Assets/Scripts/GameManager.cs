@@ -625,7 +625,6 @@ public class GameManager : MonoBehaviour
 		player.stats = players[0].stats.ToPlayerStats();
 		humanPlayer = player;
 
-		Debug.Log(player.stats.warriors.ToString());
 
 		for (int i = 0; i < botsList.Count; i++)
 		{;

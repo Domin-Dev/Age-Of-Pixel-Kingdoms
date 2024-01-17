@@ -1,8 +1,10 @@
+using System;
 
 [System.Serializable]
 
-public static class BonusManager
+public static class BonusManager 
 {
+
     public static void SetBonus(ProvinceStats provinceStats,int indexBonus)
     {
         PlayerStats playerStats = GameManager.Instance.GetPlayerStats(provinceStats.provinceOwnerIndex);
@@ -14,36 +16,36 @@ public static class BonusManager
                 case 0:
                    // provinceStats.lifePoints.AddBonus(0, new Bonus("Capital", 20, Bonus.bonusType.Disposable));
                   // provinceStats.warriors.AddBonus(1, new Bonus("Capital", 10, Bonus.bonusType.Disposable));
-                    if (!provinceStats.population.bonuses.ContainsKey(2)) provinceStats.population.AddBonus(2, new Bonus("Capital", 1, Bonus.bonusType.Income));
+           //         if (!provinceStats.population.bonuses.ContainsKey(2)) provinceStats.population.AddBonus(2, new Bonus("Capital", 1, Bonus.bonusType.Income));
                     break;
                 case 1:
-                    if (!playerStats.coins.bonuses.ContainsKey(200))
-                        playerStats.coins.AddBonus(3,new Bonus("Workshops", (float multiplier) => { return playerStats.CountBuildings(1) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(1).ToString() + " x " + multiplier; }, 10f));
+         //           if (!playerStats.coins.bonuses.ContainsKey(200))
+          //              playerStats.coins.AddBonus(3,new Bonus("Workshops", (float multiplier) => { return playerStats.CountBuildings(1) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(1).ToString() + " x " + multiplier; }, 10f));
                     break;
                 case 2:
-                    if (!provinceStats.population.bonuses.ContainsKey(4)) provinceStats.population.AddBonus(4, new Bonus("farm", 5, Bonus.bonusType.Income));
-                    break;
+         //           if (!provinceStats.population.bonuses.ContainsKey(4)) provinceStats.population.AddBonus(4, new Bonus("farm", 5, Bonus.bonusType.Income));
+                   break;
                 case 3:
-                    if (!playerStats.developmentPoints.bonuses.ContainsKey(5))
-                        playerStats.developmentPoints.AddBonus(5, new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(2) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(2).ToString() + " x " + multiplier; }, 5f));
+           //         if (!playerStats.developmentPoints.bonuses.ContainsKey(5))
+          //              playerStats.developmentPoints.AddBonus(5, new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(2) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(2).ToString() + " x " + multiplier; }, 5f));
                     break;
                 case 4:
-                    if (!provinceStats.lifePoints.bonuses.ContainsKey(7)) provinceStats.lifePoints.AddBonus(7, new Bonus("Castle", 10, Bonus.bonusType.Disposable));
+           //         if (!provinceStats.lifePoints.bonuses.ContainsKey(7)) provinceStats.lifePoints.AddBonus(7, new Bonus("Castle", 10, Bonus.bonusType.Disposable));
 
-                    if (!playerStats.warriors.bonuses.ContainsKey(6))
-                        playerStats.warriors.AddBonus(6, new Bonus("Castles", (float multiplier) => { return playerStats.CountBuildings(4) * 5; }, (float multiplier) => { return playerStats.CountBuildings(4).ToString() + " x  5" ; }));
+            //        if (!playerStats.warriors.bonuses.ContainsKey(6))
+             //           playerStats.warriors.AddBonus(6, new Bonus("Castles", (float multiplier) => { return playerStats.CountBuildings(4) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(4).ToString() + " x " + multiplier ; },5f));
                     break; 
                 case 5:
-                    if (!playerStats.coins.bonuses.ContainsKey(8))
-                        playerStats.coins.AddBonus(8, new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(6) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(6).ToString() + " x " + multiplier; }, 5f));
+             //       if (!playerStats.coins.bonuses.ContainsKey(8))
+              //          playerStats.coins.AddBonus(8, new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(6) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(6).ToString() + " x " + multiplier; }, 5f));
                     break; 
                 case 6:
-                    if (!playerStats.coins.bonuses.ContainsKey(9))
-                        playerStats.coins.AddBonus(9, new Bonus("gold mines", (float multiplier) => { return playerStats.CountBuildings(3) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(3).ToString() + " x " + multiplier; }, 3f));
+             //       if (!playerStats.coins.bonuses.ContainsKey(9))
+              //          playerStats.coins.AddBonus(9, new Bonus("gold mines", (float multiplier) => { return playerStats.CountBuildings(3) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(3).ToString() + " x " + multiplier; }, 3f));
                     break;
                 case 7:
                     if (!playerStats.developmentPoints.bonuses.ContainsKey(9))
-                        playerStats.developmentPoints.AddBonus(9, new Bonus("Ancient ruins", (float multiplier) => { return playerStats.CountBuildings(5) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(5).ToString() + " x " + multiplier; }, 3f));
+                        playerStats.developmentPoints.AddBonus(9, new Bonus(5,"Ancient ruins", playerStats.GetFunc(5), playerStats.GetStringFunc(5), 3f));
                     break;
 
 
@@ -74,7 +76,7 @@ public static class BonusManager
         }
         UpdateLimits(provinceStats.provinceOwnerIndex);
     }
-    public static void AddPlayerBonus(PlayerStats playerStats,int bonusIndex)
+    public static  void AddPlayerBonus(PlayerStats playerStats,int bonusIndex)
     {
         switch(bonusIndex)
         {

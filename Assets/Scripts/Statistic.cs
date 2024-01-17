@@ -143,7 +143,7 @@ public struct Statistic
         {
             limit += bonus.bonusValue;
         }  
-        else
+        else if(bonus.type != Bonus.bonusType.DependentIncome)
         {
             turnIncome += bonus.bonusValue;
         }
@@ -161,7 +161,7 @@ public struct Statistic
             {
                 value -= bonus.bonusValue;
             }
-            else
+            else if(bonus.type != Bonus.bonusType.DependentIncome)
             {
                 turnIncome -= bonus.bonusValue;
             }

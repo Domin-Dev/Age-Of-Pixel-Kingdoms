@@ -27,8 +27,8 @@ public class Bonus
     public string name {private set; get; }
     public bonusType type { private set; get; }
 
-    [NonSerialized] public Func<float, float> countBonus;
-    [NonSerialized] public Func<float, String> toString;
+    public Func<float, float> countBonus;
+    public Func<float, String> toString;
     public enum bonusType
     {
         Income,
@@ -45,7 +45,18 @@ public class Bonus
 
     public Bonus(string name,Func<float,float> countBonus, Func<float,string> toString, float multiplier)
     {
-        this.bonusValue = 0;
+        this.bonusValue = -1;
+        this.name = name;
+        this.type = bonusType.DependentIncome;
+        this.countBonus = countBonus;
+        this.toString = toString;
+        this.multiplier = multiplier;
+    }
+
+
+    public Bonus(int buildingIndex,string name, Func<float, float> countBonus, Func<float, string> toString, float multiplier)
+    {
+        this.bonusValue = buildingIndex;
         this.name = name;
         this.type = bonusType.DependentIncome;
         this.countBonus = countBonus;

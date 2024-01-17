@@ -1,6 +1,8 @@
 
 
-[System.Serializable]
+using System;
+
+[Serializable]
 public class PlayerStats
 {
     public Statistic coins;
@@ -138,7 +140,6 @@ public class PlayerStats
         }
         return cost;
     }
-
     public int CountBuildings(int buildingIndex)
     {
         int output = 0;
@@ -189,5 +190,15 @@ public class PlayerStats
     public bool CanBuild(int index)
     {
         return buildingsPermit[index];
+    }
+
+    public Func<float,float> GetFunc(int buildingIndex)
+    {
+        return (float multiplier) => { return CountBuildings(buildingIndex) * multiplier; };
+    }
+
+    public Func<float, string> GetStringFunc(int buildingIndex)
+    {
+        return (float multiplier) => { return CountBuildings(buildingIndex).ToString() + " x " + multiplier; };
     }
 }
