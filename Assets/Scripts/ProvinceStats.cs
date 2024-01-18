@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance.VisualScripting;
 
 [System.Serializable]
 public class ProvinceStats
@@ -56,8 +57,9 @@ public class ProvinceStats
         index = provinceStats.index;
 
         GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex,out float coins, out float people);
-        population.AddBonus(-100, new Bonus("Taxes", (float multiplier) => { return (int)population.value * multiplier; }, (float multiplier) => { return  ((int)population.value).ToString() + Icons.GetIcon("Population") + " x " + multiplier; },people));
-        population.AddBonus(-200, new Bonus("Base income", (float multiplier) => { return 0.1f; }, (float multiplier) => { return ""; }, 0f));
+        population.AddBonus(-11, this);
+        population.bonuses[-11].multiplier = people;
+        population.AddBonus(-12, this);
 
 
         if (provinceOwnerIndex == -1 && !isSea)
@@ -105,7 +107,7 @@ public class ProvinceStats
             GameManager.Instance.humanPlayer.stats.warriors.limit += warriors.value;
             GameManager.Instance.humanPlayer.stats.movementPoints.limit += movementPoints.value;
             GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex, out float coins, out float people);
-            population.bonuses[-100].multiplier = people;
+            population.bonuses[-11].multiplier = people;
             if(buildingIndex != -1) BonusManager.SetBonus(this, GameAssets.Instance.buildingsStats[buildingIndex].bonusIndex);
             UIManager.Instance.UpdateCounters();
         }
@@ -115,7 +117,7 @@ public class ProvinceStats
             GameManager.Instance.botsList[index -1].stats.movementPoints.limit += movementPoints.value;
             GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.botsList[index - 1].stats.texesIndex, out float coins, out float people);
             if (buildingIndex != -1) BonusManager.SetBonus(this, GameAssets.Instance.buildingsStats[buildingIndex].bonusIndex);
-            population.bonuses[-100].multiplier = people;
+            population.bonuses[-11].multiplier = people;
         }
 
         if (lastOwner >= 0)

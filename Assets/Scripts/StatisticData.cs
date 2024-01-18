@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 
 [System.Serializable]
 public class StatisticData 
@@ -22,7 +21,7 @@ public class StatisticData
             foreach (var item in statistic.bonuses)
             {
                 BonusData bonusData = new BonusData(item.Value);
-                bonuses.Add(item.Key,bonusData);
+                bonuses.Add(item.Key, bonusData);
             }
         }
         this.description = statistic.description;
@@ -43,8 +42,8 @@ public class StatisticData
                 if (item.Value.type == Bonus.bonusType.DependentIncome && item.Value.bonusValue >= 0)
                 {
                     UnityEngine.Debug.Log("git");
-                    item.Value.countBonus = playerStats.GetFunc((int)item.Value.bonusValue);
-                    item.Value.toString = playerStats.GetStringFunc((int)item.Value.bonusValue);
+                //    item.Value.countBonus = playerStats.GetFunc((int)item.Value.bonusValue);
+               //     item.Value.toString = playerStats.GetStringFunc((int)item.Value.bonusValue);
                 }
                 statistic.bonuses.Add(item.Key, item.Value.ToBonus());
             }
@@ -53,7 +52,7 @@ public class StatisticData
         statistic.icon = this.icon; 
         return statistic;
     }
-
+  
     public Statistic ToStatistic()
     {
         Statistic statistic = new Statistic();

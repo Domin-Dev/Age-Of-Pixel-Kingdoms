@@ -73,7 +73,6 @@ public struct Statistic
             if(item.type == Bonus.bonusType.DependentIncome)
             {
                 income += item.countBonus(item.multiplier);
-              //  Debug.Log(item.countBonus(item.multiplier) + " "+ item.multiplier );
             }
 
         }
@@ -133,8 +132,9 @@ public struct Statistic
         return(int)(limit - value);
     }
 
-    public void AddBonus(int index,Bonus bonus)
+    public void AddBonus(int index, PlayerStats playerStats)
     {
+        Bonus bonus = BonusManager.GetBonus(index,playerStats,null);
         if(bonus.type == Bonus.bonusType.Disposable)
         {
             value += bonus.bonusValue;
@@ -149,6 +149,25 @@ public struct Statistic
         }
 
         bonuses.Add(index,bonus);
+    }
+
+    public void AddBonus(int index, ProvinceStats provinceStats)
+    {
+        Bonus bonus = BonusManager.GetBonus(index,null, provinceStats);
+        if (bonus.type == Bonus.bonusType.Disposable)
+        {
+            value += bonus.bonusValue;
+        }
+        else if (bonus.type == Bonus.bonusType.IncreaseLimit)
+        {
+            limit += bonus.bonusValue;
+        }
+        else if (bonus.type != Bonus.bonusType.DependentIncome)
+        {
+            turnIncome += bonus.bonusValue;
+        }
+
+        bonuses.Add(index, bonus);
     }
 
     public void RemoveBonus(int index)

@@ -56,10 +56,10 @@ public class PlayerStatsData
     public PlayerStats ToPlayerStats()
     {
         PlayerStats playerStats = new PlayerStats();
-        playerStats.coins = coins.ToStatistic(playerStats);
-        playerStats.warriors = warriors.ToStatistic(playerStats);
-        playerStats.developmentPoints = developmentPoints.ToStatistic(playerStats);
-        playerStats.movementPoints = movementPoints.ToStatistic(playerStats);
+        playerStats.coins = coins.ToStatistic();
+        playerStats.warriors = warriors.ToStatistic();
+        playerStats.developmentPoints = developmentPoints.ToStatistic();
+        playerStats.movementPoints = movementPoints.ToStatistic();
 
         playerStats.buildingsPermit = buildingsPermit;
         playerStats.research = research;
