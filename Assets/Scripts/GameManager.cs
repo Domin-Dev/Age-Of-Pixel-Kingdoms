@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
 	const string mapsPath = "Assets/Resources/Maps/";
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
 
 	public Action load;
 	private bool isChest;
+
+	public Action<int> updateReward;
 	private void Awake()
 	{
         if (Instance == null)
@@ -433,10 +436,10 @@ public class GameManager : MonoBehaviour
 	}
 	public void NextTurn()
 	{
-
         if (readyToNextTurn)
 		{
             turn++;
+			updateReward((int)humanPlayer.stats.coins.CountIncome());
 			StartCoroutine(BotsNextTurn());
 
 			humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
@@ -488,13 +491,17 @@ public class GameManager : MonoBehaviour
 		readyToNextTurn = false;
 		foreach (Player bot in botsList)
 		{
-			yield return new WaitUntil(() => ready);
-			ready = false;
-			PlayerStats playerStats = bot.stats;
-			playerStats.movementPoints.Set(playerStats.movementPoints.limit);
-			playerStats.developmentPoints.NextTurn();
-			playerStats.coins.NextTurn();
-			bot.RunEnemyManager();
+			if (bot.isComputer)
+			{
+				Debug.Log(bot.playerName);
+				yield return new WaitUntil(() => ready);
+				ready = false;
+				PlayerStats playerStats = bot.stats;
+				playerStats.movementPoints.Set(playerStats.movementPoints.limit);
+				playerStats.developmentPoints.NextTurn();
+				playerStats.coins.NextTurn();
+				bot.RunEnemyManager();
+			}
 		}
 		readyToNextTurn = true;
 		UpdateBotDebuger();
@@ -622,9 +629,10 @@ public class GameManager : MonoBehaviour
 		player.name = players[0].playerName;
 		player.isComputer = false;
 		player.playerColor = GetColor(players[0].playerColor);
-		player.stats = players[0].stats.ToPlayerStats();
+		
+	    players[0].stats.ToPlayerStats(ref player.stats);
 		humanPlayer = player;
-
+		player = null;
 
 		for (int i = 0; i < botsList.Count; i++)
 		{;
@@ -638,14 +646,16 @@ public class GameManager : MonoBehaviour
 			player.transform.parent = this.players;
 			player.index = players[i].index;
 			player.name = players[i].playerName + "1" ;
+			player.playerName = players[i].playerName;
 			player.isComputer = true;
 			player.playerColor = GetColor(players[i].playerColor);
-			player.stats = players[i].stats.ToPlayerStats();
-			player.EnemyManagerSetUp();
+            players[i].stats.ToPlayerStats(ref player.stats);
+            player.EnemyManagerSetUp();
 			botsList.Add(player);
 		}
 
-		UpdateBotDebuger();
+
+        UpdateBotDebuger();
 		UIManager.Instance.UpdateCounters();
         UIManager.Instance.UpdateTurnCounter();
 		UIManager.Instance.LoadSpells();

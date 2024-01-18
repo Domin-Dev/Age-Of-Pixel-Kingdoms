@@ -135,6 +135,8 @@ public struct Statistic
     public void AddBonus(int index, PlayerStats playerStats)
     {
         Bonus bonus = BonusManager.GetBonus(index,playerStats,null);
+        bonus.bonusIndex = index;
+
         if(bonus.type == Bonus.bonusType.Disposable)
         {
             value += bonus.bonusValue;
@@ -154,6 +156,8 @@ public struct Statistic
     public void AddBonus(int index, ProvinceStats provinceStats)
     {
         Bonus bonus = BonusManager.GetBonus(index,null, provinceStats);
+        bonus.bonusIndex = index;
+
         if (bonus.type == Bonus.bonusType.Disposable)
         {
             value += bonus.bonusValue;

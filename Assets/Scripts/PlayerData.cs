@@ -23,7 +23,7 @@ public class PlayerData
     public Player ToPlayer()
     {
         Player player = new Player();
-        player.stats = this.stats.ToPlayerStats();
+        this.stats.ToPlayerStats(ref player.stats);
         Color color = new Color(playerColor[0], playerColor[1], playerColor[2], playerColor[3]);
         player.SetUp(playerName, isComputer, color, -1, index);
         return player;

@@ -824,39 +824,43 @@ public class SelectingProvinces : MonoBehaviour
     }
     public bool AIRecruitArray(int provinceIndex, int[] array, PlayerStats playerStats)
     {
-        ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
-        int unitsNumber, price, movementPoints;
-        array = ArrayCount(array, out unitsNumber, out movementPoints, out price, playerStats, provinceStats);
-
-        provinceStats.unitsCounter += unitsNumber;
-        provinceStats.population.Subtract(unitsNumber);
-        playerStats.coins.Subtract(price);
-        playerStats.movementPoints.Subtract(movementPoints);
-        playerStats.warriors.Add(unitsNumber);
-        if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
-
-        for (int i = 0; i < array.Length; i++)
+        if (provinceIndex < GameManager.Instance.provinces.Length)
         {
-            if (provinceStats.units.ContainsKey(i))
+            ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
+            int unitsNumber, price, movementPoints;
+            array = ArrayCount(array, out unitsNumber, out movementPoints, out price, playerStats, provinceStats);
+
+            provinceStats.unitsCounter += unitsNumber;
+            provinceStats.population.Subtract(unitsNumber);
+            playerStats.coins.Subtract(price);
+            playerStats.movementPoints.Subtract(movementPoints);
+            playerStats.warriors.Add(unitsNumber);
+            if (provinceStats.units == null) provinceStats.units = new Dictionary<int, int>();
+
+            for (int i = 0; i < array.Length; i++)
             {
-                provinceStats.units[i] += array[i];
+                if (provinceStats.units.ContainsKey(i))
+                {
+                    provinceStats.units[i] += array[i];
+                }
+                else
+                {
+                    provinceStats.units.Add(i, array[i]);
+                }
             }
-            else
+
+            Transform provinceTransform = map.GetChild(provinceIndex);
+            if (provinceTransform.childCount == 0 && unitsNumber > 0)
             {
-                provinceStats.units.Add(i, array[i]);
+                Instantiate(GameAssets.Instance.unitCounter, provinceTransform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, provinceTransform);
             }
+
+            if (unitsNumber > 0) provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
+
+            if (unitsNumber == 0) return false;
+            else return true;
         }
-
-        Transform provinceTransform = map.GetChild(provinceIndex);
-        if (provinceTransform.childCount == 0 && unitsNumber > 0)
-        {
-            Instantiate(GameAssets.Instance.unitCounter, provinceTransform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, provinceTransform);
-        }
-
-        if (unitsNumber > 0) provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
-
-        if (unitsNumber == 0) return false;
-        else return true;
+        return false;
     }
     private int[] ArrayCount(int[] array, out int unitsNumber, out int mPoints, out int price, PlayerStats playerStats, ProvinceStats provinceStats)
     {

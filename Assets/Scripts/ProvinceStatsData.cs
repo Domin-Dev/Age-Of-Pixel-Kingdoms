@@ -39,10 +39,10 @@ public class ProvinceStatsData
     public ProvinceStats ToProvinceStats()
     {
         ProvinceStats provinceStats = new ProvinceStats();
-        provinceStats.lifePoints = this.lifePoints.ToStatistic();
-        provinceStats.population = this.population.ToStatistic();
-        provinceStats.warriors = this.warriors.ToStatistic();
-        provinceStats.movementPoints = this.movementPoints.ToStatistic();
+        provinceStats.lifePoints = this.lifePoints.ToStatistic(provinceStats);
+        provinceStats.population = this.population.ToStatistic(provinceStats);
+        provinceStats.warriors = this.warriors.ToStatistic(provinceStats);
+        provinceStats.movementPoints = this.movementPoints.ToStatistic(provinceStats);
 
         provinceStats.index = this.index;
         provinceStats.isSea = this.isSea;

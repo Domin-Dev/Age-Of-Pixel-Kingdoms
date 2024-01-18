@@ -10,6 +10,11 @@ public class Player : MonoBehaviour
     public PlayerStats stats;
     private EnemyManager enemyManager;
     public int index;
+
+    public Player()
+    {
+        stats = new PlayerStats();
+    }
     public void SetUp(string playerName, bool isComputer, Color playerColor, int startCoins, int index)
     {
         if(startCoins >= 0)

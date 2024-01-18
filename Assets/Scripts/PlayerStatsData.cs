@@ -17,7 +17,7 @@ public class PlayerStatsData
     public int texesIndex;
     public int researchIndex;
 
-    public int index { private set; get; }
+    public int index;
 
     public bool taxManagement;
     public bool researchManagement;
@@ -46,6 +46,8 @@ public class PlayerStatsData
         this.taxManagement = playerStats.taxManagement;
         this.researchManagement = playerStats.researchManagement;
 
+        this.index = playerStats.index;
+
         this.cheaperBuilding = playerStats.cheaperBuilding;
         this.cheaperRecruitment = playerStats.cheaperRecruitment;
         this.movementBuilding = playerStats.movementBuilding;
@@ -53,13 +55,13 @@ public class PlayerStatsData
         
     }
 
-    public PlayerStats ToPlayerStats()
+    public void ToPlayerStats(ref PlayerStats playerStats)
     {
-        PlayerStats playerStats = new PlayerStats();
-        playerStats.coins = coins.ToStatistic();
-        playerStats.warriors = warriors.ToStatistic();
-        playerStats.developmentPoints = developmentPoints.ToStatistic();
-        playerStats.movementPoints = movementPoints.ToStatistic();
+
+        playerStats.coins = coins.ToStatistic(playerStats);
+        playerStats.warriors = warriors.ToStatistic(playerStats);
+        playerStats.developmentPoints = developmentPoints.ToStatistic(playerStats);
+        playerStats.movementPoints = movementPoints.ToStatistic(playerStats);
 
         playerStats.buildingsPermit = buildingsPermit;
         playerStats.research = research;
@@ -80,6 +82,5 @@ public class PlayerStatsData
         playerStats.movementBuilding = movementBuilding;
         playerStats.movementRecruitment = movementRecruitment;
 
-        return playerStats;
     }
 }

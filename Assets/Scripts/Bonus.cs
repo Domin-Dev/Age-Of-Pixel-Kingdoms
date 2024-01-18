@@ -22,6 +22,8 @@ public class Bonus
         else return answer + "<color=red>  " + value.ToString() + "</color>";
     }
 
+    public int bonusIndex;
+
     public float multiplier;
     public float bonusValue { private set; get; }
     public string name {private set; get; }

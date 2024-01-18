@@ -10,19 +10,10 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
 
     [SerializeField] RewardedAdsButton rewardedAdsButton;
 
-    static public AdsInitializer Instance { get; private set; }
-    void Awake()
+    void Start()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }else
-        {
-            Destroy(Instance);
-        }
-
+        if (Advertisement.isInitialized) rewardedAdsButton.LoadAd();
         InitializeAds();
-        DontDestroyOnLoad(gameObject);
     }
 
     public void InitializeAds()

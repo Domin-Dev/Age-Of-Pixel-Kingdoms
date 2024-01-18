@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
+using TMPro;
 
 public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
@@ -9,7 +10,11 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
     string _adUnitId = null; // This will remain null for unsupported platforms
 
-    void Awake()
+    public int reward;
+    TextMeshProUGUI _text;
+
+
+    void Start()
     {
         // Get the Ad Unit ID for the current platform:
 #if UNITY_IOS
@@ -19,7 +24,20 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
 #endif
 
         // Disable the button until the ad is ready to show:
+        _showAdButton.gameObject.SetActive(false);
         _showAdButton.interactable = false;
+        _text = _showAdButton.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        GameManager.Instance.updateReward = (int value) => { UpdateReward(value); };
+        UpdateReward(100);
+    }
+
+
+
+
+    public void UpdateReward(int value)
+    {
+        reward = 4 * value;
+        _text.text = "+ " + reward.ToString() + " " +Icons.GetIcon("Coin");
     }
 
     // Call this public method when you want to get an ad ready to show.
@@ -38,9 +56,10 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         if (adUnitId.Equals(_adUnitId))
         {
             // Configure the button to call the ShowAd() method when clicked:
+            _showAdButton.interactable = true;
+            _showAdButton.gameObject.SetActive(true);
             _showAdButton.onClick.AddListener(ShowAd);
             // Enable the button for users to click:
-            _showAdButton.interactable = true;
         }
     }
 
@@ -49,6 +68,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     {
         // Disable the button:
         _showAdButton.interactable = false;
+        _showAdButton.gameObject.SetActive(false);
         // Then show the ad:
         Advertisement.Show(_adUnitId, this);
     }
@@ -59,6 +79,9 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("Unity Ads Rewarded Ad Completed");
+            Debug.Log(reward);
+            GameManager.Instance.humanPlayer.stats.coins.Add(reward);
+            LoadAd();
             // Grant a reward.
         }
     }

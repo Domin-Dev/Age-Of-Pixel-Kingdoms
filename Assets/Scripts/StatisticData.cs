@@ -27,7 +27,7 @@ public class StatisticData
         this.description = statistic.description;
         this.icon = statistic.icon;
     }
-
+  
     public Statistic ToStatistic(PlayerStats playerStats)
     {
         Statistic statistic = new Statistic();
@@ -39,21 +39,19 @@ public class StatisticData
         {
             foreach (var item in bonuses)
             {
-                if (item.Value.type == Bonus.bonusType.DependentIncome && item.Value.bonusValue >= 0)
-                {
-                    UnityEngine.Debug.Log("git");
-                //    item.Value.countBonus = playerStats.GetFunc((int)item.Value.bonusValue);
-               //     item.Value.toString = playerStats.GetStringFunc((int)item.Value.bonusValue);
-                }
-                statistic.bonuses.Add(item.Key, item.Value.ToBonus());
+                Bonus bonus = item.Value.ToBonus();
+                Bonus newBonus = BonusManager.GetBonus(bonus.bonusIndex,playerStats,null);
+                newBonus.multiplier = bonus.multiplier;
+                newBonus.bonusIndex = bonus.bonusIndex;
+                statistic.bonuses.Add(item.Key,newBonus);
             }
         }
         statistic.description = this.description;
-        statistic.icon = this.icon; 
+        statistic.icon = this.icon;
         return statistic;
     }
-  
-    public Statistic ToStatistic()
+
+    public Statistic ToStatistic(ProvinceStats provinceStats)
     {
         Statistic statistic = new Statistic();
         statistic.value = this.value;
@@ -65,7 +63,10 @@ public class StatisticData
             foreach (var item in bonuses)
             {
                 Bonus bonus = item.Value.ToBonus();
-                statistic.bonuses.Add(item.Key,bonus);
+                Bonus newBonus = BonusManager.GetBonus(bonus.bonusIndex,null,provinceStats);
+                newBonus.multiplier = bonus.multiplier;
+                newBonus.bonusIndex = bonus.bonusIndex;
+                statistic.bonuses.Add(item.Key, newBonus);
             }
         }
         statistic.description = this.description;

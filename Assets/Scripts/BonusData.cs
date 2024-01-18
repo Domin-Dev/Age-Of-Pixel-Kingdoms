@@ -1,10 +1,8 @@
 ﻿
-
-using System;
-
 [System.Serializable]
 public class BonusData 
 {
+    public int bonusIndex;
     public float multiplier;
     public float bonusValue;
     public string name;
@@ -13,6 +11,7 @@ public class BonusData
 
     public BonusData(Bonus bonus)
     {
+        this.bonusIndex = bonus.bonusIndex;
         this.multiplier = bonus.multiplier;
         this.bonusValue = bonus.bonusValue;
         this.name = bonus.name;
@@ -21,6 +20,7 @@ public class BonusData
     public Bonus ToBonus()
     {
         Bonus bonus = new Bonus(name, bonusValue, type);
+        bonus.bonusIndex = this.bonusIndex;
         bonus.multiplier = this.multiplier;
         return bonus;
     }
