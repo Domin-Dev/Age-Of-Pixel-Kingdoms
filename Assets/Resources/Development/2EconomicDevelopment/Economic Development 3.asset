@@ -16,4 +16,4 @@ MonoBehaviour:
   description: Recruitment is 5 [Coin] cheaper.
   image: {fileID: 21300000, guid: 84d45e2f6142c01429eb570e7cb0bf24, type: 3}
   researchID: 15
-  price: 2103
+  price: 150

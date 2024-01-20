@@ -16,4 +16,4 @@ MonoBehaviour:
   description: '[DevelopmentPoint]+1[Turn]'
   image: {fileID: 21300000, guid: 9b2106727faa00d4ba589dec1a11335f, type: 3}
   researchID: 6
-  price: 100
+  price: 50

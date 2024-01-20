@@ -16,4 +16,4 @@ MonoBehaviour:
   description: +20 [MovementPoint]
   image: {fileID: 21300000, guid: 6543f73de37f91142ac26fce333d8204, type: 3}
   researchID: 23
-  price: 2103
+  price: 300

@@ -76,11 +76,11 @@ public class ProvinceStats
         if (!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)
         {
             this.units = new Dictionary<int, int>();
-            if (Random.Range(0, 2) != 0)
-            {
-                for (int i = 0; i < 5; i++)
+         //   if (Random.Range(0, 4) != 0)
+         //   {
+                for (int i = 0; i < 4; i++)
                 {
-                    int number = Random.Range(0, 4);
+                    int number = Random.Range(0, 3);
                     int unitIndex = Random.Range(0, GameAssets.Instance.unitStats.Length);
                     if (units.ContainsKey(unitIndex))
                     {
@@ -94,7 +94,7 @@ public class ProvinceStats
                     unitsCounter = unitsCounter + number;
                 }
                 GameManager.Instance.UpdateUnitCounter(this.index);
-            }
+          //  }
         }
     }
     public void SetNewOwner(int index)

@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 	public string saveName;
 
 	public bool ready;
-	private bool readyToNextTurn;
+	public bool readyToNextTurn;
 
 	public static GameManager Instance;
 	public CameraController cameraController;
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 	public Action<int> updateReward;
 	private void Awake()
 	{
-        if (Instance == null)
+		if (Instance == null)
 		{
 			Instance = this;
 			isPlaying = true;
@@ -57,13 +57,13 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
-            Destroy(this.gameObject);
+			Destroy(this.gameObject);
 		}
 	}
 
 	private void Start()
 	{
-        if (!toLoad && isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
+		if (!toLoad && isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
 		{
 			isPlaying = false;
 			SetUp();
@@ -71,14 +71,14 @@ public class GameManager : MonoBehaviour
 	}
 
 	int indexbot = 0;
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			indexbot = 0;
 		}
 
-		if(Input.GetKeyDown(KeyCode.Alpha2))
+		if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
 			indexbot = 1;
 		}
@@ -88,30 +88,43 @@ public class GameManager : MonoBehaviour
 			indexbot = 2;
 		}
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-			Debug.Log((indexbot +1) + " - " + botsList[indexbot].stats.coins.GetDetails());
-        }
+		if (Input.GetKeyDown(KeyCode.Z))
+		{
+			Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.coins.GetDetails());
+		}
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.developmentPoints.GetDetails());
-        }
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.developmentPoints.GetDetails());
+		}
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.warriors.GetDetails());
-        }
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.warriors.GetDetails());
+		}
 
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.movementPoints.GetDetails());
-        }
+		if (Input.GetKeyDown(KeyCode.V))
+		{
+			Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.movementPoints.GetDetails());
+		}
 
 
-    }
+	}
 
-    private void OnLevelWasLoaded(int level)
+	private void SetCamera()
+	{
+		for (int i = 0; i < provinces.Length; i++)
+		{
+			if (provinces[i].provinceOwnerIndex == 0)
+			{
+                Vector3 vector3 = map.GetChild(provinces[i].index).transform.position;
+                vector3.z = Camera.main.transform.position.z;
+                Camera.main.transform.position = vector3;
+            }
+	}
+}
+
+private void OnLevelWasLoaded(int level)
 	{
         if (level == 2 && Instance == this)
 		{
@@ -135,8 +148,10 @@ public class GameManager : MonoBehaviour
                     UIManager.Instance.OpenChest(-1);
 					isChest= false;
                 }
-            }		
-		}else if(level ==0)
+            }
+            SetCamera();
+        }
+        else if(level ==0)
 		{
 			isPlaying = true;
 		 if(players !=null)Destroy(players.gameObject);
@@ -269,9 +284,9 @@ public class GameManager : MonoBehaviour
 	}
 	private void LoadBots()
 	{
-		AddBot("Yellow", true, Color.yellow, 1000, 1 + botsList.Count);
-		AddBot("Green", true, Color.green, 1000, 1 + botsList.Count);
-		AddBot("Red", true, Color.red, 1000, 1 + botsList.Count);
+		AddBot("Yellow", true, Color.yellow, 200, 1 + botsList.Count);
+		AddBot("Green", true, Color.green, 200, 1 + botsList.Count);
+		AddBot("Red", true, Color.red, 200, 1 + botsList.Count);
 	}
 	private void AddBot(string name, bool isComputer, Color color, int startCoins, int index)
 	{
@@ -286,7 +301,7 @@ public class GameManager : MonoBehaviour
         if (humanPlayer != null) Destroy(humanPlayer.gameObject);
         Player player = new GameObject("Human", typeof(Player)).GetComponent<Player>();
 		player.transform.parent = players;
-		player.SetUp("Player", false, Color.blue, 10000, 0);
+		player.SetUp("Player", false, Color.blue, 200, 0);
 		humanPlayer = player;
 	}
 	private void UpdateBotProvinces()
@@ -493,7 +508,6 @@ public class GameManager : MonoBehaviour
 		{
 			if (bot.isComputer)
 			{
-				Debug.Log(bot.playerName);
 				yield return new WaitUntil(() => ready);
 				ready = false;
 				PlayerStats playerStats = bot.stats;
@@ -539,12 +553,12 @@ public class GameManager : MonoBehaviour
 				peopleIncome = 0.01f;
 				break;
 			case 3:
-				coinsIncome = 0.1f;
+				coinsIncome = 0.075f;
 				peopleIncome = 0.00f;
 				break;
 			case 4:
 				coinsIncome = 0.15f;
-				peopleIncome = -0.01f;
+				peopleIncome = -0.015f;
 				break;
 		}
 	}
@@ -559,20 +573,20 @@ public class GameManager : MonoBehaviour
 				developmentIncome = 0f;
 				break;
 			case 1:
-				coinsIncome = -0.0005f;
-				developmentIncome = 0.75f;
+				coinsIncome = -0.005f;
+				developmentIncome = 0.1f;
 				break;
 			case 2:
-				coinsIncome = -0.001f;
-				developmentIncome = 0.5f;
+				coinsIncome = -0.01f;
+				developmentIncome = 0.3f;
 				break;
 			case 3:
 				coinsIncome = -0.015f;
-				developmentIncome = 0;
+				developmentIncome = 0.4f;
 				break;
 			case 4:
-				coinsIncome = -0.002f;
-				developmentIncome = -0.25f;
+				coinsIncome = -0.025f;
+				developmentIncome = 0.75f;
 				break;
 		}
 	}

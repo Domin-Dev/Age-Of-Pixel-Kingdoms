@@ -16,4 +16,4 @@ MonoBehaviour:
   description: +5[Warrior] +10[Life]  building price:100[Coin] 20[MovementPoint]
   image: {fileID: 21300000, guid: ee76166b431571449b2bec9d107c7658, type: 3}
   researchID: 19
-  price: 2103
+  price: 75

@@ -74,7 +74,7 @@ public static class BonusManager
             case -6:
                 return new Bonus("Provinces", (float multiplier) => { return playerStats.GetWarriors(); }, (float multiplier) => { return ""; });
             case -7:
-                return new Bonus("Base income", 10f, Bonus.bonusType.Income);
+                return new Bonus("Base income", 30f, Bonus.bonusType.Income);
             case -8:
                 return new Bonus("Research", (float multiplier) => { return playerStats.GetPopulation() * multiplier; }, (float multiplier) => { return playerStats.GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.09f);
             case -9:

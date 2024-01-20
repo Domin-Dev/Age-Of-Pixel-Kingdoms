@@ -15,7 +15,7 @@ MonoBehaviour:
   <spellName>k__BackingField: Ice
   <description>k__BackingField: 'cooldown: 10 sec. decreases the movement speed of
     enemy units by 75%'
-  <price>k__BackingField: 200
+  <price>k__BackingField: 300
   <spell>k__BackingField: {fileID: 4119237403362366220, guid: 13cb3d90dd931394988171b8e46edd23, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: 3ec7c727fb5a42a49af8d2a228af956d, type: 3}
   <timeToReload>k__BackingField: 2

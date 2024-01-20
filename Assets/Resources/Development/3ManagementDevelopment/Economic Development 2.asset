@@ -16,4 +16,4 @@ MonoBehaviour:
   description: Recruitment is 1 [MovementPoint] cheaper.
   image: {fileID: 21300000, guid: 699f5ee70b9b3ac4c9e5a4d0444fde7d, type: 3}
   researchID: 20
-  price: 2103
+  price: 100

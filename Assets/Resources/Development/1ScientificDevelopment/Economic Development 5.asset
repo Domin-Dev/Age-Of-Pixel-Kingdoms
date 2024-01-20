@@ -16,4 +16,4 @@ MonoBehaviour:
   description: unlocks the spell slot.
   image: {fileID: 21300000, guid: f200e86bca123a24aa6660ddee4c9713, type: 3}
   researchID: 11
-  price: 2103
+  price: 300

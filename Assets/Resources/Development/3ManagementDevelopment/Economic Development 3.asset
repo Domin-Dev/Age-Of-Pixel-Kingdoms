@@ -16,4 +16,4 @@ MonoBehaviour:
   description: provides the ability to manage taxes
   image: {fileID: 21300000, guid: 6e152bc68a396d34399d872b680fc5af, type: 3}
   researchID: 21
-  price: 2103
+  price: 150

@@ -16,4 +16,4 @@ MonoBehaviour:
   description: Adds new unit for recruitment
   image: {fileID: 21300000, guid: efdd19c64aeb0ea4687d8a7235129986, type: 3}
   researchID: 3
-  price: 1000
+  price: 150

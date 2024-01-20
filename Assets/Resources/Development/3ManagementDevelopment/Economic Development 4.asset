@@ -16,4 +16,4 @@ MonoBehaviour:
   description: buildings are 5 [MovementPoint] cheaper.
   image: {fileID: 21300000, guid: b44a47fa8dfc13c45a6794bdc660ced4, type: 3}
   researchID: 22
-  price: 2103
+  price: 200

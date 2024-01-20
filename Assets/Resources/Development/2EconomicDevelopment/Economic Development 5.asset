@@ -16,4 +16,4 @@ MonoBehaviour:
   description: '[Coin]+100[Turn]'
   image: {fileID: 21300000, guid: e16cfcfab984c8947acf37289c5abf4c, type: 3}
   researchID: 17
-  price: 2103
+  price: 300

@@ -9,18 +9,18 @@ public static class Chest
         int value = Random.Range(1, 101);
         if(Check(value,1,20))
         {
-            playerStats.coins.Add(400);
-            return "+ 400" + Icons.GetIcon("Coin");
+            playerStats.coins.Add(100);
+            return "+ 100" + Icons.GetIcon("Coin");
         }
         else if (Check(value, 21, 30))
         {
-            playerStats.coins.Add(1000);
-            return "+ 1000" + Icons.GetIcon("Coin");
+            playerStats.coins.Add(400);
+            return "+ 400" + Icons.GetIcon("Coin");
         }
         else if (Check(value, 31, 35))
         {
-            playerStats.coins.Add(2000);
-            return "+ 2000" + Icons.GetIcon("Coin");
+            playerStats.coins.Add(1000);
+            return "+ 1000" + Icons.GetIcon("Coin");
         }
         else if (Check(value, 36, 55))
         {
@@ -34,8 +34,8 @@ public static class Chest
         }
         else if (Check(value, 66, 70))
         {
-            playerStats.developmentPoints.Add(250);
-            return "+ 250" + Icons.GetIcon("DevelopmentPoint");
+            playerStats.developmentPoints.Add(200);
+            return "+ 200" + Icons.GetIcon("DevelopmentPoint");
         }
         else if(Check(value, 71, 90))
         {

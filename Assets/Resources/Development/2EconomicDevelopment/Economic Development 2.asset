@@ -16,4 +16,4 @@ MonoBehaviour:
   description: buildings are 50 [Coin] cheaper.
   image: {fileID: 21300000, guid: bb7c6369fd54a4c49843ea1ec292557d, type: 3}
   researchID: 14
-  price: 2103
+  price: 100

@@ -178,7 +178,7 @@ public class SelectingProvinces : MonoBehaviour
                                 }
                                 else
                                 {
-                                    UIManager.Instance.LoadUnitsAttack(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name));
+                                    UIManager.Instance.LoadUnitsAttack(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name), null);
                                 }
 
                             }

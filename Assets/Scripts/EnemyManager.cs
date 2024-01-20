@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 public class EnemyManager : MonoBehaviour
@@ -36,7 +37,6 @@ public class EnemyManager : MonoBehaviour
 
     public IEnumerator NextTurnFunction()
     {
-        Debug.Log("dziala!" + index);
         UpdateProvinces();
         lastScan = Scanning();
         Research();
@@ -222,7 +222,13 @@ public class EnemyManager : MonoBehaviour
             if (maxPower > 0)
             {
                 GameManager.Instance.cameraController.SetProvince(GameManager.Instance.map.GetChild(target), () => { done = true; });
-                if (maxPower >= enemyPower * 0.9)
+                if(provinceStats.provinceOwnerIndex == 0 && provinceStats.unitsCounter > 0)
+                {
+                    bool ready = false;
+                    UIManager.Instance.LoadUnitsAttack(provinceStats.index, value,() => { ready = true;});
+                    yield return new WaitUntil(() => ready);        
+                }
+                else if (maxPower >= enemyPower * 0.9)
                 {
                     GameManager.Instance.selectingProvinces.AutoBattle(false, value, target);
                 }

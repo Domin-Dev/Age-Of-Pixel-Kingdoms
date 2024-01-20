@@ -15,7 +15,7 @@ MonoBehaviour:
   <spellName>k__BackingField: Assault
   <description>k__BackingField: 'cooldown: 10 sec. Increases the movement speed of
     units by 50%.'
-  <price>k__BackingField: 200
+  <price>k__BackingField: 100
   <spell>k__BackingField: {fileID: 3791460835019037400, guid: 5bccc2fdc99f42d4a8fc5f19ecb4fbfb, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: 81c222a499c9d824ab5a8e0710fc4a65, type: 3}
   <timeToReload>k__BackingField: 7

@@ -474,19 +474,28 @@ public class UIManager : MonoBehaviour
         selectingProvinces.moveHalf2.GetComponentInChildren<TextMeshProUGUI>().text = (x / 2).ToString() + Icons.GetIcon("MovementPoint");
         unitsWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
     }
-    public void LoadUnitsAttack(int yourProvinceIndex, int enemyProvinceIndex)
+    public void LoadUnitsAttack(int yourProvinceIndex, int enemyProvinceIndex,Action action)
     {
         OpenUIWindow("Battle", 0);
+
+
+        if (action != null)
+        {
+            battleWindow.GetChild(0).GetChild(0).gameObject.SetActive(false);
+            GameManager.Instance.readyToNextTurn = false;
+        }
+        else battleWindow.GetChild(0).GetChild(0).gameObject.SetActive(true);
+
         battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + yourProvinceIndex.ToString();
         LoadProvinceUnitCounters(yourProvinceIndex, gameAssets.AttackUnitContentUI1, false);
 
         Button button = battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => { GameManager.Instance.Battle(yourProvinceIndex,enemyProvinceIndex,true); });
+        button.onClick.AddListener(() => {if(action != null) GameManager.Instance.readyToNextTurn = true;  GameManager.Instance.Battle(yourProvinceIndex,enemyProvinceIndex,true); });
 
         button =  battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => { GameManager.Instance.selectingProvinces.AutoBattle(true,yourProvinceIndex, enemyProvinceIndex); });
+        button.onClick.AddListener(() => { if (action != null) { GameManager.Instance.readyToNextTurn = true; action(); } GameManager.Instance.selectingProvinces.AutoBattle(true,yourProvinceIndex, enemyProvinceIndex); });
 
 
         battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + enemyProvinceIndex.ToString();

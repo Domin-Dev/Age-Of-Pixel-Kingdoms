@@ -16,4 +16,4 @@ MonoBehaviour:
   description: '[Coin]+5[Turn]  building price:100[Coin] 20[MovementPoint]'
   image: {fileID: 21300000, guid: 105cef2b6ca39c74697fbab5e5353531, type: 3}
   researchID: 16
-  price: 2103
+  price: 200

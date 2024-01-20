@@ -510,11 +510,11 @@ public class UnitsManager : MonoBehaviour
             GameManager.Instance.SetBattleResult(true);
         }
 
-        infoWindow.GetChild(0).GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = yourUnitCount.ToString() + " <sprite index=0>\n" +
-            (startYourUnits - yourUnitCount).ToString() + " <sprite index=20>";
-        infoWindow.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnitCount.ToString() + " <sprite index=0>\n" +
-            (startEnemyUnits - enemyUnitCount).ToString() + " <sprite index=20>";
-        infoWindow.GetChild(0).GetChild(2).GetComponent<Button>().onClick.AddListener(() => {Sounds.instance.PlaySound(5); SceneManager.LoadScene(2); });
+      //  infoWindow.GetChild(0).GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = yourUnitCount.ToString() + " <sprite index=0>\n" +
+   //         (startYourUnits - yourUnitCount).ToString() + " <sprite index=20>";
+   //     infoWindow.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnitCount.ToString() + " <sprite index=0>\n" +
+   //         (startEnemyUnits - enemyUnitCount).ToString() + " <sprite index=20>";
+        infoWindow.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() => {Sounds.instance.PlaySound(5); SceneManager.LoadScene(2); });
     }
     private void CountUnits()
     {
