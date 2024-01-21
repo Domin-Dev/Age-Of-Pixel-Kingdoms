@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
-
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     }
     [SerializeField] private Transform provinceStatsWindow;
 
+
+    [SerializeField] private Transform background;
     [SerializeField] private Transform recruitmentWindow;
     [SerializeField] private Transform selectionNumberUnitsWindow;
     [SerializeField] private Transform buildingsWindow;
@@ -482,11 +484,14 @@ public class UIManager : MonoBehaviour
         if (action != null)
         {
             battleWindow.GetChild(0).GetChild(0).gameObject.SetActive(false);
+            background.gameObject.SetActive(true);
             GameManager.Instance.readyToNextTurn = false;
+
         }
         else battleWindow.GetChild(0).GetChild(0).gameObject.SetActive(true);
 
         battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + yourProvinceIndex.ToString();
+        battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<color=#"+ GameManager.Instance.humanPlayer.playerColor.ToHexString() +">" + GameManager.Instance.humanPlayer.playerName;
         LoadProvinceUnitCounters(yourProvinceIndex, gameAssets.AttackUnitContentUI1, false);
 
         Button button = battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>();
@@ -498,7 +503,9 @@ public class UIManager : MonoBehaviour
         button.onClick.AddListener(() => { if (action != null) { GameManager.Instance.readyToNextTurn = true; action(); } GameManager.Instance.selectingProvinces.AutoBattle(true,yourProvinceIndex, enemyProvinceIndex); });
 
 
+        int index = GameManager.Instance.provinces[enemyProvinceIndex].provinceOwnerIndex;
         battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + enemyProvinceIndex.ToString();
+        battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<color=#" + GameManager.Instance.botsList[index - 1].playerColor.ToHexString() + ">" + GameManager.Instance.botsList[index -1].playerName;
         LoadProvinceUnitCounters(enemyProvinceIndex, gameAssets.AttackUnitContentUI2, false);
     }
     public void CloseUIWindow(string name)
@@ -531,6 +538,9 @@ public class UIManager : MonoBehaviour
         {
             CloseUIWindow("SelectionNumberUnits");
             selectingProvinces.ResetUnits();
+        }else if(name == "Battle")
+        {
+            background.gameObject.SetActive(false);
         }
 
 

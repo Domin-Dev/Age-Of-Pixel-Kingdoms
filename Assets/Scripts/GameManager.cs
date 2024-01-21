@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 	private bool isChest;
 
 	public Action<int> updateReward;
+
+	public int lastPlayer;
 	private void Awake()
 	{
 		if (Instance == null)
@@ -509,6 +511,7 @@ private void OnLevelWasLoaded(int level)
 			if (bot.isComputer)
 			{
 				yield return new WaitUntil(() => ready);
+				lastPlayer = bot.index;
 				ready = false;
 				PlayerStats playerStats = bot.stats;
 				playerStats.movementPoints.Set(playerStats.movementPoints.limit);

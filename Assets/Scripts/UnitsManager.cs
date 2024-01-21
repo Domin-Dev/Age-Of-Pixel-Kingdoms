@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
-
+using Unity.VisualScripting;
 
 public class UnitsManager : MonoBehaviour
 {
@@ -128,6 +128,10 @@ public class UnitsManager : MonoBehaviour
         {
             yourColor = GameManager.Instance.GetPlayerColor(0);
             enemyColor = GameManager.Instance.GetPlayerColor(GameManager.Instance.GetEnemyIndex());
+
+            int index = GameManager.Instance.GetEnemyIndex();
+            GameAssets.Instance.battleEnemyBar.parent.GetComponent<TextMeshProUGUI>().text = "<color=#" + GameManager.Instance.botsList[index - 1].playerColor.ToHexString() + ">" + GameManager.Instance.botsList[index - 1].playerName;
+            GameAssets.Instance.battleYourBar.parent.GetComponent<TextMeshProUGUI>().text = "<color=#" + GameManager.Instance.humanPlayer.playerColor.ToHexString() + ">" + GameManager.Instance.humanPlayer.playerName; ;
         }
     }
     private void Update()
