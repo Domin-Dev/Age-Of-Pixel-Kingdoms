@@ -53,8 +53,12 @@ public class GameManager : MonoBehaviour
 	public Action showAD;
 
 	public int lastPlayer;
+
+	public bool warFog {private set; get; }
+
 	private void Awake()
 	{
+		warFog = true;
 		if (Instance == null)
 		{
 			Instance = this;
@@ -72,6 +76,7 @@ public class GameManager : MonoBehaviour
 		if (!toLoad && isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
 		{
 			isPlaying = false;
+			lastPlayer = -1;
 			SetUp();
 		}
 	}
@@ -164,7 +169,8 @@ private void OnLevelWasLoaded(int level)
                 }
             }
             SetCamera();
-
+			ready = true;
+			StartCoroutine(ContinueTurn());
         }
         else if(level ==0)
 		{
@@ -221,6 +227,7 @@ private void OnLevelWasLoaded(int level)
 		List<int> list = new List<int>();
 		for(int i = 0; i < provinces.Length; i++)
 		{
+			UpdateUnitCounter(i);
 			if (!provinces[i].isSea)list.Add(i);
 		}
 
@@ -245,7 +252,8 @@ private void OnLevelWasLoaded(int level)
             }
 
             selectingProvinces.ChangeProvinceColor(map.GetChild(value).GetComponent<SpriteRenderer>(), GetPlayerColor(provinces[value].provinceOwnerIndex));
-        }
+			if(i == 0) UpdateNeighbors(value);
+		}
 		
         UpdateBotProvinces();
 		pathFinding = new PathFinding();
@@ -516,7 +524,46 @@ private void OnLevelWasLoaded(int level)
 		}
 	}
 
-	IEnumerator BotsNextTurn()
+
+	IEnumerator ContinueTurn()
+	{
+		if (lastPlayer > 0)
+		{
+			Debug.Log("dziala");
+			readyToNextTurn = false;
+			ready = true;
+
+			for (int i = lastPlayer - 1; i < botsList.Count; i++)
+			{
+				Debug.Log(i);
+				Player bot = botsList[i];
+				if (bot.isComputer)
+				{
+					yield return new WaitUntil(() => ready);
+					if (lastPlayer == bot.index)
+					{
+						ready = false;
+					}
+					else
+					{
+						lastPlayer = bot.index;
+						ready = false;
+						PlayerStats playerStats = bot.stats;
+						playerStats.movementPoints.Set(playerStats.movementPoints.limit);
+						playerStats.developmentPoints.NextTurn();
+						playerStats.coins.NextTurn();
+					}
+
+					bot.RunEnemyManager();
+				}
+			}
+			lastPlayer = -1;
+			readyToNextTurn = true;
+			UpdateBotDebuger();
+		}
+    }
+
+    IEnumerator BotsNextTurn()
 	{
 		readyToNextTurn = false;
 		foreach (Player bot in botsList)
@@ -538,6 +585,8 @@ private void OnLevelWasLoaded(int level)
 		UpdateBotDebuger();
 		yield return 0;
 	}
+
+
 	public void UpdateBotDebuger()
 	{
 		string debugtext = "";
@@ -730,6 +779,35 @@ private void OnLevelWasLoaded(int level)
 		if (index == 0) return humanPlayer.stats;
 		else if (index > 0 && index <= botsList.Count) return botsList[index - 1].stats;
 		else return null;
+    }
+
+	public void StopNewTurn()
+	{
+		StopAllCoroutines();
+	}
+
+	public bool CanBeShow(int index)
+	{
+		ProvinceStats province = provinces[index];
+		if (province.provinceOwnerIndex == 0) return true;
+		for (int i = 0; i < province.neighbors.Count; i++)
+		{ 
+			ProvinceStats neighbor = provinces[province.neighbors[i]];
+			if(neighbor.provinceOwnerIndex == 0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+    public void UpdateNeighbors(int index)
+    {
+		ProvinceStats province = provinces[index];
+		foreach (int item in province.neighbors)
+		{
+			UpdateUnitCounter(item);
+		}
     }
 }
 

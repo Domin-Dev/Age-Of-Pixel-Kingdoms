@@ -178,7 +178,7 @@ public class SelectingProvinces : MonoBehaviour
                                 }
                                 else
                                 {
-                                    UIManager.Instance.LoadUnitsAttack(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name), null);
+                                    UIManager.Instance.LoadUnitsAttack(int.Parse(selectedProvince.name), int.Parse(item.collider.gameObject.name), null,true);
                                 }
 
                             }
@@ -645,7 +645,7 @@ public class SelectingProvinces : MonoBehaviour
         if (unitsNumber > 0 && from.provinceOwnerIndex != to.provinceOwnerIndex) //&& to.provinceOwnerIndex == -1)
         {
             to.SetNewOwner(from.provinceOwnerIndex);
-            if (to.chest) UIManager.Instance.OpenChest(to.index);
+            if(to.chest) UIManager.Instance.OpenChest(to.index);
             ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
         }
         UIManager.Instance.OpenUIWindow("ProvinceStats", to.index);
@@ -663,7 +663,15 @@ public class SelectingProvinces : MonoBehaviour
             return;
         }
         if (province.childCount > 0) province.GetChild(0).GetComponentInChildren<TextMeshPro>().text = number.ToString();
+
+        if(GameManager.Instance.warFog && province.childCount > 0)
+        {
+           bool value = GameManager.Instance.CanBeShow(int.Parse(province.name));
+           province.GetChild(0).gameObject.SetActive(value);
+        }
     }
+
+
     private void MoveAll(int provinceNumber)
     {
         UIManager.Instance.CloseUIWindow("SelectionNumberUnits");
@@ -824,7 +832,7 @@ public class SelectingProvinces : MonoBehaviour
     }
     public bool AIRecruitArray(int provinceIndex, int[] array, PlayerStats playerStats)
     {
-        if (provinceIndex < GameManager.Instance.provinces.Length)
+        if (provinceIndex < GameManager.Instance.provinces.Length && provinceIndex >= 0)
         {
             ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
             int unitsNumber, price, movementPoints;
@@ -849,13 +857,20 @@ public class SelectingProvinces : MonoBehaviour
                 }
             }
 
-            Transform provinceTransform = map.GetChild(provinceIndex);
+
+            if(unitsNumber > 0)
+            {
+                GameManager.Instance.UpdateUnitCounter(provinceIndex);
+            }
+            
+          /*  Transform provinceTransform = map.GetChild(provinceIndex);
             if (provinceTransform.childCount == 0 && unitsNumber > 0)
             {
                 Instantiate(GameAssets.Instance.unitCounter, provinceTransform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, provinceTransform);
             }
 
             if (unitsNumber > 0) provinceTransform.GetChild(0).GetComponentInChildren<TextMeshPro>().text = provinceStats.unitsCounter.ToString();
+          */
 
             if (unitsNumber == 0) return false;
             else return true;
@@ -1000,6 +1015,7 @@ public class SelectingProvinces : MonoBehaviour
     }
     public void AutoBattle(bool isPlayer, int aggressorProvinceIndex, int defenderProvinceIndex)
     {
+        bool isOpenChest = false;
         ProvinceStats aggressor = GameManager.Instance.provinces[aggressorProvinceIndex];
         ProvinceStats defender = GameManager.Instance.provinces[defenderProvinceIndex];
         if (aggressor.unitsCounter > 0)
@@ -1130,11 +1146,20 @@ public class SelectingProvinces : MonoBehaviour
             winner.unitsCounter = number;
             if (winner.index == aggressorProvinceIndex)
             {
+                Debug.Log(winner.provinceOwnerIndex);
                 loser.SetNewOwner(winner.provinceOwnerIndex);
                 if (loser.chest)
                 {
-                    Chest.OpenChest(GameManager.Instance.GetPlayerStats(winner.provinceOwnerIndex));
-                    GameManager.Instance.ClearChest(loser.index);
+                    if (winner.provinceOwnerIndex != 0)
+                    {
+                        Chest.OpenChest(GameManager.Instance.GetPlayerStats(winner.provinceOwnerIndex));
+                        GameManager.Instance.ClearChest(loser.index);
+                    }
+                    else
+                    {
+                        isOpenChest = true;
+                        UIManager.Instance.OpenChest(loser.index);
+                    }
                 }
                 ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));
             }
@@ -1147,8 +1172,11 @@ public class SelectingProvinces : MonoBehaviour
         if (isPlayer)
         {
             UIManager.Instance.UpdateCounters();
-            UIManager.Instance.CloseUIWindow("ProvinceStats");
-            UIManager.Instance.CloseUIWindow("Battle");
+            if(!isOpenChest)
+            { 
+              UIManager.Instance.CloseUIWindow("ProvinceStats");
+              UIManager.Instance.CloseUIWindow("Battle");
+            }
         }
         Sounds.instance.PlaySound(8);
         SetBattleIcon(aggressorProvinceIndex, defenderProvinceIndex);
@@ -1170,10 +1198,7 @@ public class SelectingProvinces : MonoBehaviour
         currentTime = 0;
     }
 
-    private void GetResearch()
-    {
-        
-    }
+
 
 
 }

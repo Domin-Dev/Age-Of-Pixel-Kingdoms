@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using Unity.Mathematics;
 using UnityEngine;
 using static UnityEditor.Progress;
@@ -55,16 +56,19 @@ public class EnemyManager : MonoBehaviour
         {
            int value = UnityEngine.Random.Range(0, provinces.Count);
             if(value < provinces.Count) Recruit(provinces[value], 3f);
-          //  yield return new WaitUntil(() => done);
+          // yield return new WaitUntil(() => done);
         }
 
-        foreach (var item in neighbors)
+        for (int i = 0; i < neighbors.Count; i++)
         {
+            float3 item = neighbors[i];
+           
             //if (index == 1) Debug.Log(item);
             if (item.x != -1)
             {
                StartCoroutine(Attack((int)item.x));
-               if (GameManager.Instance.provinces[(int)item.x].provinceOwnerIndex == index)
+               yield return new WaitUntil(() => done);
+                if (GameManager.Instance.provinces[(int)item.x].provinceOwnerIndex == index)
                 {
                     float power = CheckPower((int)item.x);
                     if (power > 0.3f)
@@ -215,18 +219,18 @@ public class EnemyManager : MonoBehaviour
             if (enemyPower > maxPower * 1.1f || maxPower == 0)
             {
                 Recruit(value, enemyPower - maxPower);
-                yield return new WaitForSeconds(1);
             }
 
             RemoveNeighbor(index);
             if (maxPower > 0)
             {
-                GameManager.Instance.cameraController.SetProvince(GameManager.Instance.map.GetChild(target), () => { done = true; });
+            //    GameManager.Instance.cameraController.SetProvince(GameManager.Instance.map.GetChild(target), () => { done = true; });
                 if(provinceStats.provinceOwnerIndex == 0 && provinceStats.unitsCounter > 0)
                 {
                     bool ready = false;
-                    UIManager.Instance.LoadUnitsAttack(provinceStats.index, value,() => { ready = true;});
-                    yield return new WaitUntil(() => ready);        
+                    UIManager.Instance.LoadUnitsAttack(provinceStats.index, value,() => { ready = true;},false);
+
+                    yield return new WaitUntil(() => ready);
                 }
                 else if (maxPower >= enemyPower * 0.9)
                 {
@@ -241,6 +245,7 @@ public class EnemyManager : MonoBehaviour
         {
             done = true;
         }
+        done = true;
     }
     private void Move(int from,int to, float battlePower)
     {

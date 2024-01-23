@@ -476,7 +476,7 @@ public class UIManager : MonoBehaviour
         selectingProvinces.moveHalf2.GetComponentInChildren<TextMeshProUGUI>().text = (x / 2).ToString() + Icons.GetIcon("MovementPoint");
         unitsWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex2.ToString();
     }
-    public void LoadUnitsAttack(int yourProvinceIndex, int enemyProvinceIndex,Action action)
+    public void LoadUnitsAttack(int yourProvinceIndex, int enemyProvinceIndex,Action action, bool youAttack)
     {
         OpenUIWindow("Battle", 0);
 
@@ -486,7 +486,7 @@ public class UIManager : MonoBehaviour
             battleWindow.GetChild(0).GetChild(0).gameObject.SetActive(false);
             background.gameObject.SetActive(true);
             GameManager.Instance.readyToNextTurn = false;
-
+            GameManager.Instance.StopNewTurn();
         }
         else battleWindow.GetChild(0).GetChild(0).gameObject.SetActive(true);
 
@@ -494,18 +494,34 @@ public class UIManager : MonoBehaviour
         battleWindow.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<color=#"+ GameManager.Instance.humanPlayer.playerColor.ToHexString() +">" + GameManager.Instance.humanPlayer.playerName;
         LoadProvinceUnitCounters(yourProvinceIndex, gameAssets.AttackUnitContentUI1, false);
 
+
+
+
+        int aggressorProvinceIndex;
+        int defenderProvinceIndex;
+
+        if(youAttack)
+        {
+            aggressorProvinceIndex = yourProvinceIndex;
+            defenderProvinceIndex = enemyProvinceIndex;
+        }else
+        {
+            aggressorProvinceIndex = enemyProvinceIndex;
+            defenderProvinceIndex = yourProvinceIndex;
+        }
+
         Button button = battleWindow.GetChild(2).GetChild(1).GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => {if(action != null) GameManager.Instance.readyToNextTurn = true;  GameManager.Instance.Battle(yourProvinceIndex,enemyProvinceIndex,true); });
+        button.onClick.AddListener(() => {if(action != null) GameManager.Instance.readyToNextTurn = true;  GameManager.Instance.Battle(yourProvinceIndex,enemyProvinceIndex,youAttack); });
 
         button =  battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => { if (action != null) { GameManager.Instance.readyToNextTurn = true; action(); } GameManager.Instance.selectingProvinces.AutoBattle(true,yourProvinceIndex, enemyProvinceIndex); });
+        button.onClick.AddListener(() => { if (action != null) { GameManager.Instance.readyToNextTurn = true; action(); } GameManager.Instance.selectingProvinces.AutoBattle(true,aggressorProvinceIndex, defenderProvinceIndex); });
 
 
         int index = GameManager.Instance.provinces[enemyProvinceIndex].provinceOwnerIndex;
         battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Province " + enemyProvinceIndex.ToString();
-        battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<color=#" + GameManager.Instance.botsList[index - 1].playerColor.ToHexString() + ">" + GameManager.Instance.botsList[index -1].playerName;
+        if(index != -1) battleWindow.GetChild(1).GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<color=#" + GameManager.Instance.botsList[index - 1].playerColor.ToHexString() + ">" + GameManager.Instance.botsList[index -1].playerName;
         LoadProvinceUnitCounters(enemyProvinceIndex, gameAssets.AttackUnitContentUI2, false);
     }
     public void CloseUIWindow(string name)
@@ -1003,6 +1019,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenChest(int index)
     {
+        Debug.Log("chest!!!");
         Sounds.instance.PlaySound(17);
         OpenUIWindow("Research", 0);
         GameManager.Instance.ClearChest(index);

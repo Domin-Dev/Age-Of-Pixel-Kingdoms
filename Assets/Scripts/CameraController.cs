@@ -101,10 +101,6 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SetProvince(GameManager.Instance.map.GetChild(10).transform,() => { });
-        }
     }
 
     private bool MouseIsOverUI()

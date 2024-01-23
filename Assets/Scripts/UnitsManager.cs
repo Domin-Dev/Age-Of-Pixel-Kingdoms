@@ -130,7 +130,8 @@ public class UnitsManager : MonoBehaviour
             enemyColor = GameManager.Instance.GetPlayerColor(GameManager.Instance.GetEnemyIndex());
 
             int index = GameManager.Instance.GetEnemyIndex();
-            GameAssets.Instance.battleEnemyBar.parent.GetComponent<TextMeshProUGUI>().text = "<color=#" + GameManager.Instance.botsList[index - 1].playerColor.ToHexString() + ">" + GameManager.Instance.botsList[index - 1].playerName;
+            if (index != -1) GameAssets.Instance.battleEnemyBar.parent.GetComponent<TextMeshProUGUI>().text = "<color=#" + GameManager.Instance.botsList[index - 1].playerColor.ToHexString() + ">" + GameManager.Instance.botsList[index - 1].playerName;
+            else GameAssets.Instance.battleEnemyBar.parent.GetComponent<TextMeshProUGUI>().text = "<color=#3b3b3b>" + "no owner";
             GameAssets.Instance.battleYourBar.parent.GetComponent<TextMeshProUGUI>().text = "<color=#" + GameManager.Instance.humanPlayer.playerColor.ToHexString() + ">" + GameManager.Instance.humanPlayer.playerName; ;
         }
     }

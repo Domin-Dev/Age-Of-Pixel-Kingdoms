@@ -42,7 +42,7 @@ public class ProvinceStats
     }
     public void CopyData(ProvinceStats provinceStats)
     {
-        population = new Statistic(Random.Range(100, 120), "Population");
+        population = new Statistic(Random.Range(50, 70), "Population");
 
         lifePoints = new Statistic(10, "LifePoint");
         warriors = new Statistic(5, "Warrior");
@@ -76,8 +76,8 @@ public class ProvinceStats
         if (!provinceStats.isSea && provinceStats.provinceOwnerIndex == -1)
         {
             this.units = new Dictionary<int, int>();
-         //   if (Random.Range(0, 4) != 0)
-         //   {
+          //  if (Random.Range(0, 1) != 0)
+           // {
                 for (int i = 0; i < 4; i++)
                 {
                     int number = Random.Range(0, 3);
@@ -93,8 +93,8 @@ public class ProvinceStats
 
                     unitsCounter = unitsCounter + number;
                 }
-                GameManager.Instance.UpdateUnitCounter(this.index);
-          //  }
+            //    GameManager.Instance.UpdateUnitCounter(this.index);
+           // }
         }
     }
     public void SetNewOwner(int index)
@@ -104,6 +104,7 @@ public class ProvinceStats
         if (lastOwner > 0) GameManager.Instance.botsList[lastOwner - 1].UpdateProvinces();
         if (index == 0)
         {
+            GameManager.Instance.UpdateNeighbors(this.index);
             GameManager.Instance.humanPlayer.stats.warriors.limit += warriors.value;
             GameManager.Instance.humanPlayer.stats.movementPoints.limit += movementPoints.value;
             GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.humanPlayer.stats.texesIndex, out float coins, out float people);
@@ -124,6 +125,7 @@ public class ProvinceStats
         {
             if (lastOwner == 0)
             {
+                GameManager.Instance.UpdateNeighbors(this.index);
                 GameManager.Instance.humanPlayer.stats.warriors.limit -= warriors.value;
                 GameManager.Instance.humanPlayer.stats.movementPoints.limit -= movementPoints.value;
                 UIManager.Instance.UpdateCounters();
