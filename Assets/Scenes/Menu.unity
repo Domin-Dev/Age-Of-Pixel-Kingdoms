@@ -965,7 +965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 292.5, y: -305.28738}
+  m_AnchoredPosition: {x: 292.5, y: -305.28735}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196716862
@@ -4548,7 +4548,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 927.4999, y: -305.28738}
+  m_AnchoredPosition: {x: 927.4999, y: -305.28735}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1312715614
@@ -5965,7 +5965,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMap: 
   saveName: 
+  adTime: 900
+  timer: 0
   ready: 0
+  readyToNextTurn: 0
   cameraController: {fileID: 0}
   provinces: []
   numberOfProvinces: 0
@@ -5977,6 +5980,7 @@ MonoBehaviour:
   selectingProvinces: {fileID: 0}
   isPlaying: 1
   toLoad: 0
+  lastPlayer: 0
 --- !u!4 &1785781255
 Transform:
   m_ObjectHideFlags: 0

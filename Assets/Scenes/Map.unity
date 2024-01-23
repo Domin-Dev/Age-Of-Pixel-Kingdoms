@@ -263,6 +263,7 @@ MonoBehaviour:
   _iOSGameId: 5477788
   _testMode: 1
   rewardedAdsButton: {fileID: 16366169}
+  interstitialAdExample: {fileID: 16366170}
 --- !u!4 &16366172
 Transform:
   m_ObjectHideFlags: 0
@@ -10052,6 +10053,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMap: World
   saveName: 
+  adTime: 0
+  timer: 0
   ready: 0
   readyToNextTurn: 0
   cameraController: {fileID: 0}
@@ -10065,6 +10068,7 @@ MonoBehaviour:
   selectingProvinces: {fileID: 0}
   isPlaying: 1
   toLoad: 0
+  lastPlayer: 0
 --- !u!4 &762762222
 Transform:
   m_ObjectHideFlags: 0

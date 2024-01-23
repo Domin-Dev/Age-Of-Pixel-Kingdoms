@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
 	public string currentMap = "World";
 	public string saveName;
 
+	[SerializeField]float adTime;
+    [SerializeField] float timer = 0;
+
 	public bool ready;
 	public bool readyToNextTurn;
 
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
 	private bool isChest;
 
 	public Action<int> updateReward;
+	public Action showAD;
 
 	public int lastPlayer;
 	private void Awake()
@@ -75,6 +79,16 @@ public class GameManager : MonoBehaviour
 	int indexbot = 0;
 	private void Update()
 	{
+		if (showAD != null)
+		{
+			timer = timer + Time.deltaTime;
+			if (timer >= adTime)
+			{
+				timer = 0;
+				showAD();
+			}
+		}
+
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			indexbot = 0;
@@ -109,8 +123,6 @@ public class GameManager : MonoBehaviour
 		{
 			Debug.Log((indexbot + 1) + " - " + botsList[indexbot].stats.movementPoints.GetDetails());
 		}
-
-
 	}
 
 	private void SetCamera()
@@ -152,6 +164,7 @@ private void OnLevelWasLoaded(int level)
                 }
             }
             SetCamera();
+
         }
         else if(level ==0)
 		{
@@ -520,6 +533,7 @@ private void OnLevelWasLoaded(int level)
 				bot.RunEnemyManager();
 			}
 		}
+		lastPlayer = -1;
 		readyToNextTurn = true;
 		UpdateBotDebuger();
 		yield return 0;

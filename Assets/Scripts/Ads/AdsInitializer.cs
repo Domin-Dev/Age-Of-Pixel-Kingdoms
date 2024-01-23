@@ -9,10 +9,15 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     private string _gameId;
 
     [SerializeField] RewardedAdsButton rewardedAdsButton;
+    [SerializeField] InterstitialAdExample interstitialAdExample;
 
     void Start()
     {
-        if (Advertisement.isInitialized) rewardedAdsButton.LoadAd();
+        if (Advertisement.isInitialized)
+        {
+            rewardedAdsButton.LoadAd();
+            interstitialAdExample.LoadAd();
+        }
         InitializeAds();
     }
 

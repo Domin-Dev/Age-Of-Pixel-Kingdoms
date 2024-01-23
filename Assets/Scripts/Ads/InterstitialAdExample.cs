@@ -13,6 +13,7 @@ public class InterstitialAdExample : MonoBehaviour, IUnityAdsLoadListener, IUnit
         _adUnitId = (Application.platform == RuntimePlatform.IPhonePlayer)
             ? _iOsAdUnitId
             : _androidAdUnitId;
+        GameManager.Instance.showAD = () => ShowAd();
     }
 
     // Load content to the Ad Unit:
@@ -29,6 +30,7 @@ public class InterstitialAdExample : MonoBehaviour, IUnityAdsLoadListener, IUnit
         // Note that if the ad content wasn't previously loaded, this method will fail
         Debug.Log("Showing Ad: " + _adUnitId);
         Advertisement.Show(_adUnitId, this);
+        LoadAd();
     }
 
     // Implement Load Listener and Show Listener interface methods: 
