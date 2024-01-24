@@ -655,7 +655,6 @@ public class SelectingProvinces : MonoBehaviour
     {
         ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(province.name)];
         int number = provinceStats.unitsCounter;
-       
 
         if (province.childCount == 0 && number > 0)
         {
@@ -664,9 +663,9 @@ public class SelectingProvinces : MonoBehaviour
         else if (number == 0 && province.childCount > 0)
         {
             Destroy(province.GetChild(0).gameObject);
-            return;
         }
         if (province.childCount > 0) province.GetChild(0).GetComponentInChildren<TextMeshPro>().text = number.ToString();
+
 
         if(GameManager.Instance.warFog)
         {
@@ -686,6 +685,9 @@ public class SelectingProvinces : MonoBehaviour
                 if(value) ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(provinceStats.provinceOwnerIndex));
                 else ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.fogColor);
             }
+
+
+            GameManager.Instance.UpdateBuildings(value, provinceStats.index);
         }
 
     }
@@ -1041,6 +1043,12 @@ public class SelectingProvinces : MonoBehaviour
         ProvinceStats defender = GameManager.Instance.provinces[defenderProvinceIndex];
         if (aggressor.unitsCounter > 0)
         {
+            if (GameManager.Instance.CanBeShow(aggressorProvinceIndex) && GameManager.Instance.CanBeShow(defenderProvinceIndex))
+            {
+                Sounds.instance.PlaySound(8);
+                SetBattleIcon(aggressorProvinceIndex, defenderProvinceIndex);
+            }
+
             float aggressorPower = 0;
             float defenderPower = 0;
             int unitsNumber = GameAssets.Instance.unitStats.Length;
@@ -1167,7 +1175,6 @@ public class SelectingProvinces : MonoBehaviour
             winner.unitsCounter = number;
             if (winner.index == aggressorProvinceIndex)
             {
-                Debug.Log(winner.provinceOwnerIndex);
                 loser.SetNewOwner(winner.provinceOwnerIndex);
                 if (loser.chest)
                 {
@@ -1185,8 +1192,6 @@ public class SelectingProvinces : MonoBehaviour
               //  ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));
                 GameManager.Instance.UpdateUnitCounter(loser.index);
             }
-
-
         }
         UpdateUnitNumber(map.GetChild(aggressorProvinceIndex));
         UpdateUnitNumber(map.GetChild(defenderProvinceIndex));
@@ -1200,8 +1205,6 @@ public class SelectingProvinces : MonoBehaviour
               UIManager.Instance.CloseUIWindow("Battle");
             }
         }
-        Sounds.instance.PlaySound(8);
-        SetBattleIcon(aggressorProvinceIndex, defenderProvinceIndex);
     }
 
 

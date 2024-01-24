@@ -114,6 +114,7 @@ public class ProvinceStats
         }
         else
         {
+            GameManager.Instance.UpdateUnitCounter(this.index);
             GameManager.Instance.botsList[index - 1].stats.warriors.limit += warriors.value;
             GameManager.Instance.botsList[index -1].stats.movementPoints.limit += movementPoints.value;
             GameManager.Instance.GetValuesByTaxesIndex(GameManager.Instance.botsList[index - 1].stats.texesIndex, out float coins, out float people);

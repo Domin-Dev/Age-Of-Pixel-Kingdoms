@@ -189,6 +189,7 @@ private void OnLevelWasLoaded(int level)
 		Texture2D texture2D = Resources.Load<Texture2D>("Texture/" + name);
         Camera.main.GetComponent<CameraController>().Limit = new Vector3(texture2D.width / 100 + 1f, texture2D.height / 100 + 1f);
 
+		turn = 0;
         obj = Instantiate(obj);
 		map = obj.transform;
 		foreach (Texture2D sprite in sprites)
@@ -255,11 +256,11 @@ private void OnLevelWasLoaded(int level)
                     if (list.Contains(index2)) list.Remove(index2);
                 }
             }
-            UpdateUnitCounter(value);
+        //    UpdateUnitCounter(value);
         //    selectingProvinces.ChangeProvinceColor(map.GetChild(value).GetComponent<SpriteRenderer>(), GetPlayerColor(provinces[value].provinceOwnerIndex));
             if (i == 0)
 			{
-                selectingProvinces.ChangeProvinceColor(map.GetChild(value).GetComponent<SpriteRenderer>(), GetPlayerColor(provinces[value].provinceOwnerIndex));
+        //        selectingProvinces.ChangeProvinceColor(map.GetChild(value).GetComponent<SpriteRenderer>(), GetPlayerColor(provinces[value].provinceOwnerIndex));
                 UpdateNeighbors(value);
 			}
 		}
@@ -306,7 +307,13 @@ private void OnLevelWasLoaded(int level)
 		{
 			BonusManager.UpdateLimits(botsList[i].index);
 		}
-		BonusManager.UpdateLimits(0);
+
+
+        for (int i = 0; i < provinces.Length; i++)
+        {
+            UpdateUnitCounter(i);
+        }
+        BonusManager.UpdateLimits(0);
 
 		Time.timeScale = 1.0f;
 
@@ -809,6 +816,43 @@ private void OnLevelWasLoaded(int level)
 		}
 		return false;
 	}
+
+	public void UpdateBuildings(bool value,int index)
+	{
+        Transform transform = null;
+		ProvinceStats provinceStats = provinces[index];
+
+
+
+        if (provinceStats.buildingIndex != -1)
+		{
+			for (int i = 0; i < buildings.childCount; i++)
+			{
+				if(buildings.GetChild(i).name == index.ToString())
+				{
+					transform = buildings.GetChild(i).transform;
+					break;
+				}
+			}
+		}
+		else if (provinceStats.chest)
+		{
+			Debug.Log("chest");
+            for (int i = 0; i < chests.childCount; i++)
+            {
+                if (chests.GetChild(i).name == index.ToString())
+                {
+                    transform = chests.GetChild(i).transform;
+                    break;
+                }
+            }
+        }
+
+        if (transform != null)
+        {
+            transform.gameObject.SetActive(value);
+        }
+    }
 
     public void UpdateNeighbors(int index)
     {

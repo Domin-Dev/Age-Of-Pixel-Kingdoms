@@ -570,7 +570,7 @@ public class EnemyManager : MonoBehaviour
             {
                 ProvinceStats provinceStats = GetProvince(provinceIndex);
                 provinceStats.buildingIndex = index;
-                Sounds.instance.PlaySound(1);
+               // Sounds.instance.PlaySound(1);
                 BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
 
                 GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(priceMP);
@@ -582,6 +582,7 @@ public class EnemyManager : MonoBehaviour
                 transform.parent = GameManager.Instance.buildings;
                 transform.GetComponent<SpriteRenderer>().sprite = buildingStats.icon;
                 transform.GetComponent<SpriteRenderer>().sortingOrder = 0;
+                GameManager.Instance.UpdateUnitCounter(provinceStats.index);
             }
         }
     }

@@ -56,16 +56,6 @@ public class Bonus
     }
 
 
-    public Bonus(int buildingIndex,string name, Func<float, float> countBonus, Func<float, string> toString, float multiplier)
-    {
-        this.bonusValue = buildingIndex;
-        this.name = name;
-        this.type = bonusType.DependentIncome;
-        this.countBonus = countBonus;
-        this.toString = toString;
-        this.multiplier = multiplier;
-    }
-
     public Bonus(string name, Func<float, float> countBonus, Func<float, string> toString)
     {
         this.multiplier = 1;

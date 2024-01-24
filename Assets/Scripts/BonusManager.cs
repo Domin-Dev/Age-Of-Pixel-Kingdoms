@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 [System.Serializable]
 
@@ -30,11 +31,17 @@ public static class BonusManager
                         playerStats.developmentPoints.AddBonus(-24,playerStats);
                     break;
                 case 4:
-                     if (!provinceStats.lifePoints.bonuses.ContainsKey(-25))
-                        provinceStats.lifePoints.AddBonus(-25,provinceStats);
 
                     if (!playerStats.warriors.bonuses.ContainsKey(-26))
+                    {
+                        UnityEngine.Debug.Log("jjjjjjjjjjjjj");
                         playerStats.warriors.AddBonus(-26, playerStats);
+                    }
+
+                    if (!provinceStats.lifePoints.bonuses.ContainsKey(-25))
+                        provinceStats.lifePoints.AddBonus(-25,provinceStats);
+                    UnityEngine.Debug.Log("dziala");
+
                     break; 
                 case 5:
                     if (!playerStats.coins.bonuses.ContainsKey(-27))
@@ -112,13 +119,13 @@ public static class BonusManager
             case -25:
                 return new Bonus("Castle", 10, Bonus.bonusType.Disposable);
             case -26:
-                return new Bonus("Castles", (float multiplier) => { return playerStats.CountBuildings(4) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(4).ToString() + " x " + multiplier; }, 5f);
+                return new Bonus("Castles", (float multiplier) => { return playerStats.CountBuildings(4) * 5f; }, (float multiplier) => { return playerStats.CountBuildings(4).ToString() + " x 5"; });
             case -27:
                 return new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(6) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(6).ToString() + " x " + multiplier; }, 5f);
             case -28:
                 return new Bonus("gold mines", (float multiplier) => { return playerStats.CountBuildings(3) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(3).ToString() + " x " + multiplier; }, 3f);
             case -29:
-                return new Bonus(5, "Ancient ruins", playerStats.GetFunc(5), playerStats.GetStringFunc(5), 3f);
+                return new Bonus("Ancient ruins", playerStats.GetFunc(5), playerStats.GetStringFunc(5), 3f);
             case -30:
                 return new Bonus("Capital", 1, Bonus.bonusType.Income);
         }
