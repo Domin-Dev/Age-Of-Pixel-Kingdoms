@@ -17,7 +17,11 @@ public class GameManager : MonoBehaviour
 	[SerializeField]float adTime;
     [SerializeField] float timer = 0;
 
-	public bool ready;
+    [SerializeField] public Color fogColor;
+    [SerializeField] public Color neighborColor;
+
+
+    public bool ready;
 	public bool readyToNextTurn;
 
 	public static GameManager Instance;
@@ -220,7 +224,8 @@ private void OnLevelWasLoaded(int level)
 			ProvinceStats provinceStats = provinces[i];
 			if (provinceStats.provinceOwnerIndex != -1)
 			{
-				selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), GetPlayerColor(provinceStats.provinceOwnerIndex));
+			  	UpdateUnitCounter(i);
+				//selectingProvinces.ChangeProvinceColor(map.GetChild(i).GetComponent<SpriteRenderer>(), GetPlayerColor(provinceStats.provinceOwnerIndex));
 			}
 		}
 
@@ -250,9 +255,13 @@ private void OnLevelWasLoaded(int level)
                     if (list.Contains(index2)) list.Remove(index2);
                 }
             }
-
-            selectingProvinces.ChangeProvinceColor(map.GetChild(value).GetComponent<SpriteRenderer>(), GetPlayerColor(provinces[value].provinceOwnerIndex));
-			if(i == 0) UpdateNeighbors(value);
+            UpdateUnitCounter(value);
+        //    selectingProvinces.ChangeProvinceColor(map.GetChild(value).GetComponent<SpriteRenderer>(), GetPlayerColor(provinces[value].provinceOwnerIndex));
+            if (i == 0)
+			{
+                selectingProvinces.ChangeProvinceColor(map.GetChild(value).GetComponent<SpriteRenderer>(), GetPlayerColor(provinces[value].provinceOwnerIndex));
+                UpdateNeighbors(value);
+			}
 		}
 		
         UpdateBotProvinces();

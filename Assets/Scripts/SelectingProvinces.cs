@@ -646,13 +646,17 @@ public class SelectingProvinces : MonoBehaviour
         {
             to.SetNewOwner(from.provinceOwnerIndex);
             if(to.chest) UIManager.Instance.OpenChest(to.index);
-            ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
+            GameManager.Instance.UpdateUnitCounter(to.index);
+          //  ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
         }
         UIManager.Instance.OpenUIWindow("ProvinceStats", to.index);
     }
     public void UpdateUnitNumber(Transform province)
     {
-        int number = GameManager.Instance.provinces[int.Parse(province.name)].unitsCounter;
+        ProvinceStats provinceStats = GameManager.Instance.provinces[int.Parse(province.name)];
+        int number = provinceStats.unitsCounter;
+       
+
         if (province.childCount == 0 && number > 0)
         {
             Instantiate(GameAssets.Instance.unitCounter, province.transform.position - new Vector3(0, 0.05f, 0), Quaternion.identity, province);
@@ -664,11 +668,26 @@ public class SelectingProvinces : MonoBehaviour
         }
         if (province.childCount > 0) province.GetChild(0).GetComponentInChildren<TextMeshPro>().text = number.ToString();
 
-        if(GameManager.Instance.warFog && province.childCount > 0)
+        if(GameManager.Instance.warFog)
         {
-           bool value = GameManager.Instance.CanBeShow(int.Parse(province.name));
-           province.GetChild(0).gameObject.SetActive(value);
+            bool value = GameManager.Instance.CanBeShow(int.Parse(province.name));
+            if (province.childCount > 0)
+            {
+                province.GetChild(0).gameObject.SetActive(value);
+            }
+
+            if(provinceStats.provinceOwnerIndex == -1)
+            {
+                if (value) ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.neighborColor);
+                else ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.fogColor);
+            }
+            else
+            {
+                if(value) ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(provinceStats.provinceOwnerIndex));
+                else ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.fogColor);
+            }
         }
+
     }
 
 
@@ -960,7 +979,8 @@ public class SelectingProvinces : MonoBehaviour
             if (unitsNumber > 0 && from.provinceOwnerIndex != to.provinceOwnerIndex) //&& to.provinceOwnerIndex == -1)
             {
                 to.SetNewOwner(from.provinceOwnerIndex);
-                ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
+                // ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
+                GameManager.Instance.UpdateUnitCounter(to.index);
             }
             GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(unitsNumber);
             UpdateUnitNumber(map.GetChild(fromIndex));
@@ -1007,7 +1027,8 @@ public class SelectingProvinces : MonoBehaviour
         if (value > 0 && from.provinceOwnerIndex != to.provinceOwnerIndex) //&& to.provinceOwnerIndex == -1)
         {
             to.SetNewOwner(from.provinceOwnerIndex);
-            ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
+            //  ChangeProvinceColor(map.GetChild(to.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(from.provinceOwnerIndex));
+            GameManager.Instance.UpdateUnitCounter(to.index);
         }
         GameManager.Instance.GetPlayerStats(from.provinceOwnerIndex).movementPoints.Subtract(value);
         UpdateUnitNumber(map.GetChild(fromIndex));
@@ -1161,7 +1182,8 @@ public class SelectingProvinces : MonoBehaviour
                         UIManager.Instance.OpenChest(loser.index);
                     }
                 }
-                ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));
+              //  ChangeProvinceColor(map.GetChild(loser.index).GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(winner.provinceOwnerIndex));
+                GameManager.Instance.UpdateUnitCounter(loser.index);
             }
 
 

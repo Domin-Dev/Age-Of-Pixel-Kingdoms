@@ -5967,6 +5967,8 @@ MonoBehaviour:
   saveName: 
   adTime: 900
   timer: 0
+  fogColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  neighborColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
   ready: 0
   readyToNextTurn: 0
   cameraController: {fileID: 0}
