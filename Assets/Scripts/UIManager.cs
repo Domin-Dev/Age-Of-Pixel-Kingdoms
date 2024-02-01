@@ -118,6 +118,8 @@ public class UIManager : MonoBehaviour
         LoadResearch();
         LoadSpells();
         OpenManagement();
+
+
     }
     public void ManagerUI(bool open)
     {

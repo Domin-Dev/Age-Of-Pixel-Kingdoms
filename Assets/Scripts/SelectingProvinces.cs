@@ -1180,7 +1180,7 @@ public class SelectingProvinces : MonoBehaviour
                 {
                     if (winner.provinceOwnerIndex != 0)
                     {
-                        Chest.OpenChest(GameManager.Instance.GetPlayerStats(winner.provinceOwnerIndex));
+                     Debug.Log(  Chest.OpenChest(GameManager.Instance.GetPlayerStats(winner.provinceOwnerIndex)) + " " + winner.provinceOwnerIndex);
                         GameManager.Instance.ClearChest(loser.index);
                     }
                     else

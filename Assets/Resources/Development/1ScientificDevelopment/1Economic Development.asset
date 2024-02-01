@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1Economic Development
   m_EditorClassIdentifier: 
   name: development of education
-  description: '[DevelopmentPoint]+1[Turn]'
+  description: '[DevelopmentPoint]+5[Turn]'
   image: {fileID: 21300000, guid: 9b2106727faa00d4ba589dec1a11335f, type: 3}
   researchID: 6
   price: 50

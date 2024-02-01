@@ -14,13 +14,13 @@ public static class Chest
         }
         else if (Check(value, 21, 30))
         {
-            playerStats.coins.Add(400);
-            return "+ 400" + Icons.GetIcon("Coin");
+            playerStats.coins.Add(200);
+            return "+ 200" + Icons.GetIcon("Coin");
         }
         else if (Check(value, 31, 35))
         {
-            playerStats.coins.Add(1000);
-            return "+ 1000" + Icons.GetIcon("Coin");
+            playerStats.coins.Add(500);
+            return "+ 500" + Icons.GetIcon("Coin");
         }
         else if (Check(value, 36, 55))
         {
@@ -55,8 +55,8 @@ public static class Chest
             }
             else
             {
-                playerStats.coins.Add(400);
-                return "+ 400" + Icons.GetIcon("Coin");
+                playerStats.coins.Add(300);
+                return "+ 300" + Icons.GetIcon("Coin");
             }
         }
         else if(Check(value,91,100))

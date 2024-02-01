@@ -306,7 +306,18 @@ private void OnLevelWasLoaded(int level)
 		for (int i = 0; i < botsList.Count; i++)
 		{
 			BonusManager.UpdateLimits(botsList[i].index);
-		}
+
+            int index = botsList[i].stats.texesIndex;
+            GameManager.Instance.GetValuesByTaxesIndex(index, out float coins, out float people);
+            botsList[i].stats.ChangeCoinsMultiplier(coins);
+
+            index = botsList[i].stats.researchIndex;
+            GameManager.Instance.GetValuesByResearchIndex(index, out float coinsIncome, out float development);
+            botsList[i].stats.ChangeDevelopmentCoinsMultiplier(coinsIncome);
+            botsList[i].stats.ChangeDevelopmentMultiplier(development);
+
+
+        }
 
 
         for (int i = 0; i < provinces.Length; i++)
@@ -320,7 +331,10 @@ private void OnLevelWasLoaded(int level)
 		UIManager.Instance.SetUp();
 		humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
 		UIManager.Instance.UpdateCounters();
-	}
+
+
+    }
+
 	private void LoadBots()
 	{
 		AddBot("Yellow", true, Color.yellow, 200, 1 + botsList.Count);
@@ -536,6 +550,8 @@ private void OnLevelWasLoaded(int level)
 
 			UIManager.Instance.OpenTurnDetails(stats);
 			*/
+
+			Count();
 			UIManager.Instance.UpdateCounters();
 		}
 	}
@@ -660,7 +676,7 @@ private void OnLevelWasLoaded(int level)
 				break;
 			case 2:
 				coinsIncome = -0.01f;
-				developmentIncome = 0.3f;
+				developmentIncome = 0.1f;
 				break;
 			case 3:
 				coinsIncome = -0.015f;
@@ -862,6 +878,31 @@ private void OnLevelWasLoaded(int level)
 			UpdateUnitCounter(item);
 		}
     }
+
+	private void Count()
+	{
+		List<int> number = new List<int>();
+		for (int j = 0; j < 4; j++)
+		{
+			number.Add(0);
+		}
+
+
+		for (int i = 0; i < provinces.Length; i++)
+		{
+			ProvinceStats provinceStats = provinces[i];
+			if (provinceStats.provinceOwnerIndex != -1) number[provinceStats.provinceOwnerIndex]++;
+		}
+
+
+
+
+		for (int i = 0; i < number.Count; i++)
+		{
+			Debug.Log(number[i]);
+		}
+	}
+
 }
 
 
