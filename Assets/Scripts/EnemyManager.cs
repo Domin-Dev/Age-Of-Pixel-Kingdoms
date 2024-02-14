@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Common;
 using Unity.Mathematics;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 
 public class EnemyManager : MonoBehaviour
@@ -236,8 +235,8 @@ public class EnemyManager : MonoBehaviour
                 {
                     GameManager.Instance.selectingProvinces.AutoBattle(false, value, target);
                 }
-                
-            }else
+            }
+            else
             {
                 done = true;
             }
@@ -287,7 +286,8 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
                 GameManager.Instance.selectingProvinces.AIMoveArray(units, from, to);
-            }
+
+                }
         }
     }
     private float FindScan(int index)

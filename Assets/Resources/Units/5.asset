@@ -16,7 +16,7 @@ MonoBehaviour:
   <sprite>k__BackingField: {fileID: -1867872320, guid: 0e5d4906343e7da4f9e9226539ae86e8, type: 3}
   <unitName>k__BackingField: Crossbowman
   <speed>k__BackingField: 38
-  <lifePoints>k__BackingField: 175
+  <lifePoints>k__BackingField: 120
   <damage>k__BackingField: 60
   <range>k__BackingField: 3.5
   <bullet>k__BackingField: {fileID: 21300000, guid: 809e925a139fd114c957d630b50a9267, type: 3}

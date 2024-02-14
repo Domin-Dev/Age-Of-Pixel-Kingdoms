@@ -16,7 +16,7 @@ MonoBehaviour:
   <sprite>k__BackingField: {fileID: -713883358, guid: 4a2a35a21d055a24a923efe5b4befc84, type: 3}
   <unitName>k__BackingField: Knight
   <speed>k__BackingField: 35
-  <lifePoints>k__BackingField: 500
+  <lifePoints>k__BackingField: 375
   <damage>k__BackingField: 120
   <range>k__BackingField: 1
   <bullet>k__BackingField: {fileID: 0}

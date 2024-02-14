@@ -9,7 +9,8 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private Transform buttons;
 
-
+    [SerializeField] private Transform victoryPoints;
+    [SerializeField] private Transform vpButton;
     [SerializeField] private Transform settings;
     [SerializeField] private Transform saves;
     [SerializeField] private Transform confirmation;
@@ -20,8 +21,16 @@ public class MenuManager : MonoBehaviour
 
     private string nameSaveToDelete;
     Transform objToDelete;
+
+    int vp;
     private void Start()
     {
+        vpButton.GetComponent<Button>().onClick.AddListener(() => { victoryPoints.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
+        victoryPoints.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { victoryPoints.gameObject.SetActive(false); Sounds.instance.PlaySound(5); });
+
+        vp = PlayerPrefs.GetInt("VictoryPoints", 0);
+        vpButton.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = vp.ToString();
+
         buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { settings.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
         buttons.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { saves.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
         buttons.GetChild(0).GetComponent<Button>().onClick.AddListener(() => { maps.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
@@ -89,7 +98,7 @@ public class MenuManager : MonoBehaviour
         {
             map =  Instantiate(mapUI, parent).transform;
             map.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenMap(item.name);});
-            map.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name;
+            map.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name + "<size=50><color=#686868>\n";
             map.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Sprite.Create(item, new Rect(0, 0, item.width, item.height), new Vector2(0.5f, 0.5f));
         }
     }

@@ -16,7 +16,7 @@ MonoBehaviour:
   <sprite>k__BackingField: {fileID: -1381210496, guid: 66433c7ed5e539f4b8b2ddb4202dd3ac, type: 3}
   <unitName>k__BackingField: Archer
   <speed>k__BackingField: 40
-  <lifePoints>k__BackingField: 100
+  <lifePoints>k__BackingField: 70
   <damage>k__BackingField: 25
   <range>k__BackingField: 4.5
   <bullet>k__BackingField: {fileID: 21300000, guid: 809e925a139fd114c957d630b50a9267, type: 3}

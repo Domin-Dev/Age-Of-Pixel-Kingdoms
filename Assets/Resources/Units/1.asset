@@ -16,7 +16,7 @@ MonoBehaviour:
   <sprite>k__BackingField: {fileID: -2041941327, guid: f87d56c6f7635f940a1c0d046bdbca22, type: 3}
   <unitName>k__BackingField: Peasant
   <speed>k__BackingField: 35
-  <lifePoints>k__BackingField: 300
+  <lifePoints>k__BackingField: 200
   <damage>k__BackingField: 20
   <range>k__BackingField: 1
   <bullet>k__BackingField: {fileID: 0}

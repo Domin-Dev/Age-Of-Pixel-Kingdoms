@@ -16,7 +16,7 @@ MonoBehaviour:
   <sprite>k__BackingField: {fileID: 1507427600, guid: 6c50aae142c99fc48b066adcc9d62c90, type: 3}
   <unitName>k__BackingField: Spearman
   <speed>k__BackingField: 55
-  <lifePoints>k__BackingField: 250
+  <lifePoints>k__BackingField: 180
   <damage>k__BackingField: 40
   <range>k__BackingField: 1
   <bullet>k__BackingField: {fileID: 0}

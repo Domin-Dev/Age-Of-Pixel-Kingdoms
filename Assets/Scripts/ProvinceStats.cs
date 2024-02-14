@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance.VisualScripting;
 
 [System.Serializable]
 public class ProvinceStats
@@ -126,6 +125,7 @@ public class ProvinceStats
         {
             if (lastOwner == 0)
             {
+                GameManager.Instance.CheckPLayer();
                 GameManager.Instance.UpdateNeighbors(this.index);
                 GameManager.Instance.humanPlayer.stats.warriors.limit -= warriors.value;
                 GameManager.Instance.humanPlayer.stats.movementPoints.limit -= movementPoints.value;

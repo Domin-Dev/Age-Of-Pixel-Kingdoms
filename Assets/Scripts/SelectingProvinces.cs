@@ -4,8 +4,6 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Unity.Mathematics;
-using static UnityEditor.Progress;
-using UnityEditor;
 
 public class SelectingProvinces : MonoBehaviour
 {

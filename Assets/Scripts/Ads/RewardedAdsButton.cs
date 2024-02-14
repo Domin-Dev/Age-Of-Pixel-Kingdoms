@@ -35,7 +35,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     public void UpdateReward(int value)
     {
         if(!isAd) LoadAd();
-        reward = 2 * value;
+        reward = 3 * value;
         _text.text = "+ " + reward.ToString() + " " +Icons.GetIcon("Coin");
     }
 

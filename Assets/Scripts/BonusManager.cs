@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 
 [System.Serializable]
 
@@ -34,13 +33,11 @@ public static class BonusManager
 
                     if (!playerStats.warriors.bonuses.ContainsKey(-26))
                     {
-                        UnityEngine.Debug.Log("jjjjjjjjjjjjj");
                         playerStats.warriors.AddBonus(-26, playerStats);
                     }
 
                     if (!provinceStats.lifePoints.bonuses.ContainsKey(-25))
                         provinceStats.lifePoints.AddBonus(-25,provinceStats);
-                    UnityEngine.Debug.Log("dziala");
 
                     break; 
                 case 5:
@@ -115,7 +112,7 @@ public static class BonusManager
             case -23:
                 return new Bonus("farm", 5, Bonus.bonusType.Income);
             case -24:
-                return new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(2) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(2).ToString() + " x " + multiplier; }, 5f);
+                return new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(2) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(2).ToString() + " x " + multiplier; }, 15f);
             case -25:
                 return new Bonus("Castle", 10, Bonus.bonusType.Disposable);
             case -26:

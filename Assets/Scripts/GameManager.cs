@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 
 public class GameManager : MonoBehaviour
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
 			isPlaying = false;
 			lastPlayer = -1;
 			SetUp();
-		}
+        }
 	}
 
 	int indexbot = 0;
@@ -174,7 +175,7 @@ private void OnLevelWasLoaded(int level)
             }
             SetCamera();
 			ready = true;
-			StartCoroutine(ContinueTurn());
+            StartCoroutine(ContinueTurn());
         }
         else if(level ==0)
 		{
@@ -551,7 +552,7 @@ private void OnLevelWasLoaded(int level)
 			UIManager.Instance.OpenTurnDetails(stats);
 			*/
 
-			Count();
+
 			UIManager.Instance.UpdateCounters();
 		}
 	}
@@ -561,13 +562,11 @@ private void OnLevelWasLoaded(int level)
 	{
 		if (lastPlayer > 0)
 		{
-			Debug.Log("dziala");
 			readyToNextTurn = false;
 			ready = true;
 
 			for (int i = lastPlayer - 1; i < botsList.Count; i++)
 			{
-				Debug.Log(i);
 				Player bot = botsList[i];
 				if (bot.isComputer)
 				{
@@ -813,6 +812,8 @@ private void OnLevelWasLoaded(int level)
 		else return null;
     }
 
+	
+
 	public void StopNewTurn()
 	{
 		StopAllCoroutines();
@@ -878,32 +879,71 @@ private void OnLevelWasLoaded(int level)
 			UpdateUnitCounter(item);
 		}
     }
-
-	private void Count()
+	public void CheckPLayer()
 	{
-		List<int> number = new List<int>();
-		for (int j = 0; j < 4; j++)
-		{
-			number.Add(0);
-		}
-
-
+		int k = 0;
 		for (int i = 0; i < provinces.Length; i++)
 		{
-			ProvinceStats provinceStats = provinces[i];
-			if (provinceStats.provinceOwnerIndex != -1) number[provinceStats.provinceOwnerIndex]++;
+			if ((provinces[i].provinceOwnerIndex == 0))
+			{
+				k++;
+			}
 		}
 
-
-
-
-		for (int i = 0; i < number.Count; i++)
+        if (k == 0)
 		{
-			Debug.Log(number[i]);
+			Win();
 		}
 	}
 
+
+	private void Win()
+	{
+		UIManager.Instance.OpenUIWindow("Win", 0);
+        UIManager.Instance.background.gameObject.SetActive(true);
+        Transform window = UIManager.Instance.GetWindow("Win");
+		window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you won";
+
+		int[] array = CountProvinces();
+		string text = "";
+		for (int i = 0; i < array.Length; i++)
+		{
+			if(i == 0)
+			{
+				text += "<color=#" + humanPlayer.playerColor.ToHexString() + ">"  + humanPlayer.playerName + "</color> Provinces: " + array[i] 
+					+ " " + Icons.GetIcon("Coin") + humanPlayer.stats.coins.value + " " + Icons.GetIcon("Population") + humanPlayer.stats.GetPopulation() + "\n";
+            }
+			else
+			{
+                text += "<color=#" + GetPlayerColor(i).ToHexString() + ">" + botsList[i -1].playerName + "</color> Provinces: " + array[i] 
+					+ " " + Icons.GetIcon("Coin") + botsList[i - 1].stats.coins.value + " " + Icons.GetIcon("Population") + botsList[i - 1].stats.GetPopulation() + "\n";
+            }
+        }
+
+
+		window.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+10";
+		int vp = PlayerPrefs.GetInt("VictoryPoints", 0);
+		vp += 10;
+		PlayerPrefs.SetInt("VictoryPoints", vp);
+
+		window.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
+    }
+
+	private int[] CountProvinces()
+	{
+		int[] array = new int[botsList.Count + 1];
+		for (int i = 0; i < provinces.Length; i++)
+		{
+			if (provinces[i].provinceOwnerIndex != -1)
+			{
+				Debug.Log(provinces[i].provinceOwnerIndex);
+				array[provinces[i].provinceOwnerIndex]++;
+			}
+		}
+		return array;
+	}
 }
+
 
 
 
