@@ -754,7 +754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -93.43001}
+  m_AnchoredPosition: {x: 0, y: -93.42999}
   m_SizeDelta: {x: -700, y: -651.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &160931724
@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 315121996}
   - component: {fileID: 315121995}
   m_Layer: 5
-  m_Name: coins
+  m_Name: VP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6626,7 +6626,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: buildings
+  m_text: Victory Points
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af28d1fe879223a4f8bc7b562d3e075c, type: 2}
   m_sharedMaterial: {fileID: 363599970277940264, guid: af28d1fe879223a4f8bc7b562d3e075c, type: 2}
@@ -7527,11 +7527,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'lkl; \n k
-
-    kkkkkkkkkkk
-
-    kkkkkkkkkkkk'
+  m_text: You get victory points for winning maps. When you collect enough, new maps
+    will unlock.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af28d1fe879223a4f8bc7b562d3e075c, type: 2}
   m_sharedMaterial: {fileID: 363599970277940264, guid: af28d1fe879223a4f8bc7b562d3e075c, type: 2}
@@ -7574,7 +7571,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
