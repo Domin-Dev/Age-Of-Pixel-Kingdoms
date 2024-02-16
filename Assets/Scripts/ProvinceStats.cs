@@ -123,16 +123,16 @@ public class ProvinceStats
 
         if (lastOwner >= 0)
         {
+            GameManager.Instance.CheckPLayer();
             if (lastOwner == 0)
-            {
-                GameManager.Instance.CheckPLayer();
+            {            
                 GameManager.Instance.UpdateNeighbors(this.index);
                 GameManager.Instance.humanPlayer.stats.warriors.limit -= warriors.value;
                 GameManager.Instance.humanPlayer.stats.movementPoints.limit -= movementPoints.value;
                 UIManager.Instance.UpdateCounters();
             }
             else
-            {
+            {             
                 GameManager.Instance.botsList[lastOwner - 1].stats.warriors.limit -= warriors.value;
                 GameManager.Instance.botsList[lastOwner - 1].stats.movementPoints.limit -= movementPoints.value;
             }

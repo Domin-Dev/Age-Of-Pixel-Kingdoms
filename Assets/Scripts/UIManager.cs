@@ -312,7 +312,17 @@ public class UIManager : MonoBehaviour
     }
     public void LoadProvinceUnitCounters(int index,Transform parentCounters,bool isMove)
     {
-        ProvinceStats provinceStats = GameManager.Instance.provinces[index];
+        ProvinceStats provinceStats;
+        if (index >= 0) provinceStats = GameManager.Instance.provinces[index];
+        else
+        {
+            for (int i = 0; i < parentCounters.childCount; i++)
+            {
+                parentCounters.GetChild(i).gameObject.SetActive(false);
+            }
+            return;
+        }
+
 
         if (provinceStats.units != null)
         {
@@ -423,43 +433,64 @@ public class UIManager : MonoBehaviour
     private void LoadProvinceStats(Transform transform, int provinceIndex)
     {
 
-        ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
-        transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString() + " " + CountUnits(provinceIndex);
-        TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
-        if (provinceStats.provinceOwnerIndex != -1)
+        if (GameManager.Instance.CanBeShow(provinceIndex))
         {
-            textMeshProUGUI.text = "Player " + provinceStats.provinceOwnerIndex.ToString() + "  <color=red>" + provinceStats.lifePoints.ToString() + "</color> <sprite index=16>";
-            textMeshProUGUI.color = GameManager.Instance.GetPlayerColor(provinceStats.provinceOwnerIndex);
-        }
-        else
+            ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
+            transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString() + " " + CountUnits(provinceIndex);
+            TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+            if (provinceStats.provinceOwnerIndex != -1)
+            {
+                textMeshProUGUI.text = "Player " + provinceStats.provinceOwnerIndex.ToString() + "  <color=red>" + provinceStats.lifePoints.ToString() + "</color> <sprite index=16>";
+                textMeshProUGUI.color = GameManager.Instance.GetPlayerColor(provinceStats.provinceOwnerIndex);
+            }
+            else
+            {
+                textMeshProUGUI.text = "No owner" + "  <color=red> " + provinceStats.lifePoints.ToString() + "</color> <sprite index=16>";
+                textMeshProUGUI.color = Color.grey;
+            }
+            transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
+            Button button = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => { OpenStatsDetails(provinceStats.population); Sounds.instance.PlaySound(5); });
+
+            if (provinceStats.buildingIndex == -1)
+            {
+                transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Image>().sprite = gameAssets.noBuilding;
+                transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = "no building";
+                transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
+            }
+            else
+            {
+                BuildingStats buildingStats = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex];
+                transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Image>().sprite = buildingStats.icon;
+                transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = buildingStats.name.Substring(1);
+                transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = StringToIcons(buildingStats.description);
+            }
+
+            //    transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.developmentPoints.CountIncome(),2).ToString() + "<sprite index=2/>";
+            //   transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.coins.CountIncome(),2).ToString() + "<sprite index=2/>";
+            //   transform.GetChild(1).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.movementPoints.value.ToString();
+            //    transform.GetChild(1).GetChild(0).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.warriors.ToString();
+            LoadProvinceUnitCounters(provinceIndex, gameAssets.unitCounterContentUI.transform, false);
+        }else
         {
-            textMeshProUGUI.text = "No owner" + "  <color=red> " + provinceStats.lifePoints.ToString() + "</color> <sprite index=16>";
+            transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString();
+            TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+            textMeshProUGUI.text = "???" + "  <color=red>???</color> <sprite index=16>";
             textMeshProUGUI.color = Color.grey;
-        }
-        transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = provinceStats.population.ToString();
-        Button button = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>();
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => {OpenStatsDetails(provinceStats.population); Sounds.instance.PlaySound(5); });
+            
+            transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "???";
+            Button button = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => { Sounds.instance.PlaySound(4); });
 
-        if (provinceStats.buildingIndex == -1)
-        {
             transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Image>().sprite = gameAssets.noBuilding;
-            transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = "no building";
-            transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
-        }
-        else
-        {
-            BuildingStats buildingStats = GameAssets.Instance.buildingsStats[provinceStats.buildingIndex];
-            transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Image>().sprite = buildingStats.icon;
-            transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = buildingStats.name.Substring(1);
-            transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = StringToIcons(buildingStats.description);
-        }
+            transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = "???";
+            transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = "???";
+   
 
-    //    transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.developmentPoints.CountIncome(),2).ToString() + "<sprite index=2/>";
-    //   transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=green>+" + Math.Round(provinceStats.coins.CountIncome(),2).ToString() + "<sprite index=2/>";
-    //   transform.GetChild(1).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.movementPoints.value.ToString();
-    //    transform.GetChild(1).GetChild(0).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + provinceStats.warriors.ToString();
-        LoadProvinceUnitCounters(provinceIndex, gameAssets.unitCounterContentUI.transform, false);
+            LoadProvinceUnitCounters(-1, gameAssets.unitCounterContentUI.transform, false);
+        }
     }
     public void LoadUnitsMove(int provinceIndex1, int provinceIndex2, bool isUpdate)
     {
@@ -631,7 +662,7 @@ public class UIManager : MonoBehaviour
         details += "Population: " + GameManager.Instance.humanPlayer.stats.GetPopulation() + Icons.GetIcon("Population") + "\n";
 
         float value = GameManager.Instance.humanPlayer.stats.GetNumberOfProvinces();
-        details += "Provinces: " + value + " ( "+ Math.Round(value / (float)GameManager.Instance.numberOfProvinces,3) * 100 +"% )" + "\n";
+        details += "Provinces: " + value;
         int index = GameManager.Instance.humanPlayer.stats.texesIndex;
         managementWindow.GetChild(2).GetComponent<Slider>().value = index;
         if (GameManager.Instance.humanPlayer.stats.taxManagement)
