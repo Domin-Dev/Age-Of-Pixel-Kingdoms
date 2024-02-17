@@ -93,12 +93,33 @@ public class MenuManager : MonoBehaviour
     {
         Transform parent = maps.GetChild(1).GetChild(0).GetChild(0).transform;
         Texture2D[] mapArray = Resources.LoadAll<Texture2D>("Texture");
-        Transform map;
-        foreach (Texture2D item in mapArray)
+        MapStats[] mapStats = new MapStats[mapArray.Length];
+        for (int i = 0; i < mapArray.Length; i++)
         {
+            mapStats[i] = Resources.Load<MapStats>("Maps/"+mapArray[i].name+"/MapStats");
+        }
+
+        Transform map;
+
+        for (int i = 0; i < mapArray.Length; i++)
+        {
+            Texture2D item = mapArray[i];
+
+
             map =  Instantiate(mapUI, parent).transform;
-            map.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenMap(item.name);});
-            map.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name + "<size=50><color=#686868>\n";
+            if (mapStats[i].price > PlayerPrefs.GetInt("VictoryPoints", 0))
+            {
+                map.GetChild(2).GetChild(1).gameObject.SetActive(true);
+                map.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = mapStats[i].price.ToString();
+                map.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(4);});
+            }
+            else
+            {
+                map.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(5); OpenMap(item.name); });
+                map.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Play";
+            }
+
+            map.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name + "<size=55><color=#686868>\nPlayers: " + mapStats[i].players + "\nProvinces: " + mapStats[i].numberOfProvinces;
             map.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Sprite.Create(item, new Rect(0, 0, item.width, item.height), new Vector2(0.5f, 0.5f));
         }
     }

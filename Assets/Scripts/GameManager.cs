@@ -899,8 +899,6 @@ private void OnLevelWasLoaded(int level)
 
 		int[] array = CountProvinces();
 
-
-
 		if (array[0] > 0) window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you won";
 		else window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you lost";
 
@@ -938,7 +936,6 @@ private void OnLevelWasLoaded(int level)
 
 		int reward = CountVP(array);
 
-
         window.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + reward.ToString();
 		int vp = PlayerPrefs.GetInt("VictoryPoints", 0);
 		vp += reward;
@@ -953,7 +950,7 @@ private void OnLevelWasLoaded(int level)
 
 		for (int i = 1; i < playersProvinces.Length; i++)
 		{
-			if (playersProvinces[0] > playersProvinces[i])
+			if (playersProvinces[i] == 0)
 			{
 				rank--;
 			}
@@ -963,7 +960,7 @@ private void OnLevelWasLoaded(int level)
 
 		if (rank == playersProvinces.Length)
 		{
-			vp = 1;
+			vp = 2;
 		}
 		else
 		{

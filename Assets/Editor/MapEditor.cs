@@ -40,6 +40,7 @@ public class MapEditor : EditorWindow
     int number = 0;
 
     int players;
+    int price;
 
     [MenuItem("Window/Map Editor")]
     public static void ShowWindow()
@@ -57,7 +58,9 @@ public class MapEditor : EditorWindow
 
         Object obj2 =  EditorGUILayout.ObjectField(outlineMaterial, typeof(Material),false);
 
-        players = EditorGUILayout.IntField(players,new GUILayoutOption[0]);
+
+        players = EditorGUILayout.IntField("Players:",players,new GUILayoutOption[0]);
+        price = EditorGUILayout.IntField("Price:",price, new GUILayoutOption[0]);
 
         defaultColor = new Color32(77, 101, 180,255);
 
@@ -200,7 +203,7 @@ public class MapEditor : EditorWindow
 
 
 
-            mapStats = new MapStats(mapParent.transform.childCount, provinces,4);
+            mapStats = new MapStats(mapParent.transform.childCount, provinces,players,price);
 
             PrefabUtility.SaveAsPrefabAssetAndConnect(mapParent.gameObject, mapsPath + rawMap.name + "/Map.prefab", InteractionMode.UserAction);
             AssetDatabase.CreateAsset(mapStats,mapsPath + rawMap.name + "/MapStats.asset");
