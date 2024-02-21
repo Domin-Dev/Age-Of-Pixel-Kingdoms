@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using System.Collections.Generic;
+using Unity.Mathematics;
 
 public class MenuManager : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class MenuManager : MonoBehaviour
     int vp;
     private void Start()
     {
-        vpButton.GetComponent<Button>().onClick.AddListener(() => { victoryPoints.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
+        vpButton.GetComponent<Button>().onClick.AddListener(() => {; victoryPoints.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
         victoryPoints.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { victoryPoints.gameObject.SetActive(false); Sounds.instance.PlaySound(5); });
 
         vp = PlayerPrefs.GetInt("VictoryPoints", 0);
@@ -94,23 +95,35 @@ public class MenuManager : MonoBehaviour
         Transform parent = maps.GetChild(1).GetChild(0).GetChild(0).transform;
         Texture2D[] mapArray = Resources.LoadAll<Texture2D>("Texture");
         MapStats[] mapStats = new MapStats[mapArray.Length];
+
         for (int i = 0; i < mapArray.Length; i++)
         {
             mapStats[i] = Resources.Load<MapStats>("Maps/"+mapArray[i].name+"/MapStats");
         }
-
+          
         Transform map;
 
-        for (int i = 0; i < mapArray.Length; i++)
+        int2[] array = new int2[mapStats.Length];
+
+        for (int i = 0; i < mapStats.Length; i++)
         {
-            Texture2D item = mapArray[i];
+            array[i] = new int2(mapStats[i].price,i);
+        }
+        GameManager.Instance.Sort(array);
+
+
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            int index = array[i].y;
+            Texture2D item = mapArray[index];
 
 
             map =  Instantiate(mapUI, parent).transform;
-            if (mapStats[i].price > PlayerPrefs.GetInt("VictoryPoints", 0))
+            if (mapStats[index].price > PlayerPrefs.GetInt("VictoryPoints", 0))
             {
                 map.GetChild(2).GetChild(1).gameObject.SetActive(true);
-                map.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = mapStats[i].price.ToString();
+                map.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = mapStats[index].price.ToString();
                 map.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { Sounds.instance.PlaySound(4);});
             }
             else
@@ -119,7 +132,7 @@ public class MenuManager : MonoBehaviour
                 map.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Play";
             }
 
-            map.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name + "<size=55><color=#686868>\nPlayers: " + mapStats[i].players + "\nProvinces: " + mapStats[i].numberOfProvinces;
+            map.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name + "<size=55><color=#686868>\nPlayers: " + mapStats[index].players + "\nProvinces: " + mapStats[index].numberOfProvinces + "\n" + item.width + " x " + item.height;
             map.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Sprite.Create(item, new Rect(0, 0, item.width, item.height), new Vector2(0.5f, 0.5f));
         }
     }

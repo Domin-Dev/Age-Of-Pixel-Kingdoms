@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MapStats
   m_EditorClassIdentifier: 
   price: 0
-  players: 2
+  players: 4
   numberOfProvinces: 166
   provinces:
   - lifePoints:

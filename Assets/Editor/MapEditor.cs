@@ -64,7 +64,7 @@ public class MapEditor : EditorWindow
 
         defaultColor = new Color32(77, 101, 180,255);
 
-        GUILayout.Box(rawMap);
+        //GUILayout.Box(rawMap);
         EditorGUILayout.Space(10);
        // filePath = EditorGUILayout.TextField("File Path", filePath);
 

@@ -39,7 +39,7 @@ public class ProvinceStats
     {
 
     }
-    public void CopyData(ProvinceStats provinceStats)
+    public void CopyData(ProvinceStats provinceStats, bool canCreate)
     {
         population = new Statistic(Random.Range(50, 70), "Population");
 
@@ -61,7 +61,9 @@ public class ProvinceStats
         population.AddBonus(-12, this);
 
 
-        if (provinceOwnerIndex == -1 && !isSea)
+
+        
+        if (provinceOwnerIndex == -1 && !isSea  && canCreate)
         {
             chest = Random.Range(1, 11) > 8;
             if (!chest)

@@ -37,6 +37,7 @@ public class EnemyManager : MonoBehaviour
 
     public IEnumerator NextTurnFunction()
     {
+        Debug.Log(index);
         UpdateProvinces();
         lastScan = Scanning();
         Research();

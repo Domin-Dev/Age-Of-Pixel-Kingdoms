@@ -436,7 +436,7 @@ public class UIManager : MonoBehaviour
         if (GameManager.Instance.CanBeShow(provinceIndex))
         {
             ProvinceStats provinceStats = GameManager.Instance.provinces[provinceIndex];
-            transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString() + " " + CountUnits(provinceIndex);
+            transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Province " + provinceIndex.ToString();
             TextMeshProUGUI textMeshProUGUI = transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
             if (provinceStats.provinceOwnerIndex != -1)
             {

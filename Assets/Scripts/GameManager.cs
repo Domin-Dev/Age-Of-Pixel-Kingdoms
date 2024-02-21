@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -113,6 +114,11 @@ public class GameManager : MonoBehaviour
 		{
 			indexbot = 2;
 		}
+		
+		if (Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			indexbot = 3;
+		}
 
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
@@ -212,17 +218,21 @@ private void OnLevelWasLoaded(int level)
         selectingProvinces = FindObjectOfType<SelectingProvinces>();
 		botsList.Clear();
 		CreateHumanPlayer();
-		LoadBots();
-		
-		ProvinceStats[] array = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").provinces;
-		numberOfProvinces = Resources.Load<MapStats>("Maps/"+ currentMap +"/MapStats").numberOfProvinces;
+
+		MapStats mapStats = Resources.Load<MapStats>("Maps/" + currentMap + "/MapStats");
+
+		LoadBots(mapStats.players);
+
+        ProvinceStats[] array = mapStats.provinces;
+		numberOfProvinces = mapStats.numberOfProvinces;
 
 		provinces = new ProvinceStats[array.Length];
+
 
 		for (int i = 0; i < array.Length; i++)
 		{
 			provinces[i] = new ProvinceStats();
-			provinces[i].CopyData(array[i]);
+			provinces[i].CopyData(array[i],!toLoad);
 			ProvinceStats provinceStats = provinces[i];
 			if (provinceStats.provinceOwnerIndex != -1)
 			{
@@ -238,7 +248,7 @@ private void OnLevelWasLoaded(int level)
 			if (!provinces[i].isSea)list.Add(i);
 		}
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < mapStats.players; i++)
 		{
 			int value = UnityEngine.Random.Range(0, list.Count);
 			value = list[value];
@@ -306,7 +316,7 @@ private void OnLevelWasLoaded(int level)
 
 		for (int i = 0; i < botsList.Count; i++)
 		{
-			BonusManager.UpdateLimits(botsList[i].index);
+
 
             int index = botsList[i].stats.texesIndex;
             GameManager.Instance.GetValuesByTaxesIndex(index, out float coins, out float people);
@@ -336,12 +346,33 @@ private void OnLevelWasLoaded(int level)
 
     }
 
-	private void LoadBots()
+	private void LoadBots(int number)
 	{
-		AddBot("Yellow", true, Color.yellow, 200, 1 + botsList.Count);
-		AddBot("Green", true, Color.green, 200, 1 + botsList.Count);
-		AddBot("Red", true, Color.red, 200, 1 + botsList.Count);
+		Dictionary<string, Color> colors = GetColors();
+		
+		foreach (var item in colors)
+		{
+			if(number > 1)
+			{
+				AddBot(item.Key,true,item.Value,200,botsList.Count + 1);
+				number--;
+			}
+		}
 	}
+
+	private Dictionary<string, Color> GetColors()
+	{
+		Dictionary<string, Color> diction = new Dictionary<string, Color>();
+		diction.Add("Yellow", Color.yellow);
+		diction.Add("Green", Color.green);
+		diction.Add("Red", Color.red);
+		diction.Add("Cyan", Color.cyan);
+		diction.Add("Magenta", Color.magenta);
+		diction.Add("Brown", new Color(0.588f, 0.294f, 0));
+		diction.Add("Dark green", new Color (0.107f,0.6043f,0.385f));
+        return diction;
+    }
+
 	private void AddBot(string name, bool isComputer, Color color, int startCoins, int index)
 	{
 		Player player = new GameObject(name, typeof(Player)).GetComponent<Player>();
@@ -508,6 +539,7 @@ private void OnLevelWasLoaded(int level)
         if (readyToNextTurn)
 		{
             turn++;
+
 			updateReward((int)humanPlayer.stats.coins.CountIncome());
 			StartCoroutine(BotsNextTurn());
 
@@ -525,6 +557,7 @@ private void OnLevelWasLoaded(int level)
 
 			UIManager.Instance.UpdateTurnCounter();
 			UIManager.Instance.CloseUIWindow("ProvinceStats");
+
 
 
 			for (int i = 0; i < provinces.Length; i++)
@@ -597,7 +630,8 @@ private void OnLevelWasLoaded(int level)
     IEnumerator BotsNextTurn()
 	{
 		readyToNextTurn = false;
-		foreach (Player bot in botsList)
+        UIManager.Instance.background.gameObject.SetActive(true);
+        foreach (Player bot in botsList)
 		{
 			if (bot.isComputer)
 			{
@@ -613,8 +647,10 @@ private void OnLevelWasLoaded(int level)
 		}
 		lastPlayer = -1;
 		readyToNextTurn = true;
-		UpdateBotDebuger();
-		yield return 0;
+        if (turn % 2 == 0) Save();
+        UpdateBotDebuger();
+        UIManager.Instance.background.gameObject.SetActive(false);
+        yield return 0;
 	}
 
 
@@ -902,34 +938,46 @@ private void OnLevelWasLoaded(int level)
 		if (array[0] > 0) window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you won";
 		else window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you lost";
 
-
-        string text = "";
+		int2[] sorted = new int2[array.Length];
 		for (int i = 0; i < array.Length; i++)
 		{
-			if(i == 0)
+			sorted[i] = new int2(array.Length - i - 1, array[array.Length - 1 - i]);
+		}
+		Sort(sorted);
+
+
+
+
+        string text = "";
+		for (int i = array.Length - 1; i >= 0; i--)
+		{
+			int index = sorted[i].y;
+			int numberPr = sorted[i].x;
+			text += (array.Length - i).ToString() + ". ";
+			if(index == 0)
 			{
-				if (array[0] != 0)
+				if (numberPr != 0)
 				{
-					text += "<color=#" + humanPlayer.playerColor.ToHexString() + ">" + humanPlayer.playerName + "</color> Provinces: " + array[i]
-						+ " " + Icons.GetIcon("Population") + humanPlayer.stats.GetPopulation() + "\n";
+					text += "<color=#" + humanPlayer.playerColor.ToHexString() + ">" + humanPlayer.playerName + " -</color> Provinces: " + numberPr
+                        + " " + Icons.GetIcon("Population") + humanPlayer.stats.GetPopulation() + "\n";
 				}
 				else
 				{
-                    text += "<color=#5a5a5a>" + humanPlayer.playerName + " Provinces: " + array[i]
-					  + " " + Icons.GetIcon("Population") + humanPlayer.stats.GetPopulation() + "</color>\n";
+                    text += "<color=#5a5a5a>" + humanPlayer.playerName + " - Provinces: " + numberPr
+                      + " " + Icons.GetIcon("Population") + humanPlayer.stats.GetPopulation() + "</color>\n";
                 }
             }
 			else
 			{
-				if (array[i] != 0)
+				if (numberPr != 0)
 				{
-					text += "<color=#" + GetPlayerColor(i).ToHexString() + ">" + botsList[i - 1].playerName + "</color> Provinces: " + array[i]
-						+ " " + Icons.GetIcon("Population") + botsList[i - 1].stats.GetPopulation() + "\n";
+					text += "<color=#" + GetPlayerColor(i).ToHexString() + ">" + botsList[i - 1].playerName + "</color> - Provinces: " + numberPr
+                        + " " + Icons.GetIcon("Population") + botsList[i - 1].stats.GetPopulation() + "\n";
 				}
 				else
 				{
-                    text += "<color=#5a5a5a>" + botsList[i - 1].playerName + " Provinces: " + array[i]
-					  + " " + Icons.GetIcon("Population") + botsList[i - 1].stats.GetPopulation() + "</color>\n";
+                    text += "<color=#5a5a5a>" + botsList[i - 1].playerName + " - Provinces: " + numberPr
+                      + " " + Icons.GetIcon("Population") + botsList[i - 1].stats.GetPopulation() + "</color>\n";
                 }
             }
         }
@@ -982,6 +1030,29 @@ private int[] CountProvinces()
 		}
 		return array;
 	}
+
+    public void Sort(int2[] array)
+    {
+        int selected;
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            selected = 0;
+            for (int j = 1; j < array.Length; j++)
+            {
+                if (array[selected].x > array[j].x)
+                {
+                    int2 k = array[j];
+                    array[j] = array[selected];
+                    array[selected] = k;
+                    selected = j;
+                }
+                else
+                {
+                    selected = j;
+                }
+            }
+        }
+    }
 }
 
 
