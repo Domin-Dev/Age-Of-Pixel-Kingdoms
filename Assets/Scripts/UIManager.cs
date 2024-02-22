@@ -513,8 +513,9 @@ public class UIManager : MonoBehaviour
     }
     public void LoadUnitsAttack(int yourProvinceIndex, int enemyProvinceIndex,Action action, bool youAttack)
     {
+        PrintPlayer(Color.white, "Next Turn");
         OpenUIWindow("Battle", 0);
-       
+    
 
         if (action != null)
         {
@@ -1085,5 +1086,10 @@ public class UIManager : MonoBehaviour
             }
         }
         return value;
+    }
+
+    public void PrintPlayer(Color color, string name)
+    {
+        nextTurn.GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=#"+ color.ToHexString() +">" + name;
     }
 }

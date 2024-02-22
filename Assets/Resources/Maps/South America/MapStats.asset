@@ -1,0 +1,9008 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd16aedd88f03df42b7942c0f42c128a, type: 3}
+  m_Name: MapStats
+  m_EditorClassIdentifier: 
+  price: 0
+  players: 0
+  numberOfProvinces: 290
+  provinces:
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 0
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 1
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 2
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 3
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 4
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 5
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 6
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 7
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 8
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 9
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 10
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 11
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 12
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 13
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 14
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 15
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 16
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 17
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 18
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 1e000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 19
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 20
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 21
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 22
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 23
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 24
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 25
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 26
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 27
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 28
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 29
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 30
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 120000002a00000032000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 31
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 32
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 33
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 34
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 35
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 36
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 37
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 38
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 39
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 40
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 41
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 42
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 1e00000032000000340000003e000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 43
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 44
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 45
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 46
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 47
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 48
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 49
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 50
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 1e0000002a0000003e000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 51
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 52
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 2a0000003e00000044000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 53
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 54
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 55
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 56
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 57
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 58
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 59
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 60
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 61
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 62
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 2a0000003200000034000000440000004a000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 63
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 64
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 65
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 66
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 67
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 68
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 340000003e0000004a0000005100000058000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 69
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 70
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 71
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 72
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 73
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 74
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 3e0000004400000058000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 75
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 76
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 77
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 78
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 79
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 80
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 81
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 4400000058000000600000006a000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 82
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 83
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 84
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 85
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 86
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 87
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 88
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 440000004a000000510000006000000066000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 89
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 90
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 91
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 92
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 93
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 94
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 95
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 96
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 5100000058000000660000006a0000006f000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 97
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 98
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 99
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 100
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 101
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 102
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 58000000600000006c0000006f000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 103
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 104
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 105
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 106
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 51000000600000006f0000007700000078000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 107
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 108
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 660000006f000000750000007b0000007c000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 109
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 110
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 111
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 60000000660000006a0000006c000000780000007b000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 112
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 113
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 114
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 115
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 116
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 117
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 6c0000007c0000008a000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 118
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 119
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 6a0000007800000085000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 120
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 6a0000006f000000770000007b0000008500000086000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 121
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 122
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 123
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 6c0000006f000000780000007c00000086000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 124
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 6c000000750000007b000000860000008a000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 125
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 126
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 127
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 128
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 129
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 130
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 131
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 132
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 133
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 77000000780000008600000095000000990000009a000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 134
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 780000007b0000007c000000850000008a0000009300000095000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 135
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 136
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 137
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 138
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 750000007c000000860000008b000000930000009c0000009e000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 139
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 8a0000009c000000a1000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 140
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 141
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 142
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 143
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 144
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 145
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 146
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 147
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 860000008a000000950000009e000000a6000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 148
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 149
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 8500000086000000930000009a000000a6000000a8000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 150
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 151
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 152
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 153
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 850000009a000000a5000000aa000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 154
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 850000009500000099000000a8000000aa000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 155
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 156
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 8a0000008b0000009e000000a1000000ad000000ae000000af000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 157
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 158
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 8a000000930000009c000000a6000000ad000000ae000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 159
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 160
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 161
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 8b0000009c000000a4000000af000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 162
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 163
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 164
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a1000000af000000b3000000ba000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 165
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 99000000aa000000bb000000bc000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 166
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 93000000950000009e000000a8000000ad000000b2000000b7000000b8000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 167
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 168
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 950000009a000000a6000000aa000000b2000000b5000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 169
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 170
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 990000009a000000a5000000a8000000b5000000bc000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 171
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 172
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 173
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 9c0000009e000000a6000000ae000000af000000b7000000b8000000bd000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 174
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 9c0000009e000000ad000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 175
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 9c000000a1000000a4000000ad000000b3000000bd000000c4000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 176
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 177
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 178
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a6000000a8000000b5000000b7000000c9000000ca000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 179
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a4000000af000000ba000000c4000000c7000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 180
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 181
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a8000000aa000000b2000000bc000000c9000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 182
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 183
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a6000000ad000000b2000000b8000000bd000000ca000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 184
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a6000000ad000000b7000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 185
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 186
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a4000000b3000000c7000000cb000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 187
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a5000000bc000000c5000000c8000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 188
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: a5000000aa000000b5000000bb000000c8000000c9000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 189
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: ad000000af000000b7000000c4000000ca000000d1000000d2000000d7000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 190
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 191
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 192
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 193
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 194
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 195
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 196
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: af000000b3000000bd000000c7000000d2000000d4000000d7000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 197
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: bb000000c8000000dc000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 198
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 199
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: b3000000ba000000c4000000cb000000d4000000d8000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 200
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: bb000000bc000000c5000000c9000000d9000000dc000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 201
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: b2000000b5000000bc000000c8000000ca000000d9000000da000000db000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 202
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: b2000000b7000000bd000000c9000000d1000000d2000000db000000e0000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 203
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: ba000000c7000000ce000000d8000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 204
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 205
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 206
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: cb000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 207
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 208
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 209
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: bd000000ca000000d2000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 210
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: bd000000c4000000ca000000d1000000d4000000d7000000e0000000e7000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 211
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 212
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: c4000000c7000000d2000000d8000000e6000000e7000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 213
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 214
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 215
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: bd000000c4000000d2000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 216
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: c7000000cb000000d4000000e6000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 217
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: c8000000c9000000da000000dc000000ed000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 218
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: c9000000d9000000db000000eb000000ed000000f3000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 219
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: c9000000ca000000da000000e0000000eb000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 220
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: c5000000c8000000d9000000ed000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 221
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 222
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 223
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 224
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: ca000000d2000000db000000e7000000ef000000f6000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 225
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 226
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 227
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 228
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 229
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 230
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: d4000000d8000000e7000000f4000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 231
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: d2000000d4000000e0000000e6000000ef000000f4000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 232
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 233
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 234
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 235
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: da000000db000000f3000000f600000000010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 236
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 237
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: d9000000da000000dc000000f300000001010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 238
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 239
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: e0000000e7000000f4000000f6000000ff0000000501000007010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 240
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 241
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 242
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 243
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: da000000eb000000ed00000000010000010100000f010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 244
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: e6000000e7000000ef000000ff000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 245
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 246
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: e0000000eb000000ef0000000001000005010000070100000b010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 247
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 248
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 249
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 250
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 251
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 252
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 253
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 254
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 255
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: ef000000f400000007010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 256
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: eb000000f3000000f60000000b0100000f010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 257
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: ed000000f30000000f010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 258
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 259
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 260
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 261
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: ef000000f600000007010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 262
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 263
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: ef000000f6000000ff000000050100000b010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 264
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 265
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 266
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 267
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: f600000000010000070100000f010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 268
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 269
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 270
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 271
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: f300000000010000010100000b010000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 272
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 273
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 274
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 275
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 276
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 277
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 278
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 279
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 280
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 281
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 282
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 283
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 284
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 285
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 286
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 287
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 288
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    index: 289
+    isSea: 1
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 
