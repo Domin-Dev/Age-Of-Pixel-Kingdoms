@@ -269,7 +269,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 0
+  androidUseCustomKeystore: 1
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -492,8 +492,8 @@ PlayerSettings:
       m_Kind: 0
       m_SubKind: 
     - m_Textures:
-      - {fileID: 0}
-      - {fileID: 2800000, guid: dc2558c4eb3dc3246a66ab981f418fca, type: 3}
+      - {fileID: 2800000, guid: 97ebf5eaed7f4574b9280031a089ff0f, type: 3}
+      - {fileID: 2800000, guid: 37291da7554c79540aed9a13bf0d4c7b, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2

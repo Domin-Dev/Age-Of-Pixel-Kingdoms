@@ -952,8 +952,8 @@ private void OnLevelWasLoaded(int level)
         string text = "";
 		for (int i = array.Length - 1; i >= 0; i--)
 		{
-			int index = sorted[i].y;
-			int numberPr = sorted[i].x;
+			int index = sorted[i].x;
+			int numberPr = sorted[i].y;
 			text += (array.Length - i).ToString() + ". ";
 			if(index == 0)
 			{
@@ -987,7 +987,6 @@ private void OnLevelWasLoaded(int level)
 		PlayerPrefs.SetInt("VictoryPoints", vp);
 
 		window.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
-		Debug.Log("si");
 		SavesManager.Delete();
     }
 

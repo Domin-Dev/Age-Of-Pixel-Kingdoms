@@ -665,7 +665,7 @@ public class SelectingProvinces : MonoBehaviour
         if (province.childCount > 0) province.GetChild(0).GetComponentInChildren<TextMeshPro>().text = number.ToString();
 
 
-        if(GameManager.Instance.warFog)
+        if (GameManager.Instance.warFog)
         {
             bool value = GameManager.Instance.CanBeShow(int.Parse(province.name));
             if (province.childCount > 0)
@@ -673,24 +673,26 @@ public class SelectingProvinces : MonoBehaviour
                 province.GetChild(0).gameObject.SetActive(value);
             }
 
-            if(provinceStats.provinceOwnerIndex == -1)
+            if (provinceStats.provinceOwnerIndex == -1)
             {
                 if (value) ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.neighborColor);
                 else ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.fogColor);
             }
             else
             {
-                if(value) ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(provinceStats.provinceOwnerIndex));
+                if (value) ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(provinceStats.provinceOwnerIndex));
                 else ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.fogColor);
             }
 
 
             GameManager.Instance.UpdateBuildings(value, provinceStats.index);
         }
+        else
+        {
+            ChangeProvinceColor(province.GetComponent<SpriteRenderer>(), GameManager.Instance.GetPlayerColor(provinceStats.provinceOwnerIndex));
+        }
 
     }
-
-
     private void MoveAll(int provinceNumber)
     {
         UIManager.Instance.CloseUIWindow("SelectionNumberUnits");

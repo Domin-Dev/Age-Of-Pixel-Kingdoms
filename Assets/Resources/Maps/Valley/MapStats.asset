@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MapStats
   m_EditorClassIdentifier: 
   price: 0
-  players: 4
-  numberOfProvinces: 166
+  players: 0
+  numberOfProvinces: 165
   provinces:
   - lifePoints:
       value: 0
@@ -2681,7 +2681,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 470000004a000000560000005b0000005f00000068000000
+    neighbors: 470000004a000000560000005b0000005f00000067000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2743,7 +2743,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 460000004e0000004f0000005c00000061000000640000006500000067000000
+    neighbors: 460000004e0000004f0000005c000000610000006400000066000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2774,7 +2774,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 440000004d0000005a0000006a0000006e000000
+    neighbors: 440000004d0000005a000000690000006d000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2805,7 +2805,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 500000005300000060000000660000006f000000
+    neighbors: 500000005300000060000000650000006e000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2836,7 +2836,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 4d00000051000000580000005c0000006b0000006e000000
+    neighbors: 4d00000051000000580000005c0000006a0000006d000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2867,7 +2867,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 470000004f00000055000000610000006800000070000000
+    neighbors: 470000004f0000005500000061000000670000006f000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2898,7 +2898,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 4e00000051000000570000005a000000670000006b000000
+    neighbors: 4e00000051000000570000005a000000660000006a000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2929,7 +2929,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 52000000540000005e00000060000000690000006d000000
+    neighbors: 52000000540000005e00000060000000680000006c000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2960,7 +2960,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 4b0000004c00000054000000560000005d00000063000000690000006c000000
+    neighbors: 4b0000004c00000054000000560000005d00000063000000680000006b000000
   - lifePoints:
       value: 0
       limit: 0
@@ -2991,7 +2991,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 55000000560000006300000071000000
+    neighbors: 55000000560000006300000070000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3022,7 +3022,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 5200000053000000590000005d0000006d0000006f000000
+    neighbors: 5200000053000000590000005d0000006c0000006e000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3053,7 +3053,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 4f000000570000005b0000006400000070000000
+    neighbors: 4f000000570000005b000000640000006f000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3115,7 +3115,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 560000005e0000005f0000006c000000710000007400000075000000
+    neighbors: 560000005e0000005f0000006b000000700000007300000074000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3146,7 +3146,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 57000000610000006500000067000000700000007300000079000000
+    neighbors: 5700000061000000660000006f0000007200000078000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3177,7 +3177,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 570000006400000067000000
+    neighbors: 590000006e00000071000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3208,7 +3208,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 590000006f00000072000000
+    neighbors: 570000005c000000640000006a00000072000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3239,7 +3239,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 570000005c00000064000000650000006b00000073000000
+    neighbors: 550000005b0000006f00000077000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3270,7 +3270,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 550000005b0000007000000078000000
+    neighbors: 5d0000005e0000006b0000006c00000075000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3301,7 +3301,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 5d0000005e0000006c0000006d00000076000000
+    neighbors: 580000006d0000007600000079000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3332,7 +3332,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 580000006e000000770000007a000000
+    neighbors: 5a0000005c000000660000006d000000720000007b000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3363,7 +3363,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 5a0000005c000000670000006e000000730000007c000000
+    neighbors: 5e00000063000000680000007400000075000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3394,7 +3394,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 5e00000063000000690000007500000076000000
+    neighbors: 5d00000060000000680000006e000000750000007a000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3425,7 +3425,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 5d00000060000000690000006f000000760000007b000000
+    neighbors: 580000005a000000690000006a000000790000007b000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3456,7 +3456,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 580000005a0000006a0000006b0000007a0000007c000000
+    neighbors: 5900000060000000650000006c000000710000007a000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3487,7 +3487,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 5900000060000000660000006d000000720000007b000000
+    neighbors: 5b00000061000000640000006700000077000000780000007c000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3518,7 +3518,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 5b00000061000000640000006800000078000000790000007d000000
+    neighbors: 5f00000063000000730000007d000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3549,7 +3549,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 5f00000063000000740000007e000000
+    neighbors: 650000006e0000007a000000810000008e000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3580,7 +3580,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 660000006f0000007b000000820000008f000000
+    neighbors: 64000000660000006a000000780000007b0000007e000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3611,7 +3611,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 64000000670000006b000000790000007c0000007f000000
+    neighbors: 6300000070000000740000007d00000080000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3642,7 +3642,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 6300000071000000750000007e00000081000000
+    neighbors: 630000006b00000073000000750000008000000085000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3673,7 +3673,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 630000006c00000074000000760000008100000086000000
+    neighbors: 680000006b0000006c000000740000007a00000082000000850000008a000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3704,7 +3704,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 690000006c0000006d000000750000007b00000083000000860000008b000000
+    neighbors: 690000007900000086000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3735,7 +3735,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 6a0000007a00000087000000
+    neighbors: 670000006f0000007c0000007f000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3766,7 +3766,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 68000000700000007d00000080000000
+    neighbors: 640000006f000000720000007c0000007e000000830000008c000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3797,7 +3797,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 6400000070000000730000007d0000007f000000840000008d000000
+    neighbors: 690000006d000000760000007b0000008400000086000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3828,7 +3828,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 6a0000006e000000770000007c0000008500000087000000
+    neighbors: 6c0000006e00000071000000750000008100000082000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3859,7 +3859,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 6d0000006f00000072000000760000008200000083000000
+    neighbors: 6a0000006d00000072000000790000007e00000084000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3890,7 +3890,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 6b0000006e000000730000007a0000007f00000085000000
+    neighbors: 6f00000077000000780000007f0000008300000089000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3921,7 +3921,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 70000000780000007900000080000000840000008a000000
+    neighbors: 7000000073000000800000008700000088000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3952,7 +3952,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 7100000074000000810000008800000089000000
+    neighbors: 72000000780000007b000000840000008c00000090000000
   - lifePoints:
       value: 0
       limit: 0
@@ -3983,7 +3983,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 73000000790000007c000000850000008d00000091000000
+    neighbors: 770000007c0000008900000091000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4014,7 +4014,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 780000007d0000008a00000092000000
+    neighbors: 73000000740000007d00000085000000880000008d000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4045,7 +4045,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 74000000750000007e00000086000000890000008e000000
+    neighbors: 710000007a000000820000008e0000008f000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4076,7 +4076,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 720000007b000000830000008f00000090000000
+    neighbors: 750000007a000000810000008a0000008f00000093000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4107,7 +4107,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 760000007b000000820000008b0000009000000094000000
+    neighbors: 780000007c000000890000008c00000092000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4138,7 +4138,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 790000007d0000008a0000008d00000093000000
+    neighbors: 790000007b0000007e000000860000009000000097000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4169,7 +4169,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 7a0000007c0000007f000000870000009100000098000000
+    neighbors: 7400000075000000800000008a0000008d000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4200,7 +4200,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 7500000076000000810000008b0000008e000000
+    neighbors: 7600000079000000840000009400000097000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4231,7 +4231,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 770000007a000000850000009500000098000000
+    neighbors: 7d0000008800000095000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4262,7 +4262,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 7e0000008900000096000000
+    neighbors: 7d00000080000000870000008d0000009500000096000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4293,7 +4293,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 7e00000081000000880000008e0000009600000097000000
+    neighbors: 7c0000007f000000830000009100000092000000990000009e000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4324,7 +4324,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 7d000000800000008400000092000000930000009a0000009f000000
+    neighbors: 7500000082000000850000008d0000009300000098000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4350,37 +4350,6 @@ MonoBehaviour:
       description: 
       icon: 
     index: 139
-    isSea: 0
-    provinceOwnerIndex: -1
-    chest: 0
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 7600000083000000860000008e0000009400000099000000
-  - lifePoints:
-      value: 0
-      limit: 0
-      turnIncome: 0
-      description: 
-      icon: 
-    population:
-      value: 0
-      limit: 0
-      turnIncome: 0
-      description: 
-      icon: 
-    warriors:
-      value: 0
-      limit: 0
-      turnIncome: 0
-      description: 
-      icon: 
-    movementPoints:
-      value: 0
-      limit: 0
-      turnIncome: 0
-      description: 
-      icon: 
-    index: 140
     isSea: 1
     provinceOwnerIndex: -1
     chest: 0
@@ -4411,13 +4380,44 @@ MonoBehaviour:
       turnIncome: 0
       description: 
       icon: 
+    index: 140
+    isSea: 0
+    provinceOwnerIndex: -1
+    chest: 0
+    unitsCounter: 0
+    buildingIndex: -1
+    neighbors: 780000007e0000008300000090000000920000009b000000
+  - lifePoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    population:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    warriors:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
+    movementPoints:
+      value: 0
+      limit: 0
+      turnIncome: 0
+      description: 
+      icon: 
     index: 141
     isSea: 0
     provinceOwnerIndex: -1
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 790000007f0000008400000091000000930000009c000000
+    neighbors: 8000000085000000880000008a0000009600000098000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4448,7 +4448,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 8100000086000000890000008b0000009700000099000000
+    neighbors: 71000000810000008f000000a2000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4479,7 +4479,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 720000008200000090000000a3000000
+    neighbors: 81000000820000008e000000930000009a000000a2000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4510,7 +4510,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 82000000830000008f000000940000009b000000a3000000
+    neighbors: 7e000000840000008c000000970000009b0000009c000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4541,7 +4541,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 7f000000850000008d000000980000009c0000009d000000
+    neighbors: 7f0000008900000099000000a0000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4572,7 +4572,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 800000008a0000009a000000a1000000
+    neighbors: 83000000890000008c0000009b0000009e000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4603,7 +4603,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 840000008a0000008d0000009c0000009f000000
+    neighbors: 820000008a0000008f000000980000009a000000a4000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4634,7 +4634,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 830000008b00000090000000990000009b000000a5000000
+    neighbors: 8600000097000000a3000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4665,7 +4665,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 8700000098000000a4000000
+    neighbors: 8700000088000000960000009d0000009f000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4696,7 +4696,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 8800000089000000970000009e000000a0000000
+    neighbors: 880000008d00000095000000980000009d000000a1000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4727,7 +4727,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 890000008e00000096000000990000009e000000a2000000
+    neighbors: 840000008600000090000000940000009c000000a3000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4758,7 +4758,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 850000008700000091000000950000009d000000a4000000
+    neighbors: 8a0000008d0000009300000096000000a1000000a4000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4789,7 +4789,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 8b0000008e0000009400000097000000a2000000a5000000
+    neighbors: 89000000910000009e000000a0000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4820,7 +4820,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 8a000000920000009f000000a1000000
+    neighbors: 8f00000093000000a2000000a4000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4851,7 +4851,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 9000000094000000a3000000a5000000
+    neighbors: 8c00000090000000920000009c0000009e000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4882,7 +4882,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 8d00000091000000930000009d0000009f000000
+    neighbors: 90000000970000009b000000a3000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4913,7 +4913,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 91000000980000009c000000a4000000
+    neighbors: 95000000960000009f000000a1000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4944,7 +4944,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 9600000097000000a0000000a2000000
+    neighbors: 8900000092000000990000009b000000
   - lifePoints:
       value: 0
       limit: 0
@@ -4975,7 +4975,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 8a000000930000009a0000009c000000
+    neighbors: 950000009d000000
   - lifePoints:
       value: 0
       limit: 0
@@ -5006,7 +5006,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 960000009e000000
+    neighbors: 9100000099000000
   - lifePoints:
       value: 0
       limit: 0
@@ -5037,7 +5037,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 920000009a000000
+    neighbors: 96000000980000009d000000a4000000
   - lifePoints:
       value: 0
       limit: 0
@@ -5068,7 +5068,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 97000000990000009e000000a5000000
+    neighbors: 8e0000008f0000009a000000
   - lifePoints:
       value: 0
       limit: 0
@@ -5099,7 +5099,7 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 8f000000900000009b000000
+    neighbors: 94000000970000009c000000
   - lifePoints:
       value: 0
       limit: 0
@@ -5130,35 +5130,4 @@ MonoBehaviour:
     chest: 0
     unitsCounter: 0
     buildingIndex: -1
-    neighbors: 95000000980000009d000000
-  - lifePoints:
-      value: 0
-      limit: 0
-      turnIncome: 0
-      description: 
-      icon: 
-    population:
-      value: 0
-      limit: 0
-      turnIncome: 0
-      description: 
-      icon: 
-    warriors:
-      value: 0
-      limit: 0
-      turnIncome: 0
-      description: 
-      icon: 
-    movementPoints:
-      value: 0
-      limit: 0
-      turnIncome: 0
-      description: 
-      icon: 
-    index: 165
-    isSea: 0
-    provinceOwnerIndex: -1
-    chest: 0
-    unitsCounter: 0
-    buildingIndex: -1
-    neighbors: 94000000990000009b000000a2000000
+    neighbors: 93000000980000009a000000a1000000
