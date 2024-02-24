@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -59,11 +60,13 @@ public class GameManager : MonoBehaviour
 
 	public int lastPlayer;
 
-	public bool warFog {private set; get; }
+
+    bool iswin;
+    public bool warFog {private set; get; }
 
 	private void Awake()
 	{
-		warFog = true;
+		warFog = false;
 		if (Instance == null)
 		{
 			Instance = this;
@@ -78,11 +81,13 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		if (!toLoad && isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
+        Time.timeScale = 1;
+        if (!toLoad && isPlaying && SceneManager.GetActiveScene().buildIndex == 2)
 		{
 			isPlaying = false;
 			lastPlayer = -1;
 			SetUp();
+			iswin = false;
         }
 	}
 
@@ -541,28 +546,7 @@ private void OnLevelWasLoaded(int level)
 			updateReward((int)humanPlayer.stats.coins.CountIncome());
 			StartCoroutine(BotsNextTurn());
 
-			humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
 
-			float startDevelopmentPoints = (float)Math.Round(humanPlayer.stats.developmentPoints.value, 2);
-			float developmentPointsIncome = (float)Math.Round(humanPlayer.stats.developmentPoints.NextTurn(), 2);
-
-			float startCoins = (int)humanPlayer.stats.coins.value;
-			float coinsIncome = humanPlayer.stats.coins.NextTurn();
-
-			float startPopulation = humanPlayer.stats.GetPopulation();
-			float populationIncome = 0;
-
-
-			UIManager.Instance.UpdateTurnCounter();
-			UIManager.Instance.CloseUIWindow("ProvinceStats");
-
-
-
-			for (int i = 0; i < provinces.Length; i++)
-			{
-				float value = provinces[i].population.NextTurn();
-				if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
-			}
 			/*
 			string stats = startCoins + " <sprite index=21/>   ";
 			if (coinsIncome >= 0) stats += "<color=green>+"+ coinsIncome +"</color>";
@@ -589,12 +573,18 @@ private void OnLevelWasLoaded(int level)
 	}
 
 
-	IEnumerator ContinueTurn()
+	public void ContinueT()
 	{
+		StartCoroutine(ContinueTurn());
+	}
+    IEnumerator ContinueTurn()
+	{
+		Debug.Log("contiune !!!!" + lastPlayer);
 		if (lastPlayer > 0)
 		{
 			readyToNextTurn = false;
-			ready = true;
+            UIManager.Instance.background.gameObject.SetActive(true);
+            ready = true;
 
 			for (int i = lastPlayer - 1; i < botsList.Count; i++)
 			{
@@ -620,10 +610,11 @@ private void OnLevelWasLoaded(int level)
 					bot.RunEnemyManager();
 				}
 			}
-			lastPlayer = -1;
+            lastPlayer = -1;
+            UpdateStats();
             readyToNextTurn = true;
-            UIManager.Instance.PrintPlayer(Color.white, "Next Turn");
             UpdateBotDebuger();
+            UIManager.Instance.background.gameObject.SetActive(false);
         }
     }
 
@@ -648,13 +639,48 @@ private void OnLevelWasLoaded(int level)
 		}
 		lastPlayer = -1;
 		readyToNextTurn = true;
-        UIManager.Instance.PrintPlayer(Color.white,"Next Turn");
-        if (turn % 2 == 0) Save();
+
+		UpdateStats();
+
         UpdateBotDebuger();
         UIManager.Instance.background.gameObject.SetActive(false);
+
+
+
         yield return 0;
 	}
 
+
+	private void UpdateStats()
+	{
+
+        humanPlayer.stats.movementPoints.Set(humanPlayer.stats.movementPoints.limit);
+
+        float startDevelopmentPoints = (float)Math.Round(humanPlayer.stats.developmentPoints.value, 2);
+        float developmentPointsIncome = (float)Math.Round(humanPlayer.stats.developmentPoints.NextTurn(), 2);
+
+        float startCoins = (int)humanPlayer.stats.coins.value;
+        float coinsIncome = humanPlayer.stats.coins.NextTurn();
+
+        float startPopulation = humanPlayer.stats.GetPopulation();
+        float populationIncome = 0;
+
+
+        UIManager.Instance.UpdateTurnCounter();
+        UIManager.Instance.CloseUIWindow("ProvinceStats");
+
+
+
+        for (int i = 0; i < provinces.Length; i++)
+        {
+            float value = provinces[i].population.NextTurn();
+            if (provinces[i].provinceOwnerIndex == 0) populationIncome += value;
+        }
+
+
+        UIManager.Instance.PrintPlayer(Color.white, "Next Turn");
+        if (turn % 2 == 0) Save();
+    }
 
 	public void UpdateBotDebuger()
 	{
@@ -924,70 +950,73 @@ private void OnLevelWasLoaded(int level)
 			if (i == 0 && array[i] == 0) Win();
 			else if (i != 0 && array[i] != 0) return;
 		}
+		Debug.Log("win!!!!!!!!!!!!!!!");
 		Win();
 	}
 
-
 	private void Win()
 	{
-		UIManager.Instance.OpenUIWindow("Win", 0);
-        UIManager.Instance.background.gameObject.SetActive(true);
-        Transform window = UIManager.Instance.GetWindow("Win");
-
-		int[] array = CountProvinces();
-
-		if (array[0] > 0) window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you won";
-		else window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you lost";
-
-		int2[] sorted = new int2[array.Length];
-		for (int i = 0; i < array.Length; i++)
+		if (!iswin)
 		{
-			sorted[i] = new int2(array.Length - i - 1, array[array.Length - 1 - i]);
+			iswin = true;
+			StopAllCoroutines();
+			Time.timeScale = 0;
+			UIManager.Instance.OpenUIWindow("Win", 0);
+			UIManager.Instance.background.gameObject.SetActive(true);
+			Transform window = UIManager.Instance.GetWindow("Win");
+
+			int[] array = CountProvinces();
+
+			if (array[0] > 0) window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you won";
+			else window.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "you lost";
+
+			int2[] sorted = new int2[array.Length];
+			for (int i = 0; i < array.Length; i++)
+			{
+				sorted[i] = new int2(array[i],i);
+			}
+			Sort(sorted);
+
+			string text = "";
+			for (int i = array.Length - 1; i >= 0; i--)
+			{
+				int index = sorted[i].y;
+				int numberPr = sorted[i].x;
+				text += (array.Length - i).ToString() + ". ";
+				if (index == 0)
+				{
+					if (numberPr != 0)
+					{
+						text += "<color=#" + humanPlayer.playerColor.ToHexString() + ">" + humanPlayer.playerName + " -</color> Provinces: " + numberPr + "\n";
+					}
+					else
+					{
+						text += "<color=#5a5a5a>" + humanPlayer.playerName + " - Provinces: " + numberPr + "</color>\n";
+					}
+				}
+				else
+				{
+					if (numberPr != 0)
+					{
+						text += "<color=#" + GetPlayerColor(index).ToHexString() + ">" + botsList[index - 1].playerName + "</color> - Provinces: " + numberPr + "\n";
+					}
+					else
+					{
+						text += "<color=#5a5a5a>" + botsList[index - 1].playerName + " - Provinces: " + numberPr + "</color>\n";
+					}
+				}
+			}
+
+			int reward = CountVP(array);
+
+			window.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + reward.ToString();
+			int vp = PlayerPrefs.GetInt("VictoryPoints", 0);
+			vp += reward;
+			PlayerPrefs.SetInt("VictoryPoints", vp);
+
+			window.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
+			SavesManager.Delete();
 		}
-		Sort(sorted);
-
-
-
-
-        string text = "";
-		for (int i = array.Length - 1; i >= 0; i--)
-		{
-			int index = sorted[i].x;
-			int numberPr = sorted[i].y;
-			text += (array.Length - i).ToString() + ". ";
-			if(index == 0)
-			{
-				if (numberPr != 0)
-				{
-					text += "<color=#" + humanPlayer.playerColor.ToHexString() + ">" + humanPlayer.playerName + " -</color> Provinces: " + numberPr + "\n";
-				}
-				else
-				{
-                    text += "<color=#5a5a5a>" + humanPlayer.playerName + " - Provinces: " + numberPr + "</color>\n";
-                }
-            }
-			else
-			{
-				if (numberPr != 0)
-				{
-					text += "<color=#" + GetPlayerColor(i).ToHexString() + ">" + botsList[i - 1].playerName + "</color> - Provinces: " + numberPr + "\n";
-				}
-				else
-				{
-                    text += "<color=#5a5a5a>" + botsList[i - 1].playerName + " - Provinces: " + numberPr + "</color>\n";
-                }
-            }
-        }
-
-		int reward = CountVP(array);
-
-        window.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + reward.ToString();
-		int vp = PlayerPrefs.GetInt("VictoryPoints", 0);
-		vp += reward;
-		PlayerPrefs.SetInt("VictoryPoints", vp);
-
-		window.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
-		SavesManager.Delete();
     }
 
 	private int CountVP(int[] playersProvinces)

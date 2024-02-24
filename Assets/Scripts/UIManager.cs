@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour
 
         LoadBuildings(-1);
 
-        win.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(0); });
+        win.GetChild(3).GetComponent<Button>().onClick.AddListener(() => { Time.timeScale = 1; SceneManager.LoadScene(0); });
         spellsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Spells"); Sounds.instance.PlaySound(5); });
         pauseWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("Pause"); Sounds.instance.PlaySound(5); });
         provinceStatsWindow.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { CloseUIWindow("ProvinceStats"); Sounds.instance.PlaySound(5); });
@@ -552,7 +552,7 @@ public class UIManager : MonoBehaviour
 
         button =  battleWindow.GetChild(2).GetChild(0).GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => { if (action != null) { GameManager.Instance.readyToNextTurn = true; action(); } GameManager.Instance.selectingProvinces.AutoBattle(true,aggressorProvinceIndex, defenderProvinceIndex);});
+        button.onClick.AddListener(() => { if (action != null) { GameManager.Instance.readyToNextTurn = true; action();GameManager.Instance.ContinueT(); } GameManager.Instance.selectingProvinces.AutoBattle(true,aggressorProvinceIndex, defenderProvinceIndex); });
 
 
         int index = GameManager.Instance.provinces[enemyProvinceIndex].provinceOwnerIndex;

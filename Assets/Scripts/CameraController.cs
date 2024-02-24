@@ -30,6 +30,7 @@ public class CameraController : MonoBehaviour
         isFrozen = false;
         Application.targetFrameRate = 60;
         selectingProvinces = GetComponent<SelectingProvinces>();
+        numbertouch = 0;
 
         if (target != null)
         {
@@ -51,6 +52,7 @@ public class CameraController : MonoBehaviour
 
 
     float lastValue;
+    float numbertouch;
     private void Update()
     {
         if (target == null && !isFrozen)
@@ -64,7 +66,7 @@ public class CameraController : MonoBehaviour
                 if (selectingProvinces != null) selectingProvinces.SelectingProvince();
             }
 
-            if (Input.GetMouseButton(0) && !MouseIsOverUI() && Input.touchCount <= 1)
+            if (Input.GetMouseButton(0) && !MouseIsOverUI() && Input.touchCount <= 1 && numbertouch < 2)
             {
                 endPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 position = transform.position + startPosition - endPosition;
@@ -89,6 +91,7 @@ public class CameraController : MonoBehaviour
             {
                 lastValue = 0;
             }
+            numbertouch = Input.touchCount;
         }
 
         if(isFrozen)
