@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 	public string saveName;
 
 	[SerializeField]float adTime;
-    [SerializeField] float timer = 0;
+    [SerializeField] public float timer = 0;
 
     [SerializeField] public Color fogColor;
     [SerializeField] public Color neighborColor;

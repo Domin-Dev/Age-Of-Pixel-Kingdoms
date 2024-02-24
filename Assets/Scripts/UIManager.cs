@@ -148,7 +148,7 @@ public class UIManager : MonoBehaviour
                 Transform transformStats = transform.GetChild(0).GetChild(2);
                 transformStats.GetChild(0).GetComponent<TextMeshProUGUI>().text = "<sprite index=16>" + item.lifePoints.ToString();
                 transformStats.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<sprite index=14>" + item.damage.ToString();
-                transformStats.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<sprite index=17>" + item.speed.ToString();
+                transformStats.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<sprite index=13>" + item.speed.ToString();
                 transformStats.GetChild(3).GetComponent<TextMeshProUGUI>().text = "<sprite index=15>" + item.range.ToString();
                 transformStats.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<sprite index=18>" + item.rateOfFire.ToString();
                 transformStats.GetChild(5).GetComponent<TextMeshProUGUI>().text = "<sprite index=19>" + item.turnCost.ToString();

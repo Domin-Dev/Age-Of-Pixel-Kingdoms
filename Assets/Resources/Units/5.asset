@@ -21,9 +21,9 @@ MonoBehaviour:
   <range>k__BackingField: 3.5
   <bullet>k__BackingField: {fileID: 21300000, guid: 809e925a139fd114c957d630b50a9267, type: 3}
   <rateOfFire>k__BackingField: 30
-  <turnCost>k__BackingField: 0
-  <price>k__BackingField: 75
-  <movementPointsPrice>k__BackingField: 2
+  <turnCost>k__BackingField: 3
+  <price>k__BackingField: 60
+  <movementPointsPrice>k__BackingField: 3
   <movementSound>k__BackingField: 9
   <attackSound>k__BackingField: 14
   <unitType>k__BackingField: 1

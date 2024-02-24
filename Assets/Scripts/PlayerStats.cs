@@ -43,6 +43,9 @@ public class PlayerStats
         this.texesIndex = 2;
         this.researchIndex = 2;
 
+
+
+
         this.coins = new Statistic((float)coins, 0f, () => { UIManager.Instance.UpdateCounters(); }, "Coin");
         this.coins.AddBonus(-1, this);
         this.coins.AddBonus(-2, this);
@@ -55,10 +58,12 @@ public class PlayerStats
         this.warriors.AddBonus(-6, this);
         this.warriors.SetDescription("<color=#636363>The warrior limit </color>determines the maximum\n number of units. Conquer new provinces to\n increase this limit.");
 
-        this.developmentPoints = new Statistic(0f, 0f, () => { UIManager.Instance.UpdateCounters(); }, "DevelopmentPoint");
+        this.developmentPoints = new Statistic(10000f, 0f, () => { UIManager.Instance.UpdateCounters(); }, "DevelopmentPoint");
         this.developmentPoints.AddBonus(-7, this);
         this.developmentPoints.AddBonus(-8, this);
         this.developmentPoints.SetDescription("<color=#004ffa>Development points</color> are used to discover \n new technologies and spells.");
+
+
 
         this.movementPoints = new Statistic(0, () => { UIManager.Instance.UpdateCounters(); }, 0, "MovementPoint");
         this.movementPoints.AddBonus(-9,this);

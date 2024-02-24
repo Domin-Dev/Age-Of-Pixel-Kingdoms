@@ -17,11 +17,11 @@ MonoBehaviour:
   <unitName>k__BackingField: Peasant
   <speed>k__BackingField: 35
   <lifePoints>k__BackingField: 200
-  <damage>k__BackingField: 20
+  <damage>k__BackingField: 40
   <range>k__BackingField: 1
   <bullet>k__BackingField: {fileID: 0}
   <rateOfFire>k__BackingField: 30
-  <turnCost>k__BackingField: 3
+  <turnCost>k__BackingField: 1
   <price>k__BackingField: 20
   <movementPointsPrice>k__BackingField: 2
   <movementSound>k__BackingField: 9

@@ -15,15 +15,15 @@ MonoBehaviour:
   unit: {fileID: 7742407762973993446, guid: d808e99630d60114c9b69f80cc6ce3d5, type: 3}
   <sprite>k__BackingField: {fileID: -1381210496, guid: 66433c7ed5e539f4b8b2ddb4202dd3ac, type: 3}
   <unitName>k__BackingField: Archer
-  <speed>k__BackingField: 40
-  <lifePoints>k__BackingField: 70
-  <damage>k__BackingField: 25
+  <speed>k__BackingField: 45
+  <lifePoints>k__BackingField: 80
+  <damage>k__BackingField: 20
   <range>k__BackingField: 4.5
   <bullet>k__BackingField: {fileID: 21300000, guid: 809e925a139fd114c957d630b50a9267, type: 3}
-  <rateOfFire>k__BackingField: 40
-  <turnCost>k__BackingField: 0
-  <price>k__BackingField: 120
-  <movementPointsPrice>k__BackingField: 2
+  <rateOfFire>k__BackingField: 60
+  <turnCost>k__BackingField: 2
+  <price>k__BackingField: 35
+  <movementPointsPrice>k__BackingField: 3
   <movementSound>k__BackingField: 9
   <attackSound>k__BackingField: 13
   <unitType>k__BackingField: 1

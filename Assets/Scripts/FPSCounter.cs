@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using TMPro;
+using Unity.Mathematics;
 
 public class FPSCounter : MonoBehaviour
 {
@@ -12,6 +13,6 @@ public class FPSCounter : MonoBehaviour
     }
     private void Update()
     {
-        text.text = ((int)(1f / Time.unscaledDeltaTime)).ToString();
+        text.text = math.round(GameManager.Instance.timer).ToString();
     }
 }

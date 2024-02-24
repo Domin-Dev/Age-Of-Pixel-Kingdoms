@@ -17,12 +17,12 @@ MonoBehaviour:
   <unitName>k__BackingField: Armed peasant
   <speed>k__BackingField: 55
   <lifePoints>k__BackingField: 100
-  <damage>k__BackingField: 15
+  <damage>k__BackingField: 30
   <range>k__BackingField: 1
   <bullet>k__BackingField: {fileID: 0}
   <rateOfFire>k__BackingField: 120
   <turnCost>k__BackingField: 1
-  <price>k__BackingField: 50
+  <price>k__BackingField: 25
   <movementPointsPrice>k__BackingField: 2
   <movementSound>k__BackingField: 9
   <attackSound>k__BackingField: 12
