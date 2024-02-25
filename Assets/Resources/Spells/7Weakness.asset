@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 7Weakness
   m_EditorClassIdentifier: 
   <spellName>k__BackingField: Weakness
-  <description>k__BackingField: 'cooldown: 10 sec. decreases the damage inflicted
+  <description>k__BackingField: 'cooldown: 50 sec. decreases the damage inflicted
     by enemy units by 50%.'
   <price>k__BackingField: 150
   <spell>k__BackingField: {fileID: 1183364353915480880, guid: f4017a0c5ae2ba24998f9a4697c8f458, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: 621df226c5bd7564ebf83796be9be295, type: 3}
-  <timeToReload>k__BackingField: 6
+  <timeToReload>k__BackingField: 50

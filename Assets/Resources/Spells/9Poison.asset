@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 9Poison
   m_EditorClassIdentifier: 
   <spellName>k__BackingField: Poison
-  <description>k__BackingField: 'cooldown: 10 sec. for 20 sec. takes 10 life points
+  <description>k__BackingField: 'cooldown: 120 sec. for 20 sec. takes 10 life points
     from enemy units every second.'
-  <price>k__BackingField: 300
+  <price>k__BackingField: 600
   <spell>k__BackingField: {fileID: 3680050567698704622, guid: 730f8c4178d234e4f98951af32a23845, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: e7e1e428517e0c24a81f1eef7ceb6847, type: 3}
-  <timeToReload>k__BackingField: 5
+  <timeToReload>k__BackingField: 120

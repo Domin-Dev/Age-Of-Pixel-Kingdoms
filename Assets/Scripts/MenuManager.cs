@@ -29,6 +29,7 @@ public class MenuManager : MonoBehaviour
         vpButton.GetComponent<Button>().onClick.AddListener(() => {; victoryPoints.gameObject.SetActive(true); Sounds.instance.PlaySound(5); });
         victoryPoints.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { victoryPoints.gameObject.SetActive(false); Sounds.instance.PlaySound(5); });
 
+
         vp = PlayerPrefs.GetInt("VictoryPoints", 0);
         vpButton.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = vp.ToString();
 

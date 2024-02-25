@@ -573,8 +573,8 @@ public class EnemyManager : MonoBehaviour
                // Sounds.instance.PlaySound(1);
                 BonusManager.SetBonus(provinceStats, buildingStats.bonusIndex);
 
-                GameManager.Instance.humanPlayer.stats.movementPoints.Subtract(priceMP);
-                GameManager.Instance.humanPlayer.stats.coins.Subtract(price);
+                playerStats.movementPoints.Subtract(priceMP);
+                playerStats.coins.Subtract(price);
                 
                 Transform province = GameManager.Instance.map.GetChild(provinceIndex).transform;
                 Transform transform = new GameObject(province.name, typeof(SpriteRenderer)).transform;

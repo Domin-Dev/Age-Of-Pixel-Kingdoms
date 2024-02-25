@@ -702,11 +702,11 @@ private void OnLevelWasLoaded(int level)
 		switch (index)
 		{
 			case 0:
-				coinsIncome = -0.05f;
-				peopleIncome = 0.02f;
+				coinsIncome =  0.01f;
+				peopleIncome = 0.025f;
 				break;
 			case 1:
-				coinsIncome = 0.00f;
+				coinsIncome = 0.003f;
 				peopleIncome = 0.015f;
 				break;
 			case 2:
@@ -714,12 +714,12 @@ private void OnLevelWasLoaded(int level)
 				peopleIncome = 0.01f;
 				break;
 			case 3:
-				coinsIncome = 0.075f;
-				peopleIncome = 0.00f;
+				coinsIncome = 0.06f;
+				peopleIncome = -0.01f;
 				break;
 			case 4:
-				coinsIncome = 0.15f;
-				peopleIncome = -0.015f;
+				coinsIncome = 0.075f;
+				peopleIncome = -0.05f;
 				break;
 		}
 	}
@@ -730,24 +730,24 @@ private void OnLevelWasLoaded(int level)
 		switch (index)
 		{
 			case 0:
-				coinsIncome = 0f;
-				developmentIncome = 0f;
+				coinsIncome = -0.005f;
+				developmentIncome = 0.05f;
 				break;
 			case 1:
-				coinsIncome = -0.005f;
-				developmentIncome = 0.1f;
+				coinsIncome = -0.0075f;
+				developmentIncome = 0.075f;
 				break;
 			case 2:
 				coinsIncome = -0.01f;
 				developmentIncome = 0.1f;
 				break;
 			case 3:
-				coinsIncome = -0.015f;
-				developmentIncome = 0.4f;
+				coinsIncome = -0.02f;
+				developmentIncome = 0.12f;
 				break;
 			case 4:
-				coinsIncome = -0.025f;
-				developmentIncome = 0.75f;
+				coinsIncome = -0.05f;
+				developmentIncome = 0.15f;
 				break;
 		}
 	}
@@ -950,7 +950,6 @@ private void OnLevelWasLoaded(int level)
 			if (i == 0 && array[i] == 0) Win();
 			else if (i != 0 && array[i] != 0) return;
 		}
-		Debug.Log("win!!!!!!!!!!!!!!!");
 		Win();
 	}
 
@@ -973,7 +972,7 @@ private void OnLevelWasLoaded(int level)
 			int2[] sorted = new int2[array.Length];
 			for (int i = 0; i < array.Length; i++)
 			{
-				sorted[i] = new int2(array[i],i);
+				sorted[i] = new int2(array[array.Length - 1 - i],array.Length- i - 1 );
 			}
 			Sort(sorted);
 

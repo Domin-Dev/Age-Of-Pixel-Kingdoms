@@ -74,7 +74,7 @@ public static class BonusManager
             case -4:
                 return new Bonus("Units Cost", (float multiplier) => { return -playerStats.GetTurnWarriosCost(); }, (float multiplier) => { return ""; }, 0f);
             case -5:
-                return new Bonus("Base Value", 20, Bonus.bonusType.IncreaseLimit);
+                return new Bonus("Base Value", 30, Bonus.bonusType.IncreaseLimit);
             case -6:
                 return new Bonus("Provinces", (float multiplier) => { return playerStats.GetWarriors(); }, (float multiplier) => { return ""; });
             case -7:
@@ -82,7 +82,7 @@ public static class BonusManager
             case -8:
                 return new Bonus("Research", (float multiplier) => { return playerStats.GetPopulation() * multiplier; }, (float multiplier) => { return playerStats.GetPopulation().ToString() + Icons.GetIcon("Population") + " x " + multiplier; }, 0.09f);
             case -9:
-                return new Bonus("Base Value", 30, Bonus.bonusType.IncreaseLimit);
+                return new Bonus("Base Value", 20, Bonus.bonusType.IncreaseLimit);
             case -10:
                 return new Bonus("Provinces", (float multiplier) => { return playerStats.GetMovementPoints(); }, (float multiplier) => { return ""; });
             case -11:
@@ -110,7 +110,7 @@ public static class BonusManager
             case -22:
                 return new Bonus("Workshops", (float multiplier) => { return playerStats.CountBuildings(1) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(1).ToString() + " x " + multiplier; }, 10f);
             case -23:
-                return new Bonus("farm", 5, Bonus.bonusType.Income);
+                return new Bonus("farm", 7, Bonus.bonusType.Income);
             case -24:
                 return new Bonus("Universities", (float multiplier) => { return playerStats.CountBuildings(2) * multiplier; }, (float multiplier) => { return playerStats.CountBuildings(2).ToString() + " x " + multiplier; }, 15f);
             case -25:

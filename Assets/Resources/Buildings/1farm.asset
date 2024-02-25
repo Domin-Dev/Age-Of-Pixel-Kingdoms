@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b0d8ffce1bcec469690eb020d10618, type: 3}
   m_Name: 1Farm
   m_EditorClassIdentifier: 
-  <description>k__BackingField: '[Population]+5[Turn] in the province.'
-  <price>k__BackingField: 300
+  <description>k__BackingField: '[Population]+7[Turn] in the province.'
+  <price>k__BackingField: 225
   <icon>k__BackingField: {fileID: 21300000, guid: b9eb597df0e545843a8c1f9d934258c9, type: 3}
   <turnCost>k__BackingField: 0
   <canBuild>k__BackingField: 1

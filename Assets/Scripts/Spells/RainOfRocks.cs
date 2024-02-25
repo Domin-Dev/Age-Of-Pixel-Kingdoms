@@ -17,7 +17,7 @@ public class RainOfRocks : MonoBehaviour,ISpellBase
 
         for (int i = 0; i < list.Count; i++)
         {
-            if (isPlayer != list[i].unitIsFriendly) list[i].Hit(200);
+            if (isPlayer != list[i].unitIsFriendly) list[i].Hit(150);
         }
     }
     public bool StartSpell(bool isPlayer, int pathIndex, UnitsManager unitsManager)

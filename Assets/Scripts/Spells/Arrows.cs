@@ -26,14 +26,13 @@ public class Arrows : MonoBehaviour, ISpellBase
 
         for (int i = 0; i < list.Count; i++) 
         {
-           if(isPlayer != list[i].unitIsFriendly) list[i].Hit(100);
+           if(isPlayer != list[i].unitIsFriendly) list[i].Hit(50);
         }
     }
 
     IEnumerator Damage()
     {
         yield return new WaitForSeconds(0.9f);
-        Debug.Log("git");
         ExecuteSpell();
         yield return null;
     }

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 4Castle
   m_EditorClassIdentifier: 
   <description>k__BackingField: '[Warrior]+5 [Life]+10'
-  <price>k__BackingField: 50
+  <price>k__BackingField: 200
   <icon>k__BackingField: {fileID: 21300000, guid: cec39dd7171ae304483be39283d7327a, type: 3}
   <turnCost>k__BackingField: 0
   <canBuild>k__BackingField: 1
   <bonusIndex>k__BackingField: 4
-  <movementPointsPrice>k__BackingField: 5
+  <movementPointsPrice>k__BackingField: 20

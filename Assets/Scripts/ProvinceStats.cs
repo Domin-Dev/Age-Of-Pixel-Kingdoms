@@ -44,7 +44,7 @@ public class ProvinceStats
         population = new Statistic(Random.Range(50, 70), "Population");
 
         lifePoints = new Statistic(10, "LifePoint");
-        warriors = new Statistic(5, "Warrior");
+        warriors = new Statistic(2, "Warrior");
         movementPoints = new Statistic(2,"MovementPoint");
 
 

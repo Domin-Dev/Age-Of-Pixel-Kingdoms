@@ -62,9 +62,9 @@ public class CameraController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !MouseIsOverUI())
             {
                 startPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
                 if (selectingProvinces != null) selectingProvinces.SelectingProvince();
             }
+
 
             if (Input.GetMouseButton(0) && !MouseIsOverUI() && Input.touchCount <= 1 && numbertouch < 2)
             {
@@ -72,6 +72,7 @@ public class CameraController : MonoBehaviour
                 Vector3 position = transform.position + startPosition - endPosition;
                 transform.position = new Vector3(Mathf.Clamp(position.x, -0.5f, Limit.x), Mathf.Clamp(position.y, -0.5f, Limit.y), -10);
             }
+
 
             if (Input.touchCount >= 2)
             {
@@ -91,6 +92,7 @@ public class CameraController : MonoBehaviour
             {
                 lastValue = 0;
             }
+
             numbertouch = Input.touchCount;
         }
 

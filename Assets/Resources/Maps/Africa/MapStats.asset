@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd16aedd88f03df42b7942c0f42c128a, type: 3}
   m_Name: MapStats
   m_EditorClassIdentifier: 
-  price: 999
+  price: 200
   players: 4
   numberOfProvinces: 138
   provinces:

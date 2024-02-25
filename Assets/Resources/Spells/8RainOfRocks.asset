@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 8RainOfRocks
   m_EditorClassIdentifier: 
   <spellName>k__BackingField: rain of rocks
-  <description>k__BackingField: 'cooldown: 10 sec. creates a rain of stones, takes
-    200 life points.'
-  <price>k__BackingField: 300
+  <description>k__BackingField: 'cooldown: 120 sec. creates a rain of stones, takes
+    150 life points.'
+  <price>k__BackingField: 500
   <spell>k__BackingField: {fileID: 2569836397706458934, guid: 53507abfa0a3a204fbd009a6f5c2fc86, type: 3}
   <icon>k__BackingField: {fileID: 21300000, guid: d4d8b50f6a49dd24e8d99db4851efe85, type: 3}
-  <timeToReload>k__BackingField: 5
+  <timeToReload>k__BackingField: 120
