@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-		warFog = false;
+		warFog = true;
 		if (Instance == null)
 		{
 			Instance = this;
